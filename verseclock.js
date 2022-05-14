@@ -10,7 +10,7 @@ window.DEBUG_MODE = false;
 
 
 
-setInterval( update, 1000/24 );
+setInterval( update, 1000/10 );
 function update() {
 
 	let location = window.ACTIVE_LOCATION;
@@ -25,8 +25,8 @@ function update() {
 
 
 	//CLOCKS
-	document.getElementById('gmt-time').innerHTML = new Date().toUTCString();
-	document.getElementById('universe-time').innerHTML = UNIVERSE_TIME(true).replace('GMT', 'SET');
+	// document.getElementById('gmt-time').innerHTML = new Date().toUTCString();
+	// document.getElementById('universe-time').innerHTML = UNIVERSE_TIME(true).replace('GMT', 'SET');
 
 
 	//SELECTED LOCATION CARD
@@ -39,8 +39,8 @@ function update() {
 	let nextRise = location.NEXT_STAR_RISE;
 	let nextSet = location.NEXT_STAR_SET;
 
-	nextRise = (location.NEXT_STAR_RISE * 86400 < 120) ? '- NOW -' : HOURS_TO_TIME_STRING(location.NEXT_STAR_RISE * 24);
-	nextSet = (location.NEXT_STAR_SET * 86400 < 120) ? '- NOW -' : HOURS_TO_TIME_STRING(location.NEXT_STAR_SET * 24);
+	nextRise = (location.NEXT_STAR_RISE * 86400 < 120) ? '- NOW -' : HOURS_TO_TIME_STRING(nextRise * 24);
+	nextSet = (location.NEXT_STAR_SET * 86400 < 120) ? '- NOW -' : HOURS_TO_TIME_STRING(nextSet * 24);
 
 	document.getElementById('next-rise-countdown').innerHTML = nextRise;
 	document.getElementById('next-set-countdown').innerHTML = nextSet;
@@ -111,7 +111,7 @@ function update() {
 	document.getElementById('longitude').innerHTML = longitude;
 
 	document.getElementById('longitude-360').innerHTML = ROUND(location.LONGITUDE_360, 3);
-	document.getElementById('elevation').innerHTML = (location.ELEVATION() * 1000).toFixed(1);
+	document.getElementById('elevation').innerHTML = (location.ELEVATION * 1000).toFixed(1);
 	document.getElementById('elevation-degrees').innerHTML = location.ELEVATION_IN_DEGREES().toFixed(3);
 	document.getElementById('sunriseset-angle').innerHTML = location.STARRISE_AND_STARSET_ANGLE().toFixed(3);
 	document.getElementById('hour-angle-location').innerHTML = location.HOUR_ANGLE().toFixed(3) + '&deg;';

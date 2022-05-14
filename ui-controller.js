@@ -56,7 +56,9 @@ document.addEventListener('keydown', function(event){
 		if (showCretidsWindow) toggleCreditsWindow();
 	}
 
-	if (event.key === 'D') {
+	console.log(event.keyCode);
+
+	if (event.keyCode === 68) {
 		window.DEBUG_MODE = !window.DEBUG_MODE;
 	}
 });

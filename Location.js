@@ -17,6 +17,11 @@ let THEME_COLOR = {
 };
 let THEME_IMAGE = null;
 
+// CALCULATED
+let LATITUDE = null;
+let LONGITUDE = null;
+let ELEVATION = null;
+
 export default class Location {
 	constructor(name, type, parentBody, parentStar, coordinates, themeColor = null, themeImage) {
 		this.NAME = name;
@@ -27,33 +32,29 @@ export default class Location {
 		this.THEME_COLOR = themeColor ? themeColor : this.PARENT.THEME_COLOR;
 		this.THEME_IMAGE = themeImage;
 
-		window.LOCATIONS.push(this);
-	}
+		// CALCULATED PROPERTIES
+		this.ELEVATION = Math.sqrt(SQUARE(this.COORDINATES.x) + SQUARE(this.COORDINATES.y) + SQUARE(this.COORDINATES.z)) - this.PARENT.BODY_RADIUS;
 
-	get LATITUDE() {
 		let lat2 = Math.sqrt( SQUARE(this.COORDINATES.x) + SQUARE(this.COORDINATES.y) );
 		let lat1 = Math.atan2( this.COORDINATES.z, lat2 );
-		return DEGREES(lat1);
-	}
+		this.LATITUDE = DEGREES(lat1);
 
-	get LONGITUDE() {
-		let longitude = undefined;
+
 		if (Math.abs(latitude) === 90) { 
-			longitude = 0;
+			this.LONGITUDE = 0;
 		
 		} else {
-
 			let condition = DEGREES( MODULO( Math.atan2(this.COORDINATES.y, this.COORDINATES.x) - (Math.PI / 2), 2 * Math.PI ) );
 
 			if( condition > 180 ) {
-				longitude = -( 360 - condition );
+				this.LONGITUDE = -( 360 - condition );
 			} else {
-				longitude = condition;
+				this.LONGITUDE = condition;
 			}
-
 		}
 
-		return longitude;
+
+		window.LOCATIONS.push(this);
 	}
 
 	get LONGITUDE_360() {
@@ -76,14 +77,14 @@ export default class Location {
 		return result;
 	}
 
-	ELEVATION() {
-		let kilometers = Math.sqrt(SQUARE(this.COORDINATES.x) + SQUARE(this.COORDINATES.y) + SQUARE(this.COORDINATES.z)) - this.PARENT.BODY_RADIUS;
-		return kilometers;
-	}
+	// ELEVATION() {
+	// 	let kilometers = Math.sqrt(SQUARE(this.COORDINATES.x) + SQUARE(this.COORDINATES.y) + SQUARE(this.COORDINATES.z)) - this.PARENT.BODY_RADIUS;
+	// 	return kilometers;
+	// }
 
 	ELEVATION_IN_DEGREES() {
 		let radius = this.PARENT.BODY_RADIUS;
-		let height = this.ELEVATION();
+		let height = this.ELEVATION;
 
 		let p3 = height < 0 ? 0 : height;
 		let p2 = radius + p3;
