@@ -27,7 +27,7 @@ function update() {
 	document.getElementById('universe-time').innerHTML = UNIVERSE_TIME(true).replace('GMT', 'SET');
 
 	//SELECTED LOCATION CARD
-	document.getElementById('local-time').innerHTML = HOURS_TO_TIME_STRING(location.LOCAL_TIME/60/60);
+	document.getElementById('local-time').innerHTML = HOURS_TO_TIME_STRING(location.LOCAL_TIME/60/60, false);
 	document.getElementById('location-name').innerHTML = location.NAME;
 	document.getElementById('location-body-name').innerHTML = location.PARENT.NAME;
 	// document.getElementById('location-body-type').innerHTML = location.PARENT.TYPE;
@@ -148,7 +148,7 @@ function UNIVERSE_TIME(formatAsString = false) {
 	return (!formatAsString) ? universeTime : new Date(universeTime).toUTCString();
 }
 
-function HOURS_TO_TIME_STRING(hours) {
+function HOURS_TO_TIME_STRING(hours, includeSeconds = true) {
 	let h = hours;
 	let m = ( h - Math.floor(h) ) * 60;
 	let s = ( m - Math.floor(m) ) * 60;
@@ -171,7 +171,7 @@ function HOURS_TO_TIME_STRING(hours) {
 	m = (m < 10) ? '0' + m : m;
 	s = (s < 10) ? '0' + s : s;
 
-	return h + ':' + m + ':' + s;
+	return h + ':' + m + (includeSeconds ? ':' + s : '');
 }
 
 function DATE_TO_SHORT_TIME(date) {
