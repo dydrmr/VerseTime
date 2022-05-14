@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>VerseClock</title>
+	
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+	<script src="verseclock.js" type="module"></script>
+</head>
+
+<body>
+
+<section id="time-bar">
+	<div class="time-bar-group">
+		<p class="time-bar-time" id="gmt-time"></p>
+		<p class="time-bar-label">Real Time</p>
+	</div>
+	<div class="time-bar-group">
+		<p class="time-bar-time" id="universe-time"></p>
+		<p class="time-bar-label">Universe Time</p>
+	</div>
+</section>
+
+<section id="selected-location-card">
+	<div id="selected-location-container">
+
+		<div id="selected-location-bg-image"></div>
+		
+		<p class="selected-location-time" id="local-time"></p>
+
+		<div id="BUTTON-open-settings">
+			<p class="selected-location-label"><span id="location-name"></span>, <span id="location-body-type"></span> <span id="location-body-name"></span></p>
+			<p class="selected-location-sublabel">local sidereal time</p>
+		</div>
+
+		<div class="riseset-container" id="next-rise-container">
+			<p class="riseset-label">Next starrise in</p>
+			<p id="next-rise-countdown"></p>
+			<br>
+			<p class="riseset-label">Your Local Real Time</p>
+			<p class="riseset-time-label"><span id="next-rise-time"></span></p>
+		</div>
+		<div class="riseset-container" id="next-set-container">
+			<p class="riseset-label">Next starset in</p>
+			<p id="next-set-countdown"></p>
+			<br>
+			<p class="riseset-label">Your Local Real Time</p>
+			<p class="riseset-time-label"><span id="next-set-time"></span></p>
+		</div>
+
+	</div>
+</section>
+
+<section id="modal">
+	<div id="settings-window">
+		<div id="BUTTON-close-settings"></div>
+		<!-- <h2>Settings</h1> -->
+
+		<div id="settings-change-location-container">
+			<p>Change location</p>
+			<div id="settings-change-location-selector">
+				<div class="BUTTON-set-location">Area18</div>
+				<div class="BUTTON-set-location">Lorville</div>
+				<div class="BUTTON-set-location">New Babbage</div>
+				<div class="BUTTON-set-location">Orison</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section id="data" style="display:none">
+	<p id="DATA-active-location"></p>
+</section>
+
+<div id="testing">
+	<p id="unix-time"></p>
+	<!-- <p id="gmt-time"></p> -->
+	<!-- <p id="universe-time"></p> -->
+	<br>
+	<h3>PLANET: <b><span id="body-name">BODY NAME</span></b></h3>
+	<p>Real length of day: <span id="day-length"></span></p>
+	<p>Declination (star): <span id="declination"></span></p>
+	<p>Meridian (star): <span id="meridian"></span></p>
+	<p>Current cycle: <span id="current-cycle"></span></p>
+	<p>Hour angle: <span id="hour-angle"></span>&deg;</p>
+	<p>Noon longitude: <span id="noon-longitude"></span>&deg;</p>
+	<br>
+	<h3>LOCATION: <b><span id="db-local-name">LOCATION NAME</span></b></h3>
+	<p>Local time: <span id="db-local-time"></span></p>
+	<p>Latitude: <span id="latitude"></span>&deg;</p>
+	<p>Longitude: <span id="longitude"></span>&deg;</p>
+	<p>Longitude 360: <span id="longitude-360"></span></p>
+	<p>Elevation: <span id="elevation"></span> meters</p>
+	<p>Elevation: <span id="elevation-degrees"></span>&deg;</p>
+	<p>Starrise/starset angle: <span id="sunriseset-angle"></span></p>
+	<p>Hour angle: <span id="hour-angle-location"></span></p>
+	<p>Star azimuth: <span id="star-azimuth"></span></p>
+	<p>Star altitude: <span id="star-altitude"></span></p>
+	<p>Max star altitude: <span id="max-star-altitude"></span></p>
+	<br>
+	<h3>Next Star Rise:</h3>
+	<p>Raw value: <span id="db-next-starrise"></span></p>
+	<p>Countdown: <span id="db-next-starrise-countdown"></span></p>
+	<p>Date: <span id="db-next-starrise-date"></span></p>
+	<br>
+	<h3>Next Noon:</h3>
+	<p>Raw value: <span id="next-noon"></span></p>
+	<p>Countdown: <span id="next-noon-countdown"></span></p>
+	<p>Date: <span id="next-noon-date"></span></p>
+	<br>
+	<h3>Next Star Set:</h3>
+	<p>Raw value: <span id="db-next-starset"></span></p>
+	<p>Countdown: <span id="db-next-starset-countdown"></span></p>
+	<p>Date: <span id="db-next-starset-date"></span></p>
+</div>
+</div>
+
+</body>
+
+<script src="ui-controller.js"></script>
+
+</html>

@@ -1,0 +1,252 @@
+:root {
+	--theme-color: hsl(200, 50%, 20%);
+	--theme-color-dark: hsl(200, 50%, 10%);
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+body {
+	font-family: 'Roboto Mono', monospace;
+	background-color: hsl(200, 50%, 10%);
+	color: white;
+	overflow: hidden;
+}
+
+#testing {
+	font-size: 70%;
+	color: darkorange;
+
+	margin: 15px;
+	padding: 15px;
+	border: 1px solid darkorange;
+	border-radius: 4px;
+	background-color: rgba(0, 0, 0, 0.6);
+
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	opacity: 0;
+	pointer-events: none;
+}
+
+#time-bar {
+	margin-top: 1rem;
+	width: 100vw;
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+
+	display: none;
+}
+
+.time-bar-group {
+	text-align: center;
+	display: grid;
+	grid-template-columns: 1fr;
+	text-shadow: 0px 0px 15px rgba(0, 0, 0, 0.9);
+}
+
+.time-bar-time {
+	font-size: 12px;
+	font-weight: 600;
+	opacity: 0.8;
+}
+
+.time-bar-label {
+	font-size: 12px;
+	font-family: 'Rajdhani', sans-serif;
+	font-weight: 700;
+	text-transform: uppercase;
+	opacity: 0.8;
+}
+
+#selected-location-card {
+	width: 100%;
+	height: 100vh;
+
+	display: flex;
+	align-itms: center;
+	
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+#selected-location-container {
+	margin: auto;
+}
+
+#selected-location-bg-image {
+	background-repeat: no-repeat;
+	background-size: cover;
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -1;
+	filter: blur(6px) brightness(0.7);
+}
+
+.selected-location-time {
+	font-size: 6rem;
+	font-weight: 700;
+	text-align: center;
+	text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.4);
+}
+.selected-location-label {
+	font-size: 3.5rem;
+	font-family: 'Rajdhani', sans-serif;
+	font-weight: 700;
+	line-height: 100%;
+	text-align: center;
+	text-transform: uppercase;
+	text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.4);
+}
+.selected-location-sublabel {
+	font-size: 1.4rem;
+	font-family: 'Rajdhani', sans-serif;
+	font-weight: 500;
+	line-height: 100%;
+	text-align: center;
+	text-transform: uppercase;
+	text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+}
+
+#BUTTON-open-settings {
+	margin-top: 1rem;
+	padding: 15px 30px;
+	border-radius: 20px;
+	transition: 0.2s ease-out;
+	border: 4px solid rgba(255, 255, 255, 0.0);
+}
+#BUTTON-open-settings:hover {
+	cursor: pointer;
+	transition: 0.2s ease-out;
+	background-color: rgba(0, 0, 0, 0.15);
+	border: 4px solid rgba(0, 0, 0, 0.1);
+}
+#BUTTON-open-settings:active {
+	cursor: pointer;
+	transform: scale(0.97);
+	transition: 0.1s ease-out;
+}
+
+.riseset-container {
+	position: absolute;
+	bottom: 0;
+	margin: 30px;
+	font-size: 16px;
+	text-align: center;
+}
+#next-rise-container {
+	left: 0;
+}
+#next-set-container {
+	right: 0;
+}
+
+.riseset-label {
+	font-family: 'Rajdhani', sans-serif;
+	font-size: 12px;
+	font-weight: 700;
+	text-transform: uppercase;
+}
+.riseset-time-label {
+	/*font-size: 80%;*/
+}
+
+
+
+
+#modal {
+	width: 100%;
+	height: 100vh;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	display: flex;
+	align-items: center;
+	background-color: rgba(0, 0, 0, 0.4);
+	transition: 0.2s ease-out;
+
+	opacity: 0;
+	pointer-events: none;
+}
+
+#settings-window {
+	width: 700px;
+	max-width: 90%;
+	/*height: 40%;*/
+	margin: auto;
+
+	position: relative;
+	overflow: hidden;
+
+	background-color: var(--theme-color-dark);
+	border-radius: 20px;
+	box-shadow: 0px 0px 120px hsla(0, 0%, 0%, 0.8);
+}
+#settings-window h2 {
+	margin-top: 15px;
+	font-size: 20px;
+	font-weight: normal;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+#BUTTON-close-settings {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+
+	width: 20px;
+	height: 20px;
+	border-radius: 100%;
+	background-color: hsl(0, 100%, 20%);
+
+	transition: 0.3s ease-out;
+	z-index: 1;
+}
+
+#BUTTON-close-settings:hover {
+	cursor: pointer;
+	background-color: hsl(0, 100%, 50%);
+	transform: scale(1.05);
+}
+
+#settings-change-location-container {
+	margin: 30px 0;
+}
+
+#settings-change-location-container p {
+	/*margin-top: 50px;*/
+	margin-bottom: 30px;
+	font-size: 14px;
+	font-weight: 700;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.BUTTON-set-location {
+	max-width: 60%;
+	margin: 10px auto;
+	padding: 20px 30px;
+	border-radius: 10px;
+	background-color: hsla(0, 100%, 100%, 0.1);
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+	transition: 0.2s ease-out;
+}
+.BUTTON-set-location:hover {
+	cursor: pointer;
+	background-color: hsla(0, 100%, 100%, 0.3);
+}
