@@ -41,6 +41,8 @@ export default class CelestialBody {
 		this.ORBITAL_ANGLE = orbitalAngle;
 		this.ORBITAL_RADIUS = orbitalRadius;
 		this.THEME_COLOR = themeColor ? themeColor : {'r' : null, 'g' : null, 'b' : null};
+
+		window.BODIES.push(this);
 	}
 
 	BS_INTERNAL(direction, distantObject) {

@@ -26,12 +26,14 @@ export default class Location {
 		this.COORDINATES = coordinates;
 		this.THEME_COLOR = themeColor ? themeColor : this.PARENT.THEME_COLOR;
 		this.THEME_IMAGE = themeImage;
+
+		window.LOCATIONS.push(this);
 	}
 
 	get LATITUDE() {
 		let lat2 = Math.sqrt( SQUARE(this.COORDINATES.x) + SQUARE(this.COORDINATES.y) );
 		let lat1 = Math.atan2( this.COORDINATES.z, lat2 );
-		return DEGREES( lat1 );
+		return DEGREES(lat1);
 	}
 
 	get LONGITUDE() {
@@ -180,8 +182,8 @@ export default class Location {
 	}
 
 	get NEXT_STAR_SET() {
-		let angularRotationRate = 6 / this.PARENT.ROTATION_RATE;
 		let riseSet = this.STARRISE_AND_STARSET_ANGLE();
+		let angularRotationRate = 6 / this.PARENT.ROTATION_RATE;
 		let terrainSet = 0; // VARIABLE NOT BUILT INTO THE LOCATION CLASS
 
 		let partialResult = this.NEXT_NOON + ((riseSet - terrainSet) / angularRotationRate * 3 / 4300);

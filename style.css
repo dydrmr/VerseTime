@@ -10,7 +10,7 @@
 }
 body {
 	font-family: 'Roboto Mono', monospace;
-	background-color: hsl(200, 50%, 10%);
+	background-color: var(--theme-color);
 	color: white;
 	overflow: hidden;
 }
@@ -29,7 +29,7 @@ body {
 	top: 0;
 	left: 0;
 
-	opacity: 0;
+	/*opacity: 0;*/
 	pointer-events: none;
 }
 
@@ -91,6 +91,7 @@ body {
 	left: 0;
 	z-index: -1;
 	filter: blur(6px) brightness(0.7);
+	transform: scale(1.05);
 }
 
 .selected-location-time {

@@ -6,11 +6,12 @@ window.BODIES = Array();
 window.LOCATIONS = Array();
 window.ACTIVE_LOCATION = null;
 
+window.DEBUG_MODE = false;
+
 
 setInterval( update, 1000/24 );
 function update() {
 
-	if (!window.ACTIVE_LOCATION) window.ACTIVE_LOCATION = ORISON;
 	let location = window.ACTIVE_LOCATION;
 	let body = window.ACTIVE_LOCATION ? window.ACTIVE_LOCATION.PARENT : null;
 
@@ -24,7 +25,6 @@ function update() {
 	//CLOCKS
 	document.getElementById('gmt-time').innerHTML = new Date().toUTCString();
 	document.getElementById('universe-time').innerHTML = UNIVERSE_TIME(true).replace('GMT', 'SET');
-	document.getElementById('unix-time').innerHTML = 'UNIX time: ' + Math.floor(REAL_TIME() / 1000);
 
 	//SELECTED LOCATION CARD
 	document.getElementById('local-time').innerHTML = HOURS_TO_TIME_STRING(location.LOCAL_TIME/60/60);
@@ -40,27 +40,63 @@ function update() {
 	now = new Date();
 	let rise = now.setSeconds(now.getSeconds() + (location.NEXT_STAR_RISE * 24 * 60 * 60));
 	document.getElementById('next-rise-time').innerHTML = DATE_TO_SHORT_TIME(new Date(rise));
-	
+
 	now = new Date();
 	let set = now.setSeconds(now.getSeconds() + (location.NEXT_STAR_SET * 24 * 60 * 60));
 	document.getElementById('next-set-time').innerHTML = DATE_TO_SHORT_TIME(new Date(set));
 
 
+	if (!window.DEBUG_MODE) {
+		document.getElementById('testing').style.opacity = '0';
+		return;
+	}
+
+	document.getElementById('testing').style.opacity = '1';
+
 	//DEBUG
+	//UNIX TIME
+	let unix = Math.floor(REAL_TIME() / 1000);
+	let fragments = unix.toString().split('').reverse();
+	let newFragments = Array();
+	fragments.forEach((element, index) => {
+		if (index != 0 && index % 3 === 0) { newFragments.push('&thinsp;'); }
+		newFragments.push(element);
+	});
+	let unixWithSpaces = newFragments.reverse().join('');
+	document.getElementById('unix-time').innerHTML = 'UNIX time: ' + unixWithSpaces;
+
 	//CELESTIAL BODY
-	document.getElementById('body-name').innerHTML = body.NAME;
-	document.getElementById('day-length').innerHTML = body.ROTATION_RATE*60*60;// HOURS_TO_TIME_STRING(body.ROTATION_RATE);
-	document.getElementById('current-cycle').innerHTML = body.CURRENT_CYCLE().toFixed(5);
-	document.getElementById('hour-angle').innerHTML = body.HOUR_ANGLE().toFixed(3);
-	document.getElementById('declination').innerHTML = body.DECLINATION(body.PARENT_STAR).toFixed(3);
-	document.getElementById('meridian').innerHTML = body.MERIDIAN().toFixed(3);
-	document.getElementById('noon-longitude').innerHTML = body.LONGITUDE().toFixed(3);
+	if (body) {
+		document.getElementById('body-name').innerHTML = body.NAME;
+		document.getElementById('day-length').innerHTML = (body.ROTATION_RATE*60*60).toFixed(0);
+		document.getElementById('day-length-readable').innerHTML = HOURS_TO_TIME_STRING(body.ROTATION_RATE);
+		document.getElementById('current-cycle').innerHTML = body.CURRENT_CYCLE().toFixed(5);
+		document.getElementById('hour-angle').innerHTML = body.HOUR_ANGLE().toFixed(3);
+		document.getElementById('declination').innerHTML = body.DECLINATION(body.PARENT_STAR).toFixed(3);
+		document.getElementById('meridian').innerHTML = body.MERIDIAN().toFixed(3);
+		document.getElementById('noon-longitude').innerHTML = body.LONGITUDE().toFixed(3);
+	}
 
 	//LOCATION
 	document.getElementById('db-local-name').innerHTML = location.NAME;
 	document.getElementById('db-local-time').innerHTML = HOURS_TO_TIME_STRING(location.LOCAL_TIME/60/60);
-	document.getElementById('latitude').innerHTML = location.LATITUDE.toFixed(3);
-	document.getElementById('longitude').innerHTML = location.LONGITUDE.toFixed(3);
+
+	let latitude = location.LATITUDE.toFixed(3);
+	if (parseFloat(latitude) < 0) {
+		latitude = 'S ' + (parseFloat(latitude) * -1).toFixed(3);
+	} else {
+		latitude = 'N ' + latitude;
+	}
+	document.getElementById('latitude').innerHTML = latitude;
+
+	let longitude = location.LONGITUDE.toFixed(3);
+	if (parseFloat(longitude) < 0) {
+		longitude = 'W ' + (parseFloat(longitude) * -1).toFixed(3);
+	} else {
+		longitude = 'E ' + longitude;
+	}
+	document.getElementById('longitude').innerHTML = longitude;
+
 	document.getElementById('longitude-360').innerHTML = ROUND(location.LONGITUDE_360, 3);
 	document.getElementById('elevation').innerHTML = (location.ELEVATION() * 1000).toFixed(1);
 	document.getElementById('elevation-degrees').innerHTML = location.ELEVATION_IN_DEGREES().toFixed(3);
@@ -71,26 +107,29 @@ function update() {
 	document.getElementById('max-star-altitude').innerHTML = location.STAR_MAX_ALTITUDE().toFixed(3) + '&deg;';
 
 	now = new Date();
+	now.setMilliseconds(0);
 	let next = now.setSeconds(now.getSeconds() + (location.NEXT_STAR_RISE * 24 * 60 * 60));
 	next = new Date(next).toLocaleString();
 	let remain = HOURS_TO_TIME_STRING(location.NEXT_STAR_RISE * 24);
-	document.getElementById('db-next-starrise').innerHTML = location.NEXT_STAR_RISE.toFixed(6);
+	document.getElementById('db-next-starrise').innerHTML = (location.NEXT_STAR_RISE * 24 * 60 * 60).toFixed(0);
 	document.getElementById('db-next-starrise-countdown').innerHTML = remain;
 	document.getElementById('db-next-starrise-date').innerHTML = next;
 
 	now = new Date();
+	now.setMilliseconds(0);
 	next = now.setSeconds(now.getSeconds() + (location.NEXT_NOON * 24 * 60 * 60));
 	next = new Date(next).toLocaleString();
 	remain = HOURS_TO_TIME_STRING(location.NEXT_NOON * 24);
-	document.getElementById('next-noon').innerHTML = location.NEXT_NOON.toFixed(6);
+	document.getElementById('next-noon').innerHTML = (location.NEXT_NOON * 24 * 60 * 60).toFixed(0);
 	document.getElementById('next-noon-countdown').innerHTML = remain;
 	document.getElementById('next-noon-date').innerHTML = next;	
 
 	now = new Date();
+	now.setMilliseconds(0);
 	next = now.setSeconds(now.getSeconds() + (location.NEXT_STAR_SET * 24 * 60 * 60));
 	next = new Date(next).toLocaleString();
 	remain = HOURS_TO_TIME_STRING(location.NEXT_STAR_SET * 24);
-	document.getElementById('db-next-starset').innerHTML = location.NEXT_STAR_SET.toFixed(6);
+	document.getElementById('db-next-starset').innerHTML = (location.NEXT_STAR_SET * 24 * 60 * 60).toFixed(0);
 	document.getElementById('db-next-starset-countdown').innerHTML = remain;
 	document.getElementById('db-next-starset-date').innerHTML = next;
 }
@@ -225,6 +264,34 @@ const CRUSADER = new CelestialBody(
 	},
 );
 
+const YELA = new CelestialBody(
+	'Yela',
+	'Moon',
+	CRUSADER,
+	STANTON,
+	{
+		'x' : -19022916.799,
+		'y' : -2613996.152,
+		'z' : 0.000
+	},
+	{
+		'w' : 1.00000000,
+		'x' : 0.00000000,
+		'y' : 0.00000000,
+		'z' : 0.00000000
+	},
+	313.000,
+	1.8200001,
+	217.58054,
+	140.000,
+	79286.88,
+	{
+		'r' : 128,
+		'g' : 128,
+		'b' : 150
+	}
+);
+
 const MICROTECH = new CelestialBody(
 	'microTech',
 	'Planet',
@@ -281,8 +348,6 @@ const HURSTON = new CelestialBody(
 	}
 );
 
-window.BODIES.push(STANTON, ARCCORP, CRUSADER, MICROTECH, HURSTON);
-
 
 // LOCATIONS
 const AREA18 = new Location(
@@ -297,6 +362,20 @@ const AREA18 = new Location(
 	},
 	null,
 	'https://starcitizen.tools/images/thumb/c/c3/Arccorp-area18-skyline-io-north-tower.jpg/1280px-Arccorp-area18-skyline-io-north-tower.jpg'
+);
+
+const GRIMHEX = new Location(
+	'GrimHEX',
+	'Asteroid Base',
+	YELA,
+	STANTON,
+	{
+		'x' : -568.659,
+		'y' : +383.565,
+		'z' : -2.042
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/0/09/Star_Citizen_-_GrimHEX_close-up.png/1280px-Star_Citizen_-_GrimHEX_close-up.png'
 );
 
 const LORVILLE = new Location(
@@ -341,4 +420,4 @@ const ORISON = new Location(
 	'https://starcitizen.tools/images/thumb/c/cf/Crusader-orison-voyager-bar-lookout-daytime-3.14.jpg/1280px-Crusader-orison-voyager-bar-lookout-daytime-3.14.jpg'
 )
 
-window.LOCATIONS.push(AREA18, LORVILLE, NEW_BABBAGE, ORISON);
+window.ACTIVE_LOCATION = ORISON;

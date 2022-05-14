@@ -66,6 +66,7 @@
 			<p>Change location</p>
 			<div id="settings-change-location-selector">
 				<div class="BUTTON-set-location">Area18</div>
+				<div class="BUTTON-set-location">GrimHEX</div>
 				<div class="BUTTON-set-location">Lorville</div>
 				<div class="BUTTON-set-location">New Babbage</div>
 				<div class="BUTTON-set-location">Orison</div>
@@ -74,26 +75,23 @@
 	</div>
 </section>
 
-<section id="data" style="display:none">
-	<p id="DATA-active-location"></p>
-</section>
-
 <div id="testing">
-	<p id="unix-time"></p>
+	<p id="unix-time" style="font-family:sans-serif"></p>
 	<!-- <p id="gmt-time"></p> -->
 	<!-- <p id="universe-time"></p> -->
 	<br>
-	<h3>PLANET: <b><span id="body-name">BODY NAME</span></b></h3>
-	<p>Real length of day: <span id="day-length"></span></p>
-	<p>Declination (star): <span id="declination"></span></p>
-	<p>Meridian (star): <span id="meridian"></span></p>
+	<h3><u>PLANET: <span id="body-name">BODY NAME</span></u></h3>
+	<p>Real length of day: <span id="day-length"></span> seconds</p>
+	<p>. . . . . . . . . : <span id="day-length-readable"></span></p>
+	<p>Declination (star): <span id="declination"></span>&deg;</p>
+	<p>Meridian (star): <span id="meridian"></span>&deg;</p>
 	<p>Current cycle: <span id="current-cycle"></span></p>
 	<p>Hour angle: <span id="hour-angle"></span>&deg;</p>
 	<p>Noon longitude: <span id="noon-longitude"></span>&deg;</p>
 	<br>
-	<h3>LOCATION: <b><span id="db-local-name">LOCATION NAME</span></b></h3>
+	<h3><u>LOCATION: <span id="db-local-name">LOCATION NAME</span></u></h3>
 	<p>Local time: <span id="db-local-time"></span></p>
-	<p>Latitude: <span id="latitude"></span>&deg;</p>
+	<p>Latitude : <span id="latitude"></span>&deg;</p>
 	<p>Longitude: <span id="longitude"></span>&deg;</p>
 	<p>Longitude 360: <span id="longitude-360"></span></p>
 	<p>Elevation: <span id="elevation"></span> meters</p>
@@ -105,20 +103,16 @@
 	<p>Max star altitude: <span id="max-star-altitude"></span></p>
 	<br>
 	<h3>Next Star Rise:</h3>
-	<p>Raw value: <span id="db-next-starrise"></span></p>
-	<p>Countdown: <span id="db-next-starrise-countdown"></span></p>
+	<p>Value: <span id="db-next-starrise"></span> sec (= <span id="db-next-starrise-countdown"></span>)</p>
 	<p>Date: <span id="db-next-starrise-date"></span></p>
 	<br>
 	<h3>Next Noon:</h3>
-	<p>Raw value: <span id="next-noon"></span></p>
-	<p>Countdown: <span id="next-noon-countdown"></span></p>
+	<p>Value: <span id="next-noon"></span> sec (= <span id="next-noon-countdown"></span>)</p>
 	<p>Date: <span id="next-noon-date"></span></p>
 	<br>
 	<h3>Next Star Set:</h3>
-	<p>Raw value: <span id="db-next-starset"></span></p>
-	<p>Countdown: <span id="db-next-starset-countdown"></span></p>
+	<p>Value: <span id="db-next-starset"></span> sec (= <span id="db-next-starset-countdown"></span>)</p>
 	<p>Date: <span id="db-next-starset-date"></span></p>
-</div>
 </div>
 
 </body>

@@ -4,11 +4,7 @@ document.getElementById('BUTTON-open-settings').addEventListener('click', functi
 document.getElementById('BUTTON-close-settings').addEventListener('click', function(e) { toggleSettingsWindow(); });
 
 function toggleSettingsWindow() {
-	// if (mode === -1) {
-		showSettingsWindow = !showSettingsWindow;
-	// } else {
-	// 	showSettingsWindow = Boolean(mode);
-	// }
+	showSettingsWindow = !showSettingsWindow;
 
 	document.getElementById('modal').style.opacity = (showSettingsWindow ? 1 : 0);
 	document.getElementById('modal').style.pointerEvents = (showSettingsWindow ? 'auto' : 'none');
@@ -37,6 +33,6 @@ function setLocation(locationName) {
 		toggleSettingsWindow();
 
 	} else {
-		throw 'Invalid [locationName] parameter sent to [setLocation] function.';
+		throw 'Invalid [locationName] parameter passed to [setLocation] function!\nValue passed ➤➤➤ ' + locationName;
 	}
 }
