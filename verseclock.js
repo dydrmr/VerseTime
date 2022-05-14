@@ -32,8 +32,10 @@ function update() {
 	document.getElementById('location-body-name').innerHTML = location.PARENT.NAME;
 	// document.getElementById('location-body-type').innerHTML = location.PARENT.TYPE;
 
-	document.getElementById('next-rise-countdown').innerHTML = HOURS_TO_TIME_STRING(location.NEXT_STAR_RISE * 24);
-	document.getElementById('next-set-countdown').innerHTML = HOURS_TO_TIME_STRING(location.NEXT_STAR_SET * 24);
+	let nextRise = (location.NEXT_STAR_RISE < 0) ? 0 : location.NEXT_STAR_RISE * 24;
+	let nextSet = (location.NEXT_STAR_SET < 0) ? 0 : location.NEXT_STAR_SET * 24;
+	document.getElementById('next-rise-countdown').innerHTML = HOURS_TO_TIME_STRING(nextRise);
+	document.getElementById('next-set-countdown').innerHTML = HOURS_TO_TIME_STRING(nextSet);
 
 	let now;
 
