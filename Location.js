@@ -152,7 +152,7 @@ export default class Location {
 	get NEXT_STAR_RISE() {
 		let riseSet = this.STARRISE_AND_STARSET_ANGLE;
 		let angularRotationRate = 6 / this.PARENT.ROTATION_RATE;
-		let terrainRise = 0; // VARIABLE NOT BUILT INTO THE LOCATION CLASS
+		let terrainRise = 0; // PROPERTY NOT IMPLEMENTED
 
 		let partialResult = this.NEXT_NOON - ((riseSet - terrainRise) / angularRotationRate * 3 / 4300);
 
@@ -174,7 +174,7 @@ export default class Location {
 	get NEXT_STAR_SET() {
 		let riseSet = this.STARRISE_AND_STARSET_ANGLE;
 		let angularRotationRate = 6 / this.PARENT.ROTATION_RATE;
-		let terrainSet = 0; // VARIABLE NOT BUILT INTO THE LOCATION CLASS
+		let terrainSet = 0; // PROPERTY NOT IMPLEMENTED
 
 		let partialResult = this.NEXT_NOON + ((riseSet - terrainSet) / angularRotationRate * 3 / 4300);
 
