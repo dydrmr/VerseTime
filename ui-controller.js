@@ -51,8 +51,12 @@ function setLocation(locationName) {
 
 
 document.addEventListener('keydown', function(event){
-	if (event.key === "Escape"){
+	if (event.key === 'Escape') {
 		if (showSettingsWindow) toggleSettingsWindow();
 		if (showCretidsWindow) toggleCreditsWindow();
+	}
+
+	if (event.key === 'D') {
+		window.DEBUG_MODE = !window.DEBUG_MODE;
 	}
 });
