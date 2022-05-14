@@ -22,9 +22,11 @@ function update() {
 	document.getElementById('selected-location-bg-image').backgroundColor = `rgb(${col.r}, ${col.g}, ${col.b})`;
 	document.getElementById('selected-location-bg-image').style.backgroundImage = `url('${location.THEME_IMAGE}')`;
 
+
 	//CLOCKS
 	document.getElementById('gmt-time').innerHTML = new Date().toUTCString();
 	document.getElementById('universe-time').innerHTML = UNIVERSE_TIME(true).replace('GMT', 'SET');
+
 
 	//SELECTED LOCATION CARD
 	document.getElementById('local-time').innerHTML = HOURS_TO_TIME_STRING(location.LOCAL_TIME/60/60, false);
@@ -32,22 +34,31 @@ function update() {
 	document.getElementById('location-body-name').innerHTML = location.PARENT.NAME;
 	// document.getElementById('location-body-type').innerHTML = location.PARENT.TYPE;
 
-	let nextRise = (location.NEXT_STAR_RISE < 0) ? 0 : location.NEXT_STAR_RISE * 24;
-	let nextSet = (location.NEXT_STAR_SET < 0) ? 0 : location.NEXT_STAR_SET * 24;
-	document.getElementById('next-rise-countdown').innerHTML = HOURS_TO_TIME_STRING(nextRise);
-	document.getElementById('next-set-countdown').innerHTML = HOURS_TO_TIME_STRING(nextSet);
+
+	let nextRise = location.NEXT_STAR_RISE;
+	let nextSet = location.NEXT_STAR_SET;
+
+	nextRise = (location.NEXT_STAR_RISE * 86400 < 120) ? '- RIGHT NOW -' : HOURS_TO_TIME_STRING(location.NEXT_STAR_RISE * 24);
+	nextSet = (location.NEXT_STAR_SET * 86400 < 120) ? '- RIGHT NOW -' : HOURS_TO_TIME_STRING(location.NEXT_STAR_SET * 24);
+
+	document.getElementById('next-rise-countdown').innerHTML = nextRise;
+	document.getElementById('next-set-countdown').innerHTML = nextSet;
+
 
 	let now;
 
 	now = new Date();
-	let rise = now.setSeconds(now.getSeconds() + (location.NEXT_STAR_RISE * 24 * 60 * 60));
+	let rise = now.setSeconds(now.getSeconds() + (location.NEXT_STAR_RISE * 86400));
 	document.getElementById('next-rise-time').innerHTML = DATE_TO_SHORT_TIME(new Date(rise));
 
 	now = new Date();
-	let set = now.setSeconds(now.getSeconds() + (location.NEXT_STAR_SET * 24 * 60 * 60));
+	let set = now.setSeconds(now.getSeconds() + (location.NEXT_STAR_SET * 86400));
 	document.getElementById('next-set-time').innerHTML = DATE_TO_SHORT_TIME(new Date(set));
 
 
+
+
+	//DEBUG
 	if (!window.DEBUG_MODE) {
 		document.getElementById('testing').style.opacity = '0';
 		return;
@@ -55,7 +66,6 @@ function update() {
 
 	document.getElementById('testing').style.opacity = '1';
 
-	//DEBUG
 	//UNIX TIME
 	let unix = Math.floor(REAL_TIME() / 1000);
 	let fragments = unix.toString().split('').reverse();
