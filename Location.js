@@ -155,7 +155,7 @@ export default class Location {
 	get NEXT_NOON() {
 		let angle = this.HOUR_ANGLE();
 		let angularRotationRate = 6 / this.PARENT.ROTATION_RATE;
-		let result = angle > 0 ? angle / angularRotationRate : (360 + angle) / angularRotationRate;
+		let result = (angle > 0) ? angle / angularRotationRate : (360 + angle) / angularRotationRate;
 		return result / 1440;
 	}
 

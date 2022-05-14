@@ -47,7 +47,7 @@ export function ROUND(n, digits) {
 }
 
 export function JULIAN_DATE() {
-	let date2020 = new Date('January 1, 2020 00:00:00.000Z');
+	let date2020 = new Date('2020-01-01T00:00:00.000Z');
 	let now = new Date();
 	let julian = now - date2020;
 	return julian / 1000 / 60 / 60 / 24;

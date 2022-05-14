@@ -75,6 +75,8 @@ body {
 	
 	background-repeat: no-repeat;
 	background-size: cover;
+	background-position: center center;
+	background-size: contain;
 }
 
 #selected-location-container {
@@ -156,7 +158,7 @@ body {
 
 .riseset-label {
 	font-family: 'Rajdhani', sans-serif;
-	font-size: 16px;
+	font-size: 14px;
 	font-weight: 400;
 	text-transform: uppercase;
 }
@@ -288,7 +290,7 @@ body {
 	position: relative;
 	overflow: hidden;
 	/*opacity: 0;*/
-	padding: 30px;
+	padding: 140px 40px;
 	text-align: center;
 
 	background-color: var(--theme-color-dark);

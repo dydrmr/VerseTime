@@ -9,6 +9,7 @@ window.ACTIVE_LOCATION = null;
 window.DEBUG_MODE = false;
 
 
+
 setInterval( update, 1000/24 );
 function update() {
 
@@ -38,8 +39,8 @@ function update() {
 	let nextRise = location.NEXT_STAR_RISE;
 	let nextSet = location.NEXT_STAR_SET;
 
-	nextRise = (location.NEXT_STAR_RISE * 86400 < 120) ? '- RIGHT NOW -' : HOURS_TO_TIME_STRING(location.NEXT_STAR_RISE * 24);
-	nextSet = (location.NEXT_STAR_SET * 86400 < 120) ? '- RIGHT NOW -' : HOURS_TO_TIME_STRING(location.NEXT_STAR_SET * 24);
+	nextRise = (location.NEXT_STAR_RISE * 86400 < 120) ? '- NOW -' : HOURS_TO_TIME_STRING(location.NEXT_STAR_RISE * 24);
+	nextSet = (location.NEXT_STAR_SET * 86400 < 120) ? '- NOW -' : HOURS_TO_TIME_STRING(location.NEXT_STAR_SET * 24);
 
 	document.getElementById('next-rise-countdown').innerHTML = nextRise;
 	document.getElementById('next-set-countdown').innerHTML = nextSet;

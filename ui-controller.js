@@ -6,15 +6,10 @@ document.getElementById('BUTTON-close-settings').addEventListener('click', funct
 
 function toggleSettingsWindow() {
 	showSettingsWindow = !showSettingsWindow;
-
 	document.getElementById('modal-settings').style.opacity = (showSettingsWindow ? 1 : 0);
 	document.getElementById('modal-settings').style.pointerEvents = (showSettingsWindow ? 'auto' : 'none');
-	// document.getElementById('settings-window').style.opacity = (showSettingsWindow ? 1 : 0);
-
 	// console.log('Settings window turned ' + (showSettingsWindow ? 'ON' : 'OFF'));
 }
-
-
 
 
 document.getElementById('BUTTON-toggle-credits-window').addEventListener('click', function(e) { toggleCreditsWindow(); });
@@ -22,12 +17,8 @@ document.getElementById('BUTTON-close-credits').addEventListener('click', functi
 
 function toggleCreditsWindow() {
 	showCretidsWindow = !showCretidsWindow;
-
 	document.getElementById('modal-credits').style.opacity = (showCretidsWindow ? 1 : 0);
 	document.getElementById('modal-credits').style.pointerEvents = (showCretidsWindow ? 'auto' : 'none');
-	// document.getElementById('credits-window').style.opacity = (showCretidsWindow ? 1 : 0);
-
-	console.log('test')
 }
 
 
