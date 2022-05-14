@@ -56,9 +56,5 @@ document.addEventListener('keydown', function(event){
 		if (showCretidsWindow) toggleCreditsWindow();
 	}
 
-	console.log(event.keyCode);
-
-	if (event.keyCode === 68) {
-		window.DEBUG_MODE = !window.DEBUG_MODE;
-	}
+	if (event.keyCode === 68) { window.DEBUG_MODE = !window.DEBUG_MODE; }
 });

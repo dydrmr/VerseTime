@@ -112,8 +112,8 @@ function update() {
 
 	document.getElementById('longitude-360').innerHTML = ROUND(location.LONGITUDE_360, 3);
 	document.getElementById('elevation').innerHTML = (location.ELEVATION * 1000).toFixed(1);
-	document.getElementById('elevation-degrees').innerHTML = location.ELEVATION_IN_DEGREES().toFixed(3);
-	document.getElementById('sunriseset-angle').innerHTML = location.STARRISE_AND_STARSET_ANGLE().toFixed(3);
+	document.getElementById('elevation-degrees').innerHTML = location.ELEVATION_IN_DEGREES.toFixed(3);
+	document.getElementById('sunriseset-angle').innerHTML = location.STARRISE_AND_STARSET_ANGLE.toFixed(3);
 	document.getElementById('hour-angle-location').innerHTML = location.HOUR_ANGLE().toFixed(3) + '&deg;';
 	document.getElementById('star-azimuth').innerHTML = location.STAR_AZIMUTH().toFixed(3) + '&deg;';
 	document.getElementById('star-altitude').innerHTML = location.STAR_ALTITUDE().toFixed(3) + '&deg;';

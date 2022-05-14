@@ -20,7 +20,10 @@ let THEME_IMAGE = null;
 // CALCULATED
 let LATITUDE = null;
 let LONGITUDE = null;
+let LONGITUDE_360 = null;
 let ELEVATION = null;
+let ELEVATION_IN_DEGREES = null;
+let STARRISE_AND_STARSET_ANGLE = null;
 
 export default class Location {
 	constructor(name, type, parentBody, parentStar, coordinates, themeColor = null, themeImage) {
@@ -33,13 +36,12 @@ export default class Location {
 		this.THEME_IMAGE = themeImage;
 
 		// CALCULATED PROPERTIES
-		this.ELEVATION = Math.sqrt(SQUARE(this.COORDINATES.x) + SQUARE(this.COORDINATES.y) + SQUARE(this.COORDINATES.z)) - this.PARENT.BODY_RADIUS;
-
+		// LATITUDE
 		let lat2 = Math.sqrt( SQUARE(this.COORDINATES.x) + SQUARE(this.COORDINATES.y) );
 		let lat1 = Math.atan2( this.COORDINATES.z, lat2 );
 		this.LATITUDE = DEGREES(lat1);
 
-
+		// LONGITUDE
 		if (Math.abs(latitude) === 90) { 
 			this.LONGITUDE = 0;
 		
@@ -53,15 +55,9 @@ export default class Location {
 			}
 		}
 
-
-		window.LOCATIONS.push(this);
-	}
-
-	get LONGITUDE_360() {
-		let result = null;
-
+		// LONGITUDE 360
 		if (Math.abs(this.LATITUDE) === 90) {
-			result = 0;
+			this.LONGITUDE_360 = 0;
 
 		} else {
 			let distX = this.COORDINATES.x;
@@ -70,38 +66,31 @@ export default class Location {
 			let p3 = Math.atan2(distY, distX);
 			let p2 = p3 - (Math.PI / 2);
 			let p1 = MODULO(p2, 2 * Math.PI);
-			result = DEGREES(p1);
+			this.LONGITUDE_360 = DEGREES(p1);
 
 		}
 
-		return result;
-	}
+		// ELEVATION
+		this.ELEVATION = Math.sqrt(SQUARE(this.COORDINATES.x) + SQUARE(this.COORDINATES.y) + SQUARE(this.COORDINATES.z)) - this.PARENT.BODY_RADIUS;
 
-	// ELEVATION() {
-	// 	let kilometers = Math.sqrt(SQUARE(this.COORDINATES.x) + SQUARE(this.COORDINATES.y) + SQUARE(this.COORDINATES.z)) - this.PARENT.BODY_RADIUS;
-	// 	return kilometers;
-	// }
-
-	ELEVATION_IN_DEGREES() {
+		// ELEVATION IN DEGREES
 		let radius = this.PARENT.BODY_RADIUS;
 		let height = this.ELEVATION;
-
 		let p3 = height < 0 ? 0 : height;
 		let p2 = radius + p3;
 		let p1 = Math.acos( radius / p2 );
+		this.ELEVATION_IN_DEGREES = DEGREES(p1);
 
-		return DEGREES(p1);
-	}
-
-	STARRISE_AND_STARSET_ANGLE() {
-		let latitude = this.LATITUDE;
-
+		// STAR RISE/SET ANGLE
 		let p4 = Math.tan( RADIANS(this.PARENT.DECLINATION(this.PARENT_STAR)) );
-		let p3 = Math.tan( RADIANS(latitude) );
-		let p2 = -p3 * p4;
-		let p1 = Math.acos(p2); 
+		p3 = Math.tan( RADIANS(this.LATITUDE) );
+		p2 = -p3 * p4;
+		p1 = Math.acos(p2); 
+		this.STARRISE_AND_STARSET_ANGLE = DEGREES(p1) + this.PARENT.APPARENT_RADIUS(this.PARENT_STAR) + this.ELEVATION_IN_DEGREES;
 
-		return DEGREES(p1) + this.PARENT.APPARENT_RADIUS(this.PARENT_STAR) + this.ELEVATION_IN_DEGREES();
+
+		// FINALIZATION
+		window.LOCATIONS.push(this);
 	}
 
 	HOUR_ANGLE() {
@@ -161,7 +150,7 @@ export default class Location {
 	}
 
 	get NEXT_STAR_RISE() {
-		let riseSet = this.STARRISE_AND_STARSET_ANGLE();
+		let riseSet = this.STARRISE_AND_STARSET_ANGLE;
 		let angularRotationRate = 6 / this.PARENT.ROTATION_RATE;
 		let terrainRise = 0; // VARIABLE NOT BUILT INTO THE LOCATION CLASS
 
@@ -183,7 +172,7 @@ export default class Location {
 	}
 
 	get NEXT_STAR_SET() {
-		let riseSet = this.STARRISE_AND_STARSET_ANGLE();
+		let riseSet = this.STARRISE_AND_STARSET_ANGLE;
 		let angularRotationRate = 6 / this.PARENT.ROTATION_RATE;
 		let terrainSet = 0; // VARIABLE NOT BUILT INTO THE LOCATION CLASS
 
