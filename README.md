@@ -2,6 +2,7 @@
 In-game times for Star Citizen landing zones.
 
 ## Interface
+Your selected options are saved when you change them.
 - To change your location, click on the location name in the center of the window.
 - Toggle 24-hour time notation off and on using the **[ T ]** key.
 
