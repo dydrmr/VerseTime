@@ -40,27 +40,30 @@
 
 		<div class="riseset-container" id="next-rise-container">
 			<div class="riseset-group">
-				<p class="riseset-time-label" id="local-rise-time"></p>
-			</div>
-			<div class="riseset-group">
 				<p class="riseset-label">Next starrise</p>
 				<p class="riseset-time-label" id="next-rise-countdown"></p>
 			</div>
 			<div class="riseset-group">
-				<p class="riseset-label">Your Local Time</p>
+				<p class="riseset-label">Verse time</p>
+				<p class="riseset-time-label" id="local-rise-time"></p>
+			</div>
+			<div class="riseset-group">
+				<p class="riseset-label">Real Time</p>
 				<p class="riseset-time-label"><span id="next-rise-time"></span></p>
 			</div>
 		</div>
+
 		<div class="riseset-container" id="next-set-container">
-			<div class="riseset-group">
-				<p class="riseset-time-label" id="local-set-time"></p>
-			</div>
 			<div class="riseset-group">
 				<p class="riseset-label">Next starset</p>
 				<p class="riseset-time-label" id="next-set-countdown"></p>
 			</div>
 			<div class="riseset-group">
-				<p class="riseset-label">Your Local Time</p>
+				<p class="riseset-label">Verse time</p>
+				<p class="riseset-time-label" id="local-set-time"></p>
+			</div>
+			<div class="riseset-group">
+				<p class="riseset-label">Real Time</p>
 				<p class="riseset-time-label"><span id="next-set-time"></span></p>
 			</div>
 		</div>
@@ -75,17 +78,10 @@
 <section class="modal" id="modal-settings">
 	<div id="settings-window">
 		<div id="BUTTON-close-settings"></div>
-		<!-- <h2>Settings</h1> -->
 
-		<div id="settings-change-location-container">
-			<p>Change location</p>
-			<div id="settings-change-location-selector">
-				<div class="BUTTON-set-location">Area18</div>
-				<div class="BUTTON-set-location">GrimHEX</div>
-				<div class="BUTTON-set-location">Lorville</div>
-				<div class="BUTTON-set-location">New Babbage</div>
-				<div class="BUTTON-set-location">Orison</div>
-			</div>
+		<div id="settings-change-location-container">			
+			<input id="location-selection-input" type="text" name="location-selection-input" placeholder="Search locations...">
+			<div id="available-locations-grid"></div>
 		</div>
 	</div>
 </section>
@@ -97,7 +93,7 @@
 		<p>Toggle 24-hour time notation using the [T] key.</p>
 		<br><br>
 		<p>Data collected by <a href="https://robertsspaceindustries.com/orgs/MURPH" target="_blank" rel="noreferrer noopener">Murphy Exploration Group</a>.</p>
-		<p><a href="https://docs.google.com/spreadsheets/d/1VydKNxBHdljhO8ANSEcZRWogInCh-6tAdjI1HcwFlVE/edit#gid=1238406064" target="_blank" rel="noreferrer noopener">Detailed spreadsheet available here.</a></p>
+		<p><a href="https://docs.google.com/spreadsheets/d/1VydKNxBHdljhO8ANSEcZRWogInCh-6tAdjI1HcwFlVE/edit#gid=1238406064" target="_blank" rel="noreferrer noopener">Detailed spreadsheet available here</a>.</p>
 		<br><br>
 		<p>Background images from the <a href="https://starcitizen.tools/Star_Citizen_Wiki" target="_blank" rel="noreferrer noopener">starcitizen.tools Wiki</a>.</p>
 		<br><br>

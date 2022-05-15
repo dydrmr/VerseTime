@@ -91,7 +91,7 @@ body {
 	top: 0;
 	left: 0;
 	z-index: -1;
-	filter: blur(6px) brightness(0.75) saturate(120%);
+	filter: blur(6px) brightness(0.7);
 	transform: scale(1.05);
 }
 
@@ -100,6 +100,7 @@ body {
 	font-weight: 700;
 	text-align: center;
 	text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.4);
+	user-select: none;
 }
 .selected-location-label {
 	font-size: 3.5rem;
@@ -124,15 +125,16 @@ body {
 #BUTTON-open-settings {
 	margin-top: 1rem;
 	padding: 15px 30px;
-	border-radius: 20px;
+	border-radius: 25px;
 	transition: 0.2s ease-out;
-	border: 4px solid rgba(255, 255, 255, 0.0);
+	border: 3px solid rgba(255, 255, 255, 0.0);
+	user-select: none;
 }
 #BUTTON-open-settings:hover {
 	cursor: pointer;
 	transition: 0.2s ease-out;
 	background-color: rgba(0, 0, 0, 0.15);
-	border: 4px solid rgba(0, 0, 0, 0.1);
+	border: 3px solid var(--theme-color);
 }
 #BUTTON-open-settings:active {
 	cursor: pointer;
@@ -142,7 +144,7 @@ body {
 
 .riseset-container {
 	position: absolute;
-	bottom: 0;
+	bottom: 20px;
 	margin: 30px;
 	font-size: 16px;
 	text-align: center;
@@ -153,39 +155,34 @@ body {
 	grid-template-columns: 1fr;
 	grid-row-gap: 16px;
 }
+
 #next-rise-container {
 	left: 50px;
 }
+#next-rise-container:before {
+	content: '🠅';
+	font-size: 20px;
+}
+
 #next-set-container {
 	right: 50px;
+}
+#next-set-container:before {
+	content: '🠇';
+	font-size: 20px;
 }
 
 .riseset-label {
 	font-family: 'Rajdhani', sans-serif;
-	font-size: 14px;
-	font-weight: 400;
+	font-size: 12px;
+	font-weight: 500;
+	letter-spacing: 0.1em;
 	text-transform: uppercase;
 }
 .riseset-time-label {
 	line-height: 100%;
 }
 
-#local-rise-time:before {
-	content: '🠅';
-	padding-right: 5px;
-}
-#local-rise-time:after {
-	content: '🠅';
-	padding-left: 5px;
-}
-#local-set-time:before {
-	content: '🠇';
-	padding-right: 5px;
-}
-#local-set-time:after {
-	content: '🠇';
-	padding-left: 5px;
-}
 
 
 
@@ -233,6 +230,7 @@ body {
 	width: 700px;
 	max-width: 90%;
 	margin: auto;
+	padding: 30px;
 
 	position: relative;
 	overflow: hidden;
@@ -240,7 +238,9 @@ body {
 
 	background-color: var(--theme-color-dark);
 	border-radius: 20px;
-	box-shadow: 0px 0px 120px hsla(0, 0%, 0%, 0.8);
+	box-shadow: 0px 0px 90px hsla(0, 0%, 0%, 0.8);
+
+	transition: width 1s height 1s;
 }
 #settings-window h2 {
 	margin-top: 15px;
@@ -252,11 +252,11 @@ body {
 
 #BUTTON-close-settings {
 	position: absolute;
-	top: 15px;
-	right: 15px;
+	top: 13px;
+	right: 13px;
 
-	width: 20px;
-	height: 20px;
+	width: 18px;
+	height: 18px;
 	border-radius: 100%;
 	background-color: hsl(0, 100%, 20%);
 
@@ -269,36 +269,64 @@ body {
 	transform: scale(1.05);
 }
 
+
 #settings-change-location-container {
-	margin: 30px 0;
+	border-radius: 10px;
 }
 
 #settings-change-location-container p {
-	/*margin-top: 50px;*/
-	margin-bottom: 30px;
-	font-size: 14px;
+	font-size: 15px;
 	font-weight: 700;
 	text-align: center;
 	text-transform: uppercase;
 }
 
+#location-selection-input {
+	width: 80%;
+	display: block;
+	margin: 15px auto 20px;
+	padding: 8px 12px;
+	color: var(--theme-color);
+	background-color: var(--theme-color-dark);
+	border: 2px solid var(--theme-color);
+	border-radius: 5px;
+	font-family: 'Roboto Mono', monospace;
+	font-size: 18px;
+	text-align: center;
+}
+
+#available-locations-grid {
+	margin: auto;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-column-gap: 10px;
+	grid-row-gap: 10px;
+}
+
+
 .BUTTON-set-location {
-	max-width: 60%;
-	margin: 10px auto;
-	padding: 20px 30px;
+	/*max-width: 60%;*/
+	/*margin: 10px auto;*/
+	/*padding: 20px 30px;*/
+	padding: 14px;
 	border-radius: 10px;
 	background-color: hsla(0, 100%, 100%, 0.1);
-	font-size: 20px;
+	font-size: 16px;
 	font-weight: bold;
 	text-align: center;
+	user-select: none;
 	transition: 0.2s ease-out;
 }
 .BUTTON-set-location:hover {
 	cursor: pointer;
-	background-color: var(--theme-color); /*hsla(0, 100%, 100%, 0.3);*/
+	background-color: var(--theme-color);
 }
 .BUTTON-set-location:active {
 	transform: scale(0.97);
+}
+
+.hide {
+	display: none;
 }
 
 
@@ -316,7 +344,7 @@ body {
 
 	background-color: var(--theme-color-dark);
 	border-radius: 20px;
-	box-shadow: 0px 0px 120px hsla(0, 0%, 0%, 0.8);
+	box-shadow: 0px 0px 90px hsla(0, 0%, 0%, 0.8);
 }
 
 #credits-window a {
@@ -329,17 +357,14 @@ body {
 	color: white;
 	border: none;
 }
-/*#credits-window a:visited {
-	color: var(--theme-color);
-}*/
 
 #BUTTON-close-credits {
 	position: absolute;
-	top: 15px;
-	right: 15px;
+	top: 13px;
+	right: 13px;
 
-	width: 20px;
-	height: 20px;
+	width: 18px;
+	height: 18px;
 	border-radius: 100%;
 	background-color: hsl(0, 100%, 20%);
 

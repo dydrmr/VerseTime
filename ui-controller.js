@@ -36,11 +36,7 @@ function toggleDebugWindow() {
 
 
 
-let locationButtons = document.getElementsByClassName('BUTTON-set-location');
 
-for (let element of locationButtons) {
-	element.addEventListener('click', function(e) { setLocation(element.innerText); });
-}
 
 function setLocation(locationName) {
 
@@ -62,15 +58,53 @@ function setLocation(locationName) {
 
 
 
+function populateLocationGrid() {
+	let container = document.getElementById('available-locations-grid');
+
+	for (let l of window.LOCATIONS) {
+		let el = document.createElement('div');
+		el.innerHTML = l.NAME;
+		el.className = 'BUTTON-set-location';
+		el.addEventListener('click', function(e) { setLocation(el.innerText); });
+		container.appendChild(el);
+	}
+}
+
+
+// LOCATION SEARCH FILTER
+document.getElementById('location-selection-input').addEventListener('input', (event) => { 
+	let search = document.getElementById("location-selection-input").value.toLowerCase();
+	let buttons = document.getElementsByClassName('BUTTON-set-location');
+
+	for (let element of buttons) {
+
+		if (search === '') {
+			element.classList.remove('hide');
+			continue;
+		}
+
+		if (element.innerText.toLowerCase().includes(search)) {
+			element.classList.remove('hide');
+		} else {
+			element.classList.add('hide');
+		}
+	}
+});
 
 
 
+
+// KEYBOARD INPUT
 document.addEventListener('keydown', function(event){
 	if (event.key === 'Escape') {
 		if (showSettingsWindow) toggleSettingsWindow();
 		if (showCreditsWindow) toggleCreditsWindow();
 		if (window.DEBUG_MODE) toggleDebugWindow();
 	}
+
+
+	if (event.target.tagName.toLowerCase() === 'input') { return; }
+
 
 	if (event.keyCode === 68) { toggleDebugWindow(); }
 	

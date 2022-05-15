@@ -2,15 +2,15 @@ import { DEGREES, RADIANS, MODULO, SQUARE, ROUND, JULIAN_DATE } from './HelperFu
 import CelestialBody from './CelestialBody.js';
 import Location from './Location.js';
 
+
 window.BODIES = Array();
 window.LOCATIONS = Array();
 window.ACTIVE_LOCATION = null;
 window.SETTING_24HR = true;
-
 window.DEBUG_MODE = false;
 
 
-setInterval( update, 300 );
+// FUNCTIONS
 function update() {
 
 	let location = window.ACTIVE_LOCATION;
@@ -232,7 +232,7 @@ function DATE_TO_SHORT_TIME(date) {
 function GET_AM_PM(hour) { return (hour < 12) ? 'am' : 'pm'; }
 
 
-
+// DATABASE
 // CELESTIAL BODIES
 const STANTON = new CelestialBody(
 	'Stanton',
@@ -255,7 +255,7 @@ const STANTON = new CelestialBody(
 	0,
 	0,
 	0
-);
+)
 
 const ARCCORP = new CelestialBody(
 	'ArcCorp',
@@ -283,7 +283,7 @@ const ARCCORP = new CelestialBody(
 		'g' : 102,
 		'b' : 90
 	}
-);
+)
 
 const CRUSADER = new CelestialBody(
 	'Crusader',
@@ -311,7 +311,35 @@ const CRUSADER = new CelestialBody(
 		'g' : 152,
 		'b' : 147
 	},
-);
+)
+
+const DAYMAR = new CelestialBody(
+	'Daymar',
+	'Moon',
+	CRUSADER,
+	STANTON,
+	{
+		'x' : -18930539.540,
+		'y' : -2610158.765,
+		'z' : 0.000
+	},
+	{
+		'w' : 1.00000000,
+		'x' : 0.00000000,
+		'y' : 0.00000000,
+		'z' : 0.00000000
+	},
+	295.000,
+	2.4800000,
+	30.29544,
+	60.000,
+	63279.908,
+	{
+		'r' : 211,
+		'g' : 170,
+		'b' : 150
+	}
+)
 
 const YELA = new CelestialBody(
 	'Yela',
@@ -339,7 +367,7 @@ const YELA = new CelestialBody(
 		'g' : 128,
 		'b' : 150
 	}
-);
+)
 
 const MICROTECH = new CelestialBody(
 	'microTech',
@@ -367,7 +395,7 @@ const MICROTECH = new CelestialBody(
 		'g' : 184,
 		'b' : 193
 	}
-);
+)
 
 const HURSTON = new CelestialBody(
 	'Hurston',
@@ -395,10 +423,23 @@ const HURSTON = new CelestialBody(
 		'g' : 101,
 		'b' : 71
 	}
-);
-
+)
 
 // LOCATIONS
+const ARCCORP_MINING_141 = new Location(
+	'ArcCorp Mining Area 141',
+	'Outpost',
+	DAYMAR,
+	STANTON,
+	{
+		'x' : -18.167,
+		'y' : 180.362,
+		'z' : -232.760
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/4/4f/Daymar_ArcCorp-Mining-Area-141_Morning.jpg/800px-Daymar_ArcCorp-Mining-Area-141_Morning.jpg'
+)
+
 const AREA18 = new Location(
 	'Area18',
 	'Landing Zone',
@@ -410,8 +451,36 @@ const AREA18 = new Location(
 		'z' : -262.094
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/c/c3/Arccorp-area18-skyline-io-north-tower.jpg/1280px-Arccorp-area18-skyline-io-north-tower.jpg'
-);
+	'https://starcitizen.tools/images/thumb/5/5d/Arccorp-area18-aerial-view-to-spaceport.jpg/800px-Arccorp-area18-aerial-view-to-spaceport.jpg'
+)
+
+const BAIJINI_POINT = new Location(
+	'Baijini Point',
+	'Space Station',
+	ARCCORP,
+	STANTON,
+	{
+		'x' : -771.961,
+		'y' : -321.347,
+		'z' : -359.509
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/6/6e/Arccorp-baijini-point-01.jpg/800px-Arccorp-baijini-point-01.jpg'
+)
+
+const EVERUS_HARBOR = new Location(
+	'Everus Harbor',
+	'Space Station',
+	HURSTON,
+	STANTON,
+	{
+		'x' : -507.742,
+		'y' : -903.464,
+		'z' : 496.489
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/7/72/Hurston-everus-harbor-01.jpg/800px-Hurston-everus-harbor-01.jpg'
+)
 
 const GRIMHEX = new Location(
 	'GrimHEX',
@@ -424,8 +493,8 @@ const GRIMHEX = new Location(
 		'z' : -2.042
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/0/09/Star_Citizen_-_GrimHEX_close-up.png/1280px-Star_Citizen_-_GrimHEX_close-up.png'
-);
+	'https://starcitizen.tools/images/thumb/0/09/Star_Citizen_-_GrimHEX_close-up.png/800px-Star_Citizen_-_GrimHEX_close-up.png'
+)
 
 const LORVILLE = new Location(
 	'Lorville',
@@ -438,7 +507,7 @@ const LORVILLE = new Location(
 		'z' : 572.120
 	},
 	null,
-	'https://starcitizen.tools/images/4/42/Hurston.jpg'
+	'https://starcitizen.tools/images/thumb/3/34/Lorville_3.3.6_Raoul.png/800px-Lorville_3.3.6_Raoul.png'
 )
 
 const NEW_BABBAGE = new Location(
@@ -452,8 +521,8 @@ const NEW_BABBAGE = new Location(
 		'z' : 743.655
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/9/9c/Microtech-new-babbage-cityscape-01.jpg/1280px-Microtech-new-babbage-cityscape-01.jpg'
-);
+	'https://starcitizen.tools/images/thumb/a/af/Microtech-new-babbage-cityscape-09.jpg/800px-Microtech-new-babbage-cityscape-09.jpg'
+)
 
 const ORISON = new Location(
 	'Orison',
@@ -466,8 +535,54 @@ const ORISON = new Location(
 		'z' : 5282.237
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/c/cf/Crusader-orison-voyager-bar-lookout-daytime-3.14.jpg/1280px-Crusader-orison-voyager-bar-lookout-daytime-3.14.jpg'
+	'https://starcitizen.tools/images/thumb/3/33/Orison-demo-wip-isc-20210624-11.png/800px-Orison-demo-wip-isc-20210624-11.png'
 )
 
+const PORT_OLISAR = new Location(
+	'Port Olisar',
+	'Space Station',
+	CRUSADER,
+	STANTON,
+	{
+		'x' : 5965.000,
+		'y' : -472.142,
+		'z' : 5667.009
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/3/3d/Crusader-port-olisar-3.14.jpg/800px-Crusader-port-olisar-3.14.jpg'
+)
+
+const PORT_TRESSLER = new Location(
+	'Port Tressler',
+	'Space Station',
+	MICROTECH,
+	STANTON,
+	{
+		'x' : 561.471,
+		'y' : 545.853,
+		'z' : 808.832
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/9/9a/Microtech-port-tressler-01.jpg/800px-Microtech-port-tressler-01.jpg'
+)
+
+const SHUBIN_MINING_SCD1 = new Location(
+	'Shubin Mining Facility SCD-1',
+	'Outpost',
+	DAYMAR,
+	STANTON,
+	{
+		'x' : 126.025,
+		'y' : -149.581,
+		'z' : 221.253
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/4/45/Daymar_Shubin-Mining-Facility-SCD1_Day-1.jpg/800px-Daymar_Shubin-Mining-Facility-SCD1_Day-1.jpg'
+)
+
+
+// INIT
+populateLocationGrid();
 loadSettings();
+setInterval(update, 250);
 update();
