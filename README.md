@@ -1,4 +1,4 @@
-# VerseClock
+# VerseTime
 In-game times for Star Citizen landing zones.
 
 ## Interface
