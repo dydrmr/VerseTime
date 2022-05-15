@@ -40,18 +40,30 @@
 		</div>
 
 		<div class="riseset-container" id="next-rise-container">
-			<p class="riseset-label">Next starrise</p>
-			<p id="next-rise-countdown"></p>
-			<br>
-			<p class="riseset-label">Your Local Time</p>
-			<p class="riseset-time-label"><span id="next-rise-time"></span></p>
+			<div class="riseset-group">
+				<p class="riseset-time-label" id="local-rise-time"></p>
+			</div>
+			<div class="riseset-group">
+				<p class="riseset-label">Next starrise</p>
+				<p class="riseset-time-label" id="next-rise-countdown"></p>
+			</div>
+			<div class="riseset-group">
+				<p class="riseset-label">Your Local Time</p>
+				<p class="riseset-time-label"><span id="next-rise-time"></span></p>
+			</div>
 		</div>
 		<div class="riseset-container" id="next-set-container">
-			<p class="riseset-label">Next starset</p>
-			<p id="next-set-countdown"></p>
-			<br>
-			<p class="riseset-label">Your Local Time</p>
-			<p class="riseset-time-label"><span id="next-set-time"></span></p>
+			<div class="riseset-group">
+				<p class="riseset-time-label" id="local-set-time"></p>
+			</div>
+			<div class="riseset-group">
+				<p class="riseset-label">Next starset</p>
+				<p class="riseset-time-label" id="next-set-countdown"></p>
+			</div>
+			<div class="riseset-group">
+				<p class="riseset-label">Your Local Time</p>
+				<p class="riseset-time-label"><span id="next-set-time"></span></p>
+			</div>
 		</div>
 
 	</div>
@@ -118,6 +130,8 @@
 	<p>Starrise/starset angle: <span id="sunriseset-angle"></span></p>
 	<p>Length of daylight: <span id="length-of-daylight"></span></p>
 	<p>Length of night: <span id="daylight-percent"></span></p>
+	<p>Local star rise time: <span id="starrise-time"></span></p>
+	<p>Local star set time: <span id="starset-time"></span></p>
 	<p>Hour angle: <span id="hour-angle-location"></span></p>
 	<p>Star azimuth: <span id="star-azimuth"></span></p>
 	<p>Star altitude: <span id="star-altitude"></span></p>

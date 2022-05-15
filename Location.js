@@ -158,8 +158,15 @@ export default class Location {
 	}
 
 	get LOCAL_STAR_RISE_TIME() {
-		let p1 = 2 * this.STARRISE_AND_STARSET_ANGLE;
-		return (p1 / this.PARENT.ANGULAR_ROTATION_RATE) /4300;
+		let percent = 1 - (this.LENGTH_OF_DAYLIGHT / this.PARENT.LENGTH_OF_DAY());
+		let half = percent / 2;
+		return half;
+	}
+
+	get LOCAL_STAR_SET_TIME() {
+		let percent = 1 - (this.LENGTH_OF_DAYLIGHT / this.PARENT.LENGTH_OF_DAY());
+		let half = percent / 2;
+		return 1 - half;
 	}
 
 	get NEXT_STAR_RISE() {

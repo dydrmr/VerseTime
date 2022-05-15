@@ -58,7 +58,7 @@ document.addEventListener('keydown', function(event){
 	}
 
 	if (event.keyCode === 68) { 
-		window.DEBUG_MODE = !window.DEBUG_MODE; 
+		window.DEBUG_MODE = !window.DEBUG_MODE;
 		document.getElementById('testing').style.opacity = window.DEBUG_MODE ? '1' : '0';
 	}
 	
