@@ -136,6 +136,14 @@ export default class Location {
 		return MODULO(p1 + 360, 360);
 	}
 
+	get LENGTH_OF_DAYLIGHT() {
+		let terrainRise = 0; // NOT IMPLEMENTED
+		let terrainSet = 0;  // NOT IMPLEMENTED
+
+		let p1 = 2 * this.STARRISE_AND_STARSET_ANGLE - terrainRise - terrainSet;
+		return (p1 / this.PARENT.ANGULAR_ROTATION_RATE) * 3 / 4300;
+	}
+
 	get LOCAL_TIME() {
 		let angle = 360 - (this.HOUR_ANGLE() + 180);
 		let percent = angle / 360;
@@ -144,21 +152,22 @@ export default class Location {
 
 	get NEXT_NOON() {
 		let angle = this.HOUR_ANGLE();
-		let angularRotationRate = 6 / this.PARENT.ROTATION_RATE;
-		let result = (angle > 0) ? angle / angularRotationRate : (360 + angle) / angularRotationRate;
-		return result / 1440;
+		let rotation = this.PARENT.ANGULAR_ROTATION_RATE;
+		let result = (angle > 0) ? angle : (360 + angle);
+		return result / rotation / 1440;
 	}
 
 	get LOCAL_STAR_RISE_TIME() {
-		return 'argh!'
+		let p1 = 2 * this.STARRISE_AND_STARSET_ANGLE;
+		return (p1 / this.PARENT.ANGULAR_ROTATION_RATE) /4300;
 	}
 
 	get NEXT_STAR_RISE() {
 		let riseSet = this.STARRISE_AND_STARSET_ANGLE;
-		let angularRotationRate = 6 / this.PARENT.ROTATION_RATE;
-		let terrainRise = 0; // PROPERTY NOT IMPLEMENTED
+		let rotation = this.PARENT.ANGULAR_ROTATION_RATE;
+		let terrainRise = 0; // NOT IMPLEMENTED
 
-		let partialResult = this.NEXT_NOON - ((riseSet - terrainRise) / angularRotationRate * 3 / 4300);
+		let partialResult = this.NEXT_NOON - ((riseSet - terrainRise) / rotation * 3 / 4300);
 
 		if (this.HOUR_ANGLE() > (riseSet - terrainRise)) {
 			return partialResult;
@@ -177,10 +186,10 @@ export default class Location {
 
 	get NEXT_STAR_SET() {
 		let riseSet = this.STARRISE_AND_STARSET_ANGLE;
-		let angularRotationRate = 6 / this.PARENT.ROTATION_RATE;
-		let terrainSet = 0; // PROPERTY NOT IMPLEMENTED
+		let rotation = this.PARENT.ANGULAR_ROTATION_RATE;
+		let terrainSet = 0; // NOT IMPLEMENTED
 
-		let partialResult = this.NEXT_NOON + ((riseSet - terrainSet) / angularRotationRate * 3 / 4300);
+		let partialResult = this.NEXT_NOON + ((riseSet - terrainSet) / rotation * 3 / 4300);
 
 		if (this.HOUR_ANGLE() > -(riseSet - terrainSet)) {
 

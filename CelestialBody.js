@@ -27,6 +27,8 @@ let THEME_COLOR = {
 	'b' : null
 }
 
+let ANGULAR_ROTATION_RATE = null;
+
 export default class CelestialBody {
 	constructor(name, type, parentBody, parentStar, coordinates, rotationQuaternion, bodyRadius, rotationRate, rotationCorrection, orbitalAngle, orbitalRadius, themeColor = null) {
 		this.NAME = name;
@@ -37,6 +39,7 @@ export default class CelestialBody {
 		this.ROTATION_QUATERNION = rotationQuaternion;
 		this.BODY_RADIUS = bodyRadius;
 		this.ROTATION_RATE = rotationRate;
+		this.ANGULAR_ROTATION_RATE = 6 / rotationRate;
 		this.ROTATION_CORRECTION = rotationCorrection;
 		this.ORBITAL_ANGLE = orbitalAngle;
 		this.ORBITAL_RADIUS = orbitalRadius;

@@ -109,6 +109,8 @@ function updateDebugUI() {
 	document.getElementById('elevation').innerHTML = (location.ELEVATION * 1000).toFixed(1);
 	document.getElementById('elevation-degrees').innerHTML = location.ELEVATION_IN_DEGREES.toFixed(3);
 	document.getElementById('sunriseset-angle').innerHTML = location.STARRISE_AND_STARSET_ANGLE.toFixed(3);
+	document.getElementById('length-of-daylight').innerHTML = HOURS_TO_TIME_STRING(location.LENGTH_OF_DAYLIGHT * 24, true, false);
+	document.getElementById('daylight-percent').innerHTML = HOURS_TO_TIME_STRING((body.ROTATION_RATE) - (location.LENGTH_OF_DAYLIGHT *24), true, false);;
 	document.getElementById('hour-angle-location').innerHTML = location.HOUR_ANGLE().toFixed(3) + '&deg;';
 	document.getElementById('star-azimuth').innerHTML = location.STAR_AZIMUTH().toFixed(3) + '&deg;';
 	document.getElementById('star-altitude').innerHTML = location.STAR_ALTITUDE().toFixed(3) + '&deg;';
