@@ -33,7 +33,7 @@ function update() {
 	setText('local-time', HOURS_TO_TIME_STRING(location.LOCAL_TIME/60/60, false));
 	setText('location-name', location.NAME);
 	setText('location-body-name', location.PARENT.NAME);
-	setText('location-body-type', location.PARENT.TYPE);
+	// setText('location-body-type', location.PARENT.TYPE);
 
 
 	// RISE/SET COUNTDOWNS
