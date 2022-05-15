@@ -10,8 +10,7 @@ window.SETTING_24HR = true;
 window.DEBUG_MODE = false;
 
 
-
-setInterval( update, 200 );
+setInterval( update, 300 );
 function update() {
 
 	let location = window.ACTIVE_LOCATION;
@@ -51,10 +50,12 @@ function update() {
 	// RISE/SET REAL TIMES
 	let now = new Date();
 	let rise = now.setSeconds(now.getSeconds() + (location.NEXT_STAR_RISE * 86400));
+	if (new Date(rise).getSeconds() === 59) rise = new Date(rise.getTime() + 1000);
 	setText('next-rise-time', DATE_TO_SHORT_TIME(new Date(rise)));
 
 	now = new Date();
 	let set = now.setSeconds(now.getSeconds() + (location.NEXT_STAR_SET * 86400));
+	if (new Date(set).getSeconds() === 59) set = new Date(set.getTime() + 1000);
 	setText('next-set-time', DATE_TO_SHORT_TIME(new Date(set)));
 
 
@@ -468,4 +469,5 @@ const ORISON = new Location(
 	'https://starcitizen.tools/images/thumb/c/cf/Crusader-orison-voyager-bar-lookout-daytime-3.14.jpg/1280px-Crusader-orison-voyager-bar-lookout-daytime-3.14.jpg'
 )
 
-window.ACTIVE_LOCATION = ORISON;
+loadSettings();
+update();
