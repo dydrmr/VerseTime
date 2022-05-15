@@ -71,7 +71,7 @@ body {
 	height: 100vh;
 
 	display: flex;
-	align-itms: center;
+	align-items: center;
 	
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -91,7 +91,7 @@ body {
 	top: 0;
 	left: 0;
 	z-index: -1;
-	filter: blur(6px) brightness(0.7);
+	filter: blur(6px) brightness(0.75) saturate(120%);
 	transform: scale(1.05);
 }
 
@@ -171,7 +171,7 @@ body {
 }
 
 #local-rise-time:before {
-	content: '🠅';
+	content: '🠅'; /*🠅*/
 	padding-right: 5px;
 }
 #local-rise-time:after {

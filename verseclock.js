@@ -30,32 +30,32 @@ function update() {
 
 
 	// MAIN LOCATION INFO
-	document.getElementById('local-time').innerHTML = HOURS_TO_TIME_STRING(location.LOCAL_TIME/60/60, false);
-	document.getElementById('location-name').innerHTML = location.NAME;
-	document.getElementById('location-body-name').innerHTML = location.PARENT.NAME;
-	// document.getElementById('location-body-type').innerHTML = location.PARENT.TYPE;
+	setText('local-time', HOURS_TO_TIME_STRING(location.LOCAL_TIME/60/60, false));
+	setText('location-name', location.NAME);
+	setText('location-body-name', location.PARENT.NAME);
+	setText('location-body-type', location.PARENT.TYPE);
 
 
 	// RISE/SET COUNTDOWNS
-	document.getElementById('local-rise-time').innerHTML = HOURS_TO_TIME_STRING(location.LOCAL_STAR_RISE_TIME * 24, false, true);
-	document.getElementById('local-set-time').innerHTML = HOURS_TO_TIME_STRING(location.LOCAL_STAR_SET_TIME * 24, false, true);
+	setText('local-rise-time', HOURS_TO_TIME_STRING(location.LOCAL_STAR_RISE_TIME * 24, false, true));
+	setText('local-set-time', HOURS_TO_TIME_STRING(location.LOCAL_STAR_SET_TIME * 24, false, true));
 
 	let nextRise = location.NEXT_STAR_RISE;
 	let nextSet = location.NEXT_STAR_SET;
 	nextRise = (location.NEXT_STAR_RISE * 86400 < 120) ? '- NOW -' : HOURS_TO_TIME_STRING(nextRise * 24, true, false);
 	nextSet = (location.NEXT_STAR_SET * 86400 < 120) ? '- NOW -' : HOURS_TO_TIME_STRING(nextSet * 24, true, false);
-	document.getElementById('next-rise-countdown').innerHTML = nextRise;
-	document.getElementById('next-set-countdown').innerHTML = nextSet;
+	setText('next-rise-countdown', nextRise);
+	setText('next-set-countdown', nextSet);
 
 
 	// RISE/SET REAL TIMES
 	let now = new Date();
 	let rise = now.setSeconds(now.getSeconds() + (location.NEXT_STAR_RISE * 86400));
-	document.getElementById('next-rise-time').innerHTML = DATE_TO_SHORT_TIME(new Date(rise));
+	setText('next-rise-time', DATE_TO_SHORT_TIME(new Date(rise)));
 
 	now = new Date();
 	let set = now.setSeconds(now.getSeconds() + (location.NEXT_STAR_SET * 86400));
-	document.getElementById('next-set-time').innerHTML = DATE_TO_SHORT_TIME(new Date(set));
+	setText('next-set-time', DATE_TO_SHORT_TIME(new Date(set)));
 
 
 	if (window.DEBUG_MODE) updateDebugUI();	
@@ -147,6 +147,17 @@ function updateDebugUI() {
 	document.getElementById('db-next-starset').innerHTML = (location.NEXT_STAR_SET * 24 * 60 * 60).toFixed(0);
 	document.getElementById('db-next-starset-countdown').innerHTML = remain;
 	document.getElementById('db-next-starset-date').innerHTML = next;
+}
+
+function setText(elementID, string) {
+	let el = document.getElementById(elementID);
+
+	if (!el) {
+		throw 'Invalid [ elementID] passed to [ setText ] function!';
+		return;
+	}
+
+	if (el.innerHTML != string) el.innerHTML = string;
 }
 
 function REAL_TIME(formatAsString = false) {
