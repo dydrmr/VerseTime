@@ -470,4 +470,5 @@ const ORISON = new Location(
 )
 
 loadSettings();
+console.log(window.ACTIVE_LOCATION);
 update();

@@ -2,11 +2,11 @@ function loadSettings() {
 	const activeLocation = String(window.localStorage.getItem('activeLocation'));
 	const time24 = window.localStorage.getItem('time24');
 
-	if (activeLocation) {
+	if (activeLocation != 'null') {
 		let result = setLocation(activeLocation);
-		if (!result) window.ACTIVE_LOCATION = ORISON;
+		if (!result) setDefaultLocation();
 	} else {
-		window.ACTIVE_LOCATION = ORISON;
+		setDefaultLocation();
 	}
 
 	if (time24) {
@@ -14,6 +14,13 @@ function loadSettings() {
 	} else {
 		window.SETTING_24HR = true;
 	}
+}
+
+function setDefaultLocation() {
+	let result = window.LOCATIONS.filter(location => {
+		return location.NAME === 'Orison';
+	});
+	window.ACTIVE_LOCATION = result[0];
 }
 
 function saveSetting(key, value) {
