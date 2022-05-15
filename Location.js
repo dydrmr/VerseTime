@@ -149,6 +149,10 @@ export default class Location {
 		return result / 1440;
 	}
 
+	get LOCAL_STAR_RISE_TIME() {
+		return 'argh!'
+	}
+
 	get NEXT_STAR_RISE() {
 		let riseSet = this.STARRISE_AND_STARSET_ANGLE;
 		let angularRotationRate = 6 / this.PARENT.ROTATION_RATE;

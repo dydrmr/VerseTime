@@ -54,7 +54,13 @@ document.addEventListener('keydown', function(event){
 	if (event.key === 'Escape') {
 		if (showSettingsWindow) toggleSettingsWindow();
 		if (showCretidsWindow) toggleCreditsWindow();
+		if (window.DEBUG_MODE) window.DEBUG_MODE = false;
 	}
 
-	if (event.keyCode === 68) { window.DEBUG_MODE = !window.DEBUG_MODE; }
+	if (event.keyCode === 68) { 
+		window.DEBUG_MODE = !window.DEBUG_MODE; 
+		document.getElementById('testing').style.opacity = window.DEBUG_MODE ? '1' : '0';
+	}
+	
+	if (event.keyCode === 84) { window.SETTING_24HR = !window.SETTING_24HR; }
 });

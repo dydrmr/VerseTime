@@ -5,12 +5,13 @@ import Location from './Location.js';
 window.BODIES = Array();
 window.LOCATIONS = Array();
 window.ACTIVE_LOCATION = null;
+window.SETTING_24HR = true;
 
 window.DEBUG_MODE = false;
 
 
 
-setInterval( update, 1000/10 );
+setInterval( update, 200 );
 function update() {
 
 	let location = window.ACTIVE_LOCATION;
@@ -19,36 +20,33 @@ function update() {
 	let col = location.THEME_COLOR;
 	document.querySelector(':root').style.setProperty('--theme-color', `rgb(${col.r}, ${col.g}, ${col.b})`);
 	document.querySelector(':root').style.setProperty('--theme-color-dark', `rgb(${col.r*0.2}, ${col.g*0.2}, ${col.b*0.2})`);
-
 	document.getElementById('selected-location-bg-image').backgroundColor = `rgb(${col.r}, ${col.g}, ${col.b})`;
 	document.getElementById('selected-location-bg-image').style.backgroundImage = `url('${location.THEME_IMAGE}')`;
 
 
-	//CLOCKS
+	// REALTIME & UNIVERSE CLOCKS
 	// document.getElementById('gmt-time').innerHTML = new Date().toUTCString();
 	// document.getElementById('universe-time').innerHTML = UNIVERSE_TIME(true).replace('GMT', 'SET');
 
 
-	//SELECTED LOCATION CARD
+	// MAIN LOCATION INFO
 	document.getElementById('local-time').innerHTML = HOURS_TO_TIME_STRING(location.LOCAL_TIME/60/60, false);
 	document.getElementById('location-name').innerHTML = location.NAME;
 	document.getElementById('location-body-name').innerHTML = location.PARENT.NAME;
 	// document.getElementById('location-body-type').innerHTML = location.PARENT.TYPE;
 
 
+	// RISE/SET COUNTDOWNS
 	let nextRise = location.NEXT_STAR_RISE;
 	let nextSet = location.NEXT_STAR_SET;
-
-	nextRise = (location.NEXT_STAR_RISE * 86400 < 120) ? '- NOW -' : HOURS_TO_TIME_STRING(nextRise * 24);
-	nextSet = (location.NEXT_STAR_SET * 86400 < 120) ? '- NOW -' : HOURS_TO_TIME_STRING(nextSet * 24);
-
+	nextRise = (location.NEXT_STAR_RISE * 86400 < 120) ? '- NOW -' : HOURS_TO_TIME_STRING(nextRise * 24, true, false);
+	nextSet = (location.NEXT_STAR_SET * 86400 < 120) ? '- NOW -' : HOURS_TO_TIME_STRING(nextSet * 24, true, false);
 	document.getElementById('next-rise-countdown').innerHTML = nextRise;
 	document.getElementById('next-set-countdown').innerHTML = nextSet;
 
 
-	let now;
-
-	now = new Date();
+	// RISE/SET REAL TIMES
+	let now = new Date();
 	let rise = now.setSeconds(now.getSeconds() + (location.NEXT_STAR_RISE * 86400));
 	document.getElementById('next-rise-time').innerHTML = DATE_TO_SHORT_TIME(new Date(rise));
 
@@ -57,15 +55,12 @@ function update() {
 	document.getElementById('next-set-time').innerHTML = DATE_TO_SHORT_TIME(new Date(set));
 
 
+	if (window.DEBUG_MODE) updateDebugUI();	
+}
 
-
-	//DEBUG
-	if (!window.DEBUG_MODE) {
-		document.getElementById('testing').style.opacity = '0';
-		return;
-	}
-
-	document.getElementById('testing').style.opacity = '1';
+function updateDebugUI() {
+	let location = window.ACTIVE_LOCATION;
+	let body = window.ACTIVE_LOCATION ? window.ACTIVE_LOCATION.PARENT : null;
 
 	//UNIX TIME
 	let unix = Math.floor(REAL_TIME() / 1000);
@@ -119,11 +114,11 @@ function update() {
 	document.getElementById('star-altitude').innerHTML = location.STAR_ALTITUDE().toFixed(3) + '&deg;';
 	document.getElementById('max-star-altitude').innerHTML = location.STAR_MAX_ALTITUDE().toFixed(3) + '&deg;';
 
-	now = new Date();
+	let now = new Date();
 	now.setMilliseconds(0);
 	let next = now.setSeconds(now.getSeconds() + (location.NEXT_STAR_RISE * 24 * 60 * 60));
 	next = new Date(next).toLocaleString();
-	let remain = HOURS_TO_TIME_STRING(location.NEXT_STAR_RISE * 24);
+	let remain = HOURS_TO_TIME_STRING(location.NEXT_STAR_RISE * 24, true, false);
 	document.getElementById('db-next-starrise').innerHTML = (location.NEXT_STAR_RISE * 24 * 60 * 60).toFixed(0);
 	document.getElementById('db-next-starrise-countdown').innerHTML = remain;
 	document.getElementById('db-next-starrise-date').innerHTML = next;
@@ -132,7 +127,7 @@ function update() {
 	now.setMilliseconds(0);
 	next = now.setSeconds(now.getSeconds() + (location.NEXT_NOON * 24 * 60 * 60));
 	next = new Date(next).toLocaleString();
-	remain = HOURS_TO_TIME_STRING(location.NEXT_NOON * 24);
+	remain = HOURS_TO_TIME_STRING(location.NEXT_NOON * 24, true, false);
 	document.getElementById('next-noon').innerHTML = (location.NEXT_NOON * 24 * 60 * 60).toFixed(0);
 	document.getElementById('next-noon-countdown').innerHTML = remain;
 	document.getElementById('next-noon-date').innerHTML = next;	
@@ -141,7 +136,7 @@ function update() {
 	now.setMilliseconds(0);
 	next = now.setSeconds(now.getSeconds() + (location.NEXT_STAR_SET * 24 * 60 * 60));
 	next = new Date(next).toLocaleString();
-	remain = HOURS_TO_TIME_STRING(location.NEXT_STAR_SET * 24);
+	remain = HOURS_TO_TIME_STRING(location.NEXT_STAR_SET * 24, true, false);
 	document.getElementById('db-next-starset').innerHTML = (location.NEXT_STAR_SET * 24 * 60 * 60).toFixed(0);
 	document.getElementById('db-next-starset-countdown').innerHTML = remain;
 	document.getElementById('db-next-starset-date').innerHTML = next;
@@ -159,7 +154,9 @@ function UNIVERSE_TIME(formatAsString = false) {
 	return (!formatAsString) ? universeTime : new Date(universeTime).toUTCString();
 }
 
-function HOURS_TO_TIME_STRING(hours, includeSeconds = true) {
+function HOURS_TO_TIME_STRING(hours, includeSeconds = true, limitTo24Hours = true) {
+	if (hours < 0) return '- NEGATIVE -';
+
 	let h = hours;
 	let m = ( h - Math.floor(h) ) * 60;
 	let s = ( m - Math.floor(m) ) * 60;
@@ -178,22 +175,42 @@ function HOURS_TO_TIME_STRING(hours, includeSeconds = true) {
 
 	h = Math.floor(h);
 
+	if (limitTo24Hours) { if (h > 24) h -= 24; }
+	
+	let ampm = '';
+	if (limitTo24Hours) {
+		if (!window.SETTING_24HR) {
+			ampm = ' ' + GET_AM_PM(h);
+			if (h >= 12 ) h -= 12;
+			if (h === 0) h = 12;
+		}
+	}
+
 	h = (h < 10) ? '0' + h : h;
 	m = (m < 10) ? '0' + m : m;
 	s = (s < 10) ? '0' + s : s;
 
-	return h + ':' + m + (includeSeconds ? ':' + s : '');
+	return h + ':' + m + (includeSeconds ? ':' + s : '') + ampm;
 }
 
 function DATE_TO_SHORT_TIME(date) {
 	let h = date.getHours();
 	let m = date.getMinutes();
 
+	let ampm = '';
+	if (!window.SETTING_24HR) {
+		ampm = ' ' + GET_AM_PM(h);
+		if (h >= 12) h -= 12;
+		if (h === 0) h = 12;
+	}
+
 	h = (h < 10) ? '0' + h : h;
 	m = (m < 10) ? '0' + m : m;
 
-	return h + ':' + m;
+	return h + ':' + m + ampm;
 }
+
+function GET_AM_PM(hour) { return (hour < 12) ? 'am' : 'pm'; }
 
 
 

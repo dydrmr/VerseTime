@@ -29,7 +29,7 @@ body {
 	top: 0;
 	left: 0;
 
-	/*opacity: 0;*/
+	opacity: 0;
 	pointer-events: none;
 }
 
@@ -274,7 +274,10 @@ body {
 }
 .BUTTON-set-location:hover {
 	cursor: pointer;
-	background-color: hsla(0, 100%, 100%, 0.3);
+	background-color: var(--theme-color); /*hsla(0, 100%, 100%, 0.3);*/
+}
+.BUTTON-set-location:active {
+	transform: scale(0.97);
 }
 
 
@@ -296,11 +299,18 @@ body {
 }
 
 #credits-window a {
+	color: var(--theme-color);
+	text-decoration: none;
+	transition: 0.2s ease-out;
+	border-bottom: 1px dashed var(--theme-color);
+}
+#credits-window a:hover {
 	color: white;
+	border: none;
 }
-#credits-window a:visited {
-	color: lightgray;
-}
+/*#credits-window a:visited {
+	color: var(--theme-color);
+}*/
 
 #BUTTON-close-credits {
 	position: absolute;
