@@ -15,7 +15,13 @@ function toggleSettingsWindow(forceState = null) {
 	document.getElementById('modal-settings').style.opacity = (showSettingsWindow ? 1 : 0);
 	document.getElementById('modal-settings').style.pointerEvents = (showSettingsWindow ? 'auto' : 'none');
 	document.getElementById('settings-window').style.transform = (showSettingsWindow ? 'scale(1)' : 'scale(0)');
-	document.getElementById('location-selection-input').focus();
+
+	if (showSettingsWindow) {
+		document.getElementById('location-selection-input').focus();
+	} else {
+		document.getElementById('location-selection-input').blur();
+	}
+	
 	// console.log('Settings window turned ' + (showSettingsWindow ? 'ON' : 'OFF'));
 }
 
