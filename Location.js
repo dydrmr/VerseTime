@@ -150,6 +150,32 @@ export default class Location {
 		return 86400 * percent;
 	}
 
+	get ILLUMINATION_STATUS() {
+		if (this.LOCAL_STAR_RISE_TIME.toString() === 'NaN') {
+			return (this.STAR_MAX_ALTITUDE() < 0) ? 'Perma-night' : 'Perma-day';
+
+		} else {
+			let t = this.LOCAL_TIME;
+			if (t > 86280) {
+				return 'Midnight';
+			} else if (t > this.LOCAL_STAR_SET_TIME * 86400 + 300) {
+				return 'Night';
+			} else if (t > this.LOCAL_STAR_SET_TIME * 86400 - 300) {
+				return 'Starset';
+			} else if (t > 43200 + 300) {
+				return 'Afternoon';
+			} else if (t > 43200 - 300) {
+				return 'Noon';
+			} else if (t > this.LOCAL_STAR_RISE_TIME * 86400 + 300) {
+				return 'Morning';
+			} else if (t > this.LOCAL_STAR_RISE_TIME * 86400 - 300) {
+				return 'Starrise';
+			} else {
+				return 'Night';
+			}
+		}
+	}
+
 	get NEXT_NOON() {
 		let angle = this.HOUR_ANGLE();
 		let rotation = this.PARENT.ANGULAR_ROTATION_RATE;

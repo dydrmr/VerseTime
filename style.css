@@ -161,7 +161,8 @@ body {
 }
 #next-rise-container:before {
 	content: '🠅';
-	font-size: 20px;
+	font-size: 30px;
+	padding-bottom: 10px;
 }
 
 #next-set-container {
@@ -169,7 +170,8 @@ body {
 }
 #next-set-container:before {
 	content: '🠇';
-	font-size: 20px;
+	font-size: 30px;
+	padding-bottom: 10px;
 }
 
 .riseset-label {
@@ -182,6 +184,21 @@ body {
 .riseset-time-label {
 	line-height: 100%;
 }
+
+
+
+#illumination-status {
+	position: absolute;
+	bottom: 20px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    font-size: 18px;
+    text-transform: uppercase;
+	text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.9);
+}
+
+
 
 
 
@@ -251,11 +268,9 @@ body {
 }
 
 .minimized {
-	/*transition: 1.2s ease-out;*/
 	transform: scale(0);
 }
 .maximized {
-	/*transition: 0.6s ease-out;*/
 	transform: scale(1);
 }
 

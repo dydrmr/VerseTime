@@ -36,27 +36,67 @@ function update() {
 
 
 	// RISE/SET COUNTDOWNS
-	setText('local-rise-time', HOURS_TO_TIME_STRING(location.LOCAL_STAR_RISE_TIME * 24, false, true));
-	setText('local-set-time', HOURS_TO_TIME_STRING(location.LOCAL_STAR_SET_TIME * 24, false, true));
-
 	let nextRise = location.NEXT_STAR_RISE;
+	if (nextRise.toString() === 'NaN') {
+		if (location.STAR_MAX_ALTITUDE < 0) {
+			setText('next-rise-countdown', 'PERMA-DAY');
+		} else {
+			setText('next-rise-countdown', 'PERMA-NIGHT');
+		}
+	} else {
+		nextRise = (location.NEXT_STAR_RISE * 86400 < 120) ? '- NOW -' : HOURS_TO_TIME_STRING(nextRise * 24, true, false);
+		setText('next-rise-countdown', nextRise);
+	}
+
 	let nextSet = location.NEXT_STAR_SET;
-	nextRise = (location.NEXT_STAR_RISE * 86400 < 120) ? '- NOW -' : HOURS_TO_TIME_STRING(nextRise * 24, true, false);
-	nextSet = (location.NEXT_STAR_SET * 86400 < 120) ? '- NOW -' : HOURS_TO_TIME_STRING(nextSet * 24, true, false);
-	setText('next-rise-countdown', nextRise);
-	setText('next-set-countdown', nextSet);
+	if (nextSet.toString() === 'NaN') {
+		if (location.STAR_MAX_ALTITUDE < 0) {
+			setText('next-set-countdown', 'PERMA-DAY');
+		} else {
+			setText('next-set-countdown', 'PERMA-NIGHT');
+		}
+	} else {
+		nextSet = (location.NEXT_STAR_SET * 86400 < 120) ? '- NOW -' : HOURS_TO_TIME_STRING(nextSet * 24, true, false);
+		setText('next-set-countdown', nextSet);
+	}
+
+
+	// RISE/SET LOCAL TIMES
+	if (nextRise.toString() === 'NaN') {
+		setText('local-rise-time', '---');
+	} else {
+		setText('local-rise-time', HOURS_TO_TIME_STRING(location.LOCAL_STAR_RISE_TIME * 24, false, true));
+	}
+
+	if (nextSet.toString() === 'NaN') {
+		setText('local-set-time', '---');
+	} else {
+		setText('local-set-time', HOURS_TO_TIME_STRING(location.LOCAL_STAR_SET_TIME * 24, false, true));
+	}
 
 
 	// RISE/SET REAL TIMES
 	let now = new Date();
-	let rise = now.setSeconds(now.getSeconds() + (location.NEXT_STAR_RISE * 86400));
-	if (new Date(rise).getSeconds() === 59) rise = new Date(rise + 1000);
-	setText('next-rise-time', DATE_TO_SHORT_TIME(new Date(rise)));
+	if (nextRise.toString() === 'NaN') {
+		setText('next-rise-time', '---');
+	} else {
+		let rise = now.setSeconds(now.getSeconds() + (location.NEXT_STAR_RISE * 86400));
+		if (new Date(rise).getSeconds() === 59) rise = new Date(rise + 1000);
+		setText('next-rise-time', DATE_TO_SHORT_TIME(new Date(rise)));
+	}
 
 	now = new Date();
-	let set = now.setSeconds(now.getSeconds() + (location.NEXT_STAR_SET * 86400));
-	if (new Date(set).getSeconds() === 59) set = new Date(set.getTime() + 1000);
-	setText('next-set-time', DATE_TO_SHORT_TIME(new Date(set)));
+	if (nextSet.toString() === 'NaN') {
+		setText('next-set-time', '---');
+	} else {
+		let set = now.setSeconds(now.getSeconds() + (location.NEXT_STAR_SET * 86400));
+		if (new Date(set).getSeconds() === 59) set = new Date(set.getTime() + 1000);
+		setText('next-set-time', DATE_TO_SHORT_TIME(new Date(set)));
+	}
+
+
+	// ILLUMINATION STATUS
+	document.getElementById('illumination-status').innerHTML = location.ILLUMINATION_STATUS;
 
 
 	if (window.DEBUG_MODE) updateDebugUI();	
@@ -117,6 +157,7 @@ function updateDebugUI() {
 	document.getElementById('daylight-percent').innerHTML = HOURS_TO_TIME_STRING((body.ROTATION_RATE) - (location.LENGTH_OF_DAYLIGHT *24), true, false);
 	document.getElementById('starrise-time').innerHTML = HOURS_TO_TIME_STRING(location.LOCAL_STAR_RISE_TIME*24);
 	document.getElementById('starset-time').innerHTML = HOURS_TO_TIME_STRING(location.LOCAL_STAR_SET_TIME*24);
+	document.getElementById('db-illumination-status').innerHTML = location.ILLUMINATION_STATUS;
 	document.getElementById('hour-angle-location').innerHTML = location.HOUR_ANGLE().toFixed(3) + '&deg;';
 	document.getElementById('star-azimuth').innerHTML = location.STAR_AZIMUTH().toFixed(3) + '&deg;';
 	document.getElementById('star-altitude').innerHTML = location.STAR_ALTITUDE().toFixed(3) + '&deg;';
@@ -342,6 +383,34 @@ const CRUSADER = new CelestialBody(
 	},
 )
 
+const CELLIN = new CelestialBody(
+	'Cellin',
+	'Moon',
+	CRUSADER,
+	STANTON,
+	{
+		'x' : -18987611.119,
+		'y' : -2709009.661,
+		'z' : 0.000
+	},
+	{
+		'w' : 1.00000000,
+		'x' : 0.00000000,
+		'y' : 0.00000000,
+		'z' : 0.00000000
+	},
+	260.000,
+	4.4499998,
+	253.46701,
+	240.000,
+	50863.260,
+	{
+		'r' : 113,
+		'g' : 127,
+		'b' : 144
+	}
+)
+
 const DAYMAR = new CelestialBody(
 	'Daymar',
 	'Moon',
@@ -509,6 +578,36 @@ const ABERDEEN = new CelestialBody(
 		'b' : 88
 	}
 )
+
+const ARIAL = new CelestialBody(
+	'Arial',
+	'Moon',
+	HURSTON,
+	STANTON,
+	{
+		'x' : 12892673.309,
+		'y' : -31476.129,
+		'z' : 0.000
+	},
+	{
+		'w' : 1.00000000,
+		'x' : 0.00000000,
+		'y' : 0.00000000,
+		'z' : 0.00000000
+	},
+	344.500,
+	5.5100002,
+	38.40291,
+	323.292,
+	52658.856,
+	{
+		'r' : 214,
+		'g' : 142,
+		'b' : 34
+	}
+)
+
+
 
 // LOCATIONS
 const ARCCORP_MINING_141 = new Location(
@@ -761,6 +860,286 @@ const RAVENS_ROOST = new Location(
 	},
 	null,
 	'https://starcitizen.tools/images/thumb/0/0a/Calliope_Raven%27s_Roost_3.13.0_16.04.2021_14_20_09.png/800px-Calliope_Raven%27s_Roost_3.13.0_16.04.2021_14_20_09.png'
+)
+
+const HDMS_ANDERSON = new Location(
+	'HDMS Anderson',
+	'Outpost',
+	ABERDEEN,
+	STANTON,
+	{
+		'x' : -26.950,
+		'y' : 180.221,
+		'z' : 206.879
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/d/dc/Platinum_Bay_HDMS-Anderson.jpg/800px-Platinum_Bay_HDMS-Anderson.jpg'
+)
+
+const HDMS_NORGAARD = new Location(
+	'HDMS Norgaard',
+	'Outpost',
+	ABERDEEN,
+	STANTON,
+	{
+		'x' : -141.572,
+		'y' : 195.318,
+		'z' : 132.098
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/b/bc/Platinum_Bay_HDMS-Norgaard.jpg/800px-Platinum_Bay_HDMS-Norgaard.jpg'
+)
+
+const RAYARI_ANVIK = new Location(
+	'Rayari Anvik Research Outpost',
+	'Outpost',
+	CALLIOPE,
+	STANTON,
+	{
+		'x' : -184.632,
+		'y' : -127.794,
+		'z' : 84.724
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/b/b5/Calliope_Rayari_Anvik_3.13.0_16.04.2021_14_25_11.png/800px-Calliope_Rayari_Anvik_3.13.0_16.04.2021_14_25_11.png'
+)
+
+const RAYARI_KALTAG = new Location(
+	'Rayari Kaltag Research Outpost',
+	'Outpost',
+	CALLIOPE,
+	STANTON,
+	{
+		'x' : 205.267,
+		'y' : 6.261,
+		'z' : -124.485
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/0/0c/Calliope_Kaltag_3.13.0_15.04.2021_11_03_26.png/800px-Calliope_Kaltag_3.13.0_15.04.2021_11_03_26.png'
+)
+
+const SHUBIN_MINING_SMCA6 = new Location(
+	'Shubin Mining Facility SMCa-6',
+	'Outpost',
+	CALLIOPE,
+	STANTON,
+	{
+		'x' : 50.066,
+		'y' : 233.437,
+		'z' : 24.936
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/8/85/Calliope_SMCa-6_3.13.0_16.04.2021_12_36_54.png/800px-Calliope_SMCa-6_3.13.0_16.04.2021_12_36_54.png'
+)
+
+const SHUBIN_MINING_SMCA8 = new Location(
+	'Shubin Mining Facility SMCa-8',
+	'Outpost',
+	CALLIOPE,
+	STANTON,
+	{
+		'x' : 160.166,
+		'y' : 168.987,
+		'z' : -58.400
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/6/60/Calliope_SMCa-8_3.13.0_16.04.2021_12_40_34.png/800px-Calliope_SMCa-8_3.13.0_16.04.2021_12_40_34.png'
+)
+
+const HUMBOLDT_MINES = new Location(
+	'Humboldt Mines',
+	'Outpost',
+	LYRIA,
+	STANTON,
+	{
+		'x' : 5.311,
+		'y' : -193.819,
+		'z' : -112.545
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/9/98/Humboldt_Mines.png/800px-Humboldt_Mines.png'
+)
+
+const LOVERIDGE_MINERAL_RESERVE = new Location(
+	'Loveridge Mineral Reserve',
+	'Outpost',
+	LYRIA,
+	STANTON,
+	{
+		'x' : 181.800,
+		'y' : 128.166,
+		'z' : 24.940
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/e/e9/Loveridge_Mineral_Reserve2.png/800px-Loveridge_Mineral_Reserve2.png'
+)
+
+const SHUBIN_MINING_SAL2 = new Location(
+	'Shubin Mining Facility SAL-2',
+	'Outpost',
+	LYRIA,
+	STANTON,
+	{
+		'x' : 150.636,
+		'y' : -53.619,
+		'z' : 156.668
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/7/70/Shubin_Mining_Facility_SAL-2.png/800px-Shubin_Mining_Facility_SAL-2.png'
+)
+
+const SHUBIN_MINING_SAL5 = new Location(
+	'Shubin Mining Facility SAL-5',
+	'Outpost',
+	LYRIA,
+	STANTON,
+	{
+		'x' : 98.070,
+		'y' : 78.361,
+		'z' : 185.821
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/4/41/Shubin_Mining_Facility_SAL-5_Daytime.jpg/800px-Shubin_Mining_Facility_SAL-5_Daytime.jpg'
+)
+
+const THE_ORPHANAGE = new Location(
+	'The Orphanage',
+	'Outpost',
+	LYRIA,
+	STANTON,
+	{
+		'x' : -91.990,
+		'y' : 92.484,
+		'z' : 182.182
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/e/e7/Lyria_The-Orphanage_Day.jpg/800px-Lyria_The-Orphanage_Day.jpg'
+)
+
+const HDMS_BEZDEK = new Location(
+	'HDMS Bezdek',
+	'Outpost',
+	ARIAL,
+	STANTON,
+	{
+		'x' : 26.735,
+		'y' : -234.698,
+		'z' : 251.505
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/9/9b/Arial_HDMS-Bezdek_Day.jpg/800px-Arial_HDMS-Bezdek_Day.jpg'
+)
+
+const HDMS_LATHAN = new Location(
+	'HDMS Lathan',
+	'Outpost',
+	ARIAL,
+	STANTON,
+	{
+		'x' : 339.193,
+		'y' : 33.686,
+		'z' : 55.843
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/8/8d/HDMS-Lathan2.png/800px-HDMS-Lathan2.png'
+)
+
+const GALLETE_FAMILY_FARMS = new Location(
+	'Gallete Family Farms',
+	'Outpost',
+	CELLIN,
+	STANTON,
+	{
+		'x' : -89.471,
+		'y' : 106.717,
+		'z' : 220.041
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/0/0e/Cellin_Gallete-Family-Farms_Day.jpg/800px-Cellin_Gallete-Family-Farms_Day.jpg'
+)
+
+const HICKES_RESEARCH = new Location(
+	'Hickes Research Outpost',
+	'Outpost',
+	CELLIN,
+	STANTON,
+	{
+		'x' : 3.270,
+		'y' : 13.091,
+		'z' : -260.316
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/1/1b/Cellin_Hickes-Research-Outpost_Twilight_Alpha-3.10.jpg/800px-Cellin_Hickes-Research-Outpost_Twilight_Alpha-3.10.jpg'
+)
+
+const TERRA_MILLS_HYDROFARM = new Location(
+	'Terra Mills HydroFarm',
+	'Outpost',
+	CELLIN,
+	STANTON,
+	{
+		'x' : 100.137,
+		'y' : 27.701,
+		'z' : 239.024
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/0/05/Terra_Mills_HydroFarm.png/800px-Terra_Mills_HydroFarm.png'
+)
+
+const TRAM_AND_MYERS_MINING = new Location(
+	'Tram & Myers Mining',
+	'Outpost',
+	CELLIN,
+	STANTON,
+	{
+		'x' : -241.164,
+		'y' : 2.396,
+		'z' : -98.700
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/5/55/Cellin_Tram-and-Myers_Day.jpg/800px-Cellin_Tram-and-Myers_Day.jpg'
+)
+
+const KUDRE_ORE = new Location(
+	'Kudre Ore',
+	'Outpost',
+	DAYMAR,
+	STANTON,
+	{
+		'x' : 146.617,
+		'y' : -177.093,
+		'z' : -184.862
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/e/e3/KudreOre_Front.jpg/800px-KudreOre_Front.jpg'
+)
+
+const BRIOS_BREAKER_YARD = new Location(
+	'Brio\'s Breaker Yard',
+	'Scrapyard',
+	DAYMAR,
+	STANTON,
+	{
+		'x' : -176.683,
+		'y' : -161.257,
+		'z' : 173.852
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/d/d0/Brio_Breaker_Yard.png/800px-Brio_Breaker_Yard.png'
+)
+
+const RECLAMATION_AND_DISPOSAL_ORINTH = new Location(
+	'Reclamation & Disposal Orinth',
+	'Scrapyard',
+	HURSTON,
+	STANTON,
+	{
+		'x' : 1.141,
+		'y' : -794.276,
+		'z' : 607.652
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/e/ed/Reclamation_%26_Disposal_Orinth3.png/800px-Reclamation_%26_Disposal_Orinth3.png'
 )
 
 // INIT
