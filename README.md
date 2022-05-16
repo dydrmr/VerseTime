@@ -1,5 +1,6 @@
 # VerseTime
 In-game times for Star Citizen landing zones.
+Visit [this link](https://dydrmr.github.io/VerseTime/) to check it out.
 
 ## Interface
 Your selected options are saved when you change them.
