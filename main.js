@@ -50,7 +50,7 @@ function update() {
 	// RISE/SET REAL TIMES
 	let now = new Date();
 	let rise = now.setSeconds(now.getSeconds() + (location.NEXT_STAR_RISE * 86400));
-	if (new Date(rise).getSeconds() === 59) rise = new Date(rise.getTime() + 1000);
+	if (new Date(rise).getSeconds() === 59) rise = new Date(rise + 1000);
 	setText('next-rise-time', DATE_TO_SHORT_TIME(new Date(rise)));
 
 	now = new Date();
@@ -194,15 +194,12 @@ function HOURS_TO_TIME_STRING(hours, includeSeconds = true, limitTo24Hours = tru
 
 	h = Math.floor(h);
 
-	if (limitTo24Hours) { if (h > 24) h -= 24; }
+	if (limitTo24Hours && h > 24) h -= 24;
 	
 	let ampm = '';
-	if (limitTo24Hours) {
-		if (!window.SETTING_24HR) {
-			ampm = ' ' + GET_AM_PM(h);
-			if (h >= 12 ) h -= 12;
-			if (h === 0) h = 12;
-		}
+	if (limitTo24Hours && !window.SETTING_24HR) {
+		ampm = ' ' + GET_AM_PM(h);
+		h = CONVERT_24H_TO_12H(h);
 	}
 
 	h = (h < 10) ? '0' + h : h;
@@ -219,8 +216,7 @@ function DATE_TO_SHORT_TIME(date) {
 	let ampm = '';
 	if (!window.SETTING_24HR) {
 		ampm = ' ' + GET_AM_PM(h);
-		if (h >= 12) h -= 12;
-		if (h === 0) h = 12;
+		h = CONVERT_24H_TO_12H(h);
 	}
 
 	h = (h < 10) ? '0' + h : h;
@@ -230,6 +226,11 @@ function DATE_TO_SHORT_TIME(date) {
 }
 
 function GET_AM_PM(hour) { return (hour < 12) ? 'am' : 'pm'; }
+function CONVERT_24H_TO_12H(hour) {
+	if (hour > 12) hour -= 12;
+	if (hour === 0) hour = 12;
+	return hour;
+}
 
 
 // DATABASE
@@ -282,6 +283,34 @@ const ARCCORP = new CelestialBody(
 		'r' : 172,
 		'g' : 102,
 		'b' : 90
+	}
+)
+
+const LYRIA = new CelestialBody(
+	'Lyria',
+	'Moon',
+	ARCCORP,
+	STANTON,
+	{
+		'x' : 18703607.172,
+		'y' : -22121650.134,
+		'z' : 0.000
+	},
+	{
+		'w' : 1.00000000,
+		'x' : 0.00000000,
+		'y' : 0.00000000,
+		'z' : 0.00000000
+	},
+	223.000,
+	6.4299998,
+	359.36575,
+	14.631,
+	119827.896,
+	{
+		'r' : 112,
+		'g' : 142,
+		'b' : 178
 	}
 )
 
@@ -394,6 +423,34 @@ const MICROTECH = new CelestialBody(
 		'r' : 167,
 		'g' : 184,
 		'b' : 193
+	}
+)
+
+const CALLIOPE = new CelestialBody(
+	'Calliope',
+	'Moon',
+	MICROTECH,
+	STANTON,
+	{
+		'x' : 22398369.308,
+		'y' : 37168840.679,
+		'z' : 0.000
+	},
+	{
+		'w' : 1.00000000,
+		'x' : 0.00000000,
+		'y' : 0.00000000,
+		'z' : 0.00000000
+	},
+	240.000,
+	4.5900002,
+	212.32677,
+	194.774,
+	65823.064,
+	{
+		'r' : 124,
+		'g' : 132,
+		'b' : 148
 	}
 )
 
@@ -662,6 +719,48 @@ const KLESCHER_ABERDEEN = new Location(
 	},
 	null,
 	'https://starcitizen.tools/images/thumb/c/cc/Klescher_Rehabilitation_Facility_Aberdeen.png/800px-Klescher_Rehabilitation_Facility_Aberdeen.png'
+)
+
+const JUMPTOWN = new Location(
+	'Jumptown',
+	'Outpost',
+	YELA,
+	STANTON,
+	{
+		'x' : 268.025,
+		'y' : 143.784,
+		'z' : 74.777
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/9/9a/Jumptown-1.jpg/800px-Jumptown-1.jpg'
+)
+
+const PARADISE_COVE = new Location(
+	'Paradise Cove',
+	'Outpost',
+	LYRIA,
+	STANTON,
+	{
+		'x' : -10.654,
+		'y' : +147.439,
+		'z' : -168.175
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/2/2b/Lyria_Paradise-Cove_Day.jpg/800px-Lyria_Paradise-Cove_Day.jpg'
+)
+
+const RAVENS_ROOST = new Location(
+	'Raven\'s Roost',
+	'Outpost',
+	CALLIOPE,
+	STANTON,
+	{
+		'x' : 33.908,
+		'y' : -106.400,
+		'z' : -212.484
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/0/0a/Calliope_Raven%27s_Roost_3.13.0_16.04.2021_14_20_09.png/800px-Calliope_Raven%27s_Roost_3.13.0_16.04.2021_14_20_09.png'
 )
 
 // INIT

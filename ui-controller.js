@@ -1,5 +1,5 @@
 let showSettingsWindow = false;
-let showCretidsWindow = false;
+let showCreditsWindow = false;
 
 document.getElementById('BUTTON-open-settings').addEventListener('click', function(e) { toggleSettingsWindow(); });
 document.getElementById('BUTTON-close-settings').addEventListener('click', function(e) { toggleSettingsWindow(); });
@@ -14,6 +14,8 @@ function toggleSettingsWindow(forceState = null) {
 
 	document.getElementById('modal-settings').style.opacity = (showSettingsWindow ? 1 : 0);
 	document.getElementById('modal-settings').style.pointerEvents = (showSettingsWindow ? 'auto' : 'none');
+	document.getElementById('settings-window').style.transform = (showSettingsWindow ? 'scale(1)' : 'scale(0)');
+	document.getElementById('location-selection-input').focus();
 	// console.log('Settings window turned ' + (showSettingsWindow ? 'ON' : 'OFF'));
 }
 
@@ -22,9 +24,9 @@ document.getElementById('BUTTON-toggle-credits-window').addEventListener('click'
 document.getElementById('BUTTON-close-credits').addEventListener('click', function(e) { toggleCreditsWindow(); });
 
 function toggleCreditsWindow() {
-	showCretidsWindow = !showCretidsWindow;
-	document.getElementById('modal-credits').style.opacity = (showCretidsWindow ? 1 : 0);
-	document.getElementById('modal-credits').style.pointerEvents = (showCretidsWindow ? 'auto' : 'none');
+	showCreditsWindow = !showCreditsWindow;
+	document.getElementById('modal-credits').style.opacity = (showCreditsWindow ? 1 : 0);
+	document.getElementById('modal-credits').style.pointerEvents = (showCreditsWindow ? 'auto' : 'none');
 }
 
 
@@ -65,9 +67,9 @@ function populateLocationGrid() {
 
 	for (let l of window.LOCATIONS) {
 		let el = document.createElement('div');
-		el.innerHTML = l.NAME;
+		el.innerHTML = l.NAME + '<br><span style="font-weight:normal;font-size:70%">' + l.PARENT.NAME + '</span>';
 		el.className = 'BUTTON-set-location';
-		el.addEventListener('click', function(e) { setLocation(el.innerText); });
+		el.addEventListener('click', function(e) { setLocation(l.NAME); });
 		container.appendChild(el);
 	}
 }
