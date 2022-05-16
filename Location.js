@@ -156,7 +156,7 @@ export default class Location {
 
 		} else {
 			let t = this.LOCAL_TIME;
-			if (t > 86280) {
+			if (t > 86400 - 300) {
 				return 'Midnight';
 			} else if (t > this.LOCAL_STAR_SET_TIME * 86400 + 300) {
 				return 'Night';
@@ -170,8 +170,10 @@ export default class Location {
 				return 'Morning';
 			} else if (t > this.LOCAL_STAR_RISE_TIME * 86400 - 300) {
 				return 'Starrise';
-			} else {
+			} else if (t > 300) {
 				return 'Night';
+			} else {
+				return 'Midnight';
 			}
 		}
 	}
