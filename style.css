@@ -284,7 +284,7 @@ body {
 #location-selection-input {
 	width: 80%;
 	display: block;
-	margin: 15px auto 20px;
+	margin: 15px auto 0px;
 	padding: 8px 12px;
 	color: var(--theme-color);
 	background-color: var(--theme-color-dark);
@@ -294,14 +294,67 @@ body {
 	font-size: 18px;
 	text-align: center;
 }
+#location-selection-input:focus {
+	outline: none;
+}
+
+#available-locations-container {
+	position: relative;
+}
+
+
+.fade-top, .fade-bottom {
+	height: 40px;
+	right: 0px;
+	left: 0px;
+	z-index: 2;
+	position: absolute;
+	background: var(--theme-color-dark);
+	pointer-events: none;
+}
+.fade-top {
+	top: 0;
+	background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, var(--theme-color-dark) 70%);
+	/*background: -webkit-gradient(linear, left bottom, left top, color-stop(0%, var(--theme-color-dark)), color-stop(70%, var(--theme-color-dark)));*/
+	background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%, var(--theme-color-dark) 70%);
+	background: -o-linear-gradient(top,  rgba(255,255,255,0) 0%, var(--theme-color-dark) 70%);
+	background: -ms-linear-gradient(top,  rgba(255,255,255,0) 0%, var(--theme-color-dark) 70%);
+	background: linear-gradient(to top,  rgba(255,255,255,0) 0%, var(--theme-color-dark) 70%);
+}
+
+.fade-bottom {
+	bottom: 0px;
+	background: -moz-linear-gradient(bottom,  rgba(255,255,255,0) 0%, var(--theme-color-dark) 70%);
+	/*background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, var(--theme-color-dark)), color-stop(70%, var(--theme-color-dark)));*/
+	background: -webkit-linear-gradient(bottom,  rgba(255,255,255,0) 0%, var(--theme-color-dark) 70%);
+	background: -o-linear-gradient(bottom,  rgba(255,255,255,0) 0%, var(--theme-color-dark) 70%);
+	background: -ms-linear-gradient(bottom,  rgba(255,255,255,0) 0%, var(--theme-color-dark) 70%);
+	background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%, var(--theme-color-dark) 70%);
+}
 
 #available-locations-grid {
+	padding: 35px 0px;
 	margin: auto;
+	max-height: 50vh;
+	width: 70%;
+	overflow-y: scroll;
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
+	/*grid-template-columns: repeat(3, 1fr);*/
+	grid-template-columns: 1fr;
 	grid-column-gap: 10px;
 	grid-row-gap: 10px;
+
+	position: relative;
 }
+
+.hide-scroll {
+	-ms-overflow-style: none;  /* IE and Edge */
+	scrollbar-width: none;  /* Firefox */
+}
+.hide-scroll::-webkit-scrollbar {
+	display: none;
+}
+
 
 
 .BUTTON-set-location {
@@ -375,4 +428,31 @@ body {
 	cursor: pointer;
 	background-color: hsl(0, 100%, 50%);
 	transform: scale(1.05);
+}
+
+
+
+
+
+
+@media only screen and (max-width: 600px) {
+	.selected-location-time {
+		font-size: 4rem;
+	}
+
+	.selected-location-label {
+		font-size: 2rem;
+	}
+
+	.riseset-container {
+		margin: 15px;
+	}
+
+	#next-rise-container {
+		left: 10px;
+	}
+
+	#next-set-container {
+		right: 10px;
+	}
 }

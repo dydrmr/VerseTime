@@ -425,6 +425,34 @@ const HURSTON = new CelestialBody(
 	}
 )
 
+const ABERDEEN = new CelestialBody(
+	'Aberdeen',
+	'Moon',
+	HURSTON,
+	STANTON,
+	{
+		'x' : 12905757.636,
+		'y' : 40955.551,
+		'z' : 0.000
+	},
+	{
+		'w' : 1.00000000,
+		'x' : 0.00000000,
+		'y' : 0.00000000,
+		'z' : 0.00000000
+	},
+	274.000,
+	2.5999999,
+	116.67681,
+	36.524,
+	68815.024,
+	{
+		'r' : 219,
+		'g' : 180,
+		'b' : 88
+	}
+)
+
 // LOCATIONS
 const ARCCORP_MINING_141 = new Location(
 	'ArcCorp Mining Area 141',
@@ -580,6 +608,61 @@ const SHUBIN_MINING_SCD1 = new Location(
 	'https://starcitizen.tools/images/thumb/4/45/Daymar_Shubin-Mining-Facility-SCD1_Day-1.jpg/800px-Daymar_Shubin-Mining-Facility-SCD1_Day-1.jpg'
 )
 
+const BOUNTIFUL_HARVEST_HYDROPONICS = new Location(
+	'Bountiful Harvest Hydroponics',
+	'Outpost',
+	DAYMAR,
+	STANTON,
+	{
+		'x' : 57.552,
+		'y' : -92.267,
+		'z' : -274.246
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/f/f0/Bountiful_Harvest_Hydroponics_2.jpg/800px-Bountiful_Harvest_Hydroponics_2.jpg'
+)
+
+const RAYARI_DELTANA = new Location(
+	'Rayari Deltana Research Outpost',
+	'Outpost',
+	MICROTECH,
+	STANTON,
+	{
+		'x' : -693.910,
+		'y' : -648.299,
+		'z' : +316.681
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/9/90/Rayari_Deltana_Research_Outpost_3.9.jpg/800px-Rayari_Deltana_Research_Outpost_3.9.jpg'
+)
+
+const HDMS_OPAREI = new Location(
+	'HDMS Oparei',
+	'Outpost',
+	HURSTON,
+	STANTON,
+	{
+		'x' : -556.126,
+		'y' : -72.591,
+		'z' : -828.071
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/4/40/Hurston_HDMS-Oparei_SC-Alpha-3.10.jpg/800px-Hurston_HDMS-Oparei_SC-Alpha-3.10.jpg'
+)
+
+const KLESCHER_ABERDEEN = new Location(
+	'Klescher Rehabilitation Facility',
+	'Prison',
+	ABERDEEN,
+	STANTON,
+	{
+		'x' : 44.975,
+		'y' : 221.563,
+		'z' : -156.583
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/c/cc/Klescher_Rehabilitation_Facility_Aberdeen.png/800px-Klescher_Rehabilitation_Facility_Aberdeen.png'
+)
 
 // INIT
 populateLocationGrid();

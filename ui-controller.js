@@ -61,6 +61,8 @@ function setLocation(locationName) {
 function populateLocationGrid() {
 	let container = document.getElementById('available-locations-grid');
 
+	LOCATIONS.sort((a, b) => a.NAME.localeCompare(b.NAME));
+
 	for (let l of window.LOCATIONS) {
 		let el = document.createElement('div');
 		el.innerHTML = l.NAME;
