@@ -15,9 +15,12 @@ body {
 	overflow: hidden;
 }
 
-#testing {
+#detailed-info {
 	font-size: 70%;
 	color: darkorange;
+
+	display: grid;
+	grid-row-gap: 10px;
 
 	margin: 15px;
 	padding: 15px;
@@ -32,6 +35,35 @@ body {
 	opacity: 0;
 	pointer-events: none;
 }
+
+.detailed-info-group h3 {
+	border-top: 1px solid darkorange;
+	background-color: darkorange;
+	color: black;
+	font-weight: 700;
+	font-size: 12px;
+	line-height: 100%;
+	text-transform: uppercase;
+	text-align: center;
+	padding: 0px 5px 2px;
+	margin-bottom: 1px;
+}
+
+.info-group-table {
+	display: grid;
+	grid-template-columns: auto auto;
+	grid-column-gap: 10px;
+}
+.info-group-label {
+	font-weight: 200;
+	text-transform: uppercase;
+	text-align: right;
+}
+.info-group-data {
+	font-weight: 500;
+}
+
+
 
 #time-bar {
 	margin-top: 1rem;
@@ -100,6 +132,7 @@ body {
 	font-weight: 700;
 	text-align: center;
 	text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.4);
+	text-transform: uppercase;
 	user-select: none;
 }
 .selected-location-label {
@@ -189,7 +222,7 @@ body {
 
 #illumination-status {
 	position: absolute;
-	bottom: 40px;
+	bottom: 20px;
     left: 50%;
     transform: translate(-50%, -50%);
 
@@ -471,10 +504,7 @@ body {
 		margin: 20px;
 		font-size: 80%;
 	}
-
-	#next-rise-container {
-	}
-
-	#next-set-container {
+	#illumination-status {
+		bottom: 5px;
 	}
 }

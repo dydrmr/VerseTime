@@ -29,7 +29,11 @@ function update() {
 
 
 	// MAIN LOCATION INFO
-	setText('local-time', HOURS_TO_TIME_STRING(location.LOCAL_TIME/60/60, false));
+	if (location.LOCAL_TIME.toString() === 'NaN') {
+		setText('local-time', location.ILLUMINATION_STATUS);
+	} else {
+		setText('local-time', HOURS_TO_TIME_STRING(location.LOCAL_TIME/60/60, false));
+	}
 	setText('location-name', location.NAME);
 	setText('location-body-name', location.PARENT.NAME);
 	// setText('location-body-type', location.PARENT.TYPE);
@@ -38,11 +42,7 @@ function update() {
 	// RISE/SET COUNTDOWNS
 	let nextRise = location.NEXT_STAR_RISE;
 	if (nextRise.toString() === 'NaN') {
-		if (location.STAR_MAX_ALTITUDE < 0) {
-			setText('next-rise-countdown', 'PERMA-DAY');
-		} else {
-			setText('next-rise-countdown', 'PERMA-NIGHT');
-		}
+		setText('next-rise-countdown', '---');
 	} else {
 		nextRise = (location.NEXT_STAR_RISE * 86400 < 120) ? '- NOW -' : HOURS_TO_TIME_STRING(nextRise * 24, true, false);
 		setText('next-rise-countdown', nextRise);
@@ -50,11 +50,7 @@ function update() {
 
 	let nextSet = location.NEXT_STAR_SET;
 	if (nextSet.toString() === 'NaN') {
-		if (location.STAR_MAX_ALTITUDE < 0) {
-			setText('next-set-countdown', 'PERMA-DAY');
-		} else {
-			setText('next-set-countdown', 'PERMA-NIGHT');
-		}
+		setText('next-set-countdown', '---');
 	} else {
 		nextSet = (location.NEXT_STAR_SET * 86400 < 120) ? '- NOW -' : HOURS_TO_TIME_STRING(nextSet * 24, true, false);
 		setText('next-set-countdown', nextSet);
@@ -103,92 +99,90 @@ function update() {
 }
 
 function updateDebugUI() {
-	let location = window.ACTIVE_LOCATION;
-	let body = window.ACTIVE_LOCATION ? window.ACTIVE_LOCATION.PARENT : null;
+	let loc = window.ACTIVE_LOCATION;
+	let bod = window.ACTIVE_LOCATION ? window.ACTIVE_LOCATION.PARENT : null;
 
-	//UNIX TIME
+	// CLOCKS
 	let unix = Math.floor(REAL_TIME() / 1000);
-	let fragments = unix.toString().split('').reverse();
-	let newFragments = Array();
-	fragments.forEach((element, index) => {
-		if (index != 0 && index % 3 === 0) { newFragments.push('&thinsp;'); }
-		newFragments.push(element);
-	});
-	let unixWithSpaces = newFragments.reverse().join('');
-	document.getElementById('unix-time').innerHTML = 'UNIX time: ' + unixWithSpaces;
+	setText('db-unix-time', unix.toLocaleString());
+	setText('db-gmt-time', new Date().toUTCString());
+	setText('db-universe-time', UNIVERSE_TIME(true).replace('GMT', 'SET'));
 
 	//CELESTIAL BODY
-	if (body) {
-		document.getElementById('body-name').innerHTML = body.NAME;
-		document.getElementById('day-length').innerHTML = (body.ROTATION_RATE*60*60).toFixed(0);
-		document.getElementById('day-length-readable').innerHTML = HOURS_TO_TIME_STRING(body.ROTATION_RATE);
-		document.getElementById('current-cycle').innerHTML = body.CURRENT_CYCLE().toFixed(5);
-		document.getElementById('hour-angle').innerHTML = body.HOUR_ANGLE().toFixed(3);
-		document.getElementById('declination').innerHTML = body.DECLINATION(body.PARENT_STAR).toFixed(3);
-		document.getElementById('meridian').innerHTML = body.MERIDIAN().toFixed(3);
-		document.getElementById('noon-longitude').innerHTML = body.LONGITUDE().toFixed(3);
+	if (bod) {
+		setText('body-name', bod.NAME);
+		setText('body-type', bod.TYPE);
+		setText('body-system', bod.PARENT_STAR.NAME);
+		setText('body-parent-name', bod.PARENT.NAME);
+		setText('day-length', (bod.ROTATION_RATE*60*60).toLocaleString());
+		setText('day-length-readable', HOURS_TO_TIME_STRING(bod.ROTATION_RATE));
+		setText('current-cycle', ROUND(bod.CURRENT_CYCLE(), 3).toLocaleString());
+		setText('hour-angle', bod.HOUR_ANGLE().toFixed(3));
+		setText('declination', bod.DECLINATION(bod.PARENT_STAR).toFixed(3));
+		setText('meridian', bod.MERIDIAN().toFixed(3));
+		setText('noon-longitude', bod.LONGITUDE().toFixed(3));
 	}
 
 	//LOCATION
-	document.getElementById('db-local-name').innerHTML = location.NAME;
-	document.getElementById('db-local-time').innerHTML = HOURS_TO_TIME_STRING(location.LOCAL_TIME/60/60);
+	setText('db-local-name', loc.NAME);
+	setText('db-local-time', HOURS_TO_TIME_STRING(loc.LOCAL_TIME/60/60));
 
-	let latitude = location.LATITUDE.toFixed(3);
+	let latitude = loc.LATITUDE.toFixed(3);
 	if (parseFloat(latitude) < 0) {
 		latitude = 'S ' + (parseFloat(latitude) * -1).toFixed(3);
 	} else {
 		latitude = 'N ' + latitude;
 	}
-	document.getElementById('latitude').innerHTML = latitude;
+	setText('latitude', latitude);
 
-	let longitude = location.LONGITUDE.toFixed(3);
+	let longitude = loc.LONGITUDE.toFixed(3);
 	if (parseFloat(longitude) < 0) {
 		longitude = 'W ' + (parseFloat(longitude) * -1).toFixed(3);
 	} else {
 		longitude = 'E ' + longitude;
 	}
-	document.getElementById('longitude').innerHTML = longitude;
-
-	document.getElementById('longitude-360').innerHTML = ROUND(location.LONGITUDE_360, 3);
-	document.getElementById('elevation').innerHTML = (location.ELEVATION * 1000).toFixed(1);
-	document.getElementById('elevation-degrees').innerHTML = location.ELEVATION_IN_DEGREES.toFixed(3);
-	document.getElementById('sunriseset-angle').innerHTML = location.STARRISE_AND_STARSET_ANGLE.toFixed(3);
-	document.getElementById('length-of-daylight').innerHTML = HOURS_TO_TIME_STRING(location.LENGTH_OF_DAYLIGHT * 24, true, false);
-	document.getElementById('daylight-percent').innerHTML = HOURS_TO_TIME_STRING((body.ROTATION_RATE) - (location.LENGTH_OF_DAYLIGHT *24), true, false);
-	document.getElementById('starrise-time').innerHTML = HOURS_TO_TIME_STRING(location.LOCAL_STAR_RISE_TIME*24);
-	document.getElementById('starset-time').innerHTML = HOURS_TO_TIME_STRING(location.LOCAL_STAR_SET_TIME*24);
-	document.getElementById('db-illumination-status').innerHTML = location.ILLUMINATION_STATUS;
-	document.getElementById('hour-angle-location').innerHTML = location.HOUR_ANGLE().toFixed(3) + '&deg;';
-	document.getElementById('star-azimuth').innerHTML = location.STAR_AZIMUTH().toFixed(3) + '&deg;';
-	document.getElementById('star-altitude').innerHTML = location.STAR_ALTITUDE().toFixed(3) + '&deg;';
-	document.getElementById('max-star-altitude').innerHTML = location.STAR_MAX_ALTITUDE().toFixed(3) + '&deg;';
+	setText('longitude', longitude);
+	
+	setText('longitude-360', ROUND(loc.LONGITUDE_360, 3));
+	setText('elevation', ROUND(loc.ELEVATION * 1000, 1).toLocaleString());
+	setText('elevation-degrees', loc.ELEVATION_IN_DEGREES.toFixed(3));
+	setText('sunriseset-angle', loc.STARRISE_AND_STARSET_ANGLE.toFixed(3));
+	setText('length-of-daylight', HOURS_TO_TIME_STRING(loc.LENGTH_OF_DAYLIGHT * 24, true, false));
+	setText('length-of-night', HOURS_TO_TIME_STRING((bod.ROTATION_RATE) - (loc.LENGTH_OF_DAYLIGHT *24), true, false));
+	setText('starrise-time', HOURS_TO_TIME_STRING(loc.LOCAL_STAR_RISE_TIME*24));
+	setText('starset-time', HOURS_TO_TIME_STRING(loc.LOCAL_STAR_SET_TIME*24));
+	setText('db-illumination-status', loc.ILLUMINATION_STATUS);
+	setText('hour-angle-location', loc.HOUR_ANGLE().toFixed(3));
+	setText('star-azimuth', loc.STAR_AZIMUTH().toFixed(3));
+	setText('star-altitude', loc.STAR_ALTITUDE().toFixed(3));
+	setText('max-star-altitude', loc.STAR_MAX_ALTITUDE().toFixed(3));
 
 	let now = new Date();
 	now.setMilliseconds(0);
-	let next = now.setSeconds(now.getSeconds() + (location.NEXT_STAR_RISE * 24 * 60 * 60));
+	let next = now.setSeconds(now.getSeconds() + (loc.NEXT_STAR_RISE * 24 * 60 * 60));
 	next = new Date(next).toLocaleString();
-	let remain = HOURS_TO_TIME_STRING(location.NEXT_STAR_RISE * 24, true, false);
-	document.getElementById('db-next-starrise').innerHTML = (location.NEXT_STAR_RISE * 24 * 60 * 60).toFixed(0);
-	document.getElementById('db-next-starrise-countdown').innerHTML = remain;
-	document.getElementById('db-next-starrise-date').innerHTML = next;
+	let remain = HOURS_TO_TIME_STRING(loc.NEXT_STAR_RISE * 24, true, false);
+	setText('db-next-starrise', (loc.NEXT_STAR_RISE * 24 * 60 * 60).toFixed(0));
+	setText('db-next-starrise-countdown', remain);
+	setText('db-next-starrise-date', next);
 
 	now = new Date();
 	now.setMilliseconds(0);
-	next = now.setSeconds(now.getSeconds() + (location.NEXT_NOON * 24 * 60 * 60));
+	next = now.setSeconds(now.getSeconds() + (loc.NEXT_NOON * 24 * 60 * 60));
 	next = new Date(next).toLocaleString();
-	remain = HOURS_TO_TIME_STRING(location.NEXT_NOON * 24, true, false);
-	document.getElementById('next-noon').innerHTML = (location.NEXT_NOON * 24 * 60 * 60).toFixed(0);
-	document.getElementById('next-noon-countdown').innerHTML = remain;
-	document.getElementById('next-noon-date').innerHTML = next;	
+	remain = HOURS_TO_TIME_STRING(loc.NEXT_NOON * 24, true, false);
+	setText('next-noon', (loc.NEXT_NOON * 24 * 60 * 60).toFixed(0));
+	setText('next-noon-countdown', remain);
+	setText('next-noon-date', next);
 
 	now = new Date();
 	now.setMilliseconds(0);
-	next = now.setSeconds(now.getSeconds() + (location.NEXT_STAR_SET * 24 * 60 * 60));
+	next = now.setSeconds(now.getSeconds() + (loc.NEXT_STAR_SET * 24 * 60 * 60));
 	next = new Date(next).toLocaleString();
-	remain = HOURS_TO_TIME_STRING(location.NEXT_STAR_SET * 24, true, false);
-	document.getElementById('db-next-starset').innerHTML = (location.NEXT_STAR_SET * 24 * 60 * 60).toFixed(0);
-	document.getElementById('db-next-starset-countdown').innerHTML = remain;
-	document.getElementById('db-next-starset-date').innerHTML = next;
+	remain = HOURS_TO_TIME_STRING(loc.NEXT_STAR_SET * 24, true, false);
+	setText('db-next-starset', (loc.NEXT_STAR_SET * 24 * 60 * 60).toFixed(0));
+	setText('db-next-starset-countdown', remain);
+	setText('db-next-starset-date', next);
 }
 
 function setText(elementID, string) {
@@ -274,6 +268,7 @@ function CONVERT_24H_TO_12H(hour) {
 }
 
 
+
 // DATABASE
 // CELESTIAL BODIES
 const STANTON = new CelestialBody(
@@ -352,6 +347,34 @@ const LYRIA = new CelestialBody(
 		'r' : 112,
 		'g' : 142,
 		'b' : 178
+	}
+)
+
+const WALA = new CelestialBody(
+	'Wala',
+	'Moon',
+	ARCCORP,
+	STANTON,
+	{
+		'x' : 18379649.310,
+		'y' : -22000466.768,
+		'z' : 0.000
+	},
+	{
+		'w' : 1.00000000,
+		'x' : 0.00000000,
+		'y' : 0.00000000,
+		'z' : 0.00000000
+	},
+	283.000,
+	6.3200002,
+	135.45425,
+	143.943,
+	257308.320,
+	{
+		'r' : 124,
+		'g' : 150,
+		'b' : 158
 	}
 )
 
@@ -523,6 +546,62 @@ const CALLIOPE = new CelestialBody(
 	}
 )
 
+const CLIO = new CelestialBody(
+	'Clio',
+	'Moon',
+	MICROTECH,
+	STANTON,
+	{
+		'x' : 22476728.221,
+		'y' : 37091020.074,
+		'z' : 0.000
+	},
+	{
+		'w' : 1.00000000,
+		'x' : 0.00000000,
+		'y' : 0.00000000,
+		'z' : 0.00000000
+	},
+	337.170,
+	0.0000000,
+	0.00000,
+	278.839,
+	95742.640,
+	{
+		'r' : 130,
+		'g' : 141,
+		'b' : 137
+	}
+)
+
+const EUTERPE = new CelestialBody(
+	'Euterpe',
+	'Moon',
+	MICROTECH,
+	STANTON,
+	{
+		'x' : 22488109.736,
+		'y' : 37081123.565,
+		'z' : 0.000
+	},
+	{
+		'w' : 1.00000000,
+		'x' : 0.00000000,
+		'y' : 0.00000000,
+		'z' : 0.00000000
+	},
+	213.000,
+	4.2800002,
+	269.04452,
+	284.020,
+	107710.472,
+	{
+		'r' : 130,
+		'g' : 141,
+		'b' : 159
+	}
+)
+
 const HURSTON = new CelestialBody(
 	'Hurston',
 	'Planet',
@@ -604,6 +683,62 @@ const ARIAL = new CelestialBody(
 		'r' : 214,
 		'g' : 142,
 		'b' : 34
+	}
+)
+
+const ITA = new CelestialBody(
+	'Ita',
+	'Moon',
+	HURSTON,
+	STANTON,
+	{
+		'x' : 12830194.716,
+		'y' : 114913.609,
+		'z' : 0.000
+	},
+	{
+		'w' : 1.00000000,
+		'x' : 0.00000000,
+		'y' : 0.00000000,
+		'z' : 0.00000000
+	},
+	325.000,
+	4.8499999,
+	243.07207,
+	100.000,
+	116686.336,
+	{
+		'r' : 121,
+		'g' : 135,
+		'b' : 122
+	}
+)
+
+const MAGDA = new CelestialBody(
+	'Magda',
+	'Moon',
+	HURSTON,
+	STANTON,
+	{
+		'x' : 12792686.359,
+		'y' : -74464.581,
+		'z' : 0.000
+	},
+	{
+		'w' : 1.00000000,
+		'x' : 0.00000000,
+		'y' : 0.00000000,
+		'z' : 0.00000000
+	},
+	340.830,
+	1.9400001,
+	242.12456,
+	232.195,
+	94246.656,
+	{
+		'r' : 207,
+		'g' : 165,
+		'b' : 159
 	}
 )
 
@@ -1017,7 +1152,7 @@ const THE_ORPHANAGE = new Location(
 )
 
 const HDMS_BEZDEK = new Location(
-	'HDMS Bezdek',
+	'HDMS-Bezdek',
 	'Outpost',
 	ARIAL,
 	STANTON,
@@ -1031,7 +1166,7 @@ const HDMS_BEZDEK = new Location(
 )
 
 const HDMS_LATHAN = new Location(
-	'HDMS Lathan',
+	'HDMS-Lathan',
 	'Outpost',
 	ARIAL,
 	STANTON,
@@ -1140,6 +1275,202 @@ const RECLAMATION_AND_DISPOSAL_ORINTH = new Location(
 	},
 	null,
 	'https://starcitizen.tools/images/thumb/e/ed/Reclamation_%26_Disposal_Orinth3.png/800px-Reclamation_%26_Disposal_Orinth3.png'
+)
+
+const RAYARI_CANTWELL = new Location(
+	'Rayari Cantwell Research Outpost',
+	'Outpost',
+	CLIO,
+	STANTON,
+	{
+		'x' : -217.175,
+		'y' : 215.278,
+		'z' : 142.842
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/e/e1/Clio_Rayari_Cantwell_Research_Outpost_3.13.0_15.04.2021_8_50_57.png/800px-Clio_Rayari_Cantwell_Research_Outpost_3.13.0_15.04.2021_8_50_57.png'
+)
+
+const RAYARI_MCGRATH = new Location(
+	'Rayari McGrath Research Outpost',
+	'Outpost',
+	CLIO,
+	STANTON,
+	{
+		'x' : -325.904,
+		'y' : -85.713,
+		'z' : -18.786
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/7/74/Clio_Rayari_McGrath_Research_Outpost_3.13.0_15.04.2021_10_58_23.png/800px-Clio_Rayari_McGrath_Research_Outpost_3.13.0_15.04.2021_10_58_23.png'
+)
+
+const BUDS_GROWERY = new Location(
+	'Bud\'s Growery',
+	'Outpost',
+	EUTERPE,
+	STANTON,
+	{
+		'x' : 50.173,
+		'y' : -172.259,
+		'z' : 115.271
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/d/d9/Euterpe_Bud%27s_Growery_3.13.0_15.04.2021_8_39_43.png/800px-Euterpe_Bud%27s_Growery_3.13.0_15.04.2021_8_39_43.png'
+)
+
+const DEVLIN_SCRAP_AND_SALVAGE = new Location(
+	'Devlin Scrap & Salvage',
+	'Scrapyard',
+	EUTERPE,
+	STANTON,
+	{
+		'x' : 14.506,
+		'y' : 211.267,
+		'z' : 25.886
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/a/af/Euterpe_Devlin_Scrap_%26_Salvage_3.13.0_15.04.2021_8_31_28.png/800px-Euterpe_Devlin_Scrap_%26_Salvage_3.13.0_15.04.2021_8_31_28.png'
+)
+
+const HDMS_RYDER = new Location(
+	'HDMS-Ryder',
+	'Outpost',
+	ITA,
+	STANTON,
+	{
+		'x' : -175.874,
+		'y' : -263.381,
+		'z' : 73.709
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/c/cb/Ita_HDMS-Ryder_Day_SC-Alpha-3.10.jpg/800px-Ita_HDMS-Ryder_Day_SC-Alpha-3.10.jpg'
+)
+
+const HDMS_WOODRUFF = new Location(
+	'HDMS-Woodruff',
+	'Outpost',
+	ITA,
+	STANTON,
+	{
+		'x' : -175.874,
+		'y' : -263.381,
+		'z' : 73.709
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/4/4a/HDMS-Woodruff2.png/800px-HDMS-Woodruff2.png'
+)
+
+const HDMS_HAHN = new Location(
+	'HDMS-Hahn',
+	'Outpost',
+	MAGDA,
+	STANTON,
+	{
+		'x' : -147.384,
+		'y' : -292.217,
+		'z' : 95.247
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/3/38/Hdms_hahn.jpg/800px-Hdms_hahn.jpg'
+)
+
+const HDMS_PERLMAN = new Location(
+	'HDMS-Perlman',
+	'Outpost',
+	MAGDA,
+	STANTON,
+	{
+		'x' : -140.696,
+		'y' : 287.922,
+		'z' : -116.688
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/5/56/HDMS-Perlman.png/800px-HDMS-Perlman.png'
+)
+
+const ARCCORP_MINING_045 = new Location(
+	'ArcCorp Mining Area 045',
+	'Outpost',
+	WALA,
+	STANTON,
+	{
+		'x' : -282.798,
+		'y' : 14.108,
+		'z' : 10.620
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/6/6e/ArcCorp_Mining_Area_045.png/800px-ArcCorp_Mining_Area_045.png'
+)
+
+const ARCCORP_MINING_048 = new Location(
+	'ArcCorp Mining Area 048',
+	'Outpost',
+	WALA,
+	STANTON,
+	{
+		'x' : -178.193,
+		'y' : 97.756,
+		'z' : -196.340
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/7/7a/ArcCorp_Mining_Area_048.png/800px-ArcCorp_Mining_Area_048.png'
+)
+
+const ARCCORP_MINING_056 = new Location(
+	'ArcCorp Mining Area 056',
+	'Outpost',
+	WALA,
+	STANTON,
+	{
+		'x' : 116.546,
+		'y' : -50.147,
+		'z' : 253.155
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/c/cf/ArcCorp_Mining_Area_056.png/800px-ArcCorp_Mining_Area_056.png'
+)
+
+const ARCCORP_MINING_061 = new Location(
+	'ArcCorp Mining Area 061',
+	'Outpost',
+	WALA,
+	STANTON,
+	{
+		'x' : -21.040,
+		'y' : -247.548,
+		'z' : -132.570
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/d/d6/ArcCorp_Mining_Area_061.png/800px-ArcCorp_Mining_Area_061.png'
+)
+
+const SAMSON_AND_SONS = new Location(
+	'Samson & Son\'s Salvage Yard',
+	'Scrapyard',
+	WALA,
+	STANTON,
+	{
+		'x' : -42.545,
+		'y' : 279.059,
+		'z' : 19.438
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/c/c2/Samson_and_Sons_Salvage_Center.png/800px-Samson_and_Sons_Salvage_Center.png'
+)
+
+const SHADY_GLEN_FARMS = new Location(
+	'Shady Glen Farms',
+	'Outpost',
+	WALA,
+	STANTON,
+	{
+		'x' : -20.622,
+		'y' : 268.985,
+		'z' : 87.534
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/f/f1/Wala_Shady-Glen-Farms_Day.jpg/800px-Wala_Shady-Glen-Farms_Day.jpg'
 )
 
 // INIT

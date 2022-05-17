@@ -107,50 +107,68 @@
 	</div>
 </section>
 
-<div id="testing">
-	<p id="unix-time"></p>
-	<!-- <p id="gmt-time"></p> -->
-	<!-- <p id="universe-time"></p> -->
-	<br>
-	<h3><u>BODY: <span id="body-name">[BODY NAME]</span></u></h3>
-	<p>Real length of day: <span id="day-length"></span> sec</p>
-	<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;<span id="day-length-readable"></span></p>
-	<p>Declination (star): <span id="declination"></span>&deg;</p>
-	<p>Meridian (star): <span id="meridian"></span>&deg;</p>
-	<p>Current cycle: <span id="current-cycle"></span></p>
-	<p>Hour angle: <span id="hour-angle"></span>&deg;</p>
-	<p>Noon longitude: <span id="noon-longitude"></span>&deg;</p>
-	<br>
-	<h3><u>LOCATION: <span id="db-local-name">[LOCATION NAME]</span></u></h3>
-	<p>Local time: <span id="db-local-time"></span></p>
-	<p>Latitude : <span id="latitude"></span>&deg;</p>
-	<p>Longitude: <span id="longitude"></span>&deg;</p>
-	<p>Longitude-360: <span id="longitude-360"></span></p>
-	<p>Elevation: <span id="elevation"></span> meters</p>
-	<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="elevation-degrees"></span>&deg;</p>
-	<p>Starrise/starset angle: <span id="sunriseset-angle"></span></p>
-	<p>Length of daylight: <span id="length-of-daylight"></span></p>
-	<p>Length of night: <span id="daylight-percent"></span></p>
-	<p>Local star rise time: <span id="starrise-time"></span></p>
-	<p>Local star set time: <span id="starset-time"></span></p>
-	<p>Illumination status: <span id="db-illumination-status"></span></p>
-	<p>Hour angle: <span id="hour-angle-location"></span></p>
-	<p>Star azimuth: <span id="star-azimuth"></span></p>
-	<p>Star altitude: <span id="star-altitude"></span></p>
-	<p>Max star altitude: <span id="max-star-altitude"></span></p>
-	<br>
-	<h3>Next Star Rise:</h3>
-	<p>Value: <span id="db-next-starrise"></span> sec (= <span id="db-next-starrise-countdown"></span>)</p>
-	<p>Date: <span id="db-next-starrise-date"></span></p>
-	<br>
-	<h3>Next Noon:</h3>
-	<p>Value: <span id="next-noon"></span> sec (= <span id="next-noon-countdown"></span>)</p>
-	<p>Date: <span id="next-noon-date"></span></p>
-	<br>
-	<h3>Next Star Set:</h3>
-	<p>Value: <span id="db-next-starset"></span> sec (= <span id="db-next-starset-countdown"></span>)</p>
-	<p>Date: <span id="db-next-starset-date"></span></p>
-</div>
+<section id="detailed-info">
+	<div class="detailed-info-group">
+		<h3>TIME</h3>
+		<div class="info-group-table">
+			<p class="info-group-label">UNIX</p><p id="db-unix-time" class="info-group-data"></p>
+			<p class="info-group-label">GMT</p><p id="db-gmt-time" class="info-group-data"></p>
+			<p class="info-group-label">VERSE</p><p id="db-universe-time" class="info-group-data"></p>
+		</div>
+	</div>
+
+	<div class="detailed-info-group">
+		<h3>Body: <span id="body-name">[BODY NAME]</span></h3>
+		<div class="info-group-table">
+			<p class="info-group-label">System</p><p class="info-group-data"><span id="body-system"></span></p>
+			<p class="info-group-label">Type</p><p class="info-group-data"><span id="body-type"></span></p>
+			<p class="info-group-label">Orbits</p><p class="info-group-data"><span id="body-parent-name"></span></p>
+			<p class="info-group-label">Real length of day</p><p class="info-group-data"><span id="day-length"></span> sec</p>
+			<p class="info-group-label"></p><p class="info-group-data">= <span id="day-length-readable"></span></p>
+			<p class="info-group-label">Star declination</p><p class="info-group-data"><span id="declination"></span>&deg;</p>
+			<p class="info-group-label">Star meridian</p><p class="info-group-data"><span id="meridian"></span>&deg;</p>
+			<p class="info-group-label">Current cycle</p><p id="current-cycle" class="info-group-data"></p>
+			<p class="info-group-label">Hour angle</p><p class="info-group-data"><span id="hour-angle"></span>&deg;</p>
+			<p class="info-group-label">Noon longitude</p><p class="info-group-data"><span id="noon-longitude"></span>&deg;</p>
+		</div>
+	</div>
+
+	<div class="detailed-info-group">
+		<h3>Location: <span id="db-local-name">[LOCATION NAME]</span></h3>
+		<div class="info-group-table">
+			<p class="info-group-label">Local time</p><p class="info-group-data"><span id="db-local-time"></span></p>
+			<p class="info-group-label">Latitude</p><p class="info-group-data"><span id="latitude"></span>&deg;</p>
+			<p class="info-group-label">Longitude</p><p class="info-group-data"><span id="longitude"></span>&deg;</p>
+			<p class="info-group-label">Longitude-360</p><p class="info-group-data"><span id="longitude-360"></span>&deg;</p>
+			<p class="info-group-label">Elevation</p><p class="info-group-data"><span id="elevation"></span> meters</p>
+			<p class="info-group-label">Elevation</p><p class="info-group-data"><span id="elevation-degrees"></span>&deg;</p>
+			<p class="info-group-label">Star rise/set angle</p><p class="info-group-data"><span id="sunriseset-angle"></span>&deg;</p>
+			<p class="info-group-label">Length of daylight</p><p class="info-group-data"><span id="length-of-daylight"></span></p>
+			<p class="info-group-label">Length of night</p><p class="info-group-data"><span id="length-of-night"></span></p>
+			<p class="info-group-label">Local starrise time</p><p class="info-group-data"><span id="starrise-time"></span></p>
+			<p class="info-group-label">Local starset time</p><p class="info-group-data"><span id="starset-time"></span></p>
+			<p class="info-group-label">Illumination status</p><p class="info-group-data"><span id="db-illumination-status"></span></p>
+			<p class="info-group-label">Hour angle</p><p class="info-group-data"><span id="hour-angle-location"></span>&deg;</p>
+			<p class="info-group-label">Star azimuth</p><p class="info-group-data"><span id="star-azimuth"></span>&deg;</p>
+			<p class="info-group-label">Star altitude</p><p class="info-group-data"><span id="star-altitude"></span>&deg;</p>
+			<p class="info-group-label">Star max altitude</p><p class="info-group-data"><span id="max-star-altitude"></span>&deg;</p>
+		</div>
+	</div>
+
+	<div style="display:none">
+		<h3>Next Star Rise:</h3>
+		<p>Value: <span id="db-next-starrise"></span> sec (= <span id="db-next-starrise-countdown"></span>)</p>
+		<p>Date: <span id="db-next-starrise-date"></span></p>
+		<br>
+		<h3>Next Noon:</h3>
+		<p>Value: <span id="next-noon"></span> sec (= <span id="next-noon-countdown"></span>)</p>
+		<p>Date: <span id="next-noon-date"></span></p>
+		<br>
+		<h3>Next Star Set:</h3>
+		<p>Value: <span id="db-next-starset"></span> sec (= <span id="db-next-starset-countdown"></span>)</p>
+		<p>Date: <span id="db-next-starset-date"></span></p>
+	</div>
+</section>
 
 </body>
 

@@ -158,18 +158,24 @@ export default class Location {
 			let t = this.LOCAL_TIME;
 			if (t > 86400 - 300) {
 				return 'Midnight';
-			} else if (t > this.LOCAL_STAR_SET_TIME * 86400 + 300) {
+			} else if (t > this.LOCAL_STAR_SET_TIME * 86400 + 1500) {
 				return 'Night';
+			} else if (t > this.LOCAL_STAR_SET_TIME * 86400 + 300) {
+				return 'Evening Twilight';
 			} else if (t > this.LOCAL_STAR_SET_TIME * 86400 - 300) {
 				return 'Starset';
 			} else if (t > 43200 + 300) {
 				return 'Afternoon';
 			} else if (t > 43200 - 300) {
 				return 'Noon';
+			} else if (t > 43200 - 3600) {
+				return 'Late Morning';
 			} else if (t > this.LOCAL_STAR_RISE_TIME * 86400 + 300) {
 				return 'Morning';
 			} else if (t > this.LOCAL_STAR_RISE_TIME * 86400 - 300) {
 				return 'Starrise';
+			} else if (t > this.LOCAL_STAR_RISE_TIME * 86400 - 1500) {
+				return 'Morning Twilight';
 			} else if (t > 300) {
 				return 'Night';
 			} else {

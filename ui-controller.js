@@ -38,7 +38,7 @@ function toggleCreditsWindow() {
 
 function toggleDebugWindow() {
 	window.DEBUG_MODE = !window.DEBUG_MODE;
-	document.getElementById('testing').style.opacity = (window.DEBUG_MODE ? 1 : 0);
+	document.getElementById('detailed-info').style.opacity = (window.DEBUG_MODE ? 1 : 0);
 }
 
 
