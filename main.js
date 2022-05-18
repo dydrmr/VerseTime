@@ -94,6 +94,7 @@ function update() {
 	// ILLUMINATION STATUS
 	setText('illumination-status', location.ILLUMINATION_STATUS);
 
+
 	if (showSettingsWindow) updateSettingsLocationTimes();
 	if (window.DEBUG_MODE) updateDebugUI();	
 }
@@ -205,7 +206,7 @@ function setText(elementID, string) {
 	let el = (typeof(elementID) === 'string') ? document.getElementById(elementID) : elementID;
 
 	if (!el) {
-		throw 'Invalid [ elementID] passed to [ setText ] function!';
+		throw 'Invalid [ elementID ] passed to [ setText ] function!';
 		return;
 	}
 

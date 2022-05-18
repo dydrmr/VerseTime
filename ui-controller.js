@@ -100,6 +100,7 @@ function populateLocationGrid() {
 // LOCATION SEARCH FILTER
 document.getElementById('location-selection-input').addEventListener('input', (event) => { 
 	let search = document.getElementById("location-selection-input").value.toLowerCase();
+	let searchFragments = search.split('+');
 	let buttons = document.getElementsByClassName('BUTTON-set-location');
 
 	for (let element of buttons) {
@@ -109,11 +110,14 @@ document.getElementById('location-selection-input').addEventListener('input', (e
 			continue;
 		}
 
-		if (element.innerText.toLowerCase().includes(search)) {
-			element.classList.remove('hide');
-		} else {
-			element.classList.add('hide');
+		let found = Array();
+		for (let [index, fragment] of searchFragments.entries()) {
+			if (fragment === '') continue;
+			found[index] = (element.innerText.toLowerCase().includes(fragment)) ? true : false;
 		}
+
+		let result = found.every((value) => value === true);
+		result ? element.classList.remove('hide') : element.classList.add('hide');
 	}
 });
 
