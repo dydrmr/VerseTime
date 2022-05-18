@@ -945,7 +945,7 @@ const RAYARI_DELTANA = new Location(
 )
 
 const HDMS_OPAREI = new Location(
-	'HDMS Oparei',
+	'HDMS-Oparei',
 	'Outpost',
 	HURSTON,
 	STANTON,
@@ -1614,6 +1614,160 @@ const NT_999_XX = new Location(
 	},
 	null,
 	'https://starcitizen.tools/images/thumb/0/03/NT-999-XX3.png/800px-NT-999-XX3.png'
+)
+
+const HDMS_EDMOND = new Location(
+	'HDMS-Edmond',
+	'Outpost',
+	HURSTON,
+	STANTON,
+	{
+		'x' : -284.480,
+		'y' : -730.502,
+		'z' : 620.924
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/c/c4/HDMS_Edmond.png/800px-HDMS_Edmond.png'
+)
+
+const HDMS_HADLEY = new Location(
+	'HDMS-Hadley',
+	'Outpost',
+	HURSTON,
+	STANTON,
+	{
+		'x' : 626.167,
+		'y' : -583.971,
+		'z' : -518.485
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/a/a6/HDMS_Hadley.png/800px-HDMS_Hadley.png'
+)
+
+const HDMS_PINEWOOD = new Location(
+	'HDMS-Pinewood',
+	'Outpost',
+	HURSTON,
+	STANTON,
+	{
+		'x' : 985.564,
+		'y' : 90.029,
+		'z' : 149.896
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/a/a6/In_front_of_HDMS_Pinewood.jpg/800px-In_front_of_HDMS_Pinewood.jpg'
+)
+
+const HDMS_STANHOPE = new Location(
+	'HDMS-Stanhope',
+	'Outpost',
+	HURSTON,
+	STANTON,
+	{
+		'x' : -648.608,
+		'y' : 198.313,
+		'z' : 735.121
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/9/9b/HDMS_Stanhope.png/800px-HDMS_Stanhope.png'
+)
+
+const HDMS_THEDUS = new Location(
+	'HDMS-Thedus',
+	'Outpost',
+	HURSTON,
+	STANTON,
+	{
+		'x' : 443.322,
+		'y' : 891.525,
+		'z' : 101.509
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/d/d3/HDMS_Thedus_Sunrise.jpg/800px-HDMS_Thedus_Sunrise.jpg'
+)
+
+const SHUBIN_MINING_SM0_10 = new Location(
+	'Shubin Mining Facility SM0-10',
+	'Outpost',
+	MICROTECH,
+	STANTON,
+	{
+		'x' : 85.476,
+		'y' : -950.856,
+		'z' : 298.799
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/4/49/Shubin_Mining_Facility_SM0-10_26.04.2020_13_44_28.png/800px-Shubin_Mining_Facility_SM0-10_26.04.2020_13_44_28.png'
+)
+
+const SHUBIN_MINING_SM0_13 = new Location(
+	'Shubin Mining Facility SM0-13',
+	'Outpost',
+	MICROTECH,
+	STANTON,
+	{
+		'x' : -172.819,
+		'y' : -981.308,
+		'z' : 97.767
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/0/06/Shubin_Mining_Facility_SM0-13_26.04.2020_13_55_42.png/800px-Shubin_Mining_Facility_SM0-13_26.04.2020_13_55_42.png'
+)
+
+const SHUBIN_MINING_SM0_18 = new Location(
+	'Shubin Mining Facility SM0-18',
+	'Outpost',
+	MICROTECH,
+	STANTON,
+	{
+		'x' : 920.210,
+		'y' : -389.542,
+		'z' : 43.837
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/a/a8/Shubin_Mining_Facility_SM0-18_26.04.2020_21_01_29.png/800px-Shubin_Mining_Facility_SM0-18_26.04.2020_21_01_29.png'
+)
+
+const SHUBIN_MINING_SM0_22 = new Location(
+	'Shubin Mining Facility SM0-22',
+	'Outpost',
+	MICROTECH,
+	STANTON,
+	{
+		'x' : 24.299,
+		'y' : -822.591,
+		'z' : 568.174
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/8/85/Shubin_Mining_Facility_SM0-22_26.04.2020_13_36_06.png/800px-Shubin_Mining_Facility_SM0-22_26.04.2020_13_36_06.png'
+)
+
+const NECROPOLIS = new Location(
+	'The Necropolis',
+	'Outpost',
+	MICROTECH,
+	STANTON,
+	{
+		'x' : 63.643,
+		'y' : -162.085,
+		'z' : 985.651
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/7/7d/The_Necropolis_27.04.2020_15_18_49.png/800px-The_Necropolis_27.04.2020_15_18_49.png'
+)
+
+const OUTPOST_54 = new Location(
+	'Outpost 54',
+	'Outpost',
+	MICROTECH,
+	STANTON,
+	{
+		'x' : 113.566,
+		'y' : 14.479,
+		'z' : -994.363
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/6/6b/Outpost_54_27.04.2020_18_28_35.png/800px-Outpost_54_27.04.2020_18_28_35.png'
 )
 
 // INIT
