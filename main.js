@@ -989,7 +989,7 @@ const JUMPTOWN = new Location(
 		'z' : 74.777
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/9/9a/Jumptown-1.jpg/800px-Jumptown-1.jpg'
+	'https://starcitizen.tools/images/thumb/b/b1/Jumptown%2C_Yela_%28Alpha_3.17%29.jpg/800px-Jumptown%2C_Yela_%28Alpha_3.17%29.jpg'
 )
 
 const PARADISE_COVE = new Location(
@@ -1774,6 +1774,62 @@ const OUTPOST_54 = new Location(
 	},
 	null,
 	'https://starcitizen.tools/images/thumb/6/6b/Outpost_54_27.04.2020_18_28_35.png/800px-Outpost_54_27.04.2020_18_28_35.png'
+)
+
+const AFTERLIFE = new Location(
+	'Afterlife',
+	'Outpost',
+	YELA,
+	STANTON,
+	{
+		'x' : -254.067,
+		'y' : -153.318,
+		'z' : 99.652
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/2/2a/Afterlife_outpost%2C_Yela_%28Alpha_3.17%29.png/800px-Afterlife_outpost%2C_Yela_%28Alpha_3.17%29.png'
+)
+
+const NT_999_XXII = new Location(
+	'NT-999-XXII',
+	'Outpost',
+	YELA,
+	STANTON,
+	{
+		'x' : 54.792,
+		'y' : 55.827,
+		'z' : -303.328
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/8/8d/NT-999-XXII_outpost_on_Yela_%28Alpha_3.17%29.png/800px-NT-999-XXII_outpost_on_Yela_%28Alpha_3.17%29.png'
+)
+
+const UTOPIA = new Location(
+	'Utopia',
+	'Outpost',
+	YELA,
+	STANTON,
+	{
+		'x' : 0.106,
+		'y' : -0.425,
+		'z' : -313.108
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/3/3b/Utopia_underground_bunker%2C_Yela_%28Alpha_3.17%29.png/800px-Utopia_underground_bunker%2C_Yela_%28Alpha_3.17%29.png'
+)
+
+const NT_999_XV = new Location(
+	'NT-999-XV',
+	'Outpost',
+	CELLIN,
+	STANTON,
+	{
+		'x' : 146.832,
+		'y' : 135.254,
+		'z' : 167.474
+	},
+	null,
+	''
 )
 
 // INIT
