@@ -92,9 +92,9 @@ function update() {
 
 
 	// ILLUMINATION STATUS
-	document.getElementById('illumination-status').innerHTML = location.ILLUMINATION_STATUS;
+	setText('illumination-status', location.ILLUMINATION_STATUS);
 
-
+	if (showSettingsWindow) updateSettingsLocationTimes();
 	if (window.DEBUG_MODE) updateDebugUI();	
 }
 
@@ -185,8 +185,24 @@ function updateDebugUI() {
 	setText('db-next-starset-date', next);
 }
 
+function updateSettingsLocationTimes() {
+	let buttons = document.getElementsByClassName('BUTTON-set-location');
+	
+	for (let element of buttons) {
+		let timeElement = element.querySelector('.set-location-time');
+		let locationName = element.dataset.locationName;
+
+		let location = window.LOCATIONS.filter(location => {
+			return location.NAME === locationName;
+		})[0];
+
+		let string = HOURS_TO_TIME_STRING(location.LOCAL_TIME / 60 / 60, false, true) + '<br>' + location.ILLUMINATION_STATUS;
+		setText(timeElement, string);
+	}
+}
+
 function setText(elementID, string) {
-	let el = document.getElementById(elementID);
+	let el = (typeof(elementID) === 'string') ? document.getElementById(elementID) : elementID;
 
 	if (!el) {
 		throw 'Invalid [ elementID] passed to [ setText ] function!';

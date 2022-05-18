@@ -71,11 +71,27 @@ function populateLocationGrid() {
 
 	LOCATIONS.sort((a, b) => a.NAME.localeCompare(b.NAME));
 
-	for (let l of window.LOCATIONS) {
+	for (let loc of window.LOCATIONS) {
 		let el = document.createElement('div');
-		el.innerHTML = l.NAME + '<br><span style="font-weight:normal;font-size:70%">' + l.PARENT.NAME + '</span>';
 		el.className = 'BUTTON-set-location';
-		el.addEventListener('click', function(e) { setLocation(l.NAME); });
+		el.addEventListener('click', function(e) { setLocation(loc.NAME); });
+		el.dataset.locationName = loc.NAME;
+
+		let elName = document.createElement('p');
+		elName.className = 'set-location-name';
+		elName.innerHTML = loc.NAME;
+
+		let elBody = document.createElement('p');
+		elBody.className = 'set-location-body';
+		elBody.innerHTML = loc.PARENT.NAME;
+
+		let elTime = document.createElement('p');
+		elTime.className = 'set-location-time';
+		elTime.innerHTML = 'XX:XX';
+
+		el.appendChild(elName);
+		el.appendChild(elBody);
+		el.appendChild(elTime);
 		container.appendChild(el);
 	}
 }

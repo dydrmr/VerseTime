@@ -331,13 +331,6 @@ body {
 	border-radius: 10px;
 }
 
-#settings-change-location-container p {
-	font-size: 15px;
-	font-weight: 700;
-	text-align: center;
-	text-transform: uppercase;
-}
-
 #location-selection-input {
 	width: 80%;
 	display: block;
@@ -414,14 +407,10 @@ body {
 
 
 .BUTTON-set-location {
-	/*max-width: 60%;*/
-	/*margin: 10px auto;*/
-	/*padding: 20px 30px;*/
+	position: relative;
 	padding: 14px;
 	border-radius: 10px;
 	background-color: hsla(0, 100%, 100%, 0.1);
-	font-size: 16px;
-	font-weight: bold;
 	text-align: center;
 	user-select: none;
 	transition: 0.2s ease-out;
@@ -432,6 +421,24 @@ body {
 }
 .BUTTON-set-location:active {
 	transform: scale(0.97);
+}
+
+.set-location-name {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.set-location-body {
+	font-size: 12px;
+	text-transform: none;
+}
+.set-location-time {
+	position: absolute;
+	right: 8px;
+	top: 50%;
+	transform: translate(0%, -50%);
+	text-align: right;
+	font-size: 10px;
 }
 
 .hide {
