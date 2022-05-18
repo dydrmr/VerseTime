@@ -1473,6 +1473,132 @@ const SHADY_GLEN_FARMS = new Location(
 	'https://starcitizen.tools/images/thumb/f/f1/Wala_Shady-Glen-Farms_Day.jpg/800px-Wala_Shady-Glen-Farms_Day.jpg'
 )
 
+const DAYMAR_JAVELIN_WRECK = new Location(
+	'Javelin Wreck \(UEES Flyssa\)',
+	'Wreck',
+	DAYMAR,
+	STANTON,
+	{
+		'x' : 102.055,
+		'y' : 267.619,
+		'z' : -70.856
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/c/c2/Javelin_Wreck_%28UEES_Flyssa%29%2C_Daymar%2C_Alpha_3.17.jpg/800px-Javelin_Wreck_%28UEES_Flyssa%29%2C_Daymar%2C_Alpha_3.17.jpg'
+)
+
+const NUEN_WASTE_MANAGEMENT = new Location(
+	'Nuen Waste Management',
+	'Outpost',
+	DAYMAR,
+	STANTON,
+	{
+		'x' : 73.139,
+		'y' : 285.904,
+		'z' : 1.906
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/5/53/Nuen_Waste_Management%2C_Daymar%2C_Alpha_3.17.jpg/800px-Nuen_Waste_Management%2C_Daymar%2C_Alpha_3.17.jpg'
+)
+
+const NT_999_XVI = new Location(
+	'NT-999-XVI',
+	'Outpost',
+	DAYMAR,
+	STANTON,
+	{
+		'x' : 251.045,
+		'y' : 153.850,
+		'z' : -23.796
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/5/57/NT-999-XVI_Bunker_Entrance%2C_Daymar.jpg/800px-NT-999-XVI_Bunker_Entrance%2C_Daymar.jpg'
+)
+
+const THE_GARDEN = new Location(
+	'The Garden',
+	'Outpost',
+	DAYMAR,
+	STANTON,
+	{
+		'x' : -175.415,
+		'y' : 146.965,
+		'z' : 186.269
+	},
+	null,
+	''
+)
+
+const TPF = new Location(
+	'TPF',
+	'Outpost',
+	DAYMAR,
+	STANTON,
+	{
+		'x' : 38.490,
+		'y' : 203.592,
+		'z' : -210.032
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/f/f1/TPF_Underground_Bunker%2C_Daymar%2C_Alpha_3.17.jpg/800px-TPF_Underground_Bunker%2C_Daymar%2C_Alpha_3.17.jpg'
+)
+
+const ARCCORP_MINING_157 = new Location(
+	'ArcCorp Mining Area 157',
+	'Outpost',
+	YELA,
+	STANTON,
+	{
+		'x' : 6.023,
+		'y' : 222.356,
+		'z' : 220.313
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/0/0f/Yela_Arccorp-157_Day_Alpha-3.10.jpg/800px-Yela_Arccorp-157_Day_Alpha-3.10.jpg'
+)
+
+const BENSON_MINING = new Location(
+	'Benson Mining Outpost',
+	'Outpost',
+	YELA,
+	STANTON,
+	{
+		'x' : 48.998	,
+		'y' : -275.606,
+		'z' : -140.136
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/8/82/Yela_Benson-Mining-Outpost_Day.jpg/800px-Yela_Benson-Mining-Outpost_Day.jpg'
+)
+
+const DEAKINS_RESEARCH = new Location(
+	'Deakins Research Outpost',
+	'Outpost',
+	YELA,
+	STANTON,
+	{
+		'x' : 231.587,
+		'y' : -210.279,
+		'z' : 13.278
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/a/ad/Deakins_Research_Outpost.png/800px-Deakins_Research_Outpost.png'
+)
+
+const NT_999_XX = new Location(
+	'NT-999-XX',
+	'Outpost',
+	YELA,
+	STANTON,
+	{
+		'x' : -205.659,
+		'y' : -73.988,
+		'z' : 224.325
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/0/03/NT-999-XX3.png/800px-NT-999-XX3.png'
+)
+
 // INIT
 populateLocationGrid();
 loadSettings();
