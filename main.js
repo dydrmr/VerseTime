@@ -197,7 +197,13 @@ function updateSettingsLocationTimes() {
 			return location.NAME === locationName;
 		})[0];
 
-		let string = HOURS_TO_TIME_STRING(location.LOCAL_TIME / 60 / 60, false, true) + '<br>' + location.ILLUMINATION_STATUS;
+		let string = '';
+		if (String(location.LOCAL_TIME) === 'NaN') {
+			string = location.ILLUMINATION_STATUS;
+		} else {
+			string = HOURS_TO_TIME_STRING(location.LOCAL_TIME / 60 / 60, false, true) + '<br>' + location.ILLUMINATION_STATUS;
+		}
+
 		setText(timeElement, string);
 	}
 }
