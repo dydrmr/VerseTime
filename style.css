@@ -411,7 +411,6 @@ body {
 	padding: 14px;
 	border-radius: 10px;
 	background-color: hsla(0, 100%, 100%, 0.1);
-	text-align: center;
 	user-select: none;
 	transition: 0.2s ease-out;
 }
@@ -426,11 +425,13 @@ body {
 .set-location-name {
 	font-size: 16px;
 	font-weight: bold;
+	text-align: left;
 }
 
 .set-location-body {
 	font-size: 12px;
 	text-transform: none;
+	text-align: left;
 }
 .set-location-time {
 	position: absolute;
