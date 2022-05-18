@@ -417,6 +417,7 @@ body {
 .BUTTON-set-location:hover {
 	cursor: pointer;
 	background-color: var(--theme-color);
+	color: var(--theme-color-dark);
 }
 .BUTTON-set-location:active {
 	transform: scale(0.97);
@@ -435,7 +436,7 @@ body {
 }
 .set-location-time {
 	position: absolute;
-	right: 8px;
+	right: 14px;
 	top: 50%;
 	transform: translate(0%, -50%);
 	text-align: right;
