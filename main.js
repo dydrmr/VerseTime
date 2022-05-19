@@ -2047,7 +2047,7 @@ const WOLF_POINT_AID_SHELTER = new Location(
 		'z' : 95.733
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/5/54/20180325093227_1.jpg/800px-20180325093227_1.jpg'
+	'https://starcitizen.tools/images/thumb/7/76/Wolf_Point_Aid_Shelter%2C_Daymar_%28Alpha_3.17%29.png/800px-Wolf_Point_Aid_Shelter%2C_Daymar_%28Alpha_3.17%29.png'
 )
 
 const SECURITY_POST_MOLUTO = new Location(
@@ -2160,6 +2160,20 @@ const BENNYHENGE = new Location(
 	},
 	null,
 	''
+)
+
+const ABANDONED_OUTPOST_DAYMAR = new Location(
+	'Abandoned Outpost (Daymar)',
+	'Landmark',
+	DAYMAR,
+	STANTON,
+	{
+		'x' : 73.139,
+		'y' : 285.904,
+		'z' : 1.906
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/1/13/Abandoned_outpost%2C_Daymar_%28Alpha_3.17%29.png/800px-Abandoned_outpost%2C_Daymar_%28Alpha_3.17%29.png'
 )
 
 // INIT
