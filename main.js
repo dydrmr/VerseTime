@@ -543,7 +543,8 @@ const MICROTECH = new CelestialBody(
 		'r' : 167,
 		'g' : 184,
 		'b' : 193
-	}
+	},
+	'https://starcitizen.tools/images/thumb/6/69/Microtech-high-orbit.jpg/640px-Microtech-high-orbit.jpg'
 )
 
 const CALLIOPE = new CelestialBody(
@@ -686,7 +687,8 @@ const ABERDEEN = new CelestialBody(
 		'r' : 219,
 		'g' : 180,
 		'b' : 88
-	}
+	},
+	'https://starcitizen.tools/images/thumb/5/52/Stanton-hurston-aberdeen-orbit-3.12.jpg/640px-Stanton-hurston-aberdeen-orbit-3.12.jpg'
 )
 
 const ARIAL = new CelestialBody(
@@ -714,7 +716,8 @@ const ARIAL = new CelestialBody(
 		'r' : 214,
 		'g' : 142,
 		'b' : 34
-	}
+	},
+	'https://starcitizen.tools/images/thumb/f/f8/Stanton-hurston-arial-orbit-3.17.jpg/640px-Stanton-hurston-arial-orbit-3.17.jpg'
 )
 
 const ITA = new CelestialBody(
@@ -742,7 +745,8 @@ const ITA = new CelestialBody(
 		'r' : 121,
 		'g' : 135,
 		'b' : 122
-	}
+	},
+	'https://starcitizen.tools/images/thumb/3/3d/Stanton-hurston-ita-orbit-3.17.jpg/640px-Stanton-hurston-ita-orbit-3.17.jpg'
 )
 
 const MAGDA = new CelestialBody(
@@ -770,7 +774,8 @@ const MAGDA = new CelestialBody(
 		'r' : 207,
 		'g' : 165,
 		'b' : 159
-	}
+	},
+	'https://starcitizen.tools/images/thumb/1/13/Stanton-hurston-magda-orbit-3.17.jpg/640px-Stanton-hurston-magda-orbit-3.17.jpg'
 )
 
 
@@ -792,7 +797,7 @@ const ARCCORP_MINING_141 = new Location(
 
 const AREA18 = new Location(
 	'Area18',
-	'Landing Zone',
+	'Landing zone',
 	ARCCORP,
 	STANTON,
 	{
@@ -806,7 +811,7 @@ const AREA18 = new Location(
 
 const BAIJINI_POINT = new Location(
 	'Baijini Point',
-	'Space Station',
+	'Space station',
 	ARCCORP,
 	STANTON,
 	{
@@ -820,7 +825,7 @@ const BAIJINI_POINT = new Location(
 
 const EVERUS_HARBOR = new Location(
 	'Everus Harbor',
-	'Space Station',
+	'Space station',
 	HURSTON,
 	STANTON,
 	{
@@ -834,7 +839,7 @@ const EVERUS_HARBOR = new Location(
 
 const GRIMHEX = new Location(
 	'GrimHEX',
-	'Asteroid Base',
+	'Asteroid base',
 	YELA,
 	STANTON,
 	{
@@ -848,7 +853,7 @@ const GRIMHEX = new Location(
 
 const LORVILLE = new Location(
 	'Lorville',
-	'Landing Zone',
+	'Landing zone',
 	HURSTON,
 	STANTON,
 	{
@@ -862,7 +867,7 @@ const LORVILLE = new Location(
 
 const NEW_BABBAGE = new Location(
 	'New Babbage',
-	'Landing Zone',
+	'Landing zone',
 	MICROTECH,
 	STANTON,
 	{
@@ -876,7 +881,7 @@ const NEW_BABBAGE = new Location(
 
 const ORISON = new Location(
 	'Orison',
-	'Landing Zone',
+	'Landing zone',
 	CRUSADER,
 	STANTON,
 	{
@@ -890,7 +895,7 @@ const ORISON = new Location(
 
 const PORT_OLISAR = new Location(
 	'Port Olisar',
-	'Space Station',
+	'Space station',
 	CRUSADER,
 	STANTON,
 	{
@@ -904,7 +909,7 @@ const PORT_OLISAR = new Location(
 
 const PORT_TRESSLER = new Location(
 	'Port Tressler',
-	'Space Station',
+	'Space station',
 	MICROTECH,
 	STANTON,
 	{
@@ -1534,7 +1539,7 @@ const NUEN_WASTE_MANAGEMENT = new Location(
 
 const NT_999_XVI = new Location(
 	'NT-999-XVI',
-	'Outpost',
+	'Underground bunker',
 	DAYMAR,
 	STANTON,
 	{
@@ -1548,7 +1553,7 @@ const NT_999_XVI = new Location(
 
 const THE_GARDEN = new Location(
 	'The Garden',
-	'Outpost',
+	'Underground bunker',
 	DAYMAR,
 	STANTON,
 	{
@@ -1562,7 +1567,7 @@ const THE_GARDEN = new Location(
 
 const TPF = new Location(
 	'TPF',
-	'Outpost',
+	'Underground bunker',
 	DAYMAR,
 	STANTON,
 	{
@@ -1786,7 +1791,7 @@ const OUTPOST_54 = new Location(
 
 const AFTERLIFE = new Location(
 	'Afterlife',
-	'Outpost',
+	'Underground bunker',
 	YELA,
 	STANTON,
 	{
@@ -1800,7 +1805,7 @@ const AFTERLIFE = new Location(
 
 const NT_999_XXII = new Location(
 	'NT-999-XXII',
-	'Outpost',
+	'Underground bunker',
 	YELA,
 	STANTON,
 	{
@@ -1828,7 +1833,7 @@ const UTOPIA = new Location(
 
 const NT_999_XV = new Location(
 	'NT-999-XV',
-	'Outpost',
+	'Underground bunker',
 	CELLIN,
 	STANTON,
 	{
@@ -1856,7 +1861,7 @@ const HDMO_DOBBS_NA = new Location(
 
 const BARTON_FLATS_AID_SHELTER = new Location(
 	'Barton Flats Aid Shelter',
-	'Emergency Shelter',
+	'Emergency shelter',
 	ABERDEEN,
 	STANTON,
 	{
@@ -1884,7 +1889,7 @@ const PRIVATE_PROPERTY = new Location(
 
 const SECURITY_POST_CRISKA = new Location(
 	'Security Post Criska',
-	'Outpost',
+	'Underground bunker',
 	CELLIN,
 	STANTON,
 	{
@@ -1898,7 +1903,7 @@ const SECURITY_POST_CRISKA = new Location(
 
 const SECURITY_POST_DIPUR = new Location(
 	'Security Post Dipur',
-	'Outpost',
+	'Underground bunker',
 	CELLIN,
 	STANTON,
 	{
@@ -1912,7 +1917,7 @@ const SECURITY_POST_DIPUR = new Location(
 
 const SECURITY_POST_LESPIN = new Location(
 	'Security Post Lespin',
-	'Outpost',
+	'Underground bunker',
 	CELLIN,
 	STANTON,
 	{
@@ -1940,7 +1945,7 @@ const SECURITY_POST_KAREAH = new Location(
 
 const ASHBURN_CHANNEL_AID_SHELTER = new Location(
 	'Ashburn Channel Aid Shelter',
-	'Emergency Shelter',
+	'Emergency shelter',
 	CELLIN,
 	STANTON,
 	{
@@ -1954,7 +1959,7 @@ const ASHBURN_CHANNEL_AID_SHELTER = new Location(
 
 const FLANAGANS_RAVINE_AID_SHELTER = new Location(
 	'Flanagan\'s Ravine Aid Shelter',
-	'Emergency Shelter',
+	'Emergency shelter',
 	CELLIN,
 	STANTON,
 	{
@@ -1968,7 +1973,7 @@ const FLANAGANS_RAVINE_AID_SHELTER = new Location(
 
 const MOGOTE_AID_SHELTER = new Location(
 	'Mogote Aid Shelter',
-	'Emergency Shelter',
+	'Emergency shelter',
 	CELLIN,
 	STANTON,
 	{
@@ -1982,7 +1987,7 @@ const MOGOTE_AID_SHELTER = new Location(
 
 const JULEP_RAVINE_AID_SHELTER = new Location(
 	'Julep Ravine Aid Shelter',
-	'Emergency Shelter',
+	'Emergency shelter',
 	CELLIN,
 	STANTON,
 	{
@@ -1996,7 +2001,7 @@ const JULEP_RAVINE_AID_SHELTER = new Location(
 
 const DUNLOW_RIDGE_AID_SHELTER = new Location(
 	'Dunlow Ridge Aid Shelter',
-	'Emergency Shelter',
+	'Emergency shelter',
 	DAYMAR,
 	STANTON,
 	{
@@ -2010,7 +2015,7 @@ const DUNLOW_RIDGE_AID_SHELTER = new Location(
 
 const EAGER_FLATS_AID_SHELTER = new Location(
 	'Eager Flats Aid Shelter',
-	'Emergency Shelter',
+	'Emergency shelter',
 	DAYMAR,
 	STANTON,
 	{
@@ -2024,7 +2029,7 @@ const EAGER_FLATS_AID_SHELTER = new Location(
 
 const TAMDON_PLAINS_AID_SHELTER = new Location(
 	'Tamdon Plains Aid Shelter',
-	'Emergency Shelter',
+	'Emergency shelter',
 	DAYMAR,
 	STANTON,
 	{
@@ -2038,7 +2043,7 @@ const TAMDON_PLAINS_AID_SHELTER = new Location(
 
 const WOLF_POINT_AID_SHELTER = new Location(
 	'Wolf Point Aid Shelter',
-	'Emergency Shelter',
+	'Emergency shelter',
 	DAYMAR,
 	STANTON,
 	{
@@ -2052,7 +2057,7 @@ const WOLF_POINT_AID_SHELTER = new Location(
 
 const SECURITY_POST_MOLUTO = new Location(
 	'Security Post Moluto',
-	'Outpost',
+	'Underground bunker',
 	DAYMAR,
 	STANTON,
 	{
@@ -2066,7 +2071,7 @@ const SECURITY_POST_MOLUTO = new Location(
 
 const SECURITY_POST_PRASHAD = new Location(
 	'Security Post Prashad',
-	'Outpost',
+	'Underground bunker',
 	DAYMAR,
 	STANTON,
 	{
@@ -2080,7 +2085,7 @@ const SECURITY_POST_PRASHAD = new Location(
 
 const SECURITY_POST_THAQURAY = new Location(
 	'Security Post Thaquray',
-	'Outpost',
+	'Underground bunker',
 	DAYMAR,
 	STANTON,
 	{
@@ -2108,7 +2113,7 @@ const COVALEX_SHIPPING_HUB_GUNDO = new Location(
 
 const SECURITY_POST_OPAL = new Location(
 	'Security Post Opal',
-	'Outpost',
+	'Underground bunker',
 	YELA,
 	STANTON,
 	{
@@ -2122,7 +2127,7 @@ const SECURITY_POST_OPAL = new Location(
 
 const SECURITY_POST_WAN = new Location(
 	'Security Post Wan',
-	'Outpost',
+	'Underground bunker',
 	YELA,
 	STANTON,
 	{
@@ -2136,7 +2141,7 @@ const SECURITY_POST_WAN = new Location(
 
 const CONNORS = new Location(
 	'Connor\'s',
-	'Outpost',
+	'Underground bunker',
 	YELA,
 	STANTON,
 	{
@@ -2164,7 +2169,7 @@ const BENNYHENGE = new Location(
 
 const ABANDONED_OUTPOST_DAYMAR = new Location(
 	'Abandoned Outpost (Daymar)',
-	'Landmark',
+	'Outpost',
 	DAYMAR,
 	STANTON,
 	{
@@ -2175,6 +2180,259 @@ const ABANDONED_OUTPOST_DAYMAR = new Location(
 	null,
 	'https://starcitizen.tools/images/thumb/1/13/Abandoned_outpost%2C_Daymar_%28Alpha_3.17%29.png/800px-Abandoned_outpost%2C_Daymar_%28Alpha_3.17%29.png'
 )
+
+const ASTON_RIDGE_AID_SHELTER = new Location(
+	'Aston Ridge Aid Shelter',
+	'Emergency shelter',
+	YELA,
+	STANTON,
+	{
+		'x' : 207.944,
+		'y' : 24.051,
+		'z' : -232.785
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/3/35/Yela_Aston-Ridge-Aid-Shelter_Morning.jpg/800px-Yela_Aston-Ridge-Aid-Shelter_Morning.jpg'
+)
+
+const KOSSO_BASIN_AID_SHELTER = new Location(
+	'Kosso Basin Aid Shelter',
+	'Emergency shelter',
+	YELA,
+	STANTON,
+	{
+		'x' : -31.289,
+		'y' : -118.130,
+		'z' : 288.314
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/b/bb/Yela_Kosso-Basin-Aid-Shelter_Twilight.jpg/800px-Yela_Kosso-Basin-Aid-Shelter_Twilight.jpg'
+)
+
+const NAKAMURA_VALLEY_AID_SHELTER = new Location(
+	'Nakamura Valley Aid Shelter',
+	'Emergency shelter',
+	YELA,
+	STANTON,
+	{
+		'x' : -275.722,
+		'y' : 124.074,
+		'z' : 81.717
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/e/eb/Yela_Nakamura-Valley-Aid-Shelter_Day.jpg/800px-Yela_Nakamura-Valley-Aid-Shelter_Day.jpg'
+)
+
+const TALARINE_DIVIDE_AID_SHELTER = new Location(
+	'Talarine Divide Aid Shelter',
+	'Emergency shelter',
+	YELA,
+	STANTON,
+	{
+		'x' : -21.221,
+		'y' : 310.790,
+		'z' : 30.932
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/8/88/Yela_Talarine-Divide-Aid-Shelter_Day.jpg/800px-Yela_Talarine-Divide-Aid-Shelter_Day.jpg'
+)
+
+const ARCCORP_PROCESSING_CENTER_115 = new Location(
+	'ArcCorp Processing Center 115',
+	'Underground bunker',
+	WALA,
+	STANTON,
+	{
+		'x' : -277.349,
+		'y' : 50.039,
+		'z' : 28.036
+	},
+	null,
+	''
+)
+
+const ARCCORP_PROCESSING_CENTER_123 = new Location(
+	'ArcCorp Processing Center 123',
+	'Underground bunker',
+	WALA,
+	STANTON,
+	{
+		'x' : 130.424,
+		'y' : -247.614,
+		'z' : 43.164
+	},
+	null,
+	''
+)
+
+const GOOD_TIMES_TEMPLE = new Location(
+	'Good Times Temple',
+	'Underground bunker',
+	WALA,
+	STANTON,
+	{
+		'x' : 130.424,
+		'y' : -247.614,
+		'z' : 43.164
+	},
+	null,
+	''
+)
+
+const LOST_AND_FOUND = new Location(
+	'Lost and Found',
+	'Underground bunker',
+	WALA,
+	STANTON,
+	{
+		'x' : 62.307,
+		'y' : 114.551,
+		'z' : 251.523
+	},
+	null,
+	''
+)
+
+const MT_SECURITYCENTER_DDV6 = new Location(
+	'MT SecurityCenter DDV-6',
+	'Underground bunker',
+	MICROTECH,
+	STANTON,
+	{
+		'x' : 68.516,
+		'y' : 64.213,
+		'z' : -996.492
+	},
+	null,
+	''
+)
+
+const MT_DATACENTER_2UBRB95 = new Location(
+	'MT DataCenter 2UB-RB9-5',
+	'Underground bunker',
+	MICROTECH,
+	STANTON,
+	{
+		'x' : 907.102,
+		'y' : 139.922,
+		'z' : -397.434
+	},
+	null,
+	''
+)
+
+const MT_DATACENTER_4HJLVEA = new Location(
+	'MT DataCenter 4HJ-LVE-A',
+	'Underground bunker',
+	MICROTECH,
+	STANTON,
+	{
+		'x' : -100.656,
+		'y' : 962.479,
+		'z' : -255.491
+	},
+	null,
+	''
+)
+
+const MT_DATACENTER_5WQR2VC = new Location(
+	'MT DataCenter 5WQ-R2V-C',
+	'Underground bunker',
+	MICROTECH,
+	STANTON,
+	{
+		'x' : 959.827,
+		'y' : 40.202,
+		'z' : -279.233
+	},
+	null,
+	''
+)
+
+const MT_DATACENTER_D79ECGR = new Location(
+	'MT DataCenter D79-ECG-R',
+	'Underground bunker',
+	MICROTECH,
+	STANTON,
+	{
+		'x' : 201.182,
+		'y' : 308.978,
+		'z' : -929.668
+	},
+	null,
+	''
+)
+
+const MT_DATACENTER_E2QNSGY = new Location(
+	'MT DataCenter E2Q-NSG-Y',
+	'Underground bunker',
+	MICROTECH,
+	STANTON,
+	{
+		'x' : 916.820,
+		'y' : 187.359,
+		'z' : -354.077
+	},
+	null,
+	''
+)
+
+const MT_DATACENTER_KH3AAEL = new Location(
+	'MT DataCenter KH3-AAE-L',
+	'Underground bunker',
+	MICROTECH,
+	STANTON,
+	{
+		'x' : -468.800,
+		'y' : 801.495,
+		'z' : -375.462
+	},
+	null,
+	''
+)
+
+const MT_DATACENTER_L8PJUC8 = new Location(
+	'MT DataCenter L8P-JUC-8',
+	'Underground bunker',
+	MICROTECH,
+	STANTON,
+	{
+		'x' : -86.389,
+		'y' : 218.654,
+		'z' : -972.076
+	},
+	null,
+	''
+)
+
+const MT_DATACENTER_QVXJ88J = new Location(
+	'MT DataCenter QVX-J88-J',
+	'Underground bunker',
+	MICROTECH,
+	STANTON,
+	{
+		'x' : -247.573,
+		'y' : 892.650,
+		'z' : -380.107
+	},
+	null,
+	''
+)
+
+const MT_DATACENTER_TMGXEV2 = new Location(
+	'MT DataCenter TMG-XEV-2',
+	'Underground bunker',
+	MICROTECH,
+	STANTON,
+	{
+		'x' : -160.905,
+		'y' : 62.279,
+		'z' : 986.022
+	},
+	null,
+	''
+)
+
 
 // INIT
 window.LOCATIONS.sort((a, b) => a.NAME.localeCompare(b.NAME));
