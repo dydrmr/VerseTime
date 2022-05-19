@@ -26,14 +26,14 @@ let ELEVATION_IN_DEGREES = null;
 let STARRISE_AND_STARSET_ANGLE = null;
 
 export default class Location {
-	constructor(name, type, parentBody, parentStar, coordinates, themeColor = null, themeImage) {
+	constructor(name, type, parentBody, parentStar, coordinates, themeColor = null, themeImage = null) {
 		this.NAME = name;
 		this.TYPE = type;
 		this.PARENT = parentBody;
 		this.PARENT_STAR = parentStar;
 		this.COORDINATES = coordinates;
 		this.THEME_COLOR = themeColor ? themeColor : this.PARENT.THEME_COLOR;
-		this.THEME_IMAGE = themeImage;
+		this.THEME_IMAGE = (themeImage === '' || themeImage === null) ? this.PARENT.THEME_IMAGE : themeImage;
 
 		// CALCULATED PROPERTIES
 		// LATITUDE
@@ -160,19 +160,21 @@ export default class Location {
 				return 'Midnight';
 			} else if (t > this.LOCAL_STAR_SET_TIME * 86400 + 1500) {
 				return 'Night';
-			} else if (t > this.LOCAL_STAR_SET_TIME * 86400 + 300) {
+			} else if (t > this.LOCAL_STAR_SET_TIME * 86400 + 60) {
 				return 'Evening Twilight';
-			} else if (t > this.LOCAL_STAR_SET_TIME * 86400 - 300) {
+			} else if (t > this.LOCAL_STAR_SET_TIME * 86400 - 1200) {
 				return 'Starset';
-			} else if (t > 43200 + 300) {
+			} else if (t > this.LOCAL_STAR_SET_TIME * 86400 - 3600) {
+				return 'Late Afternoon';
+			} else if (t > 43200 + 600) {
 				return 'Afternoon';
-			} else if (t > 43200 - 300) {
+			} else if (t > 43200 - 600) {
 				return 'Noon';
 			} else if (t > 43200 - 3600) {
 				return 'Late Morning';
-			} else if (t > this.LOCAL_STAR_RISE_TIME * 86400 + 300) {
+			} else if (t > this.LOCAL_STAR_RISE_TIME * 86400 + 1200) {
 				return 'Morning';
-			} else if (t > this.LOCAL_STAR_RISE_TIME * 86400 - 300) {
+			} else if (t > this.LOCAL_STAR_RISE_TIME * 86400 - 60) {
 				return 'Starrise';
 			} else if (t > this.LOCAL_STAR_RISE_TIME * 86400 - 1500) {
 				return 'Morning Twilight';

@@ -370,7 +370,8 @@ const LYRIA = new CelestialBody(
 		'r' : 112,
 		'g' : 142,
 		'b' : 178
-	}
+	},
+	'https://starcitizen.tools/images/thumb/a/aa/Stanton-arccorp-lyria-orbit-3.12.jpg/640px-Stanton-arccorp-lyria-orbit-3.12.jpg'
 )
 
 const WALA = new CelestialBody(
@@ -398,7 +399,8 @@ const WALA = new CelestialBody(
 		'r' : 124,
 		'g' : 150,
 		'b' : 158
-	}
+	},
+	'https://starcitizen.tools/images/thumb/f/ff/Stanton-arccorp-wala-orbit-3.12.jpg/640px-Stanton-arccorp-wala-orbit-3.12.jpg'
 )
 
 const CRUSADER = new CelestialBody(
@@ -454,7 +456,8 @@ const CELLIN = new CelestialBody(
 		'r' : 113,
 		'g' : 127,
 		'b' : 144
-	}
+	},
+	'https://starcitizen.tools/images/thumb/5/5c/Stanton-crusader-cellin-orbit-3.8.0.jpg/800px-Stanton-crusader-cellin-orbit-3.8.0.jpg'
 )
 
 const DAYMAR = new CelestialBody(
@@ -482,7 +485,8 @@ const DAYMAR = new CelestialBody(
 		'r' : 211,
 		'g' : 170,
 		'b' : 150
-	}
+	},
+	'https://starcitizen.tools/images/thumb/5/52/Stanton-crusader-daymar-3.8.0.jpg/640px-Stanton-crusader-daymar-3.8.0.jpg'
 )
 
 const YELA = new CelestialBody(
@@ -510,7 +514,8 @@ const YELA = new CelestialBody(
 		'r' : 128,
 		'g' : 128,
 		'b' : 150
-	}
+	},
+	'https://starcitizen.tools/images/thumb/8/8f/Stanton-crusader-yela-orbit-3.8.0.jpg/640px-Stanton-crusader-yela-orbit-3.8.0.jpg'
 )
 
 const MICROTECH = new CelestialBody(
@@ -566,7 +571,8 @@ const CALLIOPE = new CelestialBody(
 		'r' : 124,
 		'g' : 132,
 		'b' : 148
-	}
+	},
+	'https://starcitizen.tools/images/thumb/9/9a/Calliope-orbit1.png/640px-Calliope-orbit1.png'
 )
 
 const CLIO = new CelestialBody(
@@ -594,7 +600,8 @@ const CLIO = new CelestialBody(
 		'r' : 130,
 		'g' : 141,
 		'b' : 137
-	}
+	},
+	'https://starcitizen.tools/images/thumb/2/27/Clio-orbit.png/640px-Clio-orbit.png'
 )
 
 const EUTERPE = new CelestialBody(
@@ -622,7 +629,8 @@ const EUTERPE = new CelestialBody(
 		'r' : 130,
 		'g' : 141,
 		'b' : 159
-	}
+	},
+	'https://starcitizen.tools/images/thumb/5/53/Euterpe-orbit1.png/640px-Euterpe-orbit1.png'
 )
 
 const HURSTON = new CelestialBody(
@@ -1549,7 +1557,7 @@ const THE_GARDEN = new Location(
 		'z' : 186.269
 	},
 	null,
-	''
+	'https://starcitizen.tools/images/thumb/d/dd/The_Garden%2C_Daymar_%28Alpha_3.17%29.jpg/800px-The_Garden%2C_Daymar_%28Alpha_3.17%29.jpg'
 )
 
 const TPF = new Location(
@@ -1619,7 +1627,7 @@ const NT_999_XX = new Location(
 		'z' : 224.325
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/0/03/NT-999-XX3.png/800px-NT-999-XX3.png'
+	'https://starcitizen.tools/images/thumb/0/0d/NT-999-XX_outpost_on_Yela_%28Alpha_3.17%29.png/800px-NT-999-XX_outpost_on_Yela_%28Alpha_3.17%29.png'
 )
 
 const HDMS_EDMOND = new Location(
@@ -1832,8 +1840,331 @@ const NT_999_XV = new Location(
 	''
 )
 
+const HDMO_DOBBS_NA = new Location(
+	'HDMO-Dobbs (NA)',
+	'Cave',
+	ABERDEEN,
+	STANTON,
+	{
+		'x' : 270.579,
+		'y' : 47.399,
+		'z' : -11.404
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/c/c2/Aberdeen_HDMO-Dobbs_Day.jpg/800px-Aberdeen_HDMO-Dobbs_Day.jpg'
+)
+
+const BARTON_FLATS_AID_SHELTER = new Location(
+	'Barton Flats Aid Shelter',
+	'Emergency Shelter',
+	ABERDEEN,
+	STANTON,
+	{
+		'x' : 54.341,
+		'y' : 217.120,
+		'z' : -159.881
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/e/e9/Aberdeen_Barton-Flats-Aid-Shelter_Sunset.jpg/800px-Aberdeen_Barton-Flats-Aid-Shelter_Sunset.jpg'
+)
+
+const PRIVATE_PROPERTY = new Location(
+	'PRIVATE PROPERTY',
+	'Outpost',
+	CELLIN,
+	STANTON,
+	{
+		'x' : 97.749,
+		'y' : -173.764,
+		'z' : 167.078
+	},
+	null,
+	''
+)
+
+const SECURITY_POST_CRISKA = new Location(
+	'Security Post Criska',
+	'Outpost',
+	CELLIN,
+	STANTON,
+	{
+		'x' : 252.522,
+		'y' : 62.924,
+		'z' : 13.871
+	},
+	null,
+	''
+)
+
+const SECURITY_POST_DIPUR = new Location(
+	'Security Post Dipur',
+	'Outpost',
+	CELLIN,
+	STANTON,
+	{
+		'x' : 197.701,
+		'y' : 57.544,
+		'z' : -159.946
+	},
+	null,
+	''
+)
+
+const SECURITY_POST_LESPIN = new Location(
+	'Security Post Lespin',
+	'Outpost',
+	CELLIN,
+	STANTON,
+	{
+		'x' : -214.319,
+		'y' : -149.144,
+		'z' : 3.974
+	},
+	null,
+	''
+)
+
+const SECURITY_POST_KAREAH = new Location(
+	'Security Post Kareah',
+	'Space Station',
+	CELLIN,
+	STANTON,
+	{
+		'x' : 11.620,
+		'y' : -419.839,
+		'z' : 200.000
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/8/84/Crusader-cellin-kareah-3.11-exterior-03.jpg/800px-Crusader-cellin-kareah-3.11-exterior-03.jpg'
+)
+
+const ASHBURN_CHANNEL_AID_SHELTER = new Location(
+	'Ashburn Channel Aid Shelter',
+	'Emergency Shelter',
+	CELLIN,
+	STANTON,
+	{
+		'x' : 3.024,
+		'y' : -257.942,
+		'z' : -37.129
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/2/2c/Cellin_Ashburn-Channel-Aid-Shelter_Day.jpg/800px-Cellin_Ashburn-Channel-Aid-Shelter_Day.jpg'
+)
+
+const FLANAGANS_RAVINE_AID_SHELTER = new Location(
+	'Flanagan\'s Ravine Aid Shelter',
+	'Emergency Shelter',
+	CELLIN,
+	STANTON,
+	{
+		'x' : -194.282,
+		'y' : 151.722,
+		'z' : 84.997
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/0/00/Cellin_Flanagans-Ravine-Aid-Shelter_Day.jpg/800px-Cellin_Flanagans-Ravine-Aid-Shelter_Day.jpg'
+)
+
+const MOGOTE_AID_SHELTER = new Location(
+	'Mogote Aid Shelter',
+	'Emergency Shelter',
+	CELLIN,
+	STANTON,
+	{
+		'x' : -198.664,
+		'y' : 50.790,
+		'z' : 160.875
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/7/7b/Cellin_Mogote-Aid-Shelter-Day.jpg/800px-Cellin_Mogote-Aid-Shelter-Day.jpg'
+)
+
+const JULEP_RAVINE_AID_SHELTER = new Location(
+	'Julep Ravine Aid Shelter',
+	'Emergency Shelter',
+	CELLIN,
+	STANTON,
+	{
+		'x' : -111.528,
+		'y' : -56.297,
+		'z' : -228.950
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/f/f0/Cellin_Julep-Ravine-Aid-Shelter_Day.jpg/800px-Cellin_Julep-Ravine-Aid-Shelter_Day.jpg'
+)
+
+const DUNLOW_RIDGE_AID_SHELTER = new Location(
+	'Dunlow Ridge Aid Shelter',
+	'Emergency Shelter',
+	DAYMAR,
+	STANTON,
+	{
+		'x' : -51.850,
+		'y' : 280.932,
+		'z' : 75.331
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/b/b9/Daymar_Dunlow-Ridge-Aid-Shelter_Day.jpg/800px-Daymar_Dunlow-Ridge-Aid-Shelter_Day.jpg'
+)
+
+const EAGER_FLATS_AID_SHELTER = new Location(
+	'Eager Flats Aid Shelter',
+	'Emergency Shelter',
+	DAYMAR,
+	STANTON,
+	{
+		'x' : 200.545,
+		'y' : -104.917,
+		'z' : 190.097
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/2/26/Daymar_Eager-Flats-Aid-Shelter_Day.jpg/800px-Daymar_Eager-Flats-Aid-Shelter_Day.jpg'
+)
+
+const TAMDON_PLAINS_AID_SHELTER = new Location(
+	'Tamdon Plains Aid Shelter',
+	'Emergency Shelter',
+	DAYMAR,
+	STANTON,
+	{
+		'x' : -138.114,
+		'y' : -24.463,
+		'z' : -259.849
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/3/33/Daymar_Tamdon-Plains-Aid-Shelter_Day.jpg/800px-Daymar_Tamdon-Plains-Aid-Shelter_Day.jpg'
+)
+
+const WOLF_POINT_AID_SHELTER = new Location(
+	'Wolf Point Aid Shelter',
+	'Emergency Shelter',
+	DAYMAR,
+	STANTON,
+	{
+		'x' : -4.420,
+		'y' : 279.067,
+		'z' : 95.733
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/5/54/20180325093227_1.jpg/800px-20180325093227_1.jpg'
+)
+
+const SECURITY_POST_MOLUTO = new Location(
+	'Security Post Moluto',
+	'Outpost',
+	DAYMAR,
+	STANTON,
+	{
+		'x' : 189.063,
+		'y' : 33.693,
+		'z' : -223.998
+	},
+	null,
+	''
+)
+
+const SECURITY_POST_PRASHAD = new Location(
+	'Security Post Prashad',
+	'Outpost',
+	DAYMAR,
+	STANTON,
+	{
+		'x' : -223.514,
+		'y' : 65.899,
+		'z' : 181.092
+	},
+	null,
+	''
+)
+
+const SECURITY_POST_THAQURAY = new Location(
+	'Security Post Thaquray',
+	'Outpost',
+	DAYMAR,
+	STANTON,
+	{
+		'x' : -6.477,
+		'y' : -90.411,
+		'z' : 281.124
+	},
+	null,
+	''
+)
+
+const COVALEX_SHIPPING_HUB_GUNDO = new Location(
+	'Covalex Shipping Hub Gundo',
+	'Space Station',
+	DAYMAR,
+	STANTON,
+	{
+		'x' : -241.198,
+		'y' : 437.977,
+		'z' : -300.000
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/d/da/Stanton-crusader-daymar-gundo-3.8.0.jpg/800px-Stanton-crusader-daymar-gundo-3.8.0.jpg'
+)
+
+const SECURITY_POST_OPAL = new Location(
+	'Security Post Opal',
+	'Outpost',
+	YELA,
+	STANTON,
+	{
+		'x' : 241.090,
+		'y' : 96.618,
+		'z' : -174.893
+	},
+	null,
+	''
+)
+
+const SECURITY_POST_WAN = new Location(
+	'Security Post Wan',
+	'Outpost',
+	YELA,
+	STANTON,
+	{
+		'x' : -208.492,
+		'y' : 53.177,
+		'z' : -227.351
+	},
+	null,
+	''
+)
+
+const CONNORS = new Location(
+	'Connor\'s',
+	'Outpost',
+	YELA,
+	STANTON,
+	{
+		'x' : -139.095,
+		'y' : -254.344,
+		'z' : 119.068
+	},
+	null,
+	''
+)
+
+const BENNYHENGE = new Location(
+	'Bennyhenge',
+	'Landmark',
+	YELA,
+	STANTON,
+	{
+		'x' : -626.649,
+		'y' : 135.683,
+		'z' : -1.819
+	},
+	null,
+	''
+)
+
 // INIT
-populateLocationGrid();
+window.LOCATIONS.sort((a, b) => a.NAME.localeCompare(b.NAME));
+populateLocationList();
 loadSettings();
 setInterval(update, 250);
 update();

@@ -382,7 +382,7 @@ body {
 	background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%, var(--theme-color-dark) 70%);
 }
 
-#available-locations-grid {
+#available-locations-list {
 	padding: 35px 0px;
 	margin: auto;
 	max-height: 50vh;

@@ -25,12 +25,13 @@ let THEME_COLOR = {
 	'r' : null,
 	'g' : null,
 	'b' : null
-}
+};
+let THEME_IMAGE = '';
 
 let ANGULAR_ROTATION_RATE = null;
 
 export default class CelestialBody {
-	constructor(name, type, parentBody, parentStar, coordinates, rotationQuaternion, bodyRadius, rotationRate, rotationCorrection, orbitalAngle, orbitalRadius, themeColor = null) {
+	constructor(name, type, parentBody, parentStar, coordinates, rotationQuaternion, bodyRadius, rotationRate, rotationCorrection, orbitalAngle, orbitalRadius, themeColor = null, themeImage = null) {
 		this.NAME = name;
 		this.TYPE = type;
 		this.PARENT = parentBody;
@@ -44,6 +45,7 @@ export default class CelestialBody {
 		this.ORBITAL_ANGLE = orbitalAngle;
 		this.ORBITAL_RADIUS = orbitalRadius;
 		this.THEME_COLOR = themeColor ? themeColor : {'r' : null, 'g' : null, 'b' : null};
+		this.THEME_IMAGE = themeImage;
 
 		window.BODIES.push(this);
 	}
