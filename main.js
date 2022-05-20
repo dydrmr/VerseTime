@@ -2111,8 +2111,8 @@ const COVALEX_SHIPPING_HUB_GUNDO = new Location(
 	'https://starcitizen.tools/images/thumb/d/da/Stanton-crusader-daymar-gundo-3.8.0.jpg/800px-Stanton-crusader-daymar-gundo-3.8.0.jpg'
 )
 
-const SECURITY_POST_OPAL = new Location(
-	'Security Post Opal',
+const SECURITY_POST_WAN = new Location(
+	'Security Post Wan',
 	'Underground bunker',
 	YELA,
 	STANTON,
@@ -2125,8 +2125,8 @@ const SECURITY_POST_OPAL = new Location(
 	''
 )
 
-const SECURITY_POST_WAN = new Location(
-	'Security Post Wan',
+const SECURITY_POST_OPAL = new Location(
+	'Security Post Opal',
 	'Underground bunker',
 	YELA,
 	STANTON,
