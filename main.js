@@ -2122,7 +2122,7 @@ const SECURITY_POST_WAN = new Location(
 		'z' : -174.893
 	},
 	null,
-	''
+	'https://starcitizen.tools/File:Security_Post_Wan,_Yela_(Alpha_3.17.1).png'
 )
 
 const SECURITY_POST_OPAL = new Location(
