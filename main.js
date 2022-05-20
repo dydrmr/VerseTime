@@ -117,6 +117,7 @@ function updateDebugUI() {
 		setText('body-parent-name', bod.PARENT.NAME);
 		setText('day-length', (bod.ROTATION_RATE*60*60).toLocaleString());
 		setText('day-length-readable', HOURS_TO_TIME_STRING(bod.ROTATION_RATE));
+		setText('hour-length-readable', HOURS_TO_TIME_STRING(bod.ROTATION_RATE / 24));
 		setText('current-cycle', ROUND(bod.CURRENT_CYCLE(), 3).toLocaleString());
 		setText('hour-angle', bod.HOUR_ANGLE().toFixed(3));
 		setText('declination', bod.DECLINATION(bod.PARENT_STAR).toFixed(3));
