@@ -252,8 +252,9 @@ function HOURS_TO_TIME_STRING(hours, includeSeconds = true, limitTo24Hours = tru
 	}
 
 	h = Math.floor(h);
-
-	if (limitTo24Hours && h > 24) h -= 24;
+	if (limitTo24Hours) {
+		while (h > 24) h -= 24;
+	}
 	
 	let ampm = '';
 	if (limitTo24Hours && !window.SETTING_24HR) {
