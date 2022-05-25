@@ -253,7 +253,7 @@ function HOURS_TO_TIME_STRING(hours, includeSeconds = true, limitTo24Hours = tru
 
 	h = Math.floor(h);
 	if (limitTo24Hours) {
-		while (h > 24) h -= 24;
+		while (h >= 24) h -= 24;
 	}
 	
 	let ampm = '';
@@ -661,7 +661,8 @@ const HURSTON = new CelestialBody(
 		'r' : 138,
 		'g' : 101,
 		'b' : 71
-	}
+	},
+	'https://starcitizen.tools/images/thumb/1/10/Stanton-hurston-orbit-3.17.jpg/640px-Stanton-hurston-orbit-3.17.jpg'
 )
 
 const ABERDEEN = new CelestialBody(
@@ -2433,6 +2434,244 @@ const MT_DATACENTER_TMGXEV2 = new Location(
 	},
 	null,
 	''
+)
+
+const HDRSO_BRAMEN = new Location(
+	'HDRSO-Bramen (Security Post Hurston-1)',
+	'Underground bunker',
+	HURSTON,
+	STANTON,
+	{
+		'x' : 766.550,
+		'y' : -74.234,
+		'z' : -640.243
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/3/36/HDRSO-Bramen3.png/640px-HDRSO-Bramen3.png'
+)
+
+const HDSF_ADLAI = new Location(
+	'HDSF-Adlai',
+	'Underground bunker',
+	HURSTON,
+	STANTON,
+	{
+		'x' : -236.846,
+		'y' : -810.890,
+		'z' : 537.736
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/e/e3/HDSF_Adlai.png/640px-HDSF_Adlai.png'
+)
+
+const HDSF_BARNABAS = new Location(
+	'HDSF-Barnabas',
+	'Underground bunker',
+	HURSTON,
+	STANTON,
+	{
+		'x' : -895.863,
+		'y' : 365.602,
+		'z' : -252.538
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/1/19/HDSF-Barnabas37.png/640px-HDSF-Barnabas37.png'
+)
+
+const HDSF_BRECKINRIDGE = new Location(
+	'HDSF-Breckinridge',
+	'Underground bunker',
+	HURSTON,
+	STANTON,
+	{
+		'x' : -557.599,
+		'y' : 680.528,
+		'z' : -477.825
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/2/20/Breckinridge3.png/640px-Breckinridge3.png'
+)
+
+const HDSF_COLFAX = new Location(
+	'HDSF-Colfax',
+	'Underground bunker',
+	HURSTON,
+	STANTON,
+	{
+		'x' : 902.272,
+		'y' : 383.795,
+		'z' : -203.763
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/4/4a/Colfax1.png/640px-Colfax1.png'
+)
+
+const HDSF_DAMARIS = new Location(
+	'HDSF-Damaris',
+	'Underground bunker',
+	HURSTON,
+	STANTON,
+	{
+		'x' : -898.695,
+		'y' : 420.101,
+		'z' : -141.747
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/b/be/HDSF-Damaris30.png/640px-HDSF-Damaris30.png'
+)
+
+const HDSF_ELBRIDGE = new Location(
+	'HDSF-Elbridge',
+	'Underground bunker',
+	HURSTON,
+	STANTON,
+	{
+		'x' : 449.413,
+		'y' : 838.666,
+		'z' : 310.624
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/1/19/Hurston-elbridge-3.4.1-ground2.jpg/640px-Hurston-elbridge-3.4.1-ground2.jpg'
+)
+
+const HDSF_HENDRICKS = new Location(
+	'HDSF-Hendricks',
+	'Underground bunker',
+	HURSTON,
+	STANTON,
+	{
+		'x' : 63.555,
+		'y' : -969.070,
+		'z' : -242.520
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/2/2f/HDSF-Hendricks53.png/640px-HDSF-Hendricks53.png'
+)
+
+const HDSF_HIRAM = new Location(
+	'HDSF-Hiram',
+	'Underground bunker',
+	HURSTON,
+	STANTON,
+	{
+		'x' : -942.480,
+		'y' : -317.031,
+		'z' : 122.747
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/b/bb/HDSF-Hiram58.png/640px-HDSF-Hiram58.png'
+)
+
+const HDSF_HOBART = new Location(
+	'HDSF-Hobart',
+	'Underground bunker',
+	HURSTON,
+	STANTON,
+	{
+		'x' : -492.220,
+		'y' : 768.371,
+		'z' : 410.823
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/8/8b/HDSD-Hobart48.png/640px-HDSD-Hobart48.png'
+)
+
+const HDSF_ISHMAEL = new Location(
+	'HDSF-Ishmael',
+	'Underground bunker',
+	HURSTON,
+	STANTON,
+	{
+		'x' : -266.171,
+		'y' : -159.479,
+		'z' : 952.333
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/e/e5/HDSF-Ishmael14.png/640px-HDSF-Ishmael14.png'
+)
+
+const HDSF_MILLERAND = new Location(
+	'HDSF-Millerand',
+	'Underground bunker',
+	HURSTON,
+	STANTON,
+	{
+		'x' : -847.551,
+		'y' : 517.597,
+		'z' : 126.804
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/d/df/HDSF-Millerand_19.png/640px-HDSF-Millerand_19.png'
+)
+
+const HDSF_RUFUS = new Location(
+	'HDSF-Rufus',
+	'Underground bunker',
+	HURSTON,
+	STANTON,
+	{
+		'x' : -64.794,
+		'y' : 11.531,
+		'z' : -998.425
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/e/e3/HDSF-Rufus48.png/640px-HDSF-Rufus48.png'
+)
+
+const HDSF_SHERMAN = new Location(
+	'HDSF-Sherman',
+	'Underground bunker',
+	HURSTON,
+	STANTON,
+	{
+		'x' : 899.380,
+		'y' : -406.057,
+		'z' : 168.518
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/5/55/HDSF-Sherman59.png/640px-HDSF-Sherman59.png'
+)
+
+const HDSF_TAMAR = new Location(
+	'HDSF-Tamar',
+	'Underground bunker',
+	HURSTON,
+	STANTON,
+	{
+		'x' : 121.122,
+		'y' : -810.963,
+		'z' : -573.527
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/2/2b/HDSF-Tamar24.png/640px-HDSF-Tamar24.png'
+)
+
+const HDSF_TOMPKINS = new Location(
+	'HDSF-Tompkins',
+	'Underground bunker',
+	HURSTON,
+	STANTON,
+	{
+		'x' : 374.762,
+		'y' : 724.551,
+		'z' : 579.815
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/4/48/HDSF-Tompkins26.png/640px-HDSF-Tompkins26.png'
+)
+
+const HDSF_ZACHARIAS = new Location(
+	'HDSF-Zacharias',
+	'Underground bunker',
+	HURSTON,
+	STANTON,
+	{
+		'x' : 249.567,
+		'y' : 398.572,
+		'z' : -884.801
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/e/e8/HDSF-Zacharias.png/640px-HDSF-Zacharias.png'
 )
 
 
