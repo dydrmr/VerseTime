@@ -276,6 +276,8 @@ body {
 	background-color: rgba(0, 0, 0, 0.3);
 }
 
+
+
 #settings-window {
 	width: 700px;
 	max-width: 90%;
@@ -495,6 +497,68 @@ body {
 	transform: scale(1.05);
 }
 
+
+
+
+#map-window {}
+
+.mapLocationNameLabel {
+	font-size: 15px;
+	font-weight: 500;
+	text-align: center;
+	font-family: 'Rajdhani', sans-serif;
+	margin-top: -1.2em;
+	color: rgba(255, 255, 255, 0.8);
+}
+.mapLocationTimeLabel {
+	font-size: 12px;
+	font-weight: 900;
+	text-align: center;
+	font-family: 'Roboto Mono', monospace;
+	margin-top: 1.2em;
+	color: rgba(255, 255, 255, 0.8);
+}
+
+#BUTTON-toggle-map-window {
+	position: absolute;
+	left: 5px;
+	top: 5px;
+
+	padding: 5px 10px;
+	font-family: 'Rajdhani', sans-serif;
+	font-size: 14px;
+	font-weight: 700;
+	text-transform: uppercase;
+	border-radius: 10px;
+
+	opacity: 0.4;
+	transition: 0.2s ease-out;
+}
+#BUTTON-toggle-map-window:hover {
+	cursor: pointer;
+	opacity: 1;
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+
+#BUTTON-close-map {
+	position: absolute;
+	top: 13px;
+	right: 13px;
+
+	width: 18px;
+	height: 18px;
+	border-radius: 100%;
+	background-color: hsl(0, 100%, 20%);
+
+	transition: 0.3s ease-out;
+	z-index: 1;
+}
+#BUTTON-close-map:hover {
+	cursor: pointer;
+	background-color: hsl(0, 100%, 50%);
+	transform: scale(1.05);
+}
 
 
 

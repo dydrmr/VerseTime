@@ -77,6 +77,10 @@
 	Info
 </div>
 
+<div id="BUTTON-toggle-map-window">
+	Map
+</div>
+
 <section class="modal" id="modal-settings">
 	<div id="settings-window">
 		<div id="BUTTON-close-settings"></div>
@@ -107,6 +111,12 @@
 	</div>
 </section>
 
+<section class="modal" id="modal-map">
+	<div id="map-window">
+		<div id="BUTTON-close-map"></div>
+	</div>
+</section>
+
 <section id="detailed-info">
 	<div class="detailed-info-group">
 		<h3>TIME</h3>
@@ -123,6 +133,7 @@
 			<p class="info-group-label">Type</p><p class="info-group-data"><span id="body-type"></span></p>
 			<p class="info-group-label">System</p><p class="info-group-data"><span id="body-system"></span></p>
 			<p class="info-group-label">Orbits</p><p class="info-group-data"><span id="body-parent-name"></span></p>
+			<p class="info-group-label">Radius</p><p class="info-group-data"><span id="body-radius"></span> km</p>
 			<p class="info-group-label">Time to spin 360&deg;</p><p class="info-group-data"><span id="day-length"></span> sec</p>
 			<p class="info-group-label">Real length of day</p><p class="info-group-data">= <span id="day-length-readable"></span></p>
 			<p class="info-group-label">Real length of 1 hour</p><p class="info-group-data">= <span id="hour-length-readable"></span></p>
@@ -174,6 +185,7 @@
 </body>
 
 <script src="main.js" type="module"></script>
+<script src="map.js" type="module"></script>
 <script src="ui-controller.js"></script>
 <script src="settings.js"></script>
 

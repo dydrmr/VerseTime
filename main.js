@@ -1,3 +1,6 @@
+// 3D Map
+// Save Favorites
+
 import { DEGREES, RADIANS, MODULO, SQUARE, ROUND, JULIAN_DATE } from './HelperFunctions.js';
 import CelestialBody from './CelestialBody.js';
 import Location from './Location.js';
@@ -8,6 +11,7 @@ window.LOCATIONS = Array();
 window.ACTIVE_LOCATION = null;
 window.SETTING_24HR = true;
 window.DEBUG_MODE = false;
+window.HOURS_TO_TIME_STRING = HOURS_TO_TIME_STRING;
 
 
 // FUNCTIONS
@@ -115,6 +119,7 @@ function updateDebugUI() {
 		setText('body-type', bod.TYPE);
 		setText('body-system', bod.PARENT_STAR.NAME);
 		setText('body-parent-name', bod.PARENT.NAME);
+		setText('body-radius', bod.BODY_RADIUS.toLocaleString());
 		setText('day-length', (bod.ROTATION_RATE*60*60).toLocaleString());
 		setText('day-length-readable', HOURS_TO_TIME_STRING(bod.ROTATION_RATE));
 		setText('hour-length-readable', HOURS_TO_TIME_STRING(bod.ROTATION_RATE / 24));
@@ -1218,6 +1223,20 @@ const HDMS_LATHAN = new Location(
 	'https://starcitizen.tools/images/thumb/8/8d/HDMS-Lathan2.png/800px-HDMS-Lathan2.png'
 )
 
+const ABANDONED_OUTPOST_CELLIN = new Location(
+	'Abandoned Outpost (CELLIN)',
+	'Outpost',
+	CELLIN,
+	STANTON,
+	{
+		'x' : 130.062,
+		'y' : 184.915,
+		'z' : 130.356
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/1/13/Abandoned_outpost%2C_Daymar_%28Alpha_3.17%29.png/800px-Abandoned_outpost%2C_Daymar_%28Alpha_3.17%29.png'
+)
+
 const GALLETE_FAMILY_FARMS = new Location(
 	'Gallete Family Farms',
 	'Outpost',
@@ -1532,9 +1551,9 @@ const NUEN_WASTE_MANAGEMENT = new Location(
 	DAYMAR,
 	STANTON,
 	{
-		'x' : 73.139,
-		'y' : 285.904,
-		'z' : 1.906
+		'x' : -18.943,
+		'y' : 293.341,
+		'z' : 25.478
 	},
 	null,
 	'https://starcitizen.tools/images/thumb/5/53/Nuen_Waste_Management%2C_Daymar%2C_Alpha_3.17.jpg/800px-Nuen_Waste_Management%2C_Daymar%2C_Alpha_3.17.jpg'
