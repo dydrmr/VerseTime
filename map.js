@@ -2,6 +2,8 @@ import * as THREE from 'https://cdn.skypack.dev/three@0.134.0/build/three.module
 import { OrbitControls } from 'https://cdn.skypack.dev/three@0.134.0/examples/jsm/controls/OrbitControls.js';
 import { CSS2DRenderer, CSS2DObject } from 'https://cdn.skypack.dev/three@0.134.0/examples/jsm/renderers/CSS2DRenderer.js';
 
+import { DEGREES, RADIANS, MODULO, SQUARE, ROUND, JULIAN_DATE } from './HelperFunctions.js';
+
 let scene, camera, renderer, labelRenderer, controls;
 let mapDiv = document.getElementById('map-window');
 
@@ -80,17 +82,17 @@ function createNewScene(celestialObject) {
 	let locations = window.LOCATIONS.filter(loc => loc.PARENT === celestialObject);
 
 
+	document.getElementById('map-body-name').textContent = celestialObject.NAME;
+
+
 	scene.clear();
 
-	// let oldLabels = document.getElementsByClassName('mapLabel');
-	// for (let i = 0; i < oldLabels.length; i++) {oldLabels[i].remove();}
 	let oldLabels1 = document.querySelectorAll('.mapLocationNameLabel');
 	let oldLabels2 = document.querySelectorAll('.mapLocationTimeLabel');
 	oldLabels1.forEach(label => {label.remove();});
 	oldLabels2.forEach(label => {label.remove();});
 
 
-	// camera.position.set(r * 2, r * 0.5, r * 1.5);
 	camera.position.set(2, 0.5, 2);
 
 
@@ -100,11 +102,42 @@ function createNewScene(celestialObject) {
 		transparent: true,
 		opacity: 0.05
 	});
+	const matRed = new THREE.LineBasicMaterial( {
+		color: 0xff0000,
+		transparent: true,
+		opacity: 0.05
+	});
+	const matGreen = new THREE.LineBasicMaterial( {
+		color: 0x00ff00,
+		transparent: true,
+		opacity: 0.05
+	});
+	const matBlue = new THREE.LineBasicMaterial( {
+		color: 0x0000ff,
+		transparent: true,
+		opacity: 0.05
+	});
 
 	// let r2 = r * 1.25;
-	scene.add(makeLine(-2.5, 0, 0, 2.5, 0, 0, matGray));
-	scene.add(makeLine(0, -2.5, 0, 0, 2.5, 0, matGray));
-	scene.add(makeLine(0, 0, -2.5, 0, 0, 2.5, matGray));
+	scene.add(makeLine(-2.5, 0, 0, 2.5, 0, 0, matRed));
+	scene.add(makeLine(0, -2.5, 0, 0, 2.5, 0, matGreen));
+	scene.add(makeLine(0, 0, -2.5, 0, 0, 2.5, matBlue));
+
+
+	// LONGITUDE/LATITUDE LINES
+	const matLongi = new THREE.LineBasicMaterial( {
+		color: `rgb(${c.r}, ${c.g}, ${c.b})`,
+		transparent: true,
+		opacity: 0.05
+	});
+
+	for (let i = 0; i < 360; i += 30) {
+		scene.add(makeLongitudeCircle(i, matLongi));
+	}
+
+	for (let i = 0; i < 180; i += 15) {
+		scene.add(makeLatitudeCircle(i, matLongi));
+	}
 
 
 	// CELESTIAL BODY
@@ -117,8 +150,11 @@ function createNewScene(celestialObject) {
 
 	for (let i = 0; i < locations.length; i++) {
 		let pos = locations[i].COORDINATES;
+		let x = pos.x / r;
+		let y = pos.y / r;
+		let z = pos.z / r;
 		// Y = UP in THREE.JS, so switch Z and Y:
-		vertices.push(pos.x / r, pos.z / r, pos.y / r);
+		vertices.push(x, z, y);
 
 
 		// TEXT LABELS
@@ -127,7 +163,7 @@ function createNewScene(celestialObject) {
 		labelDiv.textContent = locations[i].NAME;
 		
 		let nameLabel = new CSS2DObject(labelDiv);
-		let nameLabelPosition = new THREE.Vector3(pos.x / r, pos.z / r , pos.y / r);
+		let nameLabelPosition = new THREE.Vector3(x, z, y);
 		nameLabel.position.copy(nameLabelPosition);
 		
 		scene.add(nameLabel);
@@ -146,9 +182,8 @@ function createNewScene(celestialObject) {
 	let geoLocs = new THREE.BufferGeometry()
 	geoLocs.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
 	
-	let color = `rgb(${c.r}, ${c.g}, ${c.b})`;
 	let matLocs = new THREE.PointsMaterial({
-		color: color,
+		color: `rgb(${c.r}, ${c.g}, ${c.b})`,
 		size: 4,
 		sizeAttenuation: false
 	});
@@ -169,6 +204,37 @@ function makeLine(x1, y1, z1, x2, y2, z2, mat) {
 	return line;
 }
 
+function makeLongitudeCircle(angle, material) {
+	const p = [];
+	for (let i = 0; i <= 360; i += 360 / 96) {
+		let rad = RADIANS(i);
+		p.push(new THREE.Vector3(0, Math.sin(rad) * 0.999, Math.cos(rad) * 0.999));
+	}
+
+	const geo = new THREE.BufferGeometry().setFromPoints(p);
+	const circle = new THREE.Line(geo, material);
+	circle.rotation.y = RADIANS(angle);
+	return circle;
+}
+
+function makeLatitudeCircle(angle, material) {
+	const p = [];
+
+	for (let i = 0; i <= 360; i += 360 / 96) {
+		let rad = RADIANS(i);
+		let mult = 0.995;
+		let x = Math.cos(rad) * Math.sin(RADIANS(angle)) * mult;
+		let y = Math.cos(RADIANS(angle)) * mult;
+		let z = Math.sin(rad) * Math.sin(RADIANS(angle)) * mult;
+		p.push(new THREE.Vector3(x, y, z));
+	}
+
+	const geo = new THREE.BufferGeometry().setFromPoints(p);
+	const circle = new THREE.Line(geo, material);
+	circle.rotation.y = RADIANS(angle);
+	return circle;
+}
+
 
 function createDaySphere(celestialObject) {
 	let c = celestialObject.THEME_COLOR;
@@ -176,7 +242,7 @@ function createDaySphere(celestialObject) {
 	let mat = new THREE.MeshBasicMaterial({
 		color: `rgb(${c.r}, ${c.g}, ${c.b})`,
 		transparent: true,
-		opacity: 0.3
+		opacity: 0.15
 	});
 
 	let obj = new THREE.Mesh(geo, mat);

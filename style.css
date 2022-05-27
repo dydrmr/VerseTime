@@ -502,8 +502,17 @@ body {
 
 #map-window {}
 
-.mapLabel {
-	
+#map-body-name {
+	font-size: 20px;
+	font-family: 'Rajdhani', sans-serif;
+	font-weight: 800;
+	text-transform: uppercase;
+	text-align: center;
+
+	position: absolute;
+	top: 10px;
+	left: 50%;
+	transform: translate(-50%, 0%);
 }
 
 .mapLocationNameLabel {
