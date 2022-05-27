@@ -1412,9 +1412,9 @@ const HDMS_WOODRUFF = new Location(
 	ITA,
 	STANTON,
 	{
-		'x' : -175.874,
-		'y' : -263.381,
-		'z' : 73.709
+		'x' : 114.792,
+		'y' : 219.661,
+		'z' : 210.467
 	},
 	null,
 	'https://starcitizen.tools/images/thumb/4/4a/HDMS-Woodruff2.png/800px-HDMS-Woodruff2.png'
@@ -2756,9 +2756,247 @@ const AREA20 = new Location(
 	ARCCORP,
 	STANTON,
 	{
-		'x' : +506.937,
+		'x' : 506.937,
 		'y' : 401.104,
 		'z' : -471.308
+	},
+	null,
+	''
+)
+
+const COMMARRAY_ST464 = new Location(
+	'Comm Array ST4-64',
+	'CommArray',
+	EUTERPE,
+	STANTON,
+	{
+		'x' : 362.788,
+		'y' : 88.702,
+		'z' : 24.000
+	},
+	null,
+	''
+)
+
+const COMMARRAY_ST192 = new Location(
+	'Comm Array ST1-92',
+	'CommArray',
+	ABERDEEN,
+	STANTON,
+	{
+		'x' : -435.359,
+		'y' : -45.214,
+		'z' : 24.000
+	},
+	null,
+	''
+)
+
+const COMMARRAY_ST390 = new Location(
+	'Comm Array ST3-90',
+	'CommArray',
+	ARCCORP,
+	STANTON,
+	{
+		'x' : 758.384,
+		'y' : -636.360,
+		'z' : 24.000
+	},
+	null,
+	''
+)
+
+const COMMARRAY_ST113 = new Location(
+	'Comm Array ST1-13',
+	'CommArray',
+	ARIAL,
+	STANTON,
+	{
+		'x' : -78.760,
+		'y' : 505.628,
+		'z' : 24.000
+	},
+	null,
+	''
+)
+
+const COMMARRAY_ST431 = new Location(
+	'Comm Array ST4-31',
+	'CommArray',
+	CALLIOPE,
+	STANTON,
+	{
+		'x' : 189.547,
+		'y' : 354.905,
+		'z' : 24.000
+	},
+	null,
+	''
+)
+
+const COMMARRAY_ST228 = new Location(
+	'Comm Array ST2-28',
+	'CommArray',
+	CELLIN,
+	STANTON,
+	{
+		'x' : 242.244,
+		'y' : 347.193,
+		'z' : 24.000
+	},
+	null,
+	''
+)
+
+const COMMARRAY_ST459 = new Location(
+	'Comm Array ST4-59',
+	'CommArray',
+	CLIO,
+	STANTON,
+	{
+		'x' : -318.257,
+		'y' : 390.837,
+		'z' : 24.000
+	},
+	null,
+	''
+)
+
+const COMMARRAY_ST255 = new Location(
+	'Comm Array ST2-55',
+	'CommArray',
+	CRUSADER,
+	STANTON,
+	{
+		'x' : -1387.917,
+		'y' : 8802.204,
+		'z' : 24.000
+	},
+	null,
+	''
+)
+
+const COMMARRAY_ST247 = new Location(
+	'Comm Array ST2-47',
+	'CommArray',
+	DAYMAR,
+	STANTON,
+	{
+		'x' : -435.617,
+		'y' : -146.996,
+		'z' : 24.000
+	},
+	null,
+	''
+)
+
+const COMMARRAY_ST318 = new Location(
+	'Comm Array ST3-18',
+	'CommArray',
+	LYRIA,
+	STANTON,
+	{
+		'x' : -382.727,
+		'y' : 33.034,
+		'z' : 24.000
+	},
+	null,
+	''
+)
+
+const COMMARRAY_ST161 = new Location(
+	'Comm Array ST1-61',
+	'CommArray',
+	HURSTON,
+	STANTON,
+	{
+		'x' : 919.253,
+		'y' : -771.345,
+		'z' : 24.000
+	},
+	null,
+	''
+)
+
+const COMMARRAY_ST102 = new Location(
+	'Comm Array ST1-02',
+	'CommArray',
+	ITA,
+	STANTON,
+	{
+		'x' : 122.153,
+		'y' : -475.821,
+		'z' : 24.000
+	},
+	null,
+	''
+)
+
+const COMMARRAY_ST148 = new Location(
+	'Comm Array ST1-48',
+	'CommArray',
+	MAGDA,
+	STANTON,
+	{
+		'x' : 295.516,
+		'y' : 413.046,
+		'z' : 24.000
+	},
+	null,
+	''
+)
+
+const SKETTO_ROCK = new Location(
+	'Sketto Rock',
+	'Landmark',
+	MAGDA,
+	STANTON,
+	{
+		'x' : -335.013,
+		'y' : 45.699,
+		'z' : 50.233
+	},
+	null,
+	''
+)
+
+const COMMARRAY_ST422 = new Location(
+	'Comm Array ST4-22',
+	'CommArray',
+	MICROTECH,
+	STANTON,
+	{
+		'x' : -771.345,
+		'y' : -919.253,
+		'z' : 24.000
+	},
+	null,
+	''
+)
+
+const COMMARRAY_ST335 = new Location(
+	'Comm Array ST3-35',
+	'CommArray',
+	WALA,
+	STANTON,
+	{
+		'x' : 365.821,
+		'y' : -257.408,
+		'z' : 24.000
+	},
+	null,
+	''
+)
+
+const COMMARRAY_ST276 = new Location(
+	'Comm Array ST2-76',
+	'CommArray',
+	YELA,
+	STANTON,
+	{
+		'x' : 150.336,
+		'y' : -454.428,
+		'z' : 24.000
 	},
 	null,
 	''

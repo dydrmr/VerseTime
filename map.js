@@ -119,9 +119,9 @@ function createNewScene(celestialObject) {
 	});
 
 	// let r2 = r * 1.25;
-	scene.add(makeLine(-2.5, 0, 0, 2.5, 0, 0, matRed));
-	scene.add(makeLine(0, -2.5, 0, 0, 2.5, 0, matGreen));
-	scene.add(makeLine(0, 0, -2.5, 0, 0, 2.5, matBlue));
+	// scene.add(makeLine(-2.5, 0, 0, 2.5, 0, 0, matRed));
+	// scene.add(makeLine(0, -2.5, 0, 0, 2.5, 0, matGreen));
+	// scene.add(makeLine(0, 0, -2.5, 0, 0, 2.5, matBlue));
 
 
 	// LONGITUDE/LATITUDE LINES
@@ -150,7 +150,7 @@ function createNewScene(celestialObject) {
 
 	for (let i = 0; i < locations.length; i++) {
 		let pos = locations[i].COORDINATES;
-		let x = pos.x / r;
+		let x = -pos.x / r;
 		let y = pos.y / r;
 		let z = pos.z / r;
 		// Y = UP in THREE.JS, so switch Z and Y:
