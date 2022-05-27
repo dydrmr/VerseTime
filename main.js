@@ -12,6 +12,7 @@ window.ACTIVE_LOCATION = null;
 window.SETTING_24HR = true;
 window.DEBUG_MODE = false;
 window.HOURS_TO_TIME_STRING = HOURS_TO_TIME_STRING;
+window.setText = setText;
 
 
 // FUNCTIONS
@@ -222,7 +223,7 @@ function setText(elementID, string) {
 		return;
 	}
 
-	if (el.innerHTML != string) el.innerHTML = string;
+	if (el.textContent != string) el.textContent = string;
 }
 
 function REAL_TIME(formatAsString = false) {
