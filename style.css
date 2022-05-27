@@ -443,6 +443,7 @@ body {
 	transform: translate(0%, -50%);
 	text-align: right;
 	font-size: 10px;
+	white-space: pre-line;
 }
 
 .hide {
