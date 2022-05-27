@@ -16,7 +16,7 @@ body {
 }
 
 #detailed-info {
-	font-size: 70%;
+	font-size: 80%;
 	color: darkorange;
 
 	display: grid;
@@ -55,7 +55,7 @@ body {
 	grid-column-gap: 10px;
 }
 .info-group-label {
-	font-weight: 200;
+	font-weight: 300;
 	text-transform: uppercase;
 	text-align: right;
 }

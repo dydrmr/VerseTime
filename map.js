@@ -1,8 +1,9 @@
 import * as THREE from 'https://cdn.skypack.dev/three@0.134.0/build/three.module.js';
 import { OrbitControls } from 'https://cdn.skypack.dev/three@0.134.0/examples/jsm/controls/OrbitControls.js';
 import { CSS2DRenderer, CSS2DObject } from 'https://cdn.skypack.dev/three@0.134.0/examples/jsm/renderers/CSS2DRenderer.js';
+import { CSS3DRenderer, CSS3DObject } from 'https://cdn.skypack.dev/three@0.134.0/examples/jsm/renderers/CSS3DRenderer.js';
 
-import { DEGREES, RADIANS, MODULO, SQUARE, ROUND, JULIAN_DATE } from './HelperFunctions.js';
+import { DEGREES, RADIANS, MODULO, SQUARE, ROUND, JULIAN_DATE, POLAR_TO_CARTESIAN, RANDOM } from './HelperFunctions.js';
 
 let scene, camera, renderer, labelRenderer, controls;
 let mapDiv = document.getElementById('map-window');
@@ -76,8 +77,7 @@ function render() {
 		let location = window.LOCATIONS.filter(loc => loc.NAME === locName)[0];
 
 		let string = window.HOURS_TO_TIME_STRING(location.LOCAL_TIME / 60 / 60, false);
-		window.setText(label, string)
-		// label.textContent = window.HOURS_TO_TIME_STRING(location.LOCAL_TIME / 60 / 60, false);
+		window.setText(label, string);
 	});
 }
 
@@ -109,12 +109,14 @@ function createNewScene(celestialObject) {
 
 	camera.position.set(2, 0.5, 2);
 
+	createStarfield();
 
-	// LONGITUDE/LATITUDE LINES
+
+	// LAT & LON LINES
 	const matLongi = new THREE.LineBasicMaterial( {
 		color: `rgb(${c.r}, ${c.g}, ${c.b})`,
 		transparent: true,
-		opacity: 0.05
+		opacity: 0.075
 	});
 
 	for (let i = 0; i < 360; i += 30) {
@@ -138,8 +140,7 @@ function createNewScene(celestialObject) {
 		let x = -pos.x / r; // adjust for rotation direction
 		let y = pos.y / r;
 		let z = pos.z / r;
-		// Y = UP in THREE.JS, so switch Z and Y:
-		vertices.push(x, z, y);
+		vertices.push(x, z, y); // Y = UP in THREE.JS, so switch Z and Y
 
 
 		// TEXT LABELS
@@ -165,7 +166,7 @@ function createNewScene(celestialObject) {
 
 	}
 
-	let geoLocs = new THREE.BufferGeometry()
+	let geoLocs = new THREE.BufferGeometry();
 	geoLocs.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
 	
 	let matLocs = new THREE.PointsMaterial({
@@ -253,4 +254,31 @@ function createNightSphere(celestialObject) {
 	let obj = new THREE.Mesh(geo, mat);
 	obj.rotation.y = RADIANS(celestialObject.MERIDIAN() + celestialObject.ROTATION_CORRECTION + 180);
 	scene.add(obj);
+}
+
+function createStarfield(amount = 500) {
+	let vertices = [];
+
+	for (let i = 0; i < amount; i++) {
+		let a1 = RANDOM(360);
+		let a2 = RANDOM(360);
+		let radius = 1000;
+
+		let c = POLAR_TO_CARTESIAN(a1, a2, radius);
+		vertices.push(c.x, c.z, c.y);
+	}
+
+	let stars = new THREE.BufferGeometry();
+	stars.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+
+	let mat = new THREE.PointsMaterial({
+		color: `rgb(255, 255, 255)`,
+		size: 0.02,
+		sizeAttenuation: true,
+		transparent: true,
+		opacity: 0.6
+	});
+
+	let mesh = new THREE.Points(stars, mat);
+	scene.add(mesh);
 }
