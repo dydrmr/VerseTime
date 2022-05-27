@@ -1234,7 +1234,7 @@ const ABANDONED_OUTPOST_CELLIN = new Location(
 		'z' : 130.356
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/1/13/Abandoned_outpost%2C_Daymar_%28Alpha_3.17%29.png/800px-Abandoned_outpost%2C_Daymar_%28Alpha_3.17%29.png'
+	'https://starcitizen.tools/images/thumb/4/43/Abandoned_outpost%2C_Cellin_%28Alpha_3.17.1%29.jpg/640px-Abandoned_outpost%2C_Cellin_%28Alpha_3.17.1%29.jpg'
 )
 
 const GALLETE_FAMILY_FARMS = new Location(
