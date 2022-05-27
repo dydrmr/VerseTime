@@ -349,7 +349,8 @@ const ARCCORP = new CelestialBody(
 		'r' : 172,
 		'g' : 102,
 		'b' : 90
-	}
+	},
+	'https://starcitizen.tools/images/thumb/7/7e/Stanton-arccorp-orbit-3.12.jpg/640px-Stanton-arccorp-orbit-3.12.jpg'
 )
 
 const LYRIA = new CelestialBody(
@@ -1224,7 +1225,7 @@ const HDMS_LATHAN = new Location(
 )
 
 const ABANDONED_OUTPOST_CELLIN = new Location(
-	'Abandoned Outpost (CELLIN)',
+	'Abandoned Outpost (Cellin)',
 	'Outpost',
 	CELLIN,
 	STANTON,
@@ -2293,9 +2294,9 @@ const GOOD_TIMES_TEMPLE = new Location(
 	WALA,
 	STANTON,
 	{
-		'x' : 130.424,
-		'y' : -247.614,
-		'z' : 43.164
+		'x' : -113.212,
+		'y' : 179.686,
+		'z' : 187.251
 	},
 	null,
 	''
@@ -2691,6 +2692,76 @@ const HDSF_ZACHARIAS = new Location(
 	},
 	null,
 	'https://starcitizen.tools/images/thumb/e/e8/HDSF-Zacharias.png/640px-HDSF-Zacharias.png'
+)
+
+const AREA04 = new Location(
+	'Area04',
+	'City',
+	ARCCORP,
+	STANTON,
+	{
+		'x' : -314.306,
+		'y' : -601.435,
+		'z' : 423.659
+	},
+	null,
+	''
+)
+
+const AREA06 = new Location(
+	'Area06',
+	'City',
+	ARCCORP,
+	STANTON,
+	{
+		'x' : -745.806,
+		'y' : -111.306,
+		'z' : 267.380
+	},
+	null,
+	''
+)
+
+const AREA11 = new Location(
+	'Area11',
+	'City',
+	ARCCORP,
+	STANTON,
+	{
+		'x' : 508.204,
+		'y' : 397.589,
+		'z' : 472.922
+	},
+	null,
+	''
+)
+
+const AREA17 = new Location(
+	'Area17',
+	'City',
+	ARCCORP,
+	STANTON,
+	{
+		'x' : -310.290,
+		'y' : -601.811,
+		'z' : -425.980
+	},
+	null,
+	''
+)
+
+const AREA20 = new Location(
+	'Area20',
+	'City',
+	ARCCORP,
+	STANTON,
+	{
+		'x' : +506.937,
+		'y' : 401.104,
+		'z' : -471.308
+	},
+	null,
+	''
 )
 
 

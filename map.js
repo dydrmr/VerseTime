@@ -54,7 +54,7 @@ function init() {
 	controls.zoomDampingFactor = 0.2;
 	controls.smoothZoomSpeed = 5.0;
 	controls.maxDistance = 10;
-	controls.minDistance = 2;
+	controls.minDistance = 1.5;
 
 	mapDiv.appendChild( renderer.domElement );
 }
@@ -75,12 +75,21 @@ function createTestScene() {
 }
 
 function createNewScene(celestialObject) {
-	let r = celestialObject.BODY_RADIUS
+	let r = celestialObject.BODY_RADIUS;
 	let c = celestialObject.THEME_COLOR;
 	let locations = window.LOCATIONS.filter(loc => loc.PARENT === celestialObject);
 
 
 	scene.clear();
+
+	// let oldLabels = document.getElementsByClassName('mapLabel');
+	// for (let i = 0; i < oldLabels.length; i++) {oldLabels[i].remove();}
+	let oldLabels1 = document.querySelectorAll('.mapLocationNameLabel');
+	let oldLabels2 = document.querySelectorAll('.mapLocationTimeLabel');
+	oldLabels1.forEach(label => {label.remove();});
+	oldLabels2.forEach(label => {label.remove();});
+
+
 	// camera.position.set(r * 2, r * 0.5, r * 1.5);
 	camera.position.set(2, 0.5, 2);
 
@@ -100,17 +109,8 @@ function createNewScene(celestialObject) {
 
 	// CELESTIAL BODY
 	// let geo = new THREE.SphereGeometry(r, 36, 36);
-	let geo = new THREE.SphereGeometry(1, 48, 48);
-	let mat = new THREE.MeshBasicMaterial({
-		color: `rgb(${c.r}, ${c.g}, ${c.b})`,
-		transparent: true,
-		opacity: 0.3
-	});
-
-	let obj = new THREE.Mesh(geo, mat);
-	obj.position.set(0, 0, 0);
-	scene.add(obj);
-
+	createDaySphere(celestialObject);
+	createNightSphere(celestialObject);
 
 	// LOCATIONS
 	let vertices = [];
@@ -149,8 +149,8 @@ function createNewScene(celestialObject) {
 	let color = `rgb(${c.r}, ${c.g}, ${c.b})`;
 	let matLocs = new THREE.PointsMaterial({
 		color: color,
-		size: 0.025,
-		sizeAttenuation: true
+		size: 4,
+		sizeAttenuation: false
 	});
 
 	let mesh = new THREE.Points(geoLocs, matLocs);
@@ -167,4 +167,23 @@ function makeLine(x1, y1, z1, x2, y2, z2, mat) {
 	const geo = new THREE.BufferGeometry().setFromPoints(p);
 	const line = new THREE.Line(geo, mat);
 	return line;
+}
+
+
+function createDaySphere(celestialObject) {
+	let c = celestialObject.THEME_COLOR;
+	let geo = new THREE.SphereGeometry(1, 48, 48);
+	let mat = new THREE.MeshBasicMaterial({
+		color: `rgb(${c.r}, ${c.g}, ${c.b})`,
+		transparent: true,
+		opacity: 0.3
+	});
+
+	let obj = new THREE.Mesh(geo, mat);
+	obj.position.set(0, 0, 0);
+	scene.add(obj);
+}
+
+function createNightSphere(celestialObject) {
+
 }

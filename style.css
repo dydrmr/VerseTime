@@ -502,6 +502,10 @@ body {
 
 #map-window {}
 
+.mapLabel {
+	
+}
+
 .mapLocationNameLabel {
 	font-size: 15px;
 	font-weight: 500;

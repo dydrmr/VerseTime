@@ -164,10 +164,10 @@ export default class Location {
 				return 'Evening Twilight';
 			} else if (t > this.LOCAL_STAR_SET_TIME * 86400 - 1200) {
 				return 'Starset';
-			} else if (t > this.LOCAL_STAR_SET_TIME * 86400 - 3600) {
-				return 'Evening';
 			} else if (t > this.LOCAL_STAR_SET_TIME * 86400 - 7200) {
-				return 'Late Afternoon';
+				return 'Evening';
+			// } else if (t > this.LOCAL_STAR_SET_TIME * 86400 - 7200) {
+			// 	return 'Late Afternoon';
 			} else if (t > 43200 + 600) {
 				return 'Afternoon';
 			} else if (t > 43200 - 600) {
