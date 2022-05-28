@@ -9,7 +9,7 @@ let scene, camera, renderer, labelRenderer, controls;
 let mapDiv = document.getElementById('map-window');
 
 init();
-createNewScene(window.ACTIVE_LOCATION.PARENT);
+// createNewScene(window.ACTIVE_LOCATION.PARENT);
 render();
 
 window.addEventListener('resize', () => {
@@ -42,7 +42,7 @@ function init() {
 	labelRenderer.domElement.style.top = '0px';
 	mapDiv.appendChild( labelRenderer.domElement );
 
-	camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+	camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 3000);
 	camera.position.set(0, 20, 0);
 	camera.lookAt(0, 0, 0);
 
@@ -71,10 +71,20 @@ function render() {
 
 	if (!showMapWindow) return;
 
+
 	let timeLabels = document.querySelectorAll('.mapLocationTimeLabel');
 	timeLabels.forEach(label => {
 		let locName = label.dataset.location;
 		let location = window.LOCATIONS.filter(loc => loc.NAME === locName)[0];
+
+		let s = location.ILLUMINATION_STATUS;
+		if (s === 'Night' || s === 'Midnight' || s === 'Morning Twilight' || s === 'Evening Twilight' || s === 'Perma-Night') {
+			label.classList.add('blue');
+			label.classList.remove('yellow');
+		} else {
+			label.classList.remove('blue');
+			label.classList.add('yellow');
+		}
 
 		let string = window.HOURS_TO_TIME_STRING(location.LOCAL_TIME / 60 / 60, false);
 		window.setText(label, string);
@@ -116,14 +126,14 @@ function createNewScene(celestialObject) {
 	const matLongi = new THREE.LineBasicMaterial( {
 		color: `rgb(${c.r}, ${c.g}, ${c.b})`,
 		transparent: true,
-		opacity: 0.075
+		opacity: 0.15
 	});
 
-	for (let i = 0; i < 360; i += 30) {
+	for (let i = 0; i < 180; i += 30) {
 		scene.add(makeLongitudeCircle(i, matLongi));
 	}
 
-	for (let i = 0; i < 180; i += 15) {
+	for (let i = 15; i < 180; i += 15) {
 		scene.add(makeLatitudeCircle(i, matLongi));
 	}
 
@@ -179,6 +189,7 @@ function createNewScene(celestialObject) {
 	scene.add(mesh);
 
 
+	createCelestialMarkers();
 
 }
 
@@ -232,7 +243,8 @@ function createDaySphere(celestialObject) {
 	let mat = new THREE.MeshBasicMaterial({
 		color: `rgb(${c.r}, ${c.g}, ${c.b})`,
 		transparent: true,
-		opacity: 0.15
+		opacity: 0.15,
+		depthWrite: false
 	});
 
 	let obj = new THREE.Mesh(geo, mat);
@@ -260,11 +272,10 @@ function createStarfield(amount = 500) {
 	let vertices = [];
 
 	for (let i = 0; i < amount; i++) {
-		let a1 = RANDOM(360);
-		let a2 = RANDOM(360);
-		let radius = 1000;
-
-		let c = POLAR_TO_CARTESIAN(a1, a2, radius);
+		let theta = RANDOM() * 2.0 * Math.PI;
+		let phi = Math.acos(2.0 * RANDOM() - 1.0);
+		let r = Math.cbrt(RANDOM()) * 1500;
+		let c = POLAR_TO_CARTESIAN(DEGREES(theta), DEGREES(phi), r);
 		vertices.push(c.x, c.z, c.y);
 	}
 
@@ -281,4 +292,25 @@ function createStarfield(amount = 500) {
 
 	let mesh = new THREE.Points(stars, mat);
 	scene.add(mesh);
+}
+
+function createCelestialMarkers() {
+	return;
+	// testing only right now
+	const matRed = new THREE.LineBasicMaterial( {
+		color: `rgb(255, 0, 0)`,
+		transparent: true,
+		opacity: 0.5
+	});
+	scene.add(makeLine(-3, 0, 0, 3, 0, 0, matRed));
+
+	const matStarDirection = new THREE.LineBasicMaterial( {
+		color: `rgb(255, 255, 0)`,
+		transparent: true,
+		opacity: 0.4
+	});
+
+	let m = RADIANS(celestialObject.MERIDIAN() - celestialObject.ROTATION_CORRECTION);
+	let starDirection = makeLine(0, 0, 0, Math.cos(m)*2, 0, Math.sin(m)*2, matStarDirection);
+	scene.add(starDirection);
 }

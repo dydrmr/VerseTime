@@ -516,17 +516,24 @@ body {
 	transform: translate(-50%, 0%);
 }
 
+.yellow {
+	color: yellow;
+}
+
+.blue {
+	color: lightblue;
+}
+
 .mapLocationNameLabel {
 	font-size: 13px;
 	font-weight: 600;
 	text-align: center;
 	font-family: 'Rajdhani', sans-serif;
 	text-shadow: 0px 0px 15px rgba(0, 0, 0, 0.9);
-	/*text-transform: uppercase;*/
 	margin-top: -1.1em;
-	/*color: rgba(255, 255, 255, 0.8);*/
 	color: white;
 	opacity: 0.6;
+	white-space: pre-line;
 }
 .mapLocationTimeLabel {
 	font-size: 10px;
@@ -534,9 +541,9 @@ body {
 	text-align: center;
 	font-family: 'Roboto Mono', monospace;
 	margin-top: 1.1em;
-	/*color: rgba(255, 255, 255, 0.8);*/
-	color: white;
+	/*color: white;*/
 	opacity: 0.4;
+	white-space: pre-line;
 }
 
 #BUTTON-toggle-map-window {
