@@ -3021,7 +3021,7 @@ const SNAKE_PIT = new Location(
 const TEST_FACILITY_OCTAGON = new Location(
 	'Test Facility Octagon',
 	'Outpost',
-	CLIO,
+	MICROTECH,
 	STANTON,
 	{
 		'x' : 635.765,
