@@ -219,6 +219,7 @@ function setText(elementID, string) {
 	let el = (typeof(elementID) === 'string') ? document.getElementById(elementID) : elementID;
 
 	if (!el) {
+		console.log('Problematic elementID:', elementID);
 		throw 'Invalid [ elementID ] passed to [ setText ] function!';
 		return;
 	}
@@ -2998,6 +2999,34 @@ const COMMARRAY_ST276 = new Location(
 		'x' : 150.336,
 		'y' : -454.428,
 		'z' : 24.000
+	},
+	null,
+	''
+)
+
+const SNAKE_PIT = new Location(
+	'Snake Pit',
+	'Racetrack',
+	CLIO,
+	STANTON,
+	{
+		'x' : -327.835,
+		'y' : -78.887,
+		'z' : -13.657
+	},
+	null,
+	''
+)
+
+const TEST_FACILITY_OCTAGON = new Location(
+	'Test Facility Octagon',
+	'Outpost',
+	CLIO,
+	STANTON,
+	{
+		'x' : 635.765,
+		'y' : -155.464,
+		'z' : 758.837
 	},
 	null,
 	''
