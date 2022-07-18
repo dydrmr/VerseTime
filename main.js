@@ -3046,6 +3046,62 @@ const GHOST_HOLLOW = new Location(
 	''
 )
 
+const CALHOUN_PASS_EMERGENCY_SHELTER = new Location(
+	'Calhoun Pass Emergency Shelter',
+	'Emergency shelter',
+	MICROTECH,
+	STANTON,
+	{
+		'x' : 938.116,
+		'y' : -347.818,
+		'z' : 31.708
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/0/0f/Calhoun_Pass_Emergency_Shelter_26.04.2020_21_14_54.png/640px-Calhoun_Pass_Emergency_Shelter_26.04.2020_21_14_54.png'
+)
+
+const CLEAR_VIEW_EMERGENCY_SHELTER = new Location(
+	'Clear View Emergency Shelter',
+	'Emergency shelter',
+	MICROTECH,
+	STANTON,
+	{
+		'x' : -609.561,
+		'y' : -688.363,
+		'z' : 393.203
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/2/2a/Clear_View_Emergency_Shelter_26.04.2020_14_34_58.png/640px-Clear_View_Emergency_Shelter_26.04.2020_14_34_58.png'
+)
+
+const NUIQSUT_EMERGENCY_SHELTER = new Location(
+	'Nuiqsut Emergency Shelter',
+	'Emergency shelter',
+	MICROTECH,
+	STANTON,
+	{
+		'x' : 750.613,
+		'y' : -207.852,
+		'z' : -627.225
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/1/1c/Nuiqsut_Emergency_Shelter_26.04.2020_21_43_22.png/640px-Nuiqsut_Emergency_Shelter_26.04.2020_21_43_22.png'
+)
+
+const POINT_WAIN_EMERGENCY_SHELTER = new Location(
+	'Point Wain Emergency Shelter',
+	'Emergency shelter',
+	MICROTECH,
+	STANTON,
+	{
+		'x' : -627.441,
+		'y' : -485.258,
+		'z' : 611.733
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/9/96/Point_Wain_Emergency_Shelter_26.04.2020_14_12_54.png/640px-Point_Wain_Emergency_Shelter_26.04.2020_14_12_54.png'
+)
+
 
 // INIT
 window.LOCATIONS.sort((a, b) => a.NAME.localeCompare(b.NAME));
