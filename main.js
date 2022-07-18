@@ -3015,7 +3015,7 @@ const SNAKE_PIT = new Location(
 		'z' : -13.657
 	},
 	null,
-	''
+	'https://starcitizen.tools/images/thumb/9/93/Snake_Pit_Alpha_3.17.2.jpg/640px-Snake_Pit_Alpha_3.17.2.jpg'
 )
 
 const TEST_FACILITY_OCTAGON = new Location(
@@ -3027,6 +3027,20 @@ const TEST_FACILITY_OCTAGON = new Location(
 		'x' : 635.765,
 		'y' : -155.464,
 		'z' : 758.837
+	},
+	null,
+	''
+)
+
+const GHOST_HOLLOW = new Location(
+	'Ghost Hollow',
+	'Shipwreck',
+	MICROTECH,
+	STANTON,
+	{
+		'x' : -127.194,
+		'y' : 982.004,
+		'z' : 149.145
 	},
 	null,
 	''
