@@ -21,11 +21,49 @@ window.addEventListener('resize', () => {
 
 document.addEventListener('keydown', function(event){
 	if (event.keyCode === 77) {
-		createNewScene(window.ACTIVE_LOCATION.PARENT);
+		createNewScene(window.ACTIVE_LOCATION.PARENT); 		
 	}
 });
 
-document.getElementById('BUTTON-toggle-map-window').addEventListener('click', function(e) { createNewScene(window.ACTIVE_LOCATION.PARENT); });
+document.getElementById('BUTTON-toggle-map-window').addEventListener('click', function(e) { 
+	createNewScene(window.ACTIVE_LOCATION.PARENT);
+
+	let body = window.ACTIVE_LOCATION.PARENT;
+
+		createNewScene(body);
+
+		// Populate infobox data
+		window.setText('map-info-type', body.TYPE);
+		window.setText('map-info-system', body.PARENT_STAR.NAME);
+		window.setText('map-info-orbits', body.PARENT.NAME);
+
+		// let orbitDist = ROUND(body.ORBITAL_RADIUS / 149598000, 3); // AU
+		window.setText('map-info-orbitdistance', ROUND(body.ORBITAL_RADIUS).toLocaleString());
+
+		let radius = body.BODY_RADIUS.toLocaleString();
+		window.setText('map-info-radius', radius);
+
+		let circum = body.BODY_RADIUS * Math.PI;
+		circum = ROUND(circum, 1);
+		window.setText('map-info-circumference', circum.toLocaleString());
+
+		let rot = body.ROTATION_RATE * 3600;
+		rot = 360 / rot;
+		window.setText('map-info-rotationrate', rot.toLocaleString());
+
+		window.setText('map-info-lengthofday', window.HOURS_TO_TIME_STRING(body.ROTATION_RATE));
+
+		let sats = window.BODIES.filter(bod => {
+			if (!bod.PARENT) return false;
+
+			if (bod.PARENT.NAME === body.NAME) {
+				return true;
+			} else {
+				return false;
+			}
+		});
+		window.setText('map-info-naturalsatellites', sats.length);
+});
 
 function init() {
 	console.debug('THREE.js revision: ' + THREE.REVISION);
@@ -72,6 +110,7 @@ function render() {
 	if (!showMapWindow) return;
 
 
+	// Times on map markers
 	let timeLabels = document.querySelectorAll('.mapLocationTimeLabel');
 	timeLabels.forEach(label => {
 		let locName = label.dataset.location;
@@ -87,6 +126,8 @@ function render() {
 		}
 
 		let string = window.HOURS_TO_TIME_STRING(location.LOCAL_TIME / 60 / 60, false);
+		if (string === 'NaN:NaN') string = '';
+		
 		window.setText(label, string);
 	});
 }
