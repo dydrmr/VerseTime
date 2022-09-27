@@ -346,7 +346,6 @@ function createTexturedSphere(celestialObject, scale = 1) {
 
 		let obj = new THREE.Mesh(geo, mat);
 		obj.name = 'Celestial Object';
-		obj.rotation.y = RADIANS(celestialObject.MERIDIAN() + celestialObject.ROTATION_CORRECTION + 180);
 		scene.add(obj);
 	} );
 }
