@@ -3043,7 +3043,7 @@ const GHOST_HOLLOW = new Location(
 		'z' : 149.145
 	},
 	null,
-	''
+	'https://starcitizen.tools/images/thumb/e/e5/Ghost_Hollow_Exterior_Alpha_3.17.2.jpg/640px-Ghost_Hollow_Exterior_Alpha_3.17.2.jpg'
 )
 
 const CALHOUN_PASS_EMERGENCY_SHELTER = new Location(
