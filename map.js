@@ -182,6 +182,7 @@ function createNewScene(celestialObject) {
 	// CELESTIAL BODY
 	createDaySphere(celestialObject);
 	createNightSphere(celestialObject);
+	createTexturedSphere(celestialObject);
 
 	// LOCATIONS
 	let vertices = [];
@@ -307,6 +308,26 @@ function createNightSphere(celestialObject) {
 	let obj = new THREE.Mesh(geo, mat);
 	obj.rotation.y = RADIANS(celestialObject.MERIDIAN() + celestialObject.ROTATION_CORRECTION + 180);
 	scene.add(obj);
+}
+
+function createTexturedSphere(celestialObject) {
+	var loader = new THREE.TextureLoader();
+	let file = 'static/assets/' + celestialObject.NAME.toLowerCase() + '.png';
+	loader.load(file, function ( texture ) {
+
+		let geo = new THREE.SphereGeometry(0.99, 48, 48, 0, Math.PI * 2);
+		let mat = new THREE.MeshBasicMaterial({
+			map: texture,
+			transparent: true,
+			opacity: 0.5
+		});
+	
+		let obj = new THREE.Mesh(geo, mat);
+		obj.rotation.y = RADIANS(celestialObject.MERIDIAN() + celestialObject.ROTATION_CORRECTION + 180);
+		scene.add(obj);
+	
+	} );
+
 }
 
 function createStarfield(amount = 500) {
