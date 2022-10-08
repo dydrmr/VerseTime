@@ -112,31 +112,35 @@ function render() {
 	if (!showMapWindow) return;
 
 
-	// Check if location is occluded	
-	let raycaster = new THREE.Raycaster();
-	let v = new THREE.Vector3();
-	let r = window.ACTIVE_LOCATION.PARENT.BODY_RADIUS;
-	let bodyMesh = scene.getObjectByName('Celestial Object');
+	// Check if location is occluded
+	// Improve performance on slower devices by doing it every 5th frame
+	if (renderer.info.render.frame % 5 === 0) {
+		let raycaster = new THREE.Raycaster();
+		let v = new THREE.Vector3();
+		let r = window.ACTIVE_LOCATION.PARENT.BODY_RADIUS;
+		let bodyMesh = scene.getObjectByName('Celestial Object');
 
-	let locationLabels = document.querySelectorAll('.mapLocationNameLabel');
-	locationLabels.forEach(label => {
-		let location = window.LOCATIONS.filter(loc => loc.NAME === label.innerText)[0];
-		
-		let posRaw = location.COORDINATES;
-		let x = -posRaw.x / r; // adjust for rotation direction
-		let y = posRaw.y / r;
-		let z = posRaw.z / r;
-		let pos = new THREE.Vector3(x, z, y); // Y = UP in THREE.JS, so switch Z and Y
+		let locationLabels = document.querySelectorAll('.mapLocationNameLabel');
+		locationLabels.forEach(label => {
 
-		v.copy(pos).sub(camera.position).normalize().multiply(new THREE.Vector3(-1, -1, -1));
-		raycaster.set( pos, v );
-		let intersects = raycaster.intersectObject(bodyMesh, true);
+			let location = window.LOCATIONS.filter(loc => loc.NAME === label.innerText)[0];
+			
+			let posRaw = location.COORDINATES;
+			let x = -posRaw.x / r; // adjust for rotation direction
+			let y = posRaw.y / r;
+			let z = posRaw.z / r;
+			let pos = new THREE.Vector3(x, z, y); // Y = UP in THREE.JS, so switch Z and Y
 
-		let occluded = intersects.length > 0
-		label.style.opacity = occluded ? '0.075' : '0.8';
-		label.style.fontWeight = occluded ? 'normal' : '600';
-		label.nextSibling.dataset.occluded = occluded ? 'true' : 'false';		
-	});
+			v.copy(pos).sub(camera.position).normalize().multiply(new THREE.Vector3(-1, -1, -1));
+			raycaster.set( pos, v );
+			let intersects = raycaster.intersectObject(bodyMesh, true);
+
+			let occluded = intersects.length > 0
+			label.style.opacity = occluded ? '0.075' : '0.8';
+			label.style.fontWeight = occluded ? 'normal' : '600';
+			label.nextSibling.dataset.occluded = occluded ? 'true' : 'false';		
+		});
+	}
 
 
 	// Update map marker time
@@ -194,9 +198,9 @@ function createNewScene(celestialObject) {
 	createStarfield();
 
 	// CELESTIAL BODY
-	createLatLonGrid(scene, c, 0.992);
-	createTexturedSphere(celestialObject, 0.995);
-	createDaySphere(celestialObject, 0.995);
+	createLatLonGrid(scene, c, 0.995);
+	createTexturedSphere(celestialObject, 0.9975);
+	createDaySphere(celestialObject, 0.9975);
 
 	// LOCATIONS
 	let vertices = [];
@@ -334,7 +338,7 @@ function createNightSphere(celestialObject) {
 
 function createTexturedSphere(celestialObject, scale = 1) {
 	var loader = new THREE.TextureLoader();
-	let file = 'static/assets/' + celestialObject.NAME.toLowerCase() + '.png';
+	let file = 'static/assets/' + celestialObject.NAME.toLowerCase() + '.webp';
 	loader.load(file, function ( texture ) {
 
 		let geo = new THREE.SphereGeometry(scale, 48, 48, 0, Math.PI * 2);
@@ -346,12 +350,11 @@ function createTexturedSphere(celestialObject, scale = 1) {
 
 		let obj = new THREE.Mesh(geo, mat);
 		obj.name = 'Celestial Object';
-		obj.rotation.y = RADIANS(celestialObject.MERIDIAN() + celestialObject.ROTATION_CORRECTION + 180);
 		scene.add(obj);
 	} );
 }
 
-function createStarfield(amount = 500) {
+function createStarfield(amount = 250) {
 	let vertices = [];
 
 	for (let i = 0; i < amount; i++) {
