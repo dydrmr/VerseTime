@@ -235,6 +235,36 @@ function createNewScene(celestialObject) {
 		scene.add(timeLabel);
 	}
 
+	const d = Math.sqrt(2);
+	let orbitalMarkerCoordinates = [
+		{ x:  0, y:  0,  z:  d },
+		{ x:  0, y:  0,  z: -d },
+		{ x:  0, y:  d,  z:  0 },
+		{ x:  0, y: -d,  z:  0 },
+		{ x: -d, y:  0,  z:  0 },
+		{ x:  d, y:  0,  z:  0 },
+	];
+
+	for (let i = 0; i < 6; i++) {
+		let coords = orbitalMarkerCoordinates[i];
+		let x = coords.x;
+		let y = coords.y;
+		let z = coords.z;
+
+		vertices.push(x, z, y); // Y = UP in THREE.JS, so switch Z and Y
+
+		// TEXT LABELS
+		let labelDiv = document.createElement('div');
+		labelDiv.className = 'orbitalMarkerNameLabel';
+		labelDiv.textContent = `OM${i + 1}`;
+		
+		let nameLabel = new CSS2DObject(labelDiv);
+		let nameLabelPosition = new THREE.Vector3(x, z, y);
+		nameLabel.position.copy(nameLabelPosition);
+		
+		scene.add(nameLabel);
+	}
+
 	let geoLocs = new THREE.BufferGeometry();
 	geoLocs.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
 	
