@@ -3116,6 +3116,272 @@ const ABANDONED_OUTPOST_YELA = new Location(
 	'https://starcitizen.tools/images/thumb/7/7d/Abandoned_outpost%2C_Yela_%28Alpha_3.17.3%29.png/320px-Abandoned_outpost%2C_Yela_%28Alpha_3.17.3%29.png'
 )
 
+const BUCKETS = new Location(
+	'Buckets',
+	'Underground bunker',
+	LYRIA,
+	STANTON,
+	{
+		'x' : -193.999,
+		'y' : -67.967,
+		'z' : -89.591
+	},
+	null,
+	''
+)
+
+const ELSEWHERE = new Location(
+	'Elsewhere',
+	'Underground bunker',
+	LYRIA,
+	STANTON,
+	{
+		'x' : 207.814,
+		'y' : -67.758,
+		'z' : -49.787
+	},
+	null,
+	''
+)
+
+const LAUNCH_PAD = new Location(
+	'Launch Pad',
+	'Underground bunker',
+	LYRIA,
+	STANTON,
+	{
+		'x' : -213.816,
+		'y' : -65.231,
+		'z' : 16.647
+	},
+	null,
+	''
+)
+
+const TEDDYS_PLAYHOUSE = new Location(
+	'Teddy\'s Playhouse',
+	'Underground bunker',
+	LYRIA,
+	STANTON,
+	{
+		'x' : 96.033,
+		'y' : 159.442,
+		'z' : -123.929
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/8/8c/Teddy%27s_Playhouse.png/320px-Teddy%27s_Playhouse.png'
+)
+
+const THE_PIT = new Location(
+	'The Pit',
+	'Underground bunker',
+	LYRIA,
+	STANTON,
+	{
+		'x' : 59.230,
+		'y' : 68.198,
+		'z' : 204.929
+	},
+	null,
+	''
+)
+
+const WHEELERS = new Location(
+	'Wheeler\'s',
+	'Underground bunker',
+	LYRIA,
+	STANTON,
+	{
+		'x' : -52.959,
+		'y' : -209.881,
+		'z' : -57.549
+	},
+	null,
+	''
+)
+
+const SECURITY_DEPOT_LYRIA_1 = new Location(
+	'Security Depot Lyria 1',
+	'Underground bunker',
+	LYRIA,
+	STANTON,
+	{
+		'x' : -147.527,
+		'y' : -17.212,
+		'z' : 167.674
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/1/1c/Security_Depot_Lyria-1.png/320px-Security_Depot_Lyria-1.png'
+)
+
+const SHUBIN_PROCESSING_SPAL_3 = new Location(
+	'Shubin Processing Facility SPAL-3',
+	'Underground bunker',
+	LYRIA,
+	STANTON,
+	{
+		'x' : -208.110,
+		'y' : 11.143,
+		'z' : -82.136
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/7/79/Shubin_Processing_Facility_SPAL-3x.png/320px-Shubin_Processing_Facility_SPAL-3x.png'
+)
+
+const SHUBIN_PROCESSING_SPAL_7 = new Location(
+	'Shubin Processing Facility SPAL-7',
+	'Underground bunker',
+	LYRIA,
+	STANTON,
+	{
+		'x' : 38.016,
+		'y' : -125.930,
+		'z' : 181.508
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/3/38/Shubin_Processing_Facility_SPAL-7x.png/320px-Shubin_Processing_Facility_SPAL-7x.png'
+)
+
+const SHUBIN_PROCESSING_SPAL_9 = new Location(
+	'Shubin Processing Facility SPAL-9',
+	'Underground bunker',
+	LYRIA,
+	STANTON,
+	{
+		'x' : 146.841,
+		'y' : -168.909,
+		'z' : 8.174
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/c/c8/Shubin_Processing_Facility_SPAL-9.png/320px-Shubin_Processing_Facility_SPAL-9.png'
+)
+
+const SHUBIN_PROCESSING_SPAL_12 = new Location(
+	'Shubin Processing Facility SPAL-12',
+	'Underground bunker',
+	LYRIA,
+	STANTON,
+	{
+		'x' : -173.535,
+		'y' : 124.408,
+		'z' : 67.444
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/b/bc/Shubin_Processing_Facility_SPAL-12.png/320px-Shubin_Processing_Facility_SPAL-12.png'
+)
+
+const SHUBIN_PROCESSING_SPAL_16 = new Location(
+	'Shubin Processing Facility SPAL-16',
+	'Underground bunker',
+	LYRIA,
+	STANTON,
+	{
+		'x' : -39.936,
+		'y' : -66.324,
+		'z' : 209.905
+	},
+	null,
+	''
+)
+
+const SHUBIN_PROCESSING_SPAL_21 = new Location(
+	'Shubin Processing Facility SPAL-21',
+	'Underground bunker',
+	LYRIA,
+	STANTON,
+	{
+		'x' : -18.296,
+		'y' : 13.907,
+		'z' : 222.810
+	},
+	null,
+	''
+)
+
+const SHUBIN_PROCESSING_SPMC_1 = new Location(
+	'Shubin Processing Facility SPMC-1',
+	'Underground bunker',
+	CALLIOPE,
+	STANTON,
+	{
+		'x' : 231.078,
+		'y' : -34.373,
+		'z' : -55.893
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/f/f0/Calliope_SPMC-1_3.13.0_15.04.2021_11_11_05.png/320px-Calliope_SPMC-1_3.13.0_15.04.2021_11_11_05.png'
+)
+
+const SHUBIN_PROCESSING_SPMC_3 = new Location(
+	'Shubin Processing Facility SPMC-3',
+	'Underground bunker',
+	CALLIOPE,
+	STANTON,
+	{
+		'x' : 239.598,
+		'y' : -11.458,
+		'z' : 8.683
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/e/e2/Calliope_SPMC-3_3.13.0_16.04.2021_12_47_28.png/320px-Calliope_SPMC-3_3.13.0_16.04.2021_12_47_28.png'
+)
+
+const SHUBIN_PROCESSING_SPMC_5 = new Location(
+	'Shubin Processing Facility SPMC-5',
+	'Underground bunker',
+	CALLIOPE,
+	STANTON,
+	{
+		'x' : -229.991,
+		'y' : 66.814,
+		'z' : 19.274
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/4/4f/Calliope_SPMC-5_3.13.0_16.04.2021_14_37_32.png/320px-Calliope_SPMC-5_3.13.0_16.04.2021_14_37_32.png'
+)
+
+const SHUBIN_PROCESSING_SPMC_10 = new Location(
+	'Shubin Processing Facility SPMC-10',
+	'Underground bunker',
+	CALLIOPE,
+	STANTON,
+	{
+		'x' : -222.726,
+		'y' : -74.372,
+		'z' : -49.719
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/3/30/Calliope_SPMC-10_3.13.0_16.04.2021_14_32_56.png/320px-Calliope_SPMC-10_3.13.0_16.04.2021_14_32_56.png'
+)
+
+const SHUBIN_PROCESSING_SPMC_11 = new Location(
+	'Shubin Processing Facility SPMC-11',
+	'Underground bunker',
+	CALLIOPE,
+	STANTON,
+	{
+		'x' : 72.393,
+		'y' : -187.928,
+		'z' : 130.918
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/6/64/Calliope_SPMC-11_3.13.0_16.04.2021_13_23_11.png/320px-Calliope_SPMC-11_3.13.0_16.04.2021_13_23_11.png'
+)
+
+const SHUBIN_PROCESSING_SPMC_14 = new Location(
+	'Shubin Processing Facility SPMC-14',
+	'Underground bunker',
+	CALLIOPE,
+	STANTON,
+	{
+		'x' : 228.587,
+		'y' : -21.222,
+		'z' : 71.196
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/7/78/Calliope_SPMC-14_3.13.0_16.04.2021_12_43_45.png/320px-Calliope_SPMC-14_3.13.0_16.04.2021_12_43_45.png'
+)
+
 
 // INIT
 window.LOCATIONS.sort((a, b) => a.NAME.localeCompare(b.NAME));
