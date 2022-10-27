@@ -1227,7 +1227,7 @@ const HDMS_LATHAN = new Location(
 )
 
 const ABANDONED_OUTPOST_CELLIN = new Location(
-	'Abandoned Outpost (Cellin)',
+	'Abandoned Outpost',
 	'Outpost',
 	CELLIN,
 	STANTON,
@@ -2193,7 +2193,7 @@ const BENNYHENGE = new Location(
 )
 
 const ABANDONED_OUTPOST_DAYMAR = new Location(
-	'Abandoned Outpost (Daymar)',
+	'Abandoned Outpost',
 	'Outpost',
 	DAYMAR,
 	STANTON,
@@ -3100,6 +3100,20 @@ const POINT_WAIN_EMERGENCY_SHELTER = new Location(
 	},
 	null,
 	'https://starcitizen.tools/images/thumb/9/96/Point_Wain_Emergency_Shelter_26.04.2020_14_12_54.png/640px-Point_Wain_Emergency_Shelter_26.04.2020_14_12_54.png'
+)
+
+const ABANDONED_OUTPOST_YELA = new Location(
+	'Abandoned Outpost',
+	'Outpost',
+	YELA,
+	STANTON,
+	{
+		'x' : -45.303,
+		'y' : 308.850,
+		'z' : 28.948
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/7/7d/Abandoned_outpost%2C_Yela_%28Alpha_3.17.3%29.png/320px-Abandoned_outpost%2C_Yela_%28Alpha_3.17.3%29.png'
 )
 
 
