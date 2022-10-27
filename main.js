@@ -1227,7 +1227,7 @@ const HDMS_LATHAN = new Location(
 )
 
 const ABANDONED_OUTPOST_CELLIN = new Location(
-	'Abandoned Outpost',
+	'Abandoned Outpost (Cellin)',
 	'Outpost',
 	CELLIN,
 	STANTON,
@@ -2193,7 +2193,7 @@ const BENNYHENGE = new Location(
 )
 
 const ABANDONED_OUTPOST_DAYMAR = new Location(
-	'Abandoned Outpost',
+	'Abandoned Outpost (Daymar)',
 	'Outpost',
 	DAYMAR,
 	STANTON,
@@ -3103,7 +3103,7 @@ const POINT_WAIN_EMERGENCY_SHELTER = new Location(
 )
 
 const ABANDONED_OUTPOST_YELA = new Location(
-	'Abandoned Outpost',
+	'Abandoned Outpost (Yela)',
 	'Outpost',
 	YELA,
 	STANTON,
