@@ -96,8 +96,12 @@ function update() {
 	}
 
 
-	// ILLUMINATION STATUS
-	setText('illumination-status', location.ILLUMINATION_STATUS);
+	// ILLUMINATION STATUS & IN-LORE CALENDAR DATE
+	let scDate = new Date();
+	scDate.setFullYear(scDate.getFullYear() + 930);
+	let scDateString = scDate.toLocaleString('default', {year: 'numeric', month: 'long', day: 'numeric'});
+
+	setText('illumination-status', location.ILLUMINATION_STATUS + '\r\n' + scDateString);
 
 
 	if (showSettingsWindow) updateSettingsLocationTimes();
