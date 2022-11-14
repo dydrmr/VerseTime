@@ -1871,7 +1871,7 @@ const NT_999_XV = new Location(
 		'z' : 167.474
 	},
 	null,
-	''
+	'https://starcitizen.tools/images/thumb/5/5e/NT-999-XV_Bunker%2C_Cellin.jpg/320px-NT-999-XV_Bunker%2C_Cellin.jpg'
 )
 
 const HDMO_DOBBS_NA = new Location(
@@ -1927,7 +1927,7 @@ const SECURITY_POST_CRISKA = new Location(
 		'z' : 13.871
 	},
 	null,
-	''
+	'https://starcitizen.tools/images/thumb/f/f3/Security_Post_Criska_%28Alpha_3.17.3%29.jpg/320px-Security_Post_Criska_%28Alpha_3.17.3%29.jpg'
 )
 
 const SECURITY_POST_DIPUR = new Location(
@@ -1941,7 +1941,7 @@ const SECURITY_POST_DIPUR = new Location(
 		'z' : -159.946
 	},
 	null,
-	''
+	'https://starcitizen.tools/images/thumb/c/cf/Security_Post_Dipur_exterior.jpg/320px-Security_Post_Dipur_exterior.jpg'
 )
 
 const SECURITY_POST_LESPIN = new Location(
@@ -1955,7 +1955,7 @@ const SECURITY_POST_LESPIN = new Location(
 		'z' : 3.974
 	},
 	null,
-	''
+	'https://starcitizen.tools/images/thumb/3/35/Security_Post_Lespin_%28Alpha_3.17.3%29.jpg/320px-Security_Post_Lespin_%28Alpha_3.17.3%29.jpg'
 )
 
 const SECURITY_POST_KAREAH = new Location(
@@ -2095,7 +2095,7 @@ const SECURITY_POST_MOLUTO = new Location(
 		'z' : -223.998
 	},
 	null,
-	''
+	'https://starcitizen.tools/images/thumb/a/aa/Security_Post_Moluto_%28Alpha_3.17.3%29.jpg/320px-Security_Post_Moluto_%28Alpha_3.17.3%29.jpg'
 )
 
 const SECURITY_POST_PRASHAD = new Location(
@@ -2109,7 +2109,7 @@ const SECURITY_POST_PRASHAD = new Location(
 		'z' : 181.092
 	},
 	null,
-	''
+	'https://starcitizen.tools/images/thumb/1/18/Security_Post_Prashad_Exterior.png/320px-Security_Post_Prashad_Exterior.png'
 )
 
 const SECURITY_POST_THAQURAY = new Location(
@@ -2123,7 +2123,7 @@ const SECURITY_POST_THAQURAY = new Location(
 		'z' : 281.124
 	},
 	null,
-	''
+	'https://starcitizen.tools/images/thumb/a/a6/Security_Post_Thaquray_Exterior.jpg/320px-Security_Post_Thaquray_Exterior.jpg'
 )
 
 const COVALEX_SHIPPING_HUB_GUNDO = new Location(
@@ -2179,7 +2179,7 @@ const CONNORS = new Location(
 		'z' : 119.068
 	},
 	null,
-	''
+	'https://starcitizen.tools/images/thumb/9/90/Connor%27s_underground_bunker%2C_Yela.jpg/320px-Connor%27s_underground_bunker%2C_Yela.jpg'
 )
 
 const BENNYHENGE = new Location(
@@ -2305,7 +2305,7 @@ const GOOD_TIMES_TEMPLE = new Location(
 		'z' : 187.251
 	},
 	null,
-	''
+	'https://starcitizen.tools/images/thumb/4/46/Good_Times_Temple%2C_Wala.jpg/320px-Good_Times_Temple%2C_Wala.jpg'
 )
 
 const LOST_AND_FOUND = new Location(
@@ -2319,7 +2319,7 @@ const LOST_AND_FOUND = new Location(
 		'z' : 251.523
 	},
 	null,
-	''
+	'https://starcitizen.tools/images/thumb/1/14/Lost_and_Found%2C_Wala.jpg/320px-Lost_and_Found%2C_Wala.jpg'
 )
 
 const MT_SECURITYCENTER_DDV6 = new Location(
@@ -2361,7 +2361,7 @@ const MT_DATACENTER_4HJLVEA = new Location(
 		'z' : -255.491
 	},
 	null,
-	''
+	'https://starcitizen.tools/images/thumb/a/a7/MT_DataCenter_4HJ-LVE-A_26.04.2020_19_07_04.png/320px-MT_DataCenter_4HJ-LVE-A_26.04.2020_19_07_04.png'
 )
 
 const MT_DATACENTER_5WQR2VC = new Location(
@@ -2375,7 +2375,21 @@ const MT_DATACENTER_5WQR2VC = new Location(
 		'z' : -279.233
 	},
 	null,
-	''
+	'https://starcitizen.tools/images/thumb/a/a2/MT_DataCenter_5WQ-R2V-C_27.04.2020_14_11_29.png/320px-MT_DataCenter_5WQ-R2V-C_27.04.2020_14_11_29.png'
+)
+
+const MT_DATACENTER_8FKQ2XK = new Location(
+	'MT DataCenter 8FK-Q2X-K',
+	'Underground bunker',
+	MICROTECH,
+	STANTON,
+	{
+		'x' : 22.273,
+		'y' : 2.974,
+		'z' : -1000.725
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/3/39/MT_DataCenter_8FK-Q2X-K_27.04.2020_16_45_00.png/320px-MT_DataCenter_8FK-Q2X-K_27.04.2020_16_45_00.png'
 )
 
 const MT_DATACENTER_D79ECGR = new Location(
