@@ -664,10 +664,7 @@ body {
 }
 
 
-
-
-
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 1400px) {
 	.selected-location-time {
 		font-size: 4rem;
 	}
@@ -675,7 +672,10 @@ body {
 	.selected-location-label {
 		font-size: 2rem;
 	}
+}
 
+
+@media only screen and (max-width: 600px) {
 	.riseset-container {
 		margin: 20px;
 		font-size: 80%;
