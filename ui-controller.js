@@ -86,7 +86,13 @@ function setLocation(locationName) {
 		window.ACTIVE_LOCATION = result[0];
 		saveSetting('activeLocation', window.ACTIVE_LOCATION.NAME);
 		toggleSettingsWindow('off');
+
+		window.suppressReload = true;
 		parent.location.hash = getHashedLocation();
+		setTimeout(() => {
+			window.suppressReload = false;
+		}, 1000)
+
 		return true;
 
 	} else {

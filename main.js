@@ -13,6 +13,8 @@ window.DEBUG_MODE = false;
 window.HOURS_TO_TIME_STRING = HOURS_TO_TIME_STRING;
 window.setText = setText;
 
+window.suppressReload = false;
+
 
 // FUNCTIONS
 function checkHash() {
@@ -3420,5 +3422,6 @@ setInterval(update, 250);
 update();
 
 window.addEventListener('hashchange', () => {
+	if (window.suppressReload) return; 
 	window.location.reload(true);
 }, false);
