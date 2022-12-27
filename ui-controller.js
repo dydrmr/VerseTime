@@ -57,7 +57,7 @@ function toggleMapWindow() {
 
 function shareLocation() {
 	let loc = window.ACTIVE_LOCATION.NAME;
-	loc = loc.replaceAll(' ', '-');
+	loc = loc.replaceAll(' ', '_');
 	let url = location.protocol + '//' + location.host + location.pathname + '#' + loc;
 	navigator.clipboard.writeText(url);
 	

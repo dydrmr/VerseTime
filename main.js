@@ -20,7 +20,7 @@ function checkHash() {
 	let hash = window.location.hash;
 	if (hash === '') return;
 
-	let locationName = hash.replace('#', '').replaceAll('-', ' ');
+	let locationName = hash.replace('#', '').replaceAll('_', ' ');
 	console.log(locationName);
 	let location = LOCATIONS.filter(loc => loc.NAME === locationName);
 
