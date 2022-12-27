@@ -1,4 +1,3 @@
-// 3D Map
 // Save Favorites
 
 import { DEGREES, RADIANS, MODULO, SQUARE, ROUND, JULIAN_DATE } from './HelperFunctions.js';
@@ -21,7 +20,6 @@ function checkHash() {
 	if (hash === '') return;
 
 	let locationName = hash.replace('#', '').replaceAll('_', ' ');
-	console.log(locationName);
 	let location = LOCATIONS.filter(loc => loc.NAME === locationName);
 
 	if (location.length === 0) return;
@@ -3416,7 +3414,11 @@ const SHUBIN_PROCESSING_SPMC_14 = new Location(
 // INIT
 window.LOCATIONS.sort((a, b) => a.NAME.localeCompare(b.NAME));
 populateLocationList();
-loadSettings();
 checkHash();
+loadSettings();
 setInterval(update, 250);
 update();
+
+window.addEventListener('hashchange', () => {
+	window.location.reload(true);
+}, false);
