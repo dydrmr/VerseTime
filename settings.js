@@ -2,7 +2,7 @@ function loadSettings() {
 	const activeLocation = String(window.localStorage.getItem('activeLocation'));
 	const time24 = window.localStorage.getItem('time24');
 
-	if (activeLocation != 'null') {
+	if (window.location.hash !== '' activeLocation != 'null') {
 		let result = setLocation(activeLocation);
 		if (!result) setDefaultLocation();
 	} else {
