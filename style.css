@@ -410,6 +410,29 @@ body {
 
 
 
+
+#favorites {
+	display: none;
+	position: absolute;
+	right: 0px;
+	top: 50%;
+	transform: translateY(-50%);
+	background-color: rgba(0, 0, 0, 0.2);
+}
+
+.favorite-card {
+	margin: 5px;
+	margin-right: 20px;
+	padding: 5px;
+	border-radius: 5px;
+
+	display: grid;
+	grid-template-columns: repeat(3, auto);
+	grid-column-gap: 15px;
+}
+
+
+
 .BUTTON-set-location {
 	position: relative;
 	padding: 14px;
@@ -598,6 +621,46 @@ body {
 	top: 60px;
 	left: 30px;
 	font-size: 70%;
+}
+
+
+#BUTTON-share-location {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	top: 5px;
+
+	padding: 5px 10px;
+	font-family: 'Rajdhani', sans-serif;
+	font-size: 14px;
+	font-weight: 700;
+	text-transform: uppercase;
+	border-radius: 10px;
+
+	opacity: 0.4;
+	transition: 0.2s ease-out;
+}
+#BUTTON-share-location:hover {
+	cursor: pointer;
+	opacity: 1;
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+#share-location-message {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	top: 40px;
+
+	padding: 5px 10px;
+	border-radius: 10px;
+	background-color: rgba(0, 255, 0, 0.3);
+	color: white;
+	font-family: 'Roboto Mono', monospace;
+	text-transform: uppercase;
+	font-size: 14px;
+
+	opacity: 0;
 }
 
 

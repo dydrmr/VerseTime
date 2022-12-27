@@ -33,6 +33,8 @@ document.getElementById('BUTTON-close-credits').addEventListener('click', functi
 document.getElementById('BUTTON-toggle-map-window').addEventListener('click', function(e) { toggleMapWindow(); });
 document.getElementById('BUTTON-close-map').addEventListener('click', function(e) { toggleMapWindow(); });
 
+document.getElementById('BUTTON-share-location').addEventListener('click', function(e) { shareLocation(); });
+
 
 function toggleCreditsWindow() {
 	showCreditsWindow = !showCreditsWindow;
@@ -53,7 +55,22 @@ function toggleMapWindow() {
 	document.getElementById('map-window').style.transform = (showMapWindow ? 'scale(1)' : 'scale(0)');
 }
 
+function shareLocation() {
+	let loc = window.ACTIVE_LOCATION.NAME;
+	loc = loc.replaceAll(' ', '-');
+	let url = location.protocol + '//' + location.host + location.pathname + '#' + loc;
+	navigator.clipboard.writeText(url);
+	
+	let msg = document.getElementById('share-location-message');
+	msg.style.transition = '0s ease-out';
+	msg.style.opacity = 1;
 
+	setTimeout(() => {
+		msg.style.transition = '1s ease-out';
+		msg.style.opacity = 0;
+	}, 2000)
+}
+	
 
 
 

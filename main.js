@@ -16,6 +16,18 @@ window.setText = setText;
 
 
 // FUNCTIONS
+function checkHash() {
+	let hash = window.location.hash;
+	if (hash === '') return;
+
+	let locationName = hash.replace('#', '').replaceAll('-', ' ');
+	console.log(locationName);
+	let location = LOCATIONS.filter(loc => loc.NAME === locationName);
+
+	if (location.length === 0) return;
+	setLocation(locationName);
+}
+
 function update() {
 
 	let location = window.ACTIVE_LOCATION;
@@ -3405,5 +3417,6 @@ const SHUBIN_PROCESSING_SPMC_14 = new Location(
 window.LOCATIONS.sort((a, b) => a.NAME.localeCompare(b.NAME));
 populateLocationList();
 loadSettings();
+checkHash();
 setInterval(update, 250);
 update();
