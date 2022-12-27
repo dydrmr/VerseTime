@@ -55,10 +55,13 @@ function toggleMapWindow() {
 	document.getElementById('map-window').style.transform = (showMapWindow ? 'scale(1)' : 'scale(0)');
 }
 
-function shareLocation() {
+function getHashedLocation() {
 	let loc = window.ACTIVE_LOCATION.NAME;
-	loc = loc.replaceAll(' ', '_');
-	let url = location.protocol + '//' + location.host + location.pathname + '#' + loc;
+	return loc.replaceAll(' ', '_');
+}
+
+function shareLocation() {
+	let url = location.protocol + '//' + location.host + location.pathname + '#' + getHashedLocation();
 	navigator.clipboard.writeText(url);
 	
 	let msg = document.getElementById('share-location-message');
@@ -70,8 +73,6 @@ function shareLocation() {
 		msg.style.opacity = 0;
 	}, 2000)
 }
-	
-
 
 
 
@@ -85,6 +86,7 @@ function setLocation(locationName) {
 		window.ACTIVE_LOCATION = result[0];
 		saveSetting('activeLocation', window.ACTIVE_LOCATION.NAME);
 		toggleSettingsWindow('off');
+		parent.location.hash = getHashedLocation();
 		return true;
 
 	} else {
