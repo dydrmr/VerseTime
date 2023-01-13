@@ -5,8 +5,8 @@ Visit [this link](https://dydrmr.github.io/VerseTime/) to check it out.
 ## Interface
 Your selected options are saved when you change them.
 - To change your location, click on the location name in the center of the window.
-- Toggle 24-hour time notation off and on using the **[ T ]** key.
-- To toggle debug information, use the **[ D ]** key.
+- Toggle 24-hour time notation off and on using the <kbd>T</kbd> key.
+- To toggle debug information, use the <kbd>D</kbd> key.
 
 ## Search functionality
 You can filter locations in the search interface in a variety of ways:
