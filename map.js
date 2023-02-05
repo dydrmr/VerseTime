@@ -10,6 +10,8 @@ let mapDiv = document.getElementById('map-window');
 
 let celestial3DEntity = null;
 
+const omDistance = Math.sqrt(2);
+
 init();
 // createNewScene(window.ACTIVE_LOCATION.PARENT);
 render();
@@ -32,43 +34,43 @@ document.getElementById('BUTTON-toggle-map-window').addEventListener('click', fu
 
 	let body = window.ACTIVE_LOCATION.PARENT;
 
-		createNewScene(body);
+	createNewScene(body);
 
-		// Populate infobox data
-		window.setText('map-info-type', body.TYPE);
-		window.setText('map-info-system', body.PARENT_STAR.NAME);
-		window.setText('map-info-orbits', body.PARENT.NAME);
+	// Populate infobox data
+	window.setText('map-info-type', body.TYPE);
+	window.setText('map-info-system', body.PARENT_STAR.NAME);
+	window.setText('map-info-orbits', body.PARENT.NAME);
 
-		// let orbitDist = ROUND(body.ORBITAL_RADIUS / 149598000, 3); // AU
-		window.setText('map-info-orbitdistance', ROUND(body.ORBITAL_RADIUS).toLocaleString());
+	//let orbitDist = ROUND(body.ORBITAL_RADIUS / 149598000, 3); // AU
+	window.setText('map-info-orbitdistance', ROUND(body.ORBITAL_RADIUS).toLocaleString());
 
-		let radius = body.BODY_RADIUS.toLocaleString();
-		window.setText('map-info-radius', radius);
+	let radius = body.BODY_RADIUS.toLocaleString();
+	window.setText('map-info-radius', radius);
 
-		let circum = body.BODY_RADIUS * Math.PI;
-		circum = ROUND(circum, 1);
-		window.setText('map-info-circumference', circum.toLocaleString());
+	let circum = body.BODY_RADIUS * Math.PI;
+	circum = ROUND(circum, 1);
+	window.setText('map-info-circumference', circum.toLocaleString());
 
-		let rot = body.ROTATION_RATE * 3600;
-		rot = 360 / rot;
-		window.setText('map-info-rotationrate', rot.toLocaleString());
+	let rot = body.ROTATION_RATE * 3600;
+	rot = 360 / rot;
+	window.setText('map-info-rotationrate', rot.toLocaleString());
 
-		window.setText('map-info-lengthofday', window.HOURS_TO_TIME_STRING(body.ROTATION_RATE));
+	window.setText('map-info-lengthofday', window.HOURS_TO_TIME_STRING(body.ROTATION_RATE));
 
-		let sats = window.BODIES.filter(bod => {
-			if (!bod.PARENT) return false;
+	let sats = window.BODIES.filter(bod => {
+		if (!bod.PARENT) return false;
 
-			if (bod.PARENT.NAME === body.NAME) {
-				return true;
-			} else {
-				return false;
-			}
-		});
-		window.setText('map-info-naturalsatellites', sats.length);
+		if (bod.PARENT.NAME === body.NAME) {
+			return true;
+		} else {
+			return false;
+		}
+	});
+	window.setText('map-info-naturalsatellites', sats.length);
 });
 
 function init() {
-	console.debug('THREE.js revision: ' + THREE.REVISION);
+	//console.debug('THREE.js revision: ' + THREE.REVISION);
 	
 	scene = new THREE.Scene();
 
@@ -113,37 +115,65 @@ function render() {
 
 
 	// Check if location is occluded
-	// Improve performance on slower devices by doing it every 5th frame
+	// Improve performance by doing it every 5th frame
 	if (renderer.info.render.frame % 5 === 0) {
 		let raycaster = new THREE.Raycaster();
 		let v = new THREE.Vector3();
 		let r = window.ACTIVE_LOCATION.PARENT.BODY_RADIUS;
 		let bodyMesh = scene.getObjectByName('Celestial Object');
 
+		// LOCATIONS
 		let locationLabels = document.querySelectorAll('.mapLocationNameLabel');
 		locationLabels.forEach(label => {
 
 			let location = window.LOCATIONS.filter(loc => loc.NAME === label.innerText)[0];
 			
-			let posRaw = location.COORDINATES;
-			let x = -posRaw.x / r; // adjust for rotation direction
-			let y = posRaw.y / r;
-			let z = posRaw.z / r;
-			let pos = new THREE.Vector3(x, z, y); // Y = UP in THREE.JS, so switch Z and Y
+			let coord = location.COORDINATES;
+			let x = -coord.x / r; // adjust for rotation direction
+			let y = coord.y / r;
+			let z = coord.z / r;
+			let pos = new THREE.Vector3(x, z, y); // Y = UP in THREE.JS
+
+			v.copy(pos).sub(camera.position).normalize().multiply(new THREE.Vector3(-1, -1, -1));
+			raycaster.set( pos, v );
+			let intersects = raycaster.intersectObject(bodyMesh, false);
+
+			let occluded = intersects.length > 0;
+			label.style.opacity = occluded ? '0.075' : '0.8';
+			label.style.fontWeight = occluded ? 'normal' : '600';
+			label.nextSibling.style.opacity = occluded ? '0' : '0.8'
+			label.nextSibling.nextSibling.style.opacity = occluded ? '0.05' : '0.7';
+		});
+
+
+		// ORBITAL MARKERS
+		let orbitalMarkerCoordinates = [
+			{ x:  0, y:  0,  z:  omDistance },
+			{ x:  0, y:  0,  z: -omDistance },
+			{ x:  0, y:  omDistance,  z:  0 },
+			{ x:  0, y: -omDistance,  z:  0 },
+			{ x: -omDistance, y:  0,  z:  0 },
+			{ x:  omDistance, y:  0,  z:  0 },
+		];
+
+		let orbitalMarkerLabels = document.querySelectorAll('.mapOrbitalMarkerNameLabel');
+		orbitalMarkerLabels.forEach(label => {
+
+			let markerNumber = label.innerText.replace('OM', '');
+			let coord = orbitalMarkerCoordinates[markerNumber - 1];
+			let pos = new THREE.Vector3(coord.x, coord.z, coord.y); // Y = UP
 
 			v.copy(pos).sub(camera.position).normalize().multiply(new THREE.Vector3(-1, -1, -1));
 			raycaster.set( pos, v );
 			let intersects = raycaster.intersectObject(bodyMesh, true);
 
-			let occluded = intersects.length > 0
-			label.style.opacity = occluded ? '0.075' : '0.8';
-			label.style.fontWeight = occluded ? 'normal' : '600';
-			label.nextSibling.dataset.occluded = occluded ? 'true' : 'false';		
+			let occluded = intersects.length > 0;
+			label.style.opacity = occluded ? '0.05' : '0.25';
 		});
 	}
 
 
-	// Update map marker time
+	// Location times
 	let timeLabels = document.querySelectorAll('.mapLocationTimeLabel');
 	timeLabels.forEach(label => {
 		let locName = label.dataset.location;
@@ -162,57 +192,39 @@ function render() {
 		if (string === 'NaN:NaN') string = location.ILLUMINATION_STATUS;
 		
 		window.setText(label, string);
-
-		label.style.opacity = (label.dataset.occluded === 'true') ? '0' : '0.8';
 	});
 }
 
 
 
-function createTestScene() {
-	let geo = new THREE.SphereGeometry(10, 20, 20);
-	let mat = new THREE.MeshBasicMaterial({color: 0xffffff});
-	let s = new THREE.Mesh(geo, mat);
-	s.position.set(0, 0, 0);
-	scene.add(s);
-}
-
-
-
 function createNewScene(celestialObject) {
+	scene.clear();
+	let oldLabels = document.querySelectorAll( '.mapLocationNameLabel, .mapLocationTimeLabel, .mapLocationIconLabel, .mapOrbitalMarkerNameLabel' );
+	oldLabels.forEach(l => {l.remove()});
+
 	let r = celestialObject.BODY_RADIUS;
 	let c = celestialObject.THEME_COLOR;
 	let locations = window.LOCATIONS.filter(loc => loc.PARENT === celestialObject);
-
 	document.getElementById('map-body-name').textContent = celestialObject.NAME;
-
-	scene.clear();
-
-	let oldLabels1 = document.querySelectorAll('.mapLocationNameLabel');
-	let oldLabels2 = document.querySelectorAll('.mapLocationTimeLabel');
-	oldLabels1.forEach(label => {label.remove()});
-	oldLabels2.forEach(label => {label.remove()});
-
 	camera.position.set(2, 0.5, 2);
 
 	createStarfield();
-
-	// CELESTIAL BODY
-	createLatLonGrid(scene, c, 0.995);
-	createTexturedSphere(celestialObject, 0.9975);
-	createDaySphere(celestialObject, 0.9975);
+	createLatLonGrid(scene, c, 0.9925);
+	createTexturedSphere(celestialObject, 0.995);
+	createOrbitalMarkers();
 
 	// LOCATIONS
-	let vertices = [];
+	// let vertices = [];
 
 	for (let i = 0; i < locations.length; i++) {
 		let pos = locations[i].COORDINATES;
 		let x = -pos.x / r; // adjust for rotation direction
 		let y = pos.y / r;
 		let z = pos.z / r;
-		vertices.push(x, z, y); // Y = UP in THREE.JS, so switch Z and Y
+		// vertices.push(x, z, y); // Y = UP in THREE.JS, so switch Z and Y
 
-		// TEXT LABELS
+
+		// LOCATION NAME
 		let labelDiv = document.createElement('div');
 		labelDiv.className = 'mapLocationNameLabel';
 		labelDiv.textContent = locations[i].NAME;
@@ -220,9 +232,10 @@ function createNewScene(celestialObject) {
 		let nameLabel = new CSS2DObject(labelDiv);
 		let nameLabelPosition = new THREE.Vector3(x, z, y);
 		nameLabel.position.copy(nameLabelPosition);
-		
 		scene.add(nameLabel);
 
+
+		// TIME LABEL
 		let timeDiv = document.createElement('div');
 		timeDiv.className = 'mapLocationTimeLabel';
 		timeDiv.textContent = window.HOURS_TO_TIME_STRING(locations[i].LOCAL_TIME / 60 / 60, false);
@@ -231,21 +244,61 @@ function createNewScene(celestialObject) {
 
 		let timeLabel = new CSS2DObject(timeDiv);
 		timeLabel.position.copy(nameLabelPosition);
-
 		scene.add(timeLabel);
+
+
+		// LOCATION ICON
+		let iconDiv = document.createElement('div');
+		iconDiv.className = 'mapLocationIconLabel';
+		iconDiv.dataset.location = locations[i].NAME;
+
+		setLocationIcon(locations[i].TYPE, iconDiv);
+
+		let iconLabel = new CSS2DObject(iconDiv);
+		iconLabel.position.copy(nameLabelPosition);
+		scene.add(iconLabel);
 	}
 
-	let geoLocs = new THREE.BufferGeometry();
-	geoLocs.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
-	
-	let matLocs = new THREE.PointsMaterial({
-		color: `rgb(${c.r}, ${c.g}, ${c.b})`,
-		size: 4,
-		sizeAttenuation: false
-	});
 
-	let mesh = new THREE.Points(geoLocs, matLocs);
-	scene.add(mesh);
+	// OLD LOCATION MARKERS USING THREE.JS POINTS
+	// let geoLocs = new THREE.BufferGeometry();
+	// geoLocs.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+	
+	// let matLocs = new THREE.PointsMaterial({
+	// 	color: `rgb(${c.r}, ${c.g}, ${c.b})`,
+	// 	size: 4,
+	// 	sizeAttenuation: false
+	// });
+
+	// let mesh = new THREE.Points(geoLocs, matLocs);
+	// scene.add(mesh);
+}
+
+
+
+function setLocationIcon(type, element) {
+	if (
+		type === 'Underground bunker' ||
+		type === 'Emergency shelter' ||
+		type === 'Outpost' ||
+		type === 'Prison' ||
+		type === 'Shipwreck' ||
+		type === 'Scrapyard'
+	) {
+		element.classList.add('icon-outpost');
+	
+	} else if (
+		type === 'Space station' ||
+		type === 'Asteroid base'
+	) {
+		element.classList.add('icon-spacestation');
+	
+	} else if (type === 'Landing zone') {
+		element.classList.add('icon-landingzone');
+	
+	} else {
+		element.classList.add('icon-space');
+	}
 }
 
 function makeLine(x1, y1, z1, x2, y2, z2, mat) {
@@ -378,6 +431,39 @@ function createStarfield(amount = 250) {
 
 	let mesh = new THREE.Points(stars, mat);
 	scene.add(mesh);
+}
+
+function createOrbitalMarkers() {
+	let orbitalMarkerCoordinates = [
+		{ x:  0, y:  0,  z:  omDistance },
+		{ x:  0, y:  0,  z: -omDistance },
+		{ x:  0, y:  omDistance,  z:  0 },
+		{ x:  0, y: -omDistance,  z:  0 },
+		{ x: -omDistance, y:  0,  z:  0 },
+		{ x:  omDistance, y:  0,  z:  0 },
+	];
+
+	let vertices = [];
+
+	for (let i = 0; i < 6; i++) {
+		let coords = orbitalMarkerCoordinates[i];
+		let x = coords.x;
+		let y = coords.y;
+		let z = coords.z;
+
+		vertices.push(x, z, y); // Y = UP in THREE.JS, so switch Z and Y
+
+		// TEXT LABELS
+		let labelDiv = document.createElement('div');
+		labelDiv.className = 'mapOrbitalMarkerNameLabel';
+		labelDiv.textContent = `OM${i + 1}`;
+
+		let nameLabel = new CSS2DObject(labelDiv);
+		let nameLabelPosition = new THREE.Vector3(x, z, y);
+		nameLabel.position.copy(nameLabelPosition);
+
+		scene.add(nameLabel);
+	}
 }
 
 function createCelestialMarkers() {

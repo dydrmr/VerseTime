@@ -455,6 +455,7 @@ const CRUSADER = new CelestialBody(
 		'g' : 152,
 		'b' : 147
 	},
+	'https://starcitizen.tools/images/thumb/5/5d/Crusader-orbit-full-3.14.jpg/320px-Crusader-orbit-full-3.14.jpg'
 )
 
 const CELLIN = new CelestialBody(
@@ -1552,7 +1553,7 @@ const SHADY_GLEN_FARMS = new Location(
 
 const DAYMAR_JAVELIN_WRECK = new Location(
 	'Javelin Wreck \(UEES Flyssa\)',
-	'Wreck',
+	'Shipwreck',
 	DAYMAR,
 	STANTON,
 	{
@@ -2140,7 +2141,7 @@ const SECURITY_POST_THAQURAY = new Location(
 
 const COVALEX_SHIPPING_HUB_GUNDO = new Location(
 	'Covalex Shipping Hub Gundo',
-	'Space Station',
+	'Space station',
 	DAYMAR,
 	STANTON,
 	{
