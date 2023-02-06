@@ -114,7 +114,7 @@ function render() {
 	if (!showMapWindow) return;
 
 
-	// Check if location is occluded
+	// LABEL OCCLUSION
 	// Improve performance by doing it every 5th frame
 	if (renderer.info.render.frame % 5 === 0) {
 		let raycaster = new THREE.Raycaster();
@@ -122,12 +122,11 @@ function render() {
 		let r = window.ACTIVE_LOCATION.PARENT.BODY_RADIUS;
 		let bodyMesh = scene.getObjectByName('Celestial Object');
 
-		// LOCATIONS
-		let locationLabels = document.querySelectorAll('.mapLocationNameLabel');
+		//LOCATION LABELS
+		let locationLabels = document.querySelectorAll('.mapLocationLabel');
 		locationLabels.forEach(label => {
+			let location = window.LOCATIONS.filter(loc => loc.NAME === label.dataset.location)[0];
 
-			let location = window.LOCATIONS.filter(loc => loc.NAME === label.innerText)[0];
-			
 			let coord = location.COORDINATES;
 			let x = -coord.x / r; // adjust for rotation direction
 			let y = coord.y / r;
@@ -137,12 +136,7 @@ function render() {
 			v.copy(pos).sub(camera.position).normalize().multiply(new THREE.Vector3(-1, -1, -1));
 			raycaster.set( pos, v );
 			let intersects = raycaster.intersectObject(bodyMesh, false);
-
-			let occluded = intersects.length > 0;
-			label.style.opacity = occluded ? '0.075' : '0.8';
-			label.style.fontWeight = occluded ? 'normal' : '600';
-			label.nextSibling.style.opacity = occluded ? '0' : '0.8'
-			label.nextSibling.nextSibling.style.opacity = occluded ? '0.05' : '0.7';
+			label.dataset.occluded = (intersects.length > 0) ? true : false;
 		});
 
 
@@ -156,9 +150,8 @@ function render() {
 			{ x:  omDistance, y:  0,  z:  0 },
 		];
 
-		let orbitalMarkerLabels = document.querySelectorAll('.mapOrbitalMarkerNameLabel');
+		let orbitalMarkerLabels = document.querySelectorAll('.mapOrbitalMarker');
 		orbitalMarkerLabels.forEach(label => {
-
 			let markerNumber = label.innerText.replace('OM', '');
 			let coord = orbitalMarkerCoordinates[markerNumber - 1];
 			let pos = new THREE.Vector3(coord.x, coord.z, coord.y); // Y = UP
@@ -166,18 +159,15 @@ function render() {
 			v.copy(pos).sub(camera.position).normalize().multiply(new THREE.Vector3(-1, -1, -1));
 			raycaster.set( pos, v );
 			let intersects = raycaster.intersectObject(bodyMesh, true);
-
-			let occluded = intersects.length > 0;
-			label.style.opacity = occluded ? '0.05' : '0.25';
+			label.dataset.occluded = intersects.length > 0 ? true : false;
 		});
 	}
 
 
-	// Location times
-	let timeLabels = document.querySelectorAll('.mapLocationTimeLabel');
+	// LOCATION TIMES
+	let timeLabels = document.querySelectorAll('.mapLocationTime');
 	timeLabels.forEach(label => {
-		let locName = label.dataset.location;
-		let location = window.LOCATIONS.filter(loc => loc.NAME === locName)[0];
+		let location = window.LOCATIONS.filter(loc => loc.NAME === label.parentNode.dataset.location)[0];
 
 		let s = location.ILLUMINATION_STATUS;
 		if (s === 'Night' || s === 'Midnight' || s === 'Morning Twilight' || s === 'Evening Twilight' || s === 'Perma-Night') {
@@ -202,76 +192,16 @@ function createNewScene(celestialObject) {
 	let oldLabels = document.querySelectorAll( '.mapLocationNameLabel, .mapLocationTimeLabel, .mapLocationIconLabel, .mapOrbitalMarkerNameLabel' );
 	oldLabels.forEach(l => {l.remove()});
 
-	let r = celestialObject.BODY_RADIUS;
 	let c = celestialObject.THEME_COLOR;
-	let locations = window.LOCATIONS.filter(loc => loc.PARENT === celestialObject);
 	document.getElementById('map-body-name').textContent = celestialObject.NAME;
 	camera.position.set(2, 0.5, 2);
 
 	createStarfield();
 	createLatLonGrid(scene, c, 0.9925);
 	createTexturedSphere(celestialObject, 0.995);
-	createOrbitalMarkers();
 
-	// LOCATIONS
-	// let vertices = [];
-
-	for (let i = 0; i < locations.length; i++) {
-		let pos = locations[i].COORDINATES;
-		let x = -pos.x / r; // adjust for rotation direction
-		let y = pos.y / r;
-		let z = pos.z / r;
-		// vertices.push(x, z, y); // Y = UP in THREE.JS, so switch Z and Y
-
-
-		// LOCATION NAME
-		let labelDiv = document.createElement('div');
-		labelDiv.className = 'mapLocationNameLabel';
-		labelDiv.textContent = locations[i].NAME;
-		
-		let nameLabel = new CSS2DObject(labelDiv);
-		let nameLabelPosition = new THREE.Vector3(x, z, y);
-		nameLabel.position.copy(nameLabelPosition);
-		scene.add(nameLabel);
-
-
-		// TIME LABEL
-		let timeDiv = document.createElement('div');
-		timeDiv.className = 'mapLocationTimeLabel';
-		timeDiv.textContent = window.HOURS_TO_TIME_STRING(locations[i].LOCAL_TIME / 60 / 60, false);
-		timeDiv.dataset.location = locations[i].NAME;
-		timeDiv.dataset.occluded = 'false';
-
-		let timeLabel = new CSS2DObject(timeDiv);
-		timeLabel.position.copy(nameLabelPosition);
-		scene.add(timeLabel);
-
-
-		// LOCATION ICON
-		let iconDiv = document.createElement('div');
-		iconDiv.className = 'mapLocationIconLabel';
-		iconDiv.dataset.location = locations[i].NAME;
-
-		setLocationIcon(locations[i].TYPE, iconDiv);
-
-		let iconLabel = new CSS2DObject(iconDiv);
-		iconLabel.position.copy(nameLabelPosition);
-		scene.add(iconLabel);
-	}
-
-
-	// OLD LOCATION MARKERS USING THREE.JS POINTS
-	// let geoLocs = new THREE.BufferGeometry();
-	// geoLocs.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
-	
-	// let matLocs = new THREE.PointsMaterial({
-	// 	color: `rgb(${c.r}, ${c.g}, ${c.b})`,
-	// 	size: 4,
-	// 	sizeAttenuation: false
-	// });
-
-	// let mesh = new THREE.Points(geoLocs, matLocs);
-	// scene.add(mesh);
+	createLocationLabels(celestialObject);
+	createOrbitalMarkerLabels();
 }
 
 
@@ -433,7 +363,42 @@ function createStarfield(amount = 250) {
 	scene.add(mesh);
 }
 
-function createOrbitalMarkers() {
+function createLocationLabels(celestialObject) {
+	let r = celestialObject.BODY_RADIUS;
+	let locations = window.LOCATIONS.filter(loc => loc.PARENT === celestialObject);
+
+	for (let i = 0; i < locations.length; i++) {
+		let pos = locations[i].COORDINATES;
+		let x = -pos.x / r; // adjust for rotation direction
+		let y = pos.y / r;
+		let z = pos.z / r;
+
+		let container = document.createElement('div');
+		container.className = 'mapLocationLabel';
+		container.dataset.location = locations[i].NAME;
+
+		let name = document.createElement('p');
+		container.append(name);
+		name.className = 'mapLocationName';
+		name.innerText = locations[i].NAME;
+
+		let icon = document.createElement('div');
+		container.append(icon);
+		icon.className = 'mapLocationIcon';
+		setLocationIcon(locations[i].TYPE, icon);
+
+		let time = document.createElement('p');
+		container.append(time);
+		time.className = 'mapLocationTime';
+		time.innerText = 'XX:XX';
+
+		let locationLabel = new CSS2DObject(container);
+		locationLabel.position.copy(new THREE.Vector3(x, z, y));
+		scene.add(locationLabel);
+	}
+}
+
+function createOrbitalMarkerLabels() {
 	let orbitalMarkerCoordinates = [
 		{ x:  0, y:  0,  z:  omDistance },
 		{ x:  0, y:  0,  z: -omDistance },
@@ -443,7 +408,6 @@ function createOrbitalMarkers() {
 		{ x:  omDistance, y:  0,  z:  0 },
 	];
 
-	let vertices = [];
 
 	for (let i = 0; i < 6; i++) {
 		let coords = orbitalMarkerCoordinates[i];
@@ -451,17 +415,13 @@ function createOrbitalMarkers() {
 		let y = coords.y;
 		let z = coords.z;
 
-		vertices.push(x, z, y); // Y = UP in THREE.JS, so switch Z and Y
-
-		// TEXT LABELS
 		let labelDiv = document.createElement('div');
-		labelDiv.className = 'mapOrbitalMarkerNameLabel';
+		labelDiv.className = 'mapOrbitalMarker';
 		labelDiv.textContent = `OM${i + 1}`;
 
 		let nameLabel = new CSS2DObject(labelDiv);
 		let nameLabelPosition = new THREE.Vector3(x, z, y);
 		nameLabel.position.copy(nameLabelPosition);
-
 		scene.add(nameLabel);
 	}
 }

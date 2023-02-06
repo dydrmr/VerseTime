@@ -1973,7 +1973,7 @@ const SECURITY_POST_LESPIN = new Location(
 
 const SECURITY_POST_KAREAH = new Location(
 	'Security Post Kareah',
-	'Space Station',
+	'Space station',
 	CELLIN,
 	STANTON,
 	{

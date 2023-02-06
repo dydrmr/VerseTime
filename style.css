@@ -526,8 +526,6 @@ body {
 
 
 
-#map-window {}
-
 #map-body-name {
 	font-size: 20px;
 	font-family: 'Rajdhani', sans-serif;
@@ -541,43 +539,54 @@ body {
 	transform: translate(-50%, 0%);
 }
 
-.yellow {
-	color: yellow;
-}
+.yellow {color: yellow;}
+.blue {color: lightblue;}
 
-.blue {
-	color: lightblue;
-}
-
-.mapLocationNameLabel {
-	font-size: 13px;
-	font-weight: 600;
-	text-align: center;
+.mapLocationLabel {
+	text-shadow: 0px 0px 8px rgb(0, 0, 0);
 	font-family: 'Rajdhani', sans-serif;
-	text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.9);
-	margin-top: -1.1em;
-	color: white;
-	opacity: 0.6;
+	text-align: center;
 	white-space: pre-line;
 	transition: opacity 0.4s;
+
+	transform: translate(-50% -50%);
+	border: 1.5px solid;
+	border-color: transparent;
+	border-radius: 4px;
+	padding: 3px 5px;
+
+	display: grid;
+	grid-template-columns: auto;
+	gap: 2px;
 }
 
-.mapLocationTimeLabel {
+.mapLocationLabel:hover {
+/*	cursor: pointer;*/
+/*	border-color: var(--theme-color);*/
+}
+
+.mapLocationLabel[data-occluded=true] {
+	opacity: 0.025;
+	user-select: none;
+	pointer-events: none;
+}
+
+.mapLocationName {
+	font-size: 11px;
+	font-weight: 600;
+	color: white;
+}
+.mapLocationTime {
 	font-size: 10px;
 	font-weight: 500;
-	text-align: center;
 	font-family: 'Roboto Mono', monospace;
-	text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.9);
-	margin-top: 1.1em;
 	opacity: 0.4;
-	white-space: pre-line;
-	transition: opacity 0.4s;
 }
 
-.mapLocationIconLabel {
+.mapLocationIcon {
 	width: 8px;
 	height: 8px;
-	margin-top: -1px;
+	margin: 0 auto;
 	background-size: 100% 100%;
 	opacity: 0.7;
 	transition: opacity 0.4s;
@@ -597,7 +606,7 @@ body {
 	background-image: url('img/icon-space.png');
 }
 
-.mapOrbitalMarkerNameLabel {
+.mapOrbitalMarker {
 	font-size: 10px;
 	font-weight: 500;
 	text-align: center;
@@ -607,6 +616,12 @@ body {
 	white-space: pre-line;
 	transition: opacity 0.4s;
 }
+.mapOrbitalMarker[data-occluded=true] {
+	opacity: 0.025;
+	user-select: none;
+	pointer-events: none;
+}
+
 
 #BUTTON-toggle-map-window {
 	position: absolute;
@@ -654,6 +669,18 @@ body {
 	top: 60px;
 	left: 30px;
 	font-size: 70%;
+}
+@media (max-width: 800px) {
+	#map-bodyinfo-window {
+		top: 10px;
+		left: 10px;
+		font-size: 50%;
+	}
+}
+@media (max-width: 400px) {
+	#map-bodyinfo-window {
+		display: none;
+	}
 }
 
 
