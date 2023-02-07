@@ -561,7 +561,7 @@ body {
 }
 
 .mapLocationLabel:hover {
-/*	cursor: pointer;*/
+	cursor: pointer;
 /*	border-color: var(--theme-color);*/
 }
 
@@ -577,10 +577,10 @@ body {
 	color: white;
 }
 .mapLocationTime {
-	font-size: 10px;
+	font-size: 9px;
 	font-weight: 500;
 	font-family: 'Roboto Mono', monospace;
-	opacity: 0.4;
+	opacity: 0.9;
 }
 
 .mapLocationIcon {
@@ -605,6 +605,7 @@ body {
 .icon-space {
 	background-image: url('img/icon-space.png');
 }
+
 
 .mapOrbitalMarker {
 	font-size: 10px;
@@ -681,6 +682,14 @@ body {
 	#map-bodyinfo-window {
 		display: none;
 	}
+}
+
+#map-locationinfo-window {
+	position: absolute;
+	font-size: 8px;
+	font-family: 'Roboto Mono', monospace;
+	opacity: 0;
+	transition: opacity 0.2s ease-out;
 }
 
 
