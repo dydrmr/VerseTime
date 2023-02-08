@@ -178,3 +178,17 @@ document.addEventListener('keydown', function(event){
 		saveSetting('time24', window.SETTING_24HR);
 	}
 });
+
+
+
+function showMapLocationData(location, triggerElement) {
+	document.getElementById('map-locationinfo-window').style.opacity = 1;
+
+	setText('map-info-locationname', location.NAME);
+	setText('map-info-locationtype', location.TYPE);
+	setText('map-info-elevation', Math.round(location.ELEVATION * 1000, 1).toLocaleString());
+}
+
+function hideMapLocationData() {
+	document.getElementById('map-locationinfo-window').style.opacity = 0;
+}

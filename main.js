@@ -53,7 +53,6 @@ function update() {
 	}
 	setText('location-name', location.NAME);
 	setText('location-body-name', location.PARENT.NAME);
-	// setText('location-body-type', location.PARENT.TYPE);
 
 
 	// RISE/SET COUNTDOWNS
@@ -1245,7 +1244,7 @@ const HDMS_LATHAN = new Location(
 
 const ABANDONED_OUTPOST_CELLIN = new Location(
 	'Abandoned Outpost (Cellin)',
-	'Outpost',
+	'Ruins',
 	CELLIN,
 	STANTON,
 	{
@@ -2211,7 +2210,7 @@ const BENNYHENGE = new Location(
 
 const ABANDONED_OUTPOST_DAYMAR = new Location(
 	'Abandoned Outpost (Daymar)',
-	'Outpost',
+	'Ruins',
 	DAYMAR,
 	STANTON,
 	{
@@ -3065,7 +3064,7 @@ const TEST_FACILITY_OCTAGON = new Location(
 
 const GHOST_HOLLOW = new Location(
 	'Ghost Hollow',
-	'Shipwreck',
+	'Settlement',
 	MICROTECH,
 	STANTON,
 	{
@@ -3135,7 +3134,7 @@ const POINT_WAIN_EMERGENCY_SHELTER = new Location(
 
 const ABANDONED_OUTPOST_YELA = new Location(
 	'Abandoned Outpost (Yela)',
-	'Outpost',
+	'Ruins',
 	YELA,
 	STANTON,
 	{
@@ -3411,6 +3410,48 @@ const SHUBIN_PROCESSING_SPMC_14 = new Location(
 	},
 	null,
 	'https://starcitizen.tools/images/thumb/7/78/Calliope_SPMC-14_3.13.0_16.04.2021_12_43_45.png/320px-Calliope_SPMC-14_3.13.0_16.04.2021_12_43_45.png'
+)
+
+const THE_ICEBREAKER = new Location(
+	'The Icebreaker',
+	'Racetrack',
+	EUTERPE,
+	STANTON,
+	{
+		'x' : -42.101,
+		'y' : 198.111,
+		'z' : 66.582
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/c/cd/Icebreaker%2C_Euterpe%2C_ISC_2022-11-10.png/320px-Icebreaker%2C_Euterpe%2C_ISC_2022-11-10.png'
+)
+
+const WHISTLERS_CRYPT = new Location(
+	'Whistler\'s Crypt',
+	'Settlement',
+	DAYMAR,
+	STANTON,
+	{
+		'x' : 182.262,
+		'y' : 222.629,
+		'z' : 65.625
+	},
+	null,
+	'https://starcitizen.tools/images/thumb/a/aa/Whistlers_Crypt.png/320px-Whistlers_Crypt.png'
+)
+
+const MINERS_LAMENT = new Location(
+	'Miner\'s Lament',
+	'Racetrack',
+	YELA,
+	STANTON,
+	{
+		'x' : -488.234,
+		'y' : 519.158,
+		'z' : 3.846
+	},
+	null,
+	null
 )
 
 

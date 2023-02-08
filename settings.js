@@ -2,6 +2,13 @@ function loadSettings() {
 	const activeLocation = String(window.localStorage.getItem('activeLocation'));
 	const time24 = window.localStorage.getItem('time24');
 
+	const mapPlanetTransparency = window.localStorage.getItem('mapPlanetTransparency');
+	const mapGrid = window.localStorage.getItem('mapGrid');
+	const mapOMs = window.localStorage.getItem('mapOMs');
+	const mapTimes = window.localStorage.getItem('mapTimes');
+	const mapStars = window.localStorage.getItem('mapStars');
+
+
 	if (window.location.hash === '' && activeLocation != 'null') {
 		let result = setLocation(activeLocation);
 		if (!result) setDefaultLocation();
@@ -14,6 +21,26 @@ function loadSettings() {
 		window.SETTING_24HR = (time24 === 'false') ? false : true;
 	} else {
 		window.SETTING_24HR = true;
+	}
+
+	if (mapPlanetTransparency) {
+		document.getElementById('map-settings-planet-transparency').value = parseInt(mapPlanetTransparency);
+	}
+
+	if (mapGrid) {
+		document.getElementById('map-settings-show-grid').checked = (mapGrid === 'false') ? false : true;
+	}
+
+	if (mapOMs) {
+		document.getElementById('map-settings-show-orbitalmarkers').checked = (mapOMs === 'false') ? false : true;
+	}
+
+	if (mapTimes) {
+		document.getElementById('map-settings-show-times').checked = (mapTimes === 'false') ? false : true;
+	}
+
+	if (mapStars) {
+		document.getElementById('map-settings-show-starfield').checked = (mapStars === 'false') ? false : true;
 	}
 }
 

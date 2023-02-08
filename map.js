@@ -9,7 +9,6 @@ let scene, camera, renderer, labelRenderer, controls;
 let mapDiv = document.getElementById('map-window');
 
 let celestial3DEntity = null;
-
 const omDistance = Math.sqrt(2);
 
 init();
@@ -30,7 +29,7 @@ document.addEventListener('keydown', function(event){
 });
 
 document.getElementById('BUTTON-toggle-map-window').addEventListener('click', function(e) { 
-	createNewScene(window.ACTIVE_LOCATION.PARENT);
+	// createNewScene(window.ACTIVE_LOCATION.PARENT);
 
 	let body = window.ACTIVE_LOCATION.PARENT;
 
@@ -76,7 +75,7 @@ function init() {
 
 	renderer = new THREE.WebGLRenderer({antialias: true});
 	renderer.setSize(window.innerWidth, window.innerHeight);
-	renderer.setClearColor("#101016");
+	renderer.setClearColor('#101016');
 
 	labelRenderer = new CSS2DRenderer();
 	labelRenderer.setSize( window.innerWidth, window.innerHeight );
@@ -189,7 +188,7 @@ function render() {
 
 function createNewScene(celestialObject) {
 	scene.clear();
-	let oldLabels = document.querySelectorAll( '.mapLocationNameLabel, .mapLocationTimeLabel, .mapLocationIconLabel, .mapOrbitalMarkerNameLabel' );
+	let oldLabels = document.querySelectorAll( '.mapLocationName, .mapLocationTime, .mapLocationIcon, .mapOrbitalMarker' );
 	oldLabels.forEach(l => {l.remove()});
 
 	let c = celestialObject.THEME_COLOR;
@@ -213,7 +212,8 @@ function setLocationIcon(type, element) {
 		type === 'Outpost' ||
 		type === 'Prison' ||
 		type === 'Shipwreck' ||
-		type === 'Scrapyard'
+		type === 'Scrapyard' ||
+		type === 'Settlement'
 	) {
 		element.classList.add('icon-outpost');
 	
@@ -247,13 +247,21 @@ function createLatLonGrid(scene, color, scale = 0.99) {
 		opacity: 0.1
 	});
 
+	let grid = new THREE.Group();
+	grid.name = 'Grid';
+
 	for (let i = 0; i < 180; i += 30) {
-		scene.add(makeLongitudeCircle(i, material, scale));
+		let circle = makeLongitudeCircle(i, material, scale);
+		grid.add(circle);
 	}
 
 	for (let i = 15; i < 180; i += 15) {
-		scene.add(makeLatitudeCircle(i, material, scale));
+		let circle = makeLatitudeCircle(i, material, scale);
+		grid.add(circle);
 	}
+
+	scene.add(grid);
+	grid.visible = document.getElementById('map-settings-show-grid').checked;
 }
 
 function makeLongitudeCircle(angle, material, scale) {
@@ -320,24 +328,27 @@ function createNightSphere(celestialObject) {
 }
 
 function createTexturedSphere(celestialObject, scale = 1) {
+	let textureOpacity = document.getElementById('map-settings-planet-transparency').value / 100;
+
 	var loader = new THREE.TextureLoader();
 	let file = 'static/assets/' + celestialObject.NAME.toLowerCase() + '.webp';
 	loader.load(file, function ( texture ) {
 
-		let geo = new THREE.SphereGeometry(scale, 48, 48, 0, Math.PI * 2);
+		let geo = new THREE.SphereGeometry(scale, 72, 72, 0, Math.PI * 2);
 		let mat = new THREE.MeshBasicMaterial({
 			map: texture,
 			transparent: true,
-			opacity: 0.2
+			opacity: textureOpacity
 		});
 
 		let obj = new THREE.Mesh(geo, mat);
 		obj.name = 'Celestial Object';
 		scene.add(obj);
+		celestial3DEntity = obj;
 	} );
 }
 
-function createStarfield(amount = 250) {
+function createStarfield(amount = 300) {
 	let vertices = [];
 
 	for (let i = 0; i < amount; i++) {
@@ -361,6 +372,8 @@ function createStarfield(amount = 250) {
 
 	let mesh = new THREE.Points(stars, mat);
 	scene.add(mesh);
+	mesh.name = 'Starfield';
+	mesh.visible = document.getElementById('map-settings-show-starfield').checked;
 }
 
 function createLocationLabels(celestialObject) {
@@ -376,6 +389,10 @@ function createLocationLabels(celestialObject) {
 		let container = document.createElement('div');
 		container.className = 'mapLocationLabel';
 		container.dataset.location = locations[i].NAME;
+		container.dataset.occluded = true;
+
+		container.addEventListener('mouseenter', function() {showMapLocationData(locations[i], container);});
+		container.addEventListener('mouseleave', hideMapLocationData);
 
 		let name = document.createElement('p');
 		container.append(name);
@@ -391,6 +408,8 @@ function createLocationLabels(celestialObject) {
 		container.append(time);
 		time.className = 'mapLocationTime';
 		time.innerText = 'XX:XX';
+
+		time.dataset.visible = document.getElementById('map-settings-show-times').checked;
 
 		let locationLabel = new CSS2DObject(container);
 		locationLabel.position.copy(new THREE.Vector3(x, z, y));
@@ -408,6 +427,8 @@ function createOrbitalMarkerLabels() {
 		{ x:  omDistance, y:  0,  z:  0 },
 	];
 
+	let group = new THREE.Group();
+	group.name = 'Orbital Markers';
 
 	for (let i = 0; i < 6; i++) {
 		let coords = orbitalMarkerCoordinates[i];
@@ -419,11 +440,15 @@ function createOrbitalMarkerLabels() {
 		labelDiv.className = 'mapOrbitalMarker';
 		labelDiv.textContent = `OM${i + 1}`;
 
+		labelDiv.dataset.visible = document.getElementById('map-settings-show-orbitalmarkers').checked;
+
 		let nameLabel = new CSS2DObject(labelDiv);
 		let nameLabelPosition = new THREE.Vector3(x, z, y);
 		nameLabel.position.copy(nameLabelPosition);
-		scene.add(nameLabel);
+		group.add(nameLabel);
 	}
+
+	scene.add(group);
 }
 
 function createCelestialMarkers() {
@@ -445,3 +470,59 @@ function createCelestialMarkers() {
 	let starDirection = makeLine(0, 0, 0, Math.cos(m)*2, 0, Math.sin(m)*2, matStarDirection);
 	scene.add(starDirection);
 }
+
+
+
+// MAP SETTINGS
+document.getElementById('map-settings-planet-transparency').addEventListener('change', function() {
+	saveSetting('mapPlanetTransparency', document.getElementById('map-settings-planet-transparency').value);
+
+	let opacityPercent = document.getElementById('map-settings-planet-transparency').value / 100;
+	let mesh = scene.getObjectByName('Celestial Object');
+	let texturePath = 'static/assets/' + window.ACTIVE_LOCATION.PARENT.NAME.toLowerCase() + '.webp';
+
+	let loader = new THREE.TextureLoader();
+	let newMaterial;
+	loader.load(texturePath, function ( texture ) {
+		newMaterial = new THREE.MeshBasicMaterial({
+			map: texture,
+			transparent: true,
+			opacity: opacityPercent
+		});
+
+		mesh.material.dispose();
+		mesh.material = newMaterial;
+	} );
+});
+
+document.getElementById('map-settings-show-grid').addEventListener('change', function() {
+	saveSetting('mapGrid', document.getElementById('map-settings-show-grid').checked);
+
+	let object = scene.getObjectByName('Grid');
+	object.visible = document.getElementById('map-settings-show-grid').checked;
+});
+
+document.getElementById('map-settings-show-orbitalmarkers').addEventListener('change', function() {
+	saveSetting('mapOMs', document.getElementById('map-settings-show-orbitalmarkers').checked);
+
+	let markers = document.querySelectorAll('.mapOrbitalMarker');
+	markers.forEach(element => {
+		element.dataset.visible = document.getElementById('map-settings-show-orbitalmarkers').checked;
+	});
+});
+
+document.getElementById('map-settings-show-times').addEventListener('change', function() {
+	saveSetting('mapTimes', document.getElementById('map-settings-show-times').checked);
+
+	let labels = document.querySelectorAll('.mapLocationTime');
+	labels.forEach(element => {
+		element.dataset.visible = document.getElementById('map-settings-show-times').checked;
+	});
+});
+
+document.getElementById('map-settings-show-starfield').addEventListener('change', function() {
+	saveSetting('mapStars', document.getElementById('map-settings-show-starfield').checked);
+
+	let object = scene.getObjectByName('Starfield');
+	object.visible = document.getElementById('map-settings-show-starfield').checked;
+});

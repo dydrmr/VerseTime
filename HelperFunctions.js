@@ -1,24 +1,3 @@
-let NAME = '[name not defined]';
-let TYPE = '[type not defined]';
-let PARENT = null;
-let PARENT_STAR = null;
-let COORDINATES = {
-	'x' : null,
-	'y' : null,
-	'z' : null
-};
-let ROTATION_QUATERNION = {
-	'w' : null,
-	'x' : null,
-	'y' : null,
-	'z' : null
-};
-let BODY_RADIUS = null;
-let ROTATION_RATE = null;
-let ROTATION_CORRECTION = null;
-let ORBITAL_ANGLE = null;
-let ORBITAL_RADIUS = null;
-
 export function DEGREES(rad) {
 	return (rad * 180) / Math.PI;
 }
