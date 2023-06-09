@@ -180,6 +180,7 @@ document.addEventListener('keydown', function(event){
 
 	if (event.keyCode === 191) {
 		toggleSettingsWindow('on');
+		document.getElementById('location-selection-input').blur();
 	}
 });
 
