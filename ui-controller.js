@@ -177,6 +177,10 @@ document.addEventListener('keydown', function(event){
 		window.SETTING_24HR = !window.SETTING_24HR;
 		saveSetting('time24', window.SETTING_24HR);
 	}
+
+	if (event.keyCode === 191) {
+		toggleSettingsWindow('on');
+	}
 });
 
 
