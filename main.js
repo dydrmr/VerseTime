@@ -2158,9 +2158,9 @@ const SECURITY_POST_WAN = new Location(
 	YELA,
 	STANTON,
 	{
-		'x' : 241.090,
-		'y' : 96.618,
-		'z' : -174.893
+		'x' : -208.492,
+		'y' : 53.177,
+		'z' : -227.351
 	},
 	null,
 	'https://starcitizen.tools/images/thumb/e/eb/Security_Post_Wan%2C_Yela_%28Alpha_3.17.1%29.png/800px-Security_Post_Wan%2C_Yela_%28Alpha_3.17.1%29.png'
@@ -2172,9 +2172,9 @@ const SECURITY_POST_OPAL = new Location(
 	YELA,
 	STANTON,
 	{
-		'x' : -208.492,
-		'y' : 53.177,
-		'z' : -227.351
+		'x' : 241.090,
+		'y' : 96.618,
+		'z' : -174.893
 	},
 	null,
 	''
