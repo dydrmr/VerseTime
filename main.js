@@ -3498,6 +3498,6 @@ window.addEventListener('hashchange', () => {
 
 function displayMessage() {
 	setText('message-title', 'Invalid Data');
-	setText('message-text', 'Alpha 3.20 changed planetary rotations and VerseTime currently displays the wrong local times. Thanks for your patience while new data is collected.');
+	setText('message-text', 'Alpha 3.20 changed planetary rotations and VerseTime might display incorrect local times. Thanks for your patience while new data is collected.');
 	document.getElementById('message').style.display = 'block';
 }
