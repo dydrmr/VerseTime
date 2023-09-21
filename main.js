@@ -40,11 +40,6 @@ function update() {
 	document.getElementById('selected-location-bg-image').style.backgroundImage = `url('${location.THEME_IMAGE}')`;
 
 
-	// REALTIME & UNIVERSE CLOCKS
-	// document.getElementById('gmt-time').innerHTML = new Date().toUTCString();
-	// document.getElementById('universe-time').innerHTML = UNIVERSE_TIME(true).replace('GMT', 'SET');
-
-
 	// MAIN LOCATION INFO
 	if (location.LOCAL_TIME.toString() === 'NaN') {
 		setText('local-time', location.ILLUMINATION_STATUS);
@@ -53,8 +48,6 @@ function update() {
 	}
 	setText('location-name', location.NAME);
 	setText('location-body-name', location.PARENT.NAME);
-
-	// displayErrorTime();
 
 
 	// RISE/SET COUNTDOWNS
@@ -119,16 +112,6 @@ function update() {
 
 	if (showSettingsWindow) updateSettingsLocationTimes();
 	if (window.DEBUG_MODE) updateDebugUI();	
-}
-
-function displayErrorTime() {
-	setText('local-time', 'XX:XX');
-	setText('location-name', 'Data Outdated');
-	setText('location-body-name', 'Stand By');
-	document.getElementsByClassName('selected-location-sublabel')[0].innerHTML = 'Data changed in Alpha 3.20 - awaiting new surveys.';
-	document.getElementById('next-rise-container').style.display = 'none';
-	document.getElementById('next-set-container').style.display = 'none';
-	document.getElementById('illumination-status').style.display = 'none';
 }
 
 function updateDebugUI() {
@@ -429,7 +412,7 @@ const WALA = new CelestialBody(
 	},
 	283.000,
 	6.3200002,
-	135.63944,
+	45.63944,
 	143.943,
 	257308.320,
 	{
@@ -458,7 +441,7 @@ const CRUSADER = new CelestialBody(
 	},
 	7450.010,
 	5.0999999,
-	300.45742,
+	210.45742,
 	188.000,
 	19148527.616,
 	{
@@ -487,7 +470,7 @@ const CELLIN = new CelestialBody(
 	},
 	260.000,
 	4.4499998,
-	253.65125,
+	163.65125,
 	240.000,
 	50863.260,
 	{
@@ -545,7 +528,7 @@ const YELA = new CelestialBody(
 	},
 	313.000,
 	1.8200001,
-	218.19201,
+	128.19201,
 	140.000,
 	79286.88,
 	{
@@ -574,7 +557,7 @@ const MICROTECH = new CelestialBody(
 	},
 	1000.000,
 	4.1199999,
-	217.29668,
+	127.29668,
 	58.866,
 	43443216.384,
 	{
@@ -806,7 +789,7 @@ const MAGDA = new CelestialBody(
 	},
 	340.830,
 	1.9400001,
-	242.94396,
+	152.94396,
 	232.195,
 	94246.656,
 	{
@@ -932,18 +915,32 @@ const ORISON = new Location(
 	'https://starcitizen.tools/images/thumb/3/33/Orison-demo-wip-isc-20210624-11.png/300px-Orison-demo-wip-isc-20210624-11.png'
 )
 
-const PORT_OLISAR = new Location(
-	'Port Olisar',
+// const PORT_OLISAR = new Location(
+// 	'Port Olisar',
+// 	'Space station',
+// 	CRUSADER,
+// 	STANTON,
+// 	{
+// 		'x' : 5965.000,
+// 		'y' : -472.142,
+// 		'z' : 5667.009
+// 	},
+// 	null,
+// 	'https://starcitizen.tools/images/thumb/3/3d/Crusader-port-olisar-3.14.jpg/300px-Crusader-port-olisar-3.14.jpg'
+// )
+
+const SERAPHIM_STATION = new Location(
+	'Seraphim Station',
 	'Space station',
 	CRUSADER,
 	STANTON,
 	{
-		'x' : 5965.000,
-		'y' : -472.142,
-		'z' : 5667.009
+		'x' : 5876.098,
+		'y' : -1384.207,
+		'z' : 5565.883
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/3/3d/Crusader-port-olisar-3.14.jpg/300px-Crusader-port-olisar-3.14.jpg'
+	'https://media.starcitizen.tools/thumb/4/43/Seraphim_Station_Preview_-_Overview.png/300px-Seraphim_Station_Preview_-_Overview.png'
 )
 
 const PORT_TRESSLER = new Location(
@@ -3489,15 +3486,15 @@ loadSettings();
 setInterval(update, 250);
 update();
 
-displayMessage();
+setMessage();
 
 window.addEventListener('hashchange', () => {
 	if (window.suppressReload) return; 
 	window.location.reload(true);
 }, false);
 
-function displayMessage() {
+function setMessage() {
 	setText('message-title', 'Invalid Data');
 	setText('message-text', 'Alpha 3.20 changed planetary rotations and VerseTime might display incorrect local times. Thanks for your patience while new data is collected.');
-	document.getElementById('message').style.display = 'block';
+	// document.getElementById('message').style.display = 'block';
 }

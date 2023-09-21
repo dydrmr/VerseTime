@@ -93,11 +93,26 @@ function setLocation(locationName) {
 			window.suppressReload = false;
 		}, 1000)
 
+		toggleMessageBasedOnLocation();
+
 		return true;
 
 	} else {
 		throw 'Invalid [locationName] parameter passed to [setLocation] function!\nValue passed ➤ ' + locationName;
 		return false;
+	}
+}
+
+function toggleMessageBasedOnLocation() {
+	let msg = document.getElementById('message');
+
+	// let correct = ['Yela', 'Cellin', 'Wala', 'microTech', 'Magda'];
+	let correct = [];
+
+	if (correct.includes(window.ACTIVE_LOCATION.PARENT.NAME)) {
+		msg.style.display = 'none';
+	} else {
+		msg.style.display = 'block';
 	}
 }
 

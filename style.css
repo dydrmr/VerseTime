@@ -65,38 +65,6 @@ body {
 
 
 
-#time-bar {
-	margin-top: 1rem;
-	width: 100vw;
-	position: absolute;
-	top: 0;
-	left: 0;
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-
-	display: none;
-}
-
-.time-bar-group {
-	text-align: center;
-	display: grid;
-	grid-template-columns: 1fr;
-	text-shadow: 0px 0px 15px rgba(0, 0, 0, 0.9);
-}
-
-.time-bar-time {
-	font-size: 12px;
-	font-weight: 600;
-	opacity: 0.8;
-}
-
-.time-bar-label {
-	font-size: 12px;
-	font-family: 'Rajdhani', sans-serif;
-	font-weight: 700;
-	text-transform: uppercase;
-	opacity: 0.8;
-}
 
 #selected-location-card {
 	width: 100%;
@@ -784,11 +752,15 @@ body {
 
 #message {
 	display: none;
+	position: fixed;
+	top: 50px;
+	left: 50%;
+	transform: translateX(-50%);
+
 	background-color: hsla(000, 70%, 20%, 0.75);
 	border-radius: 10px;
 	box-shadow: 0px 0px 90px hsla(0, 0%, 0%, 0.8);
 	padding: 15px;
-	margin: 0px auto 30px;
 	width: 600px;
 }
 #message-title {
