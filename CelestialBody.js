@@ -87,59 +87,15 @@ export default class CelestialBody {
 	}
 
 	BS(distantObject) {
+		// Convert from heliocentric coordinates to local coordinates centered on celestial object
+
 		let x = this.BS_INTERNAL('x', distantObject);
 		let y = this.BS_INTERNAL('y', distantObject);
 		let z = this.BS_INTERNAL('z', distantObject);
 
 		return {'x': x, 'y': y, 'z': z};
 	}
-
-	LENGTH_OF_DAY() {
-		return 3600 * this.ROTATION_RATE / 86400;
-	}
-
-	CURRENT_CYCLE() {
-		let julian = JULIAN_DATE();
-		let dayLength = this.LENGTH_OF_DAY();
-		return julian / dayLength;
-	}
-
-	HOUR_ANGLE() {
-		let cycle = this.CURRENT_CYCLE();
-		let correction = this.ROTATION_CORRECTION;
-		let result = MODULO((360 - MODULO(cycle, 1) * 360 - correction), 360)
-		return result;
-	}
-
-	MERIDIAN(distantObject = this.PARENT_STAR) {
-		let bs = this.BS(distantObject);
-
-		let p2 = Math.atan2(bs.y, bs.x) - (Math.PI / 2);
-		let p1 = MODULO(p2, 2 * Math.PI);
-		return DEGREES(p1);
-	}
-
-	LONGITUDE(distantObject = this.PARENT_STAR) {
-
-		let meridModulo = MODULO(0 - this.MERIDIAN(), 360);
-		let cycleHourAngle = this.HOUR_ANGLE();
-
-		let condition = cycleHourAngle - meridModulo;
-		if (condition > 180) {
-			return cycleHourAngle - meridModulo - 360;
-
-		} else {
-			let condition2 = cycleHourAngle - meridModulo;
-
-			if (condition2 < -180) {
-				return cycleHourAngle - meridModulo + 360;
-
-			} else {
-				return cycleHourAngle - meridModulo;
-			}
-		}
-
-	}
+	
 
 	DECLINATION(distantObject = this.PARENT_STAR) {
 		let bs = this.BS(distantObject);
@@ -170,5 +126,55 @@ export default class CelestialBody {
 		let p2 = radius / p3;
 		let p1 = Math.asin(p2);
 		return DEGREES(p1);
+	}
+
+	LENGTH_OF_DAY() {
+		return 3600 * this.ROTATION_RATE / 86400;
+	}
+
+	CURRENT_CYCLE() {
+		// How many times the object has rotated since the 2020 reference date
+		let julian = JULIAN_DATE();
+		let dayLength = this.LENGTH_OF_DAY();
+		return julian / dayLength;
+	}
+
+	HOUR_ANGLE() {
+		// Current Rotation
+		let cycle = this.CURRENT_CYCLE();
+		let correction = this.ROTATION_CORRECTION;
+		let result = MODULO((360 - MODULO(cycle, 1) * 360 - correction), 360)
+		return result;
+	}
+
+	MERIDIAN(distantObject = this.PARENT_STAR) {
+		// Position of distantObject if this celestial object didn't rotate
+
+		let bs = this.BS(distantObject);
+
+		let p2 = Math.atan2(bs.y, bs.x) - (Math.PI / 2);
+		let p1 = MODULO(p2, 2 * Math.PI);
+		return DEGREES(p1);
+	}
+
+	LONGITUDE(distantObject = this.PARENT_STAR) {
+		let meridModulo = MODULO(0 - this.MERIDIAN(distantObject), 360);
+		let cycleHourAngle = this.HOUR_ANGLE();
+
+		let condition = cycleHourAngle - meridModulo;
+		if (condition > 180) {
+			return cycleHourAngle - meridModulo - 360;
+
+		} else {
+			let condition2 = cycleHourAngle - meridModulo;
+
+			if (condition2 < -180) {
+				return cycleHourAngle - meridModulo + 360;
+
+			} else {
+				return cycleHourAngle - meridModulo;
+			}
+		}
+
 	}
 }

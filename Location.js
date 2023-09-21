@@ -137,8 +137,8 @@ export default class Location {
 	}
 
 	get LENGTH_OF_DAYLIGHT() {
-		let terrainRise = 0; // NOT IMPLEMENTED
-		let terrainSet = 0;  // NOT IMPLEMENTED
+		let terrainRise = 0; // TODO: NOT IMPLEMENTED, PUT INTO CONSTRUCTOR
+		let terrainSet = 0; // TODO: NOT IMPLEMENTED, PUT INTO CONSTRUCTOR
 
 		let p1 = 2 * this.STARRISE_AND_STARSET_ANGLE - terrainRise - terrainSet;
 		return (p1 / this.PARENT.ANGULAR_ROTATION_RATE) * 3 / 4300;
@@ -166,8 +166,6 @@ export default class Location {
 				return 'Starset';
 			} else if (t > this.LOCAL_STAR_SET_TIME * 86400 - 7200) {
 				return 'Evening';
-			// } else if (t > this.LOCAL_STAR_SET_TIME * 86400 - 7200) {
-			// 	return 'Late Afternoon';
 			} else if (t > 43200 + 600) {
 				return 'Afternoon';
 			} else if (t > 43200 - 600) {
@@ -210,7 +208,7 @@ export default class Location {
 	get NEXT_STAR_RISE() {
 		let riseSet = this.STARRISE_AND_STARSET_ANGLE;
 		let rotation = this.PARENT.ANGULAR_ROTATION_RATE;
-		let terrainRise = 0; // NOT IMPLEMENTED
+		let terrainRise = 0; // TODO: NOT IMPLEMENTED, PUT INTO CONSTRUCTOR
 
 		let partialResult = this.NEXT_NOON - ((riseSet - terrainRise) / rotation * 3 / 4300);
 
@@ -232,7 +230,7 @@ export default class Location {
 	get NEXT_STAR_SET() {
 		let riseSet = this.STARRISE_AND_STARSET_ANGLE;
 		let rotation = this.PARENT.ANGULAR_ROTATION_RATE;
-		let terrainSet = 0; // NOT IMPLEMENTED
+		let terrainSet = 0; // TODO: NOT IMPLEMENTED, PUT INTO CONSTRUCTOR
 
 		let partialResult = this.NEXT_NOON + ((riseSet - terrainSet) / rotation * 3 / 4300);
 

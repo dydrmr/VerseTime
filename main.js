@@ -54,6 +54,8 @@ function update() {
 	setText('location-name', location.NAME);
 	setText('location-body-name', location.PARENT.NAME);
 
+	// displayErrorTime();
+
 
 	// RISE/SET COUNTDOWNS
 	let nextRise = location.NEXT_STAR_RISE;
@@ -117,6 +119,16 @@ function update() {
 
 	if (showSettingsWindow) updateSettingsLocationTimes();
 	if (window.DEBUG_MODE) updateDebugUI();	
+}
+
+function displayErrorTime() {
+	setText('local-time', 'XX:XX');
+	setText('location-name', 'Data Outdated');
+	setText('location-body-name', 'Stand By');
+	document.getElementsByClassName('selected-location-sublabel')[0].innerHTML = 'Data changed in Alpha 3.20 - awaiting new surveys.';
+	document.getElementById('next-rise-container').style.display = 'none';
+	document.getElementById('next-set-container').style.display = 'none';
+	document.getElementById('illumination-status').style.display = 'none';
 }
 
 function updateDebugUI() {
@@ -359,7 +371,7 @@ const ARCCORP = new CelestialBody(
 	},
 	800.000,
 	3.1099999,
-	230.73368,
+	230.97696,
 	310.000,
 	28917272.576,
 	{
@@ -367,7 +379,7 @@ const ARCCORP = new CelestialBody(
 		'g' : 102,
 		'b' : 90
 	},
-	'https://starcitizen.tools/images/thumb/7/7e/Stanton-arccorp-orbit-3.12.jpg/640px-Stanton-arccorp-orbit-3.12.jpg'
+	'https://starcitizen.tools/images/thumb/7/7e/Stanton-arccorp-orbit-3.12.jpg/300px-Stanton-arccorp-orbit-3.12.jpg'
 )
 
 const LYRIA = new CelestialBody(
@@ -388,7 +400,7 @@ const LYRIA = new CelestialBody(
 	},
 	223.000,
 	6.4299998,
-	359.36575,
+	359.49913,
 	14.631,
 	119827.896,
 	{
@@ -396,7 +408,7 @@ const LYRIA = new CelestialBody(
 		'g' : 142,
 		'b' : 178
 	},
-	'https://starcitizen.tools/images/thumb/a/aa/Stanton-arccorp-lyria-orbit-3.12.jpg/640px-Stanton-arccorp-lyria-orbit-3.12.jpg'
+	'https://starcitizen.tools/images/thumb/a/aa/Stanton-arccorp-lyria-orbit-3.12.jpg/300px-Stanton-arccorp-lyria-orbit-3.12.jpg'
 )
 
 const WALA = new CelestialBody(
@@ -417,7 +429,7 @@ const WALA = new CelestialBody(
 	},
 	283.000,
 	6.3200002,
-	135.45425,
+	135.63944,
 	143.943,
 	257308.320,
 	{
@@ -425,7 +437,7 @@ const WALA = new CelestialBody(
 		'g' : 150,
 		'b' : 158
 	},
-	'https://starcitizen.tools/images/thumb/f/ff/Stanton-arccorp-wala-orbit-3.12.jpg/640px-Stanton-arccorp-wala-orbit-3.12.jpg'
+	'https://starcitizen.tools/images/thumb/f/ff/Stanton-arccorp-wala-orbit-3.12.jpg/300px-Stanton-arccorp-wala-orbit-3.12.jpg'
 )
 
 const CRUSADER = new CelestialBody(
@@ -446,7 +458,7 @@ const CRUSADER = new CelestialBody(
 	},
 	7450.010,
 	5.0999999,
-	300.33377,
+	300.45742,
 	188.000,
 	19148527.616,
 	{
@@ -475,7 +487,7 @@ const CELLIN = new CelestialBody(
 	},
 	260.000,
 	4.4499998,
-	253.46701,
+	253.65125,
 	240.000,
 	50863.260,
 	{
@@ -483,7 +495,7 @@ const CELLIN = new CelestialBody(
 		'g' : 127,
 		'b' : 144
 	},
-	'https://starcitizen.tools/images/thumb/5/5c/Stanton-crusader-cellin-orbit-3.8.0.jpg/800px-Stanton-crusader-cellin-orbit-3.8.0.jpg'
+	'https://starcitizen.tools/images/thumb/5/5c/Stanton-crusader-cellin-orbit-3.8.0.jpg/300px-Stanton-crusader-cellin-orbit-3.8.0.jpg'
 )
 
 const DAYMAR = new CelestialBody(
@@ -504,7 +516,7 @@ const DAYMAR = new CelestialBody(
 	},
 	295.000,
 	2.4800000,
-	30.29544,
+	30.69164,
 	60.000,
 	63279.908,
 	{
@@ -512,7 +524,7 @@ const DAYMAR = new CelestialBody(
 		'g' : 170,
 		'b' : 150
 	},
-	'https://starcitizen.tools/images/thumb/5/52/Stanton-crusader-daymar-3.8.0.jpg/640px-Stanton-crusader-daymar-3.8.0.jpg'
+	'https://starcitizen.tools/images/thumb/5/52/Stanton-crusader-daymar-3.8.0.jpg/300px-Stanton-crusader-daymar-3.8.0.jpg'
 )
 
 const YELA = new CelestialBody(
@@ -533,7 +545,7 @@ const YELA = new CelestialBody(
 	},
 	313.000,
 	1.8200001,
-	217.58054,
+	218.19201,
 	140.000,
 	79286.88,
 	{
@@ -541,7 +553,7 @@ const YELA = new CelestialBody(
 		'g' : 128,
 		'b' : 150
 	},
-	'https://starcitizen.tools/images/thumb/8/8f/Stanton-crusader-yela-orbit-3.8.0.jpg/640px-Stanton-crusader-yela-orbit-3.8.0.jpg'
+	'https://starcitizen.tools/images/thumb/8/8f/Stanton-crusader-yela-orbit-3.8.0.jpg/300px-Stanton-crusader-yela-orbit-3.8.0.jpg'
 )
 
 const MICROTECH = new CelestialBody(
@@ -562,7 +574,7 @@ const MICROTECH = new CelestialBody(
 	},
 	1000.000,
 	4.1199999,
-	217.11688,
+	217.29668,
 	58.866,
 	43443216.384,
 	{
@@ -570,7 +582,7 @@ const MICROTECH = new CelestialBody(
 		'g' : 184,
 		'b' : 193
 	},
-	'https://starcitizen.tools/images/thumb/6/69/Microtech-high-orbit.jpg/640px-Microtech-high-orbit.jpg'
+	'https://starcitizen.tools/images/thumb/6/69/Microtech-high-orbit.jpg/300px-Microtech-high-orbit.jpg'
 )
 
 const CALLIOPE = new CelestialBody(
@@ -591,7 +603,7 @@ const CALLIOPE = new CelestialBody(
 	},
 	240.000,
 	4.5900002,
-	212.32677,
+	212.45586,
 	194.774,
 	65823.064,
 	{
@@ -599,7 +611,7 @@ const CALLIOPE = new CelestialBody(
 		'g' : 132,
 		'b' : 148
 	},
-	'https://starcitizen.tools/images/thumb/9/9a/Calliope-orbit1.png/640px-Calliope-orbit1.png'
+	'https://starcitizen.tools/images/thumb/9/9a/Calliope-orbit1.png/300px-Calliope-orbit1.png'
 )
 
 const CLIO = new CelestialBody(
@@ -620,7 +632,7 @@ const CLIO = new CelestialBody(
 	},
 	337.170,
 	0.0000000,
-	0.00000,
+	311.81734,
 	278.839,
 	95742.640,
 	{
@@ -628,7 +640,7 @@ const CLIO = new CelestialBody(
 		'g' : 141,
 		'b' : 137
 	},
-	'https://starcitizen.tools/images/thumb/2/27/Clio-orbit.png/640px-Clio-orbit.png'
+	'https://starcitizen.tools/images/thumb/2/27/Clio-orbit.png/300px-Clio-orbit.png'
 )
 
 const EUTERPE = new CelestialBody(
@@ -649,7 +661,7 @@ const EUTERPE = new CelestialBody(
 	},
 	213.000,
 	4.2800002,
-	269.04452,
+	269.20569,
 	284.020,
 	107710.472,
 	{
@@ -657,7 +669,7 @@ const EUTERPE = new CelestialBody(
 		'g' : 141,
 		'b' : 159
 	},
-	'https://starcitizen.tools/images/thumb/5/53/Euterpe-orbit1.png/640px-Euterpe-orbit1.png'
+	'https://starcitizen.tools/images/thumb/5/53/Euterpe-orbit1.png/300px-Euterpe-orbit1.png'
 )
 
 const HURSTON = new CelestialBody(
@@ -678,7 +690,7 @@ const HURSTON = new CelestialBody(
 	},
 	1000.000,
 	2.4800000,
-	19.10777,
+	19.43055,
 	0.000,
 	12850457.600,
 	{
@@ -686,7 +698,7 @@ const HURSTON = new CelestialBody(
 		'g' : 101,
 		'b' : 71
 	},
-	'https://starcitizen.tools/images/thumb/1/10/Stanton-hurston-orbit-3.17.jpg/640px-Stanton-hurston-orbit-3.17.jpg'
+	'https://starcitizen.tools/images/thumb/1/10/Stanton-hurston-orbit-3.17.jpg/300px-Stanton-hurston-orbit-3.17.jpg'
 )
 
 const ABERDEEN = new CelestialBody(
@@ -707,7 +719,7 @@ const ABERDEEN = new CelestialBody(
 	},
 	274.000,
 	2.5999999,
-	116.67681,
+	116.94539,
 	36.524,
 	68815.024,
 	{
@@ -715,7 +727,7 @@ const ABERDEEN = new CelestialBody(
 		'g' : 180,
 		'b' : 88
 	},
-	'https://starcitizen.tools/images/thumb/5/52/Stanton-hurston-aberdeen-orbit-3.12.jpg/640px-Stanton-hurston-aberdeen-orbit-3.12.jpg'
+	'https://starcitizen.tools/images/thumb/5/52/Stanton-hurston-aberdeen-orbit-3.12.jpg/300px-Stanton-hurston-aberdeen-orbit-3.12.jpg'
 )
 
 const ARIAL = new CelestialBody(
@@ -736,7 +748,7 @@ const ARIAL = new CelestialBody(
 	},
 	344.500,
 	5.5100002,
-	38.40291,
+	38.54331,
 	323.292,
 	52658.856,
 	{
@@ -744,7 +756,7 @@ const ARIAL = new CelestialBody(
 		'g' : 142,
 		'b' : 34
 	},
-	'https://starcitizen.tools/images/thumb/f/f8/Stanton-hurston-arial-orbit-3.17.jpg/640px-Stanton-hurston-arial-orbit-3.17.jpg'
+	'https://starcitizen.tools/images/thumb/f/f8/Stanton-hurston-arial-orbit-3.17.jpg/300px-Stanton-hurston-arial-orbit-3.17.jpg'
 )
 
 const ITA = new CelestialBody(
@@ -765,7 +777,7 @@ const ITA = new CelestialBody(
 	},
 	325.000,
 	4.8499999,
-	243.07207,
+	243.28827,
 	100.000,
 	116686.336,
 	{
@@ -773,7 +785,7 @@ const ITA = new CelestialBody(
 		'g' : 135,
 		'b' : 122
 	},
-	'https://starcitizen.tools/images/thumb/3/3d/Stanton-hurston-ita-orbit-3.17.jpg/640px-Stanton-hurston-ita-orbit-3.17.jpg'
+	'https://starcitizen.tools/images/thumb/3/3d/Stanton-hurston-ita-orbit-3.17.jpg/300px-Stanton-hurston-ita-orbit-3.17.jpg'
 )
 
 const MAGDA = new CelestialBody(
@@ -794,7 +806,7 @@ const MAGDA = new CelestialBody(
 	},
 	340.830,
 	1.9400001,
-	242.12456,
+	242.94396,
 	232.195,
 	94246.656,
 	{
@@ -802,7 +814,7 @@ const MAGDA = new CelestialBody(
 		'g' : 165,
 		'b' : 159
 	},
-	'https://starcitizen.tools/images/thumb/1/13/Stanton-hurston-magda-orbit-3.17.jpg/640px-Stanton-hurston-magda-orbit-3.17.jpg'
+	'https://starcitizen.tools/images/thumb/1/13/Stanton-hurston-magda-orbit-3.17.jpg/300px-Stanton-hurston-magda-orbit-3.17.jpg'
 )
 
 
@@ -819,7 +831,7 @@ const ARCCORP_MINING_141 = new Location(
 		'z' : -232.760
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/4/4f/Daymar_ArcCorp-Mining-Area-141_Morning.jpg/800px-Daymar_ArcCorp-Mining-Area-141_Morning.jpg'
+	'https://media.starcitizen.tools/thumb/4/4f/Daymar_ArcCorp-Mining-Area-141_Morning.jpg/300px-Daymar_ArcCorp-Mining-Area-141_Morning.jpg'
 )
 
 const AREA18 = new Location(
@@ -833,7 +845,7 @@ const AREA18 = new Location(
 		'z' : -262.094
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/5/5d/Arccorp-area18-aerial-view-to-spaceport.jpg/800px-Arccorp-area18-aerial-view-to-spaceport.jpg'
+	'https://starcitizen.tools/images/thumb/5/5d/Arccorp-area18-aerial-view-to-spaceport.jpg/300px-Arccorp-area18-aerial-view-to-spaceport.jpg'
 )
 
 const BAIJINI_POINT = new Location(
@@ -847,7 +859,7 @@ const BAIJINI_POINT = new Location(
 		'z' : -359.509
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/6/6e/Arccorp-baijini-point-01.jpg/800px-Arccorp-baijini-point-01.jpg'
+	'https://starcitizen.tools/images/thumb/6/6e/Arccorp-baijini-point-01.jpg/300px-Arccorp-baijini-point-01.jpg'
 )
 
 const EVERUS_HARBOR = new Location(
@@ -861,7 +873,7 @@ const EVERUS_HARBOR = new Location(
 		'z' : 496.489
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/7/72/Hurston-everus-harbor-01.jpg/800px-Hurston-everus-harbor-01.jpg'
+	'https://starcitizen.tools/images/thumb/7/72/Hurston-everus-harbor-01.jpg/300px-Hurston-everus-harbor-01.jpg'
 )
 
 const GRIMHEX = new Location(
@@ -875,7 +887,7 @@ const GRIMHEX = new Location(
 		'z' : -2.042
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/0/09/Star_Citizen_-_GrimHEX_close-up.png/800px-Star_Citizen_-_GrimHEX_close-up.png'
+	'https://starcitizen.tools/images/thumb/0/09/Star_Citizen_-_GrimHEX_close-up.png/300px-Star_Citizen_-_GrimHEX_close-up.png'
 )
 
 const LORVILLE = new Location(
@@ -889,7 +901,7 @@ const LORVILLE = new Location(
 		'z' : 572.120
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/3/34/Lorville_3.3.6_Raoul.png/800px-Lorville_3.3.6_Raoul.png'
+	'https://starcitizen.tools/images/thumb/3/34/Lorville_3.3.6_Raoul.png/300px-Lorville_3.3.6_Raoul.png'
 )
 
 const NEW_BABBAGE = new Location(
@@ -903,7 +915,7 @@ const NEW_BABBAGE = new Location(
 		'z' : 743.655
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/a/af/Microtech-new-babbage-cityscape-09.jpg/800px-Microtech-new-babbage-cityscape-09.jpg'
+	'https://starcitizen.tools/images/thumb/a/af/Microtech-new-babbage-cityscape-09.jpg/300px-Microtech-new-babbage-cityscape-09.jpg'
 )
 
 const ORISON = new Location(
@@ -917,7 +929,7 @@ const ORISON = new Location(
 		'z' : 5282.237
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/3/33/Orison-demo-wip-isc-20210624-11.png/800px-Orison-demo-wip-isc-20210624-11.png'
+	'https://starcitizen.tools/images/thumb/3/33/Orison-demo-wip-isc-20210624-11.png/300px-Orison-demo-wip-isc-20210624-11.png'
 )
 
 const PORT_OLISAR = new Location(
@@ -931,7 +943,7 @@ const PORT_OLISAR = new Location(
 		'z' : 5667.009
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/3/3d/Crusader-port-olisar-3.14.jpg/800px-Crusader-port-olisar-3.14.jpg'
+	'https://starcitizen.tools/images/thumb/3/3d/Crusader-port-olisar-3.14.jpg/300px-Crusader-port-olisar-3.14.jpg'
 )
 
 const PORT_TRESSLER = new Location(
@@ -945,7 +957,7 @@ const PORT_TRESSLER = new Location(
 		'z' : 808.832
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/9/9a/Microtech-port-tressler-01.jpg/800px-Microtech-port-tressler-01.jpg'
+	'https://starcitizen.tools/images/thumb/9/9a/Microtech-port-tressler-01.jpg/300px-Microtech-port-tressler-01.jpg'
 )
 
 const SHUBIN_MINING_SCD1 = new Location(
@@ -959,7 +971,7 @@ const SHUBIN_MINING_SCD1 = new Location(
 		'z' : 221.253
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/4/45/Daymar_Shubin-Mining-Facility-SCD1_Day-1.jpg/800px-Daymar_Shubin-Mining-Facility-SCD1_Day-1.jpg'
+	'https://starcitizen.tools/images/thumb/4/45/Daymar_Shubin-Mining-Facility-SCD1_Day-1.jpg/300px-Daymar_Shubin-Mining-Facility-SCD1_Day-1.jpg'
 )
 
 const BOUNTIFUL_HARVEST_HYDROPONICS = new Location(
@@ -973,7 +985,7 @@ const BOUNTIFUL_HARVEST_HYDROPONICS = new Location(
 		'z' : -274.246
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/f/f0/Bountiful_Harvest_Hydroponics_2.jpg/800px-Bountiful_Harvest_Hydroponics_2.jpg'
+	'https://starcitizen.tools/images/thumb/f/f0/Bountiful_Harvest_Hydroponics_2.jpg/300px-Bountiful_Harvest_Hydroponics_2.jpg'
 )
 
 const RAYARI_DELTANA = new Location(
@@ -987,7 +999,7 @@ const RAYARI_DELTANA = new Location(
 		'z' : +316.681
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/9/90/Rayari_Deltana_Research_Outpost_3.9.jpg/800px-Rayari_Deltana_Research_Outpost_3.9.jpg'
+	'https://starcitizen.tools/images/thumb/9/90/Rayari_Deltana_Research_Outpost_3.9.jpg/300px-Rayari_Deltana_Research_Outpost_3.9.jpg'
 )
 
 const HDMS_OPAREI = new Location(
@@ -1001,7 +1013,7 @@ const HDMS_OPAREI = new Location(
 		'z' : -828.071
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/4/40/Hurston_HDMS-Oparei_SC-Alpha-3.10.jpg/800px-Hurston_HDMS-Oparei_SC-Alpha-3.10.jpg'
+	'https://starcitizen.tools/images/thumb/4/40/Hurston_HDMS-Oparei_SC-Alpha-3.10.jpg/300px-Hurston_HDMS-Oparei_SC-Alpha-3.10.jpg'
 )
 
 const KLESCHER_ABERDEEN = new Location(
@@ -1015,7 +1027,7 @@ const KLESCHER_ABERDEEN = new Location(
 		'z' : -156.583
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/c/cc/Klescher_Rehabilitation_Facility_Aberdeen.png/800px-Klescher_Rehabilitation_Facility_Aberdeen.png'
+	'https://starcitizen.tools/images/thumb/c/cc/Klescher_Rehabilitation_Facility_Aberdeen.png/300px-Klescher_Rehabilitation_Facility_Aberdeen.png'
 )
 
 const JUMPTOWN = new Location(
@@ -1029,7 +1041,7 @@ const JUMPTOWN = new Location(
 		'z' : 74.777
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/b/b1/Jumptown%2C_Yela_%28Alpha_3.17%29.jpg/800px-Jumptown%2C_Yela_%28Alpha_3.17%29.jpg'
+	'https://starcitizen.tools/images/thumb/b/b1/Jumptown%2C_Yela_%28Alpha_3.17%29.jpg/300px-Jumptown%2C_Yela_%28Alpha_3.17%29.jpg'
 )
 
 const PARADISE_COVE = new Location(
@@ -1043,7 +1055,7 @@ const PARADISE_COVE = new Location(
 		'z' : -168.175
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/2/2b/Lyria_Paradise-Cove_Day.jpg/800px-Lyria_Paradise-Cove_Day.jpg'
+	'https://starcitizen.tools/images/thumb/2/2b/Lyria_Paradise-Cove_Day.jpg/300px-Lyria_Paradise-Cove_Day.jpg'
 )
 
 const RAVENS_ROOST = new Location(
@@ -1057,7 +1069,7 @@ const RAVENS_ROOST = new Location(
 		'z' : -212.484
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/0/0a/Calliope_Raven%27s_Roost_3.13.0_16.04.2021_14_20_09.png/800px-Calliope_Raven%27s_Roost_3.13.0_16.04.2021_14_20_09.png'
+	'https://starcitizen.tools/images/thumb/0/0a/Calliope_Raven%27s_Roost_3.13.0_16.04.2021_14_20_09.png/300px-Calliope_Raven%27s_Roost_3.13.0_16.04.2021_14_20_09.png'
 )
 
 const HDMS_ANDERSON = new Location(
@@ -1071,7 +1083,7 @@ const HDMS_ANDERSON = new Location(
 		'z' : 206.879
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/d/dc/Platinum_Bay_HDMS-Anderson.jpg/800px-Platinum_Bay_HDMS-Anderson.jpg'
+	'https://starcitizen.tools/images/thumb/d/dc/Platinum_Bay_HDMS-Anderson.jpg/300px-Platinum_Bay_HDMS-Anderson.jpg'
 )
 
 const HDMS_NORGAARD = new Location(
@@ -1085,7 +1097,7 @@ const HDMS_NORGAARD = new Location(
 		'z' : 132.098
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/b/bc/Platinum_Bay_HDMS-Norgaard.jpg/800px-Platinum_Bay_HDMS-Norgaard.jpg'
+	'https://starcitizen.tools/images/thumb/b/bc/Platinum_Bay_HDMS-Norgaard.jpg/300px-Platinum_Bay_HDMS-Norgaard.jpg'
 )
 
 const RAYARI_ANVIK = new Location(
@@ -1099,7 +1111,7 @@ const RAYARI_ANVIK = new Location(
 		'z' : 84.724
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/b/b5/Calliope_Rayari_Anvik_3.13.0_16.04.2021_14_25_11.png/800px-Calliope_Rayari_Anvik_3.13.0_16.04.2021_14_25_11.png'
+	'https://starcitizen.tools/images/thumb/b/b5/Calliope_Rayari_Anvik_3.13.0_16.04.2021_14_25_11.png/300px-Calliope_Rayari_Anvik_3.13.0_16.04.2021_14_25_11.png'
 )
 
 const RAYARI_KALTAG = new Location(
@@ -1113,7 +1125,7 @@ const RAYARI_KALTAG = new Location(
 		'z' : -124.485
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/0/0c/Calliope_Kaltag_3.13.0_15.04.2021_11_03_26.png/800px-Calliope_Kaltag_3.13.0_15.04.2021_11_03_26.png'
+	'https://starcitizen.tools/images/thumb/0/0c/Calliope_Kaltag_3.13.0_15.04.2021_11_03_26.png/300px-Calliope_Kaltag_3.13.0_15.04.2021_11_03_26.png'
 )
 
 const SHUBIN_MINING_SMCA6 = new Location(
@@ -1127,7 +1139,7 @@ const SHUBIN_MINING_SMCA6 = new Location(
 		'z' : 24.936
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/8/85/Calliope_SMCa-6_3.13.0_16.04.2021_12_36_54.png/800px-Calliope_SMCa-6_3.13.0_16.04.2021_12_36_54.png'
+	'https://starcitizen.tools/images/thumb/8/85/Calliope_SMCa-6_3.13.0_16.04.2021_12_36_54.png/300px-Calliope_SMCa-6_3.13.0_16.04.2021_12_36_54.png'
 )
 
 const SHUBIN_MINING_SMCA8 = new Location(
@@ -1141,7 +1153,7 @@ const SHUBIN_MINING_SMCA8 = new Location(
 		'z' : -58.400
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/6/60/Calliope_SMCa-8_3.13.0_16.04.2021_12_40_34.png/800px-Calliope_SMCa-8_3.13.0_16.04.2021_12_40_34.png'
+	'https://starcitizen.tools/images/thumb/6/60/Calliope_SMCa-8_3.13.0_16.04.2021_12_40_34.png/300px-Calliope_SMCa-8_3.13.0_16.04.2021_12_40_34.png'
 )
 
 const HUMBOLDT_MINES = new Location(
@@ -1155,7 +1167,7 @@ const HUMBOLDT_MINES = new Location(
 		'z' : -112.545
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/9/98/Humboldt_Mines.png/800px-Humboldt_Mines.png'
+	'https://starcitizen.tools/images/thumb/9/98/Humboldt_Mines.png/300px-Humboldt_Mines.png'
 )
 
 const LOVERIDGE_MINERAL_RESERVE = new Location(
@@ -1169,7 +1181,7 @@ const LOVERIDGE_MINERAL_RESERVE = new Location(
 		'z' : 24.940
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/e/e9/Loveridge_Mineral_Reserve2.png/800px-Loveridge_Mineral_Reserve2.png'
+	'https://starcitizen.tools/images/thumb/e/e9/Loveridge_Mineral_Reserve2.png/300px-Loveridge_Mineral_Reserve2.png'
 )
 
 const SHUBIN_MINING_SAL2 = new Location(
@@ -1183,7 +1195,7 @@ const SHUBIN_MINING_SAL2 = new Location(
 		'z' : 156.668
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/7/70/Shubin_Mining_Facility_SAL-2.png/800px-Shubin_Mining_Facility_SAL-2.png'
+	'https://starcitizen.tools/images/thumb/7/70/Shubin_Mining_Facility_SAL-2.png/300px-Shubin_Mining_Facility_SAL-2.png'
 )
 
 const SHUBIN_MINING_SAL5 = new Location(
@@ -1197,7 +1209,7 @@ const SHUBIN_MINING_SAL5 = new Location(
 		'z' : 185.821
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/4/41/Shubin_Mining_Facility_SAL-5_Daytime.jpg/800px-Shubin_Mining_Facility_SAL-5_Daytime.jpg'
+	'https://starcitizen.tools/images/thumb/4/41/Shubin_Mining_Facility_SAL-5_Daytime.jpg/300px-Shubin_Mining_Facility_SAL-5_Daytime.jpg'
 )
 
 const THE_ORPHANAGE = new Location(
@@ -1211,7 +1223,7 @@ const THE_ORPHANAGE = new Location(
 		'z' : 182.182
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/e/e7/Lyria_The-Orphanage_Day.jpg/800px-Lyria_The-Orphanage_Day.jpg'
+	'https://starcitizen.tools/images/thumb/e/e7/Lyria_The-Orphanage_Day.jpg/300px-Lyria_The-Orphanage_Day.jpg'
 )
 
 const HDMS_BEZDEK = new Location(
@@ -1225,7 +1237,7 @@ const HDMS_BEZDEK = new Location(
 		'z' : 251.505
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/9/9b/Arial_HDMS-Bezdek_Day.jpg/800px-Arial_HDMS-Bezdek_Day.jpg'
+	'https://starcitizen.tools/images/thumb/9/9b/Arial_HDMS-Bezdek_Day.jpg/300px-Arial_HDMS-Bezdek_Day.jpg'
 )
 
 const HDMS_LATHAN = new Location(
@@ -1239,7 +1251,7 @@ const HDMS_LATHAN = new Location(
 		'z' : 55.843
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/8/8d/HDMS-Lathan2.png/800px-HDMS-Lathan2.png'
+	'https://starcitizen.tools/images/thumb/8/8d/HDMS-Lathan2.png/300px-HDMS-Lathan2.png'
 )
 
 const ABANDONED_OUTPOST_CELLIN = new Location(
@@ -1253,7 +1265,7 @@ const ABANDONED_OUTPOST_CELLIN = new Location(
 		'z' : 130.356
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/4/43/Abandoned_outpost%2C_Cellin_%28Alpha_3.17.1%29.jpg/640px-Abandoned_outpost%2C_Cellin_%28Alpha_3.17.1%29.jpg'
+	'https://starcitizen.tools/images/thumb/4/43/Abandoned_outpost%2C_Cellin_%28Alpha_3.17.1%29.jpg/300px-Abandoned_outpost%2C_Cellin_%28Alpha_3.17.1%29.jpg'
 )
 
 const GALLETE_FAMILY_FARMS = new Location(
@@ -1267,7 +1279,7 @@ const GALLETE_FAMILY_FARMS = new Location(
 		'z' : 220.041
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/0/0e/Cellin_Gallete-Family-Farms_Day.jpg/800px-Cellin_Gallete-Family-Farms_Day.jpg'
+	'https://starcitizen.tools/images/thumb/0/0e/Cellin_Gallete-Family-Farms_Day.jpg/300px-Cellin_Gallete-Family-Farms_Day.jpg'
 )
 
 const HICKES_RESEARCH = new Location(
@@ -1281,7 +1293,7 @@ const HICKES_RESEARCH = new Location(
 		'z' : -260.316
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/1/1b/Cellin_Hickes-Research-Outpost_Twilight_Alpha-3.10.jpg/800px-Cellin_Hickes-Research-Outpost_Twilight_Alpha-3.10.jpg'
+	'https://starcitizen.tools/images/thumb/1/1b/Cellin_Hickes-Research-Outpost_Twilight_Alpha-3.10.jpg/300px-Cellin_Hickes-Research-Outpost_Twilight_Alpha-3.10.jpg'
 )
 
 const TERRA_MILLS_HYDROFARM = new Location(
@@ -1295,7 +1307,7 @@ const TERRA_MILLS_HYDROFARM = new Location(
 		'z' : 239.024
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/0/05/Terra_Mills_HydroFarm.png/800px-Terra_Mills_HydroFarm.png'
+	'https://starcitizen.tools/images/thumb/0/05/Terra_Mills_HydroFarm.png/300px-Terra_Mills_HydroFarm.png'
 )
 
 const TRAM_AND_MYERS_MINING = new Location(
@@ -1309,7 +1321,7 @@ const TRAM_AND_MYERS_MINING = new Location(
 		'z' : -98.700
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/5/55/Cellin_Tram-and-Myers_Day.jpg/800px-Cellin_Tram-and-Myers_Day.jpg'
+	'https://starcitizen.tools/images/thumb/5/55/Cellin_Tram-and-Myers_Day.jpg/300px-Cellin_Tram-and-Myers_Day.jpg'
 )
 
 const KUDRE_ORE = new Location(
@@ -1323,7 +1335,7 @@ const KUDRE_ORE = new Location(
 		'z' : -184.862
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/e/e3/KudreOre_Front.jpg/800px-KudreOre_Front.jpg'
+	'https://starcitizen.tools/images/thumb/e/e3/KudreOre_Front.jpg/300px-KudreOre_Front.jpg'
 )
 
 const BRIOS_BREAKER_YARD = new Location(
@@ -1337,7 +1349,7 @@ const BRIOS_BREAKER_YARD = new Location(
 		'z' : 173.852
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/d/d0/Brio_Breaker_Yard.png/800px-Brio_Breaker_Yard.png'
+	'https://starcitizen.tools/images/thumb/d/d0/Brio_Breaker_Yard.png/300px-Brio_Breaker_Yard.png'
 )
 
 const RECLAMATION_AND_DISPOSAL_ORINTH = new Location(
@@ -1351,7 +1363,7 @@ const RECLAMATION_AND_DISPOSAL_ORINTH = new Location(
 		'z' : 607.652
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/e/ed/Reclamation_%26_Disposal_Orinth3.png/800px-Reclamation_%26_Disposal_Orinth3.png'
+	'https://starcitizen.tools/images/thumb/e/ed/Reclamation_%26_Disposal_Orinth3.png/300px-Reclamation_%26_Disposal_Orinth3.png'
 )
 
 const RAYARI_CANTWELL = new Location(
@@ -1365,7 +1377,7 @@ const RAYARI_CANTWELL = new Location(
 		'z' : 142.842
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/e/e1/Clio_Rayari_Cantwell_Research_Outpost_3.13.0_15.04.2021_8_50_57.png/800px-Clio_Rayari_Cantwell_Research_Outpost_3.13.0_15.04.2021_8_50_57.png'
+	'https://starcitizen.tools/images/thumb/e/e1/Clio_Rayari_Cantwell_Research_Outpost_3.13.0_15.04.2021_8_50_57.png/300px-Clio_Rayari_Cantwell_Research_Outpost_3.13.0_15.04.2021_8_50_57.png'
 )
 
 const RAYARI_MCGRATH = new Location(
@@ -1379,7 +1391,7 @@ const RAYARI_MCGRATH = new Location(
 		'z' : -18.786
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/7/74/Clio_Rayari_McGrath_Research_Outpost_3.13.0_15.04.2021_10_58_23.png/800px-Clio_Rayari_McGrath_Research_Outpost_3.13.0_15.04.2021_10_58_23.png'
+	'https://starcitizen.tools/images/thumb/7/74/Clio_Rayari_McGrath_Research_Outpost_3.13.0_15.04.2021_10_58_23.png/300px-Clio_Rayari_McGrath_Research_Outpost_3.13.0_15.04.2021_10_58_23.png'
 )
 
 const BUDS_GROWERY = new Location(
@@ -1393,7 +1405,7 @@ const BUDS_GROWERY = new Location(
 		'z' : 115.271
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/d/d9/Euterpe_Bud%27s_Growery_3.13.0_15.04.2021_8_39_43.png/800px-Euterpe_Bud%27s_Growery_3.13.0_15.04.2021_8_39_43.png'
+	'https://starcitizen.tools/images/thumb/d/d9/Euterpe_Bud%27s_Growery_3.13.0_15.04.2021_8_39_43.png/300px-Euterpe_Bud%27s_Growery_3.13.0_15.04.2021_8_39_43.png'
 )
 
 const DEVLIN_SCRAP_AND_SALVAGE = new Location(
@@ -1407,7 +1419,7 @@ const DEVLIN_SCRAP_AND_SALVAGE = new Location(
 		'z' : 25.886
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/a/af/Euterpe_Devlin_Scrap_%26_Salvage_3.13.0_15.04.2021_8_31_28.png/800px-Euterpe_Devlin_Scrap_%26_Salvage_3.13.0_15.04.2021_8_31_28.png'
+	'https://starcitizen.tools/images/thumb/a/af/Euterpe_Devlin_Scrap_%26_Salvage_3.13.0_15.04.2021_8_31_28.png/300px-Euterpe_Devlin_Scrap_%26_Salvage_3.13.0_15.04.2021_8_31_28.png'
 )
 
 const HDMS_RYDER = new Location(
@@ -1421,7 +1433,7 @@ const HDMS_RYDER = new Location(
 		'z' : 73.709
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/c/cb/Ita_HDMS-Ryder_Day_SC-Alpha-3.10.jpg/800px-Ita_HDMS-Ryder_Day_SC-Alpha-3.10.jpg'
+	'https://starcitizen.tools/images/thumb/c/cb/Ita_HDMS-Ryder_Day_SC-Alpha-3.10.jpg/300px-Ita_HDMS-Ryder_Day_SC-Alpha-3.10.jpg'
 )
 
 const HDMS_WOODRUFF = new Location(
@@ -1435,7 +1447,7 @@ const HDMS_WOODRUFF = new Location(
 		'z' : 210.467
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/4/4a/HDMS-Woodruff2.png/800px-HDMS-Woodruff2.png'
+	'https://starcitizen.tools/images/thumb/4/4a/HDMS-Woodruff2.png/300px-HDMS-Woodruff2.png'
 )
 
 const HDMS_HAHN = new Location(
@@ -1449,7 +1461,7 @@ const HDMS_HAHN = new Location(
 		'z' : 95.247
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/3/38/Hdms_hahn.jpg/800px-Hdms_hahn.jpg'
+	'https://starcitizen.tools/images/thumb/3/38/Hdms_hahn.jpg/300px-Hdms_hahn.jpg'
 )
 
 const HDMS_PERLMAN = new Location(
@@ -1463,7 +1475,7 @@ const HDMS_PERLMAN = new Location(
 		'z' : -116.688
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/5/56/HDMS-Perlman.png/800px-HDMS-Perlman.png'
+	'https://starcitizen.tools/images/thumb/5/56/HDMS-Perlman.png/300px-HDMS-Perlman.png'
 )
 
 const ARCCORP_MINING_045 = new Location(
@@ -1477,7 +1489,7 @@ const ARCCORP_MINING_045 = new Location(
 		'z' : 10.620
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/6/6e/ArcCorp_Mining_Area_045.png/800px-ArcCorp_Mining_Area_045.png'
+	'https://starcitizen.tools/images/thumb/6/6e/ArcCorp_Mining_Area_045.png/300px-ArcCorp_Mining_Area_045.png'
 )
 
 const ARCCORP_MINING_048 = new Location(
@@ -1491,7 +1503,7 @@ const ARCCORP_MINING_048 = new Location(
 		'z' : -196.340
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/7/7a/ArcCorp_Mining_Area_048.png/800px-ArcCorp_Mining_Area_048.png'
+	'https://starcitizen.tools/images/thumb/7/7a/ArcCorp_Mining_Area_048.png/300px-ArcCorp_Mining_Area_048.png'
 )
 
 const ARCCORP_MINING_056 = new Location(
@@ -1505,7 +1517,7 @@ const ARCCORP_MINING_056 = new Location(
 		'z' : 253.155
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/c/cf/ArcCorp_Mining_Area_056.png/800px-ArcCorp_Mining_Area_056.png'
+	'https://starcitizen.tools/images/thumb/c/cf/ArcCorp_Mining_Area_056.png/300px-ArcCorp_Mining_Area_056.png'
 )
 
 const ARCCORP_MINING_061 = new Location(
@@ -1519,7 +1531,7 @@ const ARCCORP_MINING_061 = new Location(
 		'z' : -132.570
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/d/d6/ArcCorp_Mining_Area_061.png/800px-ArcCorp_Mining_Area_061.png'
+	'https://starcitizen.tools/images/thumb/d/d6/ArcCorp_Mining_Area_061.png/300px-ArcCorp_Mining_Area_061.png'
 )
 
 const SAMSON_AND_SONS = new Location(
@@ -1533,7 +1545,7 @@ const SAMSON_AND_SONS = new Location(
 		'z' : 19.438
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/c/c2/Samson_and_Sons_Salvage_Center.png/800px-Samson_and_Sons_Salvage_Center.png'
+	'https://starcitizen.tools/images/thumb/c/c2/Samson_and_Sons_Salvage_Center.png/300px-Samson_and_Sons_Salvage_Center.png'
 )
 
 const SHADY_GLEN_FARMS = new Location(
@@ -1547,7 +1559,7 @@ const SHADY_GLEN_FARMS = new Location(
 		'z' : 87.534
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/f/f1/Wala_Shady-Glen-Farms_Day.jpg/800px-Wala_Shady-Glen-Farms_Day.jpg'
+	'https://starcitizen.tools/images/thumb/f/f1/Wala_Shady-Glen-Farms_Day.jpg/300px-Wala_Shady-Glen-Farms_Day.jpg'
 )
 
 const DAYMAR_JAVELIN_WRECK = new Location(
@@ -1561,7 +1573,7 @@ const DAYMAR_JAVELIN_WRECK = new Location(
 		'z' : -70.856
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/c/c2/Javelin_Wreck_%28UEES_Flyssa%29%2C_Daymar%2C_Alpha_3.17.jpg/800px-Javelin_Wreck_%28UEES_Flyssa%29%2C_Daymar%2C_Alpha_3.17.jpg'
+	'https://starcitizen.tools/images/thumb/c/c2/Javelin_Wreck_%28UEES_Flyssa%29%2C_Daymar%2C_Alpha_3.17.jpg/300px-Javelin_Wreck_%28UEES_Flyssa%29%2C_Daymar%2C_Alpha_3.17.jpg'
 )
 
 const NUEN_WASTE_MANAGEMENT = new Location(
@@ -1575,7 +1587,7 @@ const NUEN_WASTE_MANAGEMENT = new Location(
 		'z' : 25.478
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/5/53/Nuen_Waste_Management%2C_Daymar%2C_Alpha_3.17.jpg/800px-Nuen_Waste_Management%2C_Daymar%2C_Alpha_3.17.jpg'
+	'https://starcitizen.tools/images/thumb/5/53/Nuen_Waste_Management%2C_Daymar%2C_Alpha_3.17.jpg/300px-Nuen_Waste_Management%2C_Daymar%2C_Alpha_3.17.jpg'
 )
 
 const NT_999_XVI = new Location(
@@ -1589,7 +1601,7 @@ const NT_999_XVI = new Location(
 		'z' : -23.796
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/5/57/NT-999-XVI_Bunker_Entrance%2C_Daymar.jpg/800px-NT-999-XVI_Bunker_Entrance%2C_Daymar.jpg'
+	'https://starcitizen.tools/images/thumb/5/57/NT-999-XVI_Bunker_Entrance%2C_Daymar.jpg/300px-NT-999-XVI_Bunker_Entrance%2C_Daymar.jpg'
 )
 
 const THE_GARDEN = new Location(
@@ -1603,7 +1615,7 @@ const THE_GARDEN = new Location(
 		'z' : 186.269
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/d/dd/The_Garden%2C_Daymar_%28Alpha_3.17%29.jpg/800px-The_Garden%2C_Daymar_%28Alpha_3.17%29.jpg'
+	'https://starcitizen.tools/images/thumb/d/dd/The_Garden%2C_Daymar_%28Alpha_3.17%29.jpg/300px-The_Garden%2C_Daymar_%28Alpha_3.17%29.jpg'
 )
 
 const TPF = new Location(
@@ -1617,7 +1629,7 @@ const TPF = new Location(
 		'z' : -210.032
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/f/f1/TPF_Underground_Bunker%2C_Daymar%2C_Alpha_3.17.jpg/800px-TPF_Underground_Bunker%2C_Daymar%2C_Alpha_3.17.jpg'
+	'https://starcitizen.tools/images/thumb/f/f1/TPF_Underground_Bunker%2C_Daymar%2C_Alpha_3.17.jpg/300px-TPF_Underground_Bunker%2C_Daymar%2C_Alpha_3.17.jpg'
 )
 
 const ARCCORP_MINING_157 = new Location(
@@ -1631,7 +1643,7 @@ const ARCCORP_MINING_157 = new Location(
 		'z' : 220.313
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/0/0f/Yela_Arccorp-157_Day_Alpha-3.10.jpg/800px-Yela_Arccorp-157_Day_Alpha-3.10.jpg'
+	'https://starcitizen.tools/images/thumb/0/0f/Yela_Arccorp-157_Day_Alpha-3.10.jpg/300px-Yela_Arccorp-157_Day_Alpha-3.10.jpg'
 )
 
 const BENSON_MINING = new Location(
@@ -1645,7 +1657,7 @@ const BENSON_MINING = new Location(
 		'z' : -140.136
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/8/82/Yela_Benson-Mining-Outpost_Day.jpg/800px-Yela_Benson-Mining-Outpost_Day.jpg'
+	'https://starcitizen.tools/images/thumb/8/82/Yela_Benson-Mining-Outpost_Day.jpg/300px-Yela_Benson-Mining-Outpost_Day.jpg'
 )
 
 const DEAKINS_RESEARCH = new Location(
@@ -1659,7 +1671,7 @@ const DEAKINS_RESEARCH = new Location(
 		'z' : 13.278
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/a/ad/Deakins_Research_Outpost.png/800px-Deakins_Research_Outpost.png'
+	'https://starcitizen.tools/images/thumb/a/ad/Deakins_Research_Outpost.png/300px-Deakins_Research_Outpost.png'
 )
 
 const NT_999_XX = new Location(
@@ -1673,7 +1685,7 @@ const NT_999_XX = new Location(
 		'z' : 224.325
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/0/0d/NT-999-XX_outpost_on_Yela_%28Alpha_3.17%29.png/800px-NT-999-XX_outpost_on_Yela_%28Alpha_3.17%29.png'
+	'https://starcitizen.tools/images/thumb/0/0d/NT-999-XX_outpost_on_Yela_%28Alpha_3.17%29.png/300px-NT-999-XX_outpost_on_Yela_%28Alpha_3.17%29.png'
 )
 
 const HDMS_EDMOND = new Location(
@@ -1687,7 +1699,7 @@ const HDMS_EDMOND = new Location(
 		'z' : 620.924
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/c/c4/HDMS_Edmond.png/800px-HDMS_Edmond.png'
+	'https://starcitizen.tools/images/thumb/c/c4/HDMS_Edmond.png/300px-HDMS_Edmond.png'
 )
 
 const HDMS_HADLEY = new Location(
@@ -1701,7 +1713,7 @@ const HDMS_HADLEY = new Location(
 		'z' : -518.485
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/a/a6/HDMS_Hadley.png/800px-HDMS_Hadley.png'
+	'https://starcitizen.tools/images/thumb/a/a6/HDMS_Hadley.png/300px-HDMS_Hadley.png'
 )
 
 const HDMS_PINEWOOD = new Location(
@@ -1715,7 +1727,7 @@ const HDMS_PINEWOOD = new Location(
 		'z' : 149.896
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/a/a6/In_front_of_HDMS_Pinewood.jpg/800px-In_front_of_HDMS_Pinewood.jpg'
+	'https://starcitizen.tools/images/thumb/a/a6/In_front_of_HDMS_Pinewood.jpg/300px-In_front_of_HDMS_Pinewood.jpg'
 )
 
 const HDMS_STANHOPE = new Location(
@@ -1729,7 +1741,7 @@ const HDMS_STANHOPE = new Location(
 		'z' : 735.121
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/9/9b/HDMS_Stanhope.png/800px-HDMS_Stanhope.png'
+	'https://starcitizen.tools/images/thumb/9/9b/HDMS_Stanhope.png/300px-HDMS_Stanhope.png'
 )
 
 const HDMS_THEDUS = new Location(
@@ -1743,7 +1755,7 @@ const HDMS_THEDUS = new Location(
 		'z' : 101.509
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/d/d3/HDMS_Thedus_Sunrise.jpg/800px-HDMS_Thedus_Sunrise.jpg'
+	'https://starcitizen.tools/images/thumb/d/d3/HDMS_Thedus_Sunrise.jpg/300px-HDMS_Thedus_Sunrise.jpg'
 )
 
 const SHUBIN_MINING_SM0_10 = new Location(
@@ -1757,7 +1769,7 @@ const SHUBIN_MINING_SM0_10 = new Location(
 		'z' : 298.799
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/4/49/Shubin_Mining_Facility_SM0-10_26.04.2020_13_44_28.png/800px-Shubin_Mining_Facility_SM0-10_26.04.2020_13_44_28.png'
+	'https://starcitizen.tools/images/thumb/4/49/Shubin_Mining_Facility_SM0-10_26.04.2020_13_44_28.png/300px-Shubin_Mining_Facility_SM0-10_26.04.2020_13_44_28.png'
 )
 
 const SHUBIN_MINING_SM0_13 = new Location(
@@ -1771,7 +1783,7 @@ const SHUBIN_MINING_SM0_13 = new Location(
 		'z' : 97.767
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/0/06/Shubin_Mining_Facility_SM0-13_26.04.2020_13_55_42.png/800px-Shubin_Mining_Facility_SM0-13_26.04.2020_13_55_42.png'
+	'https://starcitizen.tools/images/thumb/0/06/Shubin_Mining_Facility_SM0-13_26.04.2020_13_55_42.png/300px-Shubin_Mining_Facility_SM0-13_26.04.2020_13_55_42.png'
 )
 
 const SHUBIN_MINING_SM0_18 = new Location(
@@ -1785,7 +1797,7 @@ const SHUBIN_MINING_SM0_18 = new Location(
 		'z' : 43.837
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/a/a8/Shubin_Mining_Facility_SM0-18_26.04.2020_21_01_29.png/800px-Shubin_Mining_Facility_SM0-18_26.04.2020_21_01_29.png'
+	'https://starcitizen.tools/images/thumb/a/a8/Shubin_Mining_Facility_SM0-18_26.04.2020_21_01_29.png/300px-Shubin_Mining_Facility_SM0-18_26.04.2020_21_01_29.png'
 )
 
 const SHUBIN_MINING_SM0_22 = new Location(
@@ -1799,7 +1811,7 @@ const SHUBIN_MINING_SM0_22 = new Location(
 		'z' : 568.174
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/8/85/Shubin_Mining_Facility_SM0-22_26.04.2020_13_36_06.png/800px-Shubin_Mining_Facility_SM0-22_26.04.2020_13_36_06.png'
+	'https://starcitizen.tools/images/thumb/8/85/Shubin_Mining_Facility_SM0-22_26.04.2020_13_36_06.png/300px-Shubin_Mining_Facility_SM0-22_26.04.2020_13_36_06.png'
 )
 
 const NECROPOLIS = new Location(
@@ -1813,7 +1825,7 @@ const NECROPOLIS = new Location(
 		'z' : 985.651
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/7/7d/The_Necropolis_27.04.2020_15_18_49.png/800px-The_Necropolis_27.04.2020_15_18_49.png'
+	'https://starcitizen.tools/images/thumb/7/7d/The_Necropolis_27.04.2020_15_18_49.png/300px-The_Necropolis_27.04.2020_15_18_49.png'
 )
 
 const OUTPOST_54 = new Location(
@@ -1827,7 +1839,7 @@ const OUTPOST_54 = new Location(
 		'z' : -994.363
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/6/6b/Outpost_54_27.04.2020_18_28_35.png/800px-Outpost_54_27.04.2020_18_28_35.png'
+	'https://starcitizen.tools/images/thumb/6/6b/Outpost_54_27.04.2020_18_28_35.png/300px-Outpost_54_27.04.2020_18_28_35.png'
 )
 
 const AFTERLIFE = new Location(
@@ -1841,7 +1853,7 @@ const AFTERLIFE = new Location(
 		'z' : 99.652
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/2/2a/Afterlife_outpost%2C_Yela_%28Alpha_3.17%29.png/800px-Afterlife_outpost%2C_Yela_%28Alpha_3.17%29.png'
+	'https://starcitizen.tools/images/thumb/2/2a/Afterlife_outpost%2C_Yela_%28Alpha_3.17%29.png/300px-Afterlife_outpost%2C_Yela_%28Alpha_3.17%29.png'
 )
 
 const NT_999_XXII = new Location(
@@ -1855,7 +1867,7 @@ const NT_999_XXII = new Location(
 		'z' : -303.328
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/8/8d/NT-999-XXII_outpost_on_Yela_%28Alpha_3.17%29.png/800px-NT-999-XXII_outpost_on_Yela_%28Alpha_3.17%29.png'
+	'https://starcitizen.tools/images/thumb/8/8d/NT-999-XXII_outpost_on_Yela_%28Alpha_3.17%29.png/300px-NT-999-XXII_outpost_on_Yela_%28Alpha_3.17%29.png'
 )
 
 const UTOPIA = new Location(
@@ -1869,7 +1881,7 @@ const UTOPIA = new Location(
 		'z' : -313.108
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/3/3b/Utopia_underground_bunker%2C_Yela_%28Alpha_3.17%29.png/800px-Utopia_underground_bunker%2C_Yela_%28Alpha_3.17%29.png'
+	'https://starcitizen.tools/images/thumb/3/3b/Utopia_underground_bunker%2C_Yela_%28Alpha_3.17%29.png/300px-Utopia_underground_bunker%2C_Yela_%28Alpha_3.17%29.png'
 )
 
 const NT_999_XV = new Location(
@@ -1897,7 +1909,7 @@ const HDMO_DOBBS_NA = new Location(
 		'z' : -11.404
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/c/c2/Aberdeen_HDMO-Dobbs_Day.jpg/800px-Aberdeen_HDMO-Dobbs_Day.jpg'
+	'https://starcitizen.tools/images/thumb/c/c2/Aberdeen_HDMO-Dobbs_Day.jpg/300px-Aberdeen_HDMO-Dobbs_Day.jpg'
 )
 
 const BARTON_FLATS_AID_SHELTER = new Location(
@@ -1911,7 +1923,7 @@ const BARTON_FLATS_AID_SHELTER = new Location(
 		'z' : -159.881
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/e/e9/Aberdeen_Barton-Flats-Aid-Shelter_Sunset.jpg/800px-Aberdeen_Barton-Flats-Aid-Shelter_Sunset.jpg'
+	'https://starcitizen.tools/images/thumb/e/e9/Aberdeen_Barton-Flats-Aid-Shelter_Sunset.jpg/300px-Aberdeen_Barton-Flats-Aid-Shelter_Sunset.jpg'
 )
 
 const PRIVATE_PROPERTY = new Location(
@@ -1981,7 +1993,7 @@ const SECURITY_POST_KAREAH = new Location(
 		'z' : 200.000
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/8/84/Crusader-cellin-kareah-3.11-exterior-03.jpg/800px-Crusader-cellin-kareah-3.11-exterior-03.jpg'
+	'https://starcitizen.tools/images/thumb/8/84/Crusader-cellin-kareah-3.11-exterior-03.jpg/300px-Crusader-cellin-kareah-3.11-exterior-03.jpg'
 )
 
 const ASHBURN_CHANNEL_AID_SHELTER = new Location(
@@ -1995,7 +2007,7 @@ const ASHBURN_CHANNEL_AID_SHELTER = new Location(
 		'z' : -37.129
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/2/2c/Cellin_Ashburn-Channel-Aid-Shelter_Day.jpg/800px-Cellin_Ashburn-Channel-Aid-Shelter_Day.jpg'
+	'https://starcitizen.tools/images/thumb/2/2c/Cellin_Ashburn-Channel-Aid-Shelter_Day.jpg/300px-Cellin_Ashburn-Channel-Aid-Shelter_Day.jpg'
 )
 
 const FLANAGANS_RAVINE_AID_SHELTER = new Location(
@@ -2009,7 +2021,7 @@ const FLANAGANS_RAVINE_AID_SHELTER = new Location(
 		'z' : 84.997
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/0/00/Cellin_Flanagans-Ravine-Aid-Shelter_Day.jpg/800px-Cellin_Flanagans-Ravine-Aid-Shelter_Day.jpg'
+	'https://starcitizen.tools/images/thumb/0/00/Cellin_Flanagans-Ravine-Aid-Shelter_Day.jpg/300px-Cellin_Flanagans-Ravine-Aid-Shelter_Day.jpg'
 )
 
 const MOGOTE_AID_SHELTER = new Location(
@@ -2023,7 +2035,7 @@ const MOGOTE_AID_SHELTER = new Location(
 		'z' : 160.875
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/7/7b/Cellin_Mogote-Aid-Shelter-Day.jpg/800px-Cellin_Mogote-Aid-Shelter-Day.jpg'
+	'https://starcitizen.tools/images/thumb/7/7b/Cellin_Mogote-Aid-Shelter-Day.jpg/300px-Cellin_Mogote-Aid-Shelter-Day.jpg'
 )
 
 const JULEP_RAVINE_AID_SHELTER = new Location(
@@ -2037,7 +2049,7 @@ const JULEP_RAVINE_AID_SHELTER = new Location(
 		'z' : -228.950
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/f/f0/Cellin_Julep-Ravine-Aid-Shelter_Day.jpg/800px-Cellin_Julep-Ravine-Aid-Shelter_Day.jpg'
+	'https://starcitizen.tools/images/thumb/f/f0/Cellin_Julep-Ravine-Aid-Shelter_Day.jpg/300px-Cellin_Julep-Ravine-Aid-Shelter_Day.jpg'
 )
 
 const DUNLOW_RIDGE_AID_SHELTER = new Location(
@@ -2051,7 +2063,7 @@ const DUNLOW_RIDGE_AID_SHELTER = new Location(
 		'z' : 75.331
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/b/b9/Daymar_Dunlow-Ridge-Aid-Shelter_Day.jpg/800px-Daymar_Dunlow-Ridge-Aid-Shelter_Day.jpg'
+	'https://starcitizen.tools/images/thumb/b/b9/Daymar_Dunlow-Ridge-Aid-Shelter_Day.jpg/300px-Daymar_Dunlow-Ridge-Aid-Shelter_Day.jpg'
 )
 
 const EAGER_FLATS_AID_SHELTER = new Location(
@@ -2065,7 +2077,7 @@ const EAGER_FLATS_AID_SHELTER = new Location(
 		'z' : 190.097
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/2/26/Daymar_Eager-Flats-Aid-Shelter_Day.jpg/800px-Daymar_Eager-Flats-Aid-Shelter_Day.jpg'
+	'https://starcitizen.tools/images/thumb/2/26/Daymar_Eager-Flats-Aid-Shelter_Day.jpg/300px-Daymar_Eager-Flats-Aid-Shelter_Day.jpg'
 )
 
 const TAMDON_PLAINS_AID_SHELTER = new Location(
@@ -2079,7 +2091,7 @@ const TAMDON_PLAINS_AID_SHELTER = new Location(
 		'z' : -259.849
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/3/33/Daymar_Tamdon-Plains-Aid-Shelter_Day.jpg/800px-Daymar_Tamdon-Plains-Aid-Shelter_Day.jpg'
+	'https://starcitizen.tools/images/thumb/3/33/Daymar_Tamdon-Plains-Aid-Shelter_Day.jpg/300px-Daymar_Tamdon-Plains-Aid-Shelter_Day.jpg'
 )
 
 const WOLF_POINT_AID_SHELTER = new Location(
@@ -2093,7 +2105,7 @@ const WOLF_POINT_AID_SHELTER = new Location(
 		'z' : 95.733
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/7/76/Wolf_Point_Aid_Shelter%2C_Daymar_%28Alpha_3.17%29.png/800px-Wolf_Point_Aid_Shelter%2C_Daymar_%28Alpha_3.17%29.png'
+	'https://starcitizen.tools/images/thumb/7/76/Wolf_Point_Aid_Shelter%2C_Daymar_%28Alpha_3.17%29.png/300px-Wolf_Point_Aid_Shelter%2C_Daymar_%28Alpha_3.17%29.png'
 )
 
 const SECURITY_POST_MOLUTO = new Location(
@@ -2149,7 +2161,7 @@ const COVALEX_SHIPPING_HUB_GUNDO = new Location(
 		'z' : -300.000
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/d/da/Stanton-crusader-daymar-gundo-3.8.0.jpg/800px-Stanton-crusader-daymar-gundo-3.8.0.jpg'
+	'https://starcitizen.tools/images/thumb/d/da/Stanton-crusader-daymar-gundo-3.8.0.jpg/300px-Stanton-crusader-daymar-gundo-3.8.0.jpg'
 )
 
 const SECURITY_POST_WAN = new Location(
@@ -2163,7 +2175,7 @@ const SECURITY_POST_WAN = new Location(
 		'z' : -227.351
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/e/eb/Security_Post_Wan%2C_Yela_%28Alpha_3.17.1%29.png/800px-Security_Post_Wan%2C_Yela_%28Alpha_3.17.1%29.png'
+	'https://starcitizen.tools/images/thumb/e/eb/Security_Post_Wan%2C_Yela_%28Alpha_3.17.1%29.png/300px-Security_Post_Wan%2C_Yela_%28Alpha_3.17.1%29.png'
 )
 
 const SECURITY_POST_OPAL = new Location(
@@ -2219,7 +2231,7 @@ const ABANDONED_OUTPOST_DAYMAR = new Location(
 		'z' : 1.906
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/1/13/Abandoned_outpost%2C_Daymar_%28Alpha_3.17%29.png/800px-Abandoned_outpost%2C_Daymar_%28Alpha_3.17%29.png'
+	'https://starcitizen.tools/images/thumb/1/13/Abandoned_outpost%2C_Daymar_%28Alpha_3.17%29.png/300px-Abandoned_outpost%2C_Daymar_%28Alpha_3.17%29.png'
 )
 
 const ASTON_RIDGE_AID_SHELTER = new Location(
@@ -2233,7 +2245,7 @@ const ASTON_RIDGE_AID_SHELTER = new Location(
 		'z' : -232.785
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/3/35/Yela_Aston-Ridge-Aid-Shelter_Morning.jpg/800px-Yela_Aston-Ridge-Aid-Shelter_Morning.jpg'
+	'https://starcitizen.tools/images/thumb/3/35/Yela_Aston-Ridge-Aid-Shelter_Morning.jpg/300px-Yela_Aston-Ridge-Aid-Shelter_Morning.jpg'
 )
 
 const KOSSO_BASIN_AID_SHELTER = new Location(
@@ -2247,7 +2259,7 @@ const KOSSO_BASIN_AID_SHELTER = new Location(
 		'z' : 288.314
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/b/bb/Yela_Kosso-Basin-Aid-Shelter_Twilight.jpg/800px-Yela_Kosso-Basin-Aid-Shelter_Twilight.jpg'
+	'https://starcitizen.tools/images/thumb/b/bb/Yela_Kosso-Basin-Aid-Shelter_Twilight.jpg/300px-Yela_Kosso-Basin-Aid-Shelter_Twilight.jpg'
 )
 
 const NAKAMURA_VALLEY_AID_SHELTER = new Location(
@@ -2261,7 +2273,7 @@ const NAKAMURA_VALLEY_AID_SHELTER = new Location(
 		'z' : 81.717
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/e/eb/Yela_Nakamura-Valley-Aid-Shelter_Day.jpg/800px-Yela_Nakamura-Valley-Aid-Shelter_Day.jpg'
+	'https://starcitizen.tools/images/thumb/e/eb/Yela_Nakamura-Valley-Aid-Shelter_Day.jpg/300px-Yela_Nakamura-Valley-Aid-Shelter_Day.jpg'
 )
 
 const TALARINE_DIVIDE_AID_SHELTER = new Location(
@@ -2275,7 +2287,7 @@ const TALARINE_DIVIDE_AID_SHELTER = new Location(
 		'z' : 30.932
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/8/88/Yela_Talarine-Divide-Aid-Shelter_Day.jpg/800px-Yela_Talarine-Divide-Aid-Shelter_Day.jpg'
+	'https://starcitizen.tools/images/thumb/8/88/Yela_Talarine-Divide-Aid-Shelter_Day.jpg/300px-Yela_Talarine-Divide-Aid-Shelter_Day.jpg'
 )
 
 const ARCCORP_PROCESSING_CENTER_115 = new Location(
@@ -2499,7 +2511,7 @@ const HDRSO_BRAMEN = new Location(
 		'z' : -640.243
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/3/36/HDRSO-Bramen3.png/640px-HDRSO-Bramen3.png'
+	'https://starcitizen.tools/images/thumb/3/36/HDRSO-Bramen3.png/300px-HDRSO-Bramen3.png'
 )
 
 const HDSF_ADLAI = new Location(
@@ -2513,7 +2525,7 @@ const HDSF_ADLAI = new Location(
 		'z' : 537.736
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/e/e3/HDSF_Adlai.png/640px-HDSF_Adlai.png'
+	'https://starcitizen.tools/images/thumb/e/e3/HDSF_Adlai.png/300px-HDSF_Adlai.png'
 )
 
 const HDSF_BARNABAS = new Location(
@@ -2527,7 +2539,7 @@ const HDSF_BARNABAS = new Location(
 		'z' : -252.538
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/1/19/HDSF-Barnabas37.png/640px-HDSF-Barnabas37.png'
+	'https://starcitizen.tools/images/thumb/1/19/HDSF-Barnabas37.png/300px-HDSF-Barnabas37.png'
 )
 
 const HDSF_BRECKINRIDGE = new Location(
@@ -2541,7 +2553,7 @@ const HDSF_BRECKINRIDGE = new Location(
 		'z' : -477.825
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/2/20/Breckinridge3.png/640px-Breckinridge3.png'
+	'https://starcitizen.tools/images/thumb/2/20/Breckinridge3.png/300px-Breckinridge3.png'
 )
 
 const HDSF_COLFAX = new Location(
@@ -2555,7 +2567,7 @@ const HDSF_COLFAX = new Location(
 		'z' : -203.763
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/4/4a/Colfax1.png/640px-Colfax1.png'
+	'https://starcitizen.tools/images/thumb/4/4a/Colfax1.png/300px-Colfax1.png'
 )
 
 const HDSF_DAMARIS = new Location(
@@ -2569,7 +2581,7 @@ const HDSF_DAMARIS = new Location(
 		'z' : -141.747
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/b/be/HDSF-Damaris30.png/640px-HDSF-Damaris30.png'
+	'https://starcitizen.tools/images/thumb/b/be/HDSF-Damaris30.png/300px-HDSF-Damaris30.png'
 )
 
 const HDSF_ELBRIDGE = new Location(
@@ -2583,7 +2595,7 @@ const HDSF_ELBRIDGE = new Location(
 		'z' : 310.624
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/1/19/Hurston-elbridge-3.4.1-ground2.jpg/640px-Hurston-elbridge-3.4.1-ground2.jpg'
+	'https://starcitizen.tools/images/thumb/1/19/Hurston-elbridge-3.4.1-ground2.jpg/300px-Hurston-elbridge-3.4.1-ground2.jpg'
 )
 
 const HDSF_HENDRICKS = new Location(
@@ -2597,7 +2609,7 @@ const HDSF_HENDRICKS = new Location(
 		'z' : -242.520
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/2/2f/HDSF-Hendricks53.png/640px-HDSF-Hendricks53.png'
+	'https://starcitizen.tools/images/thumb/2/2f/HDSF-Hendricks53.png/300px-HDSF-Hendricks53.png'
 )
 
 const HDSF_HIRAM = new Location(
@@ -2611,7 +2623,7 @@ const HDSF_HIRAM = new Location(
 		'z' : 122.747
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/b/bb/HDSF-Hiram58.png/640px-HDSF-Hiram58.png'
+	'https://starcitizen.tools/images/thumb/b/bb/HDSF-Hiram58.png/300px-HDSF-Hiram58.png'
 )
 
 const HDSF_HOBART = new Location(
@@ -2625,7 +2637,7 @@ const HDSF_HOBART = new Location(
 		'z' : 410.823
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/8/8b/HDSD-Hobart48.png/640px-HDSD-Hobart48.png'
+	'https://starcitizen.tools/images/thumb/8/8b/HDSD-Hobart48.png/300px-HDSD-Hobart48.png'
 )
 
 const HDSF_ISHMAEL = new Location(
@@ -2639,7 +2651,7 @@ const HDSF_ISHMAEL = new Location(
 		'z' : 952.333
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/e/e5/HDSF-Ishmael14.png/640px-HDSF-Ishmael14.png'
+	'https://starcitizen.tools/images/thumb/e/e5/HDSF-Ishmael14.png/300px-HDSF-Ishmael14.png'
 )
 
 const HDSF_MILLERAND = new Location(
@@ -2653,7 +2665,7 @@ const HDSF_MILLERAND = new Location(
 		'z' : 126.804
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/d/df/HDSF-Millerand_19.png/640px-HDSF-Millerand_19.png'
+	'https://starcitizen.tools/images/thumb/d/df/HDSF-Millerand_19.png/300px-HDSF-Millerand_19.png'
 )
 
 const HDSF_RUFUS = new Location(
@@ -2667,7 +2679,7 @@ const HDSF_RUFUS = new Location(
 		'z' : -998.425
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/e/e3/HDSF-Rufus48.png/640px-HDSF-Rufus48.png'
+	'https://starcitizen.tools/images/thumb/e/e3/HDSF-Rufus48.png/300px-HDSF-Rufus48.png'
 )
 
 const HDSF_SHERMAN = new Location(
@@ -2681,7 +2693,7 @@ const HDSF_SHERMAN = new Location(
 		'z' : 168.518
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/5/55/HDSF-Sherman59.png/640px-HDSF-Sherman59.png'
+	'https://starcitizen.tools/images/thumb/5/55/HDSF-Sherman59.png/300px-HDSF-Sherman59.png'
 )
 
 const HDSF_TAMAR = new Location(
@@ -2695,7 +2707,7 @@ const HDSF_TAMAR = new Location(
 		'z' : -573.527
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/2/2b/HDSF-Tamar24.png/640px-HDSF-Tamar24.png'
+	'https://starcitizen.tools/images/thumb/2/2b/HDSF-Tamar24.png/300px-HDSF-Tamar24.png'
 )
 
 const HDSF_TOMPKINS = new Location(
@@ -2709,7 +2721,7 @@ const HDSF_TOMPKINS = new Location(
 		'z' : 579.815
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/4/48/HDSF-Tompkins26.png/640px-HDSF-Tompkins26.png'
+	'https://starcitizen.tools/images/thumb/4/48/HDSF-Tompkins26.png/300px-HDSF-Tompkins26.png'
 )
 
 const HDSF_ZACHARIAS = new Location(
@@ -2723,7 +2735,7 @@ const HDSF_ZACHARIAS = new Location(
 		'z' : -884.801
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/e/e8/HDSF-Zacharias.png/640px-HDSF-Zacharias.png'
+	'https://starcitizen.tools/images/thumb/e/e8/HDSF-Zacharias.png/300px-HDSF-Zacharias.png'
 )
 
 const AREA04 = new Location(
@@ -3045,7 +3057,7 @@ const SNAKE_PIT = new Location(
 		'z' : -13.657
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/9/93/Snake_Pit_Alpha_3.17.2.jpg/640px-Snake_Pit_Alpha_3.17.2.jpg'
+	'https://starcitizen.tools/images/thumb/9/93/Snake_Pit_Alpha_3.17.2.jpg/300px-Snake_Pit_Alpha_3.17.2.jpg'
 )
 
 const TEST_FACILITY_OCTAGON = new Location(
@@ -3073,7 +3085,7 @@ const GHOST_HOLLOW = new Location(
 		'z' : 149.145
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/e/e5/Ghost_Hollow_Exterior_Alpha_3.17.2.jpg/640px-Ghost_Hollow_Exterior_Alpha_3.17.2.jpg'
+	'https://starcitizen.tools/images/thumb/e/e5/Ghost_Hollow_Exterior_Alpha_3.17.2.jpg/300px-Ghost_Hollow_Exterior_Alpha_3.17.2.jpg'
 )
 
 const CALHOUN_PASS_EMERGENCY_SHELTER = new Location(
@@ -3087,7 +3099,7 @@ const CALHOUN_PASS_EMERGENCY_SHELTER = new Location(
 		'z' : 31.708
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/0/0f/Calhoun_Pass_Emergency_Shelter_26.04.2020_21_14_54.png/640px-Calhoun_Pass_Emergency_Shelter_26.04.2020_21_14_54.png'
+	'https://starcitizen.tools/images/thumb/0/0f/Calhoun_Pass_Emergency_Shelter_26.04.2020_21_14_54.png/300px-Calhoun_Pass_Emergency_Shelter_26.04.2020_21_14_54.png'
 )
 
 const CLEAR_VIEW_EMERGENCY_SHELTER = new Location(
@@ -3101,7 +3113,7 @@ const CLEAR_VIEW_EMERGENCY_SHELTER = new Location(
 		'z' : 393.203
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/2/2a/Clear_View_Emergency_Shelter_26.04.2020_14_34_58.png/640px-Clear_View_Emergency_Shelter_26.04.2020_14_34_58.png'
+	'https://starcitizen.tools/images/thumb/2/2a/Clear_View_Emergency_Shelter_26.04.2020_14_34_58.png/300px-Clear_View_Emergency_Shelter_26.04.2020_14_34_58.png'
 )
 
 const NUIQSUT_EMERGENCY_SHELTER = new Location(
@@ -3115,7 +3127,7 @@ const NUIQSUT_EMERGENCY_SHELTER = new Location(
 		'z' : -627.225
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/1/1c/Nuiqsut_Emergency_Shelter_26.04.2020_21_43_22.png/640px-Nuiqsut_Emergency_Shelter_26.04.2020_21_43_22.png'
+	'https://starcitizen.tools/images/thumb/1/1c/Nuiqsut_Emergency_Shelter_26.04.2020_21_43_22.png/300px-Nuiqsut_Emergency_Shelter_26.04.2020_21_43_22.png'
 )
 
 const POINT_WAIN_EMERGENCY_SHELTER = new Location(
@@ -3129,7 +3141,7 @@ const POINT_WAIN_EMERGENCY_SHELTER = new Location(
 		'z' : 611.733
 	},
 	null,
-	'https://starcitizen.tools/images/thumb/9/96/Point_Wain_Emergency_Shelter_26.04.2020_14_12_54.png/640px-Point_Wain_Emergency_Shelter_26.04.2020_14_12_54.png'
+	'https://starcitizen.tools/images/thumb/9/96/Point_Wain_Emergency_Shelter_26.04.2020_14_12_54.png/300px-Point_Wain_Emergency_Shelter_26.04.2020_14_12_54.png'
 )
 
 const ABANDONED_OUTPOST_YELA = new Location(
@@ -3185,7 +3197,7 @@ const LAUNCH_PAD = new Location(
 		'z' : 16.647
 	},
 	null,
-	''
+	'https://media.starcitizen.tools/thumb/3/38/Launch_Pad%2C_Lyria.png/300px-Launch_Pad%2C_Lyria.png'
 )
 
 const TEDDYS_PLAYHOUSE = new Location(
@@ -3311,7 +3323,7 @@ const SHUBIN_PROCESSING_SPAL_16 = new Location(
 		'z' : 209.905
 	},
 	null,
-	''
+	'https://media.starcitizen.tools/thumb/d/d5/Shubin_Processing_Facility_SPAL-16%2C_Lyria.png/300px-Shubin_Processing_Facility_SPAL-16%2C_Lyria.png'
 )
 
 const SHUBIN_PROCESSING_SPAL_21 = new Location(
@@ -3325,7 +3337,7 @@ const SHUBIN_PROCESSING_SPAL_21 = new Location(
 		'z' : 222.810
 	},
 	null,
-	''
+	'https://media.starcitizen.tools/thumb/1/1c/Shubin_Processing_Center_SPAL-21%2C_Lyria.png/300px-Shubin_Processing_Center_SPAL-21%2C_Lyria.png'
 )
 
 const SHUBIN_PROCESSING_SPMC_1 = new Location(
@@ -3451,7 +3463,21 @@ const MINERS_LAMENT = new Location(
 		'z' : 3.846
 	},
 	null,
-	null
+	'https://media.starcitizen.tools/thumb/d/d6/Miner%27s_Lament_alpha_3.18.png/300px-Miner%27s_Lament_alpha_3.18.png'
+)
+
+const YADAR_VALLEY = new Location(
+	'Yadar Valley',
+	'Racetrack',
+	DAYMAR,
+	STANTON,
+	{
+		'x' : -171.798,
+		'y' : 157.576,
+		'z' : 181.015
+	},
+	null,
+	'https://media.starcitizen.tools/thumb/d/d2/Yadar_Valley_racetrack%2C_Daymar_-_day.jpg/300px-Yadar_Valley_racetrack%2C_Daymar_-_day.jpg'
 )
 
 
@@ -3463,7 +3489,15 @@ loadSettings();
 setInterval(update, 250);
 update();
 
+displayMessage();
+
 window.addEventListener('hashchange', () => {
 	if (window.suppressReload) return; 
 	window.location.reload(true);
 }, false);
+
+function displayMessage() {
+	setText('message-title', 'Invalid Data');
+	setText('message-text', 'Alpha 3.20 changed planetary rotations and VerseTime currently displays the wrong local times. Thanks for your patience while new data is collected.');
+	document.getElementById('message').style.display = 'block';
+}
