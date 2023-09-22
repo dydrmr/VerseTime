@@ -155,28 +155,37 @@ export default class Location {
 			return (this.STAR_MAX_ALTITUDE() < 0) ? 'Perma-night' : 'Perma-day';
 
 		} else {
+
+			if (this.IS_STAR_RISING_NOW) return 'Starrise';
+			if (this.IS_STAR_SETTING_NOW) return 'Starset';
+
+			let rise = this.LOCAL_STAR_RISE_TIME * 86400;
+			let set = this.LOCAL_STAR_SET_TIME * 86400;
+			let noon = 43200;
+
 			let t = this.LOCAL_TIME;
+
 			if (t > 86400 - 300) {
 				return 'Midnight';
-			} else if (t > this.LOCAL_STAR_SET_TIME * 86400 + 1500) {
+			} else if (t > set + 1500) {
 				return 'Night';
-			} else if (t > this.LOCAL_STAR_SET_TIME * 86400 + 60) {
+			} else if (t > set) {
 				return 'Evening Twilight';
-			} else if (t > this.LOCAL_STAR_SET_TIME * 86400 - 1200) {
-				return 'Starset';
-			} else if (t > this.LOCAL_STAR_SET_TIME * 86400 - 7200) {
+			// } else if (t > set - 600) {
+			// 	return 'Starset';
+			} else if (t > set - 7200) {
 				return 'Evening';
-			} else if (t > 43200 + 600) {
+			} else if (t > noon + 600) {
 				return 'Afternoon';
-			} else if (t > 43200 - 600) {
+			} else if (t > noon - 600) {
 				return 'Noon';
-			} else if (t > 43200 - 3600) {
+			} else if (t > noon - 3600) {
 				return 'Late Morning';
-			} else if (t > this.LOCAL_STAR_RISE_TIME * 86400 + 1200) {
+			} else if (t > rise) {
 				return 'Morning';
-			} else if (t > this.LOCAL_STAR_RISE_TIME * 86400 - 60) {
-				return 'Starrise';
-			} else if (t > this.LOCAL_STAR_RISE_TIME * 86400 - 1500) {
+			// } else if (t > rise - 60) {
+			// 	return 'Starrise';
+			} else if (t > rise - 1500) {
 				return 'Morning Twilight';
 			} else if (t > 300) {
 				return 'Night';
@@ -227,6 +236,19 @@ export default class Location {
 		}
 	}
 
+	get IS_STAR_RISING_NOW() {
+		let padding = 120;
+
+		if (
+			this.NEXT_STAR_RISE * 86400 < padding ||
+			this.NEXT_STAR_RISE * 86400 > (this.PARENT.LENGTH_OF_DAY() * 86400) - padding
+		) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	get NEXT_STAR_SET() {
 		let riseSet = this.STARRISE_AND_STARSET_ANGLE;
 		let rotation = this.PARENT.ANGULAR_ROTATION_RATE;
@@ -245,6 +267,19 @@ export default class Location {
 			
 		} else {
 			return partialResult;
+		}
+	}
+
+	get IS_STAR_SETTING_NOW() {
+		let padding = 120;
+
+		if (
+			this.NEXT_STAR_SET * 86400 < padding ||
+			this.NEXT_STAR_SET * 86400 > (this.PARENT.LENGTH_OF_DAY() * 86400) - padding
+		) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 }

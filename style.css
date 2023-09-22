@@ -759,7 +759,7 @@ body {
 
 	background-color: hsla(000, 70%, 20%, 0.75);
 	border-radius: 10px;
-	box-shadow: 0px 0px 90px hsla(0, 0%, 0%, 0.8);
+	box-shadow: 0px 0px 40px hsla(0, 0%, 0%, 0.5);
 	padding: 15px;
 	width: 600px;
 }

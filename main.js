@@ -1,5 +1,3 @@
-// Save Favorites
-
 import { DEGREES, RADIANS, MODULO, SQUARE, ROUND, JULIAN_DATE } from './HelperFunctions.js';
 import CelestialBody from './CelestialBody.js';
 import Location from './Location.js';
@@ -54,16 +52,18 @@ function update() {
 	let nextRise = location.NEXT_STAR_RISE;
 	if (nextRise.toString() === 'NaN') {
 		setText('next-rise-countdown', '---');
+
 	} else {
-		nextRise = (location.NEXT_STAR_RISE * 86400 < 120) ? '- NOW -' : HOURS_TO_TIME_STRING(nextRise * 24, true, false);
+		nextRise = location.IS_STAR_RISING_NOW ? '- NOW -' : HOURS_TO_TIME_STRING(nextRise * 24, true, false);
 		setText('next-rise-countdown', nextRise);
 	}
 
 	let nextSet = location.NEXT_STAR_SET;
 	if (nextSet.toString() === 'NaN') {
 		setText('next-set-countdown', '---');
+
 	} else {
-		nextSet = (location.NEXT_STAR_SET * 86400 < 120) ? '- NOW -' : HOURS_TO_TIME_STRING(nextSet * 24, true, false);
+		nextSet = location.IS_STAR_SETTING_NOW ? '- NOW -' : HOURS_TO_TIME_STRING(nextSet * 24, true, false);
 		setText('next-set-countdown', nextSet);
 	}
 
@@ -441,7 +441,7 @@ const CRUSADER = new CelestialBody(
 	},
 	7450.010,
 	5.0999999,
-	210.45742,
+	252.8,
 	188.000,
 	19148527.616,
 	{
@@ -470,7 +470,7 @@ const CELLIN = new CelestialBody(
 	},
 	260.000,
 	4.4499998,
-	163.65125,
+	34.5,
 	240.000,
 	50863.260,
 	{
@@ -499,7 +499,7 @@ const DAYMAR = new CelestialBody(
 	},
 	295.000,
 	2.4800000,
-	30.69164,
+	193.5,
 	60.000,
 	63279.908,
 	{
@@ -528,7 +528,7 @@ const YELA = new CelestialBody(
 	},
 	313.000,
 	1.8200001,
-	128.19201,
+	358,
 	140.000,
 	79286.88,
 	{
@@ -557,7 +557,7 @@ const MICROTECH = new CelestialBody(
 	},
 	1000.000,
 	4.1199999,
-	127.29668,
+	247.9648359,
 	58.866,
 	43443216.384,
 	{
@@ -586,7 +586,7 @@ const CALLIOPE = new CelestialBody(
 	},
 	240.000,
 	4.5900002,
-	212.45586,
+	204.1333394,
 	194.774,
 	65823.064,
 	{
@@ -615,7 +615,7 @@ const CLIO = new CelestialBody(
 	},
 	337.170,
 	0.0000000,
-	311.81734,
+	410.7758566,
 	278.839,
 	95742.640,
 	{
@@ -644,7 +644,7 @@ const EUTERPE = new CelestialBody(
 	},
 	213.000,
 	4.2800002,
-	269.20569,
+	189.0716068,
 	284.020,
 	107710.472,
 	{
@@ -673,7 +673,7 @@ const HURSTON = new CelestialBody(
 	},
 	1000.000,
 	2.4800000,
-	19.43055,
+	152.7825492,
 	0.000,
 	12850457.600,
 	{
@@ -3486,15 +3486,7 @@ loadSettings();
 setInterval(update, 250);
 update();
 
-setMessage();
-
 window.addEventListener('hashchange', () => {
 	if (window.suppressReload) return; 
 	window.location.reload(true);
 }, false);
-
-function setMessage() {
-	setText('message-title', 'Invalid Data');
-	setText('message-text', 'Alpha 3.20 changed planetary rotations and VerseTime might display incorrect local times. Thanks for your patience while new data is collected.');
-	// document.getElementById('message').style.display = 'block';
-}

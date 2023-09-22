@@ -391,8 +391,15 @@ function createLocationLabels(celestialObject) {
 		container.dataset.location = locations[i].NAME;
 		container.dataset.occluded = true;
 
-		container.addEventListener('mouseenter', function() {showMapLocationData(locations[i], container);});
+		container.addEventListener('mouseenter', () => {
+			showMapLocationData(locations[i], container);
+		});
+
 		container.addEventListener('mouseleave', hideMapLocationData);
+
+		container.addEventListener('pointerdown', () => {
+			setLocation(locations[i].NAME);
+		});
 
 		let name = document.createElement('p');
 		container.append(name);
@@ -414,6 +421,8 @@ function createLocationLabels(celestialObject) {
 		let locationLabel = new CSS2DObject(container);
 		locationLabel.position.copy(new THREE.Vector3(x, z, y));
 		scene.add(locationLabel);
+
+
 	}
 }
 

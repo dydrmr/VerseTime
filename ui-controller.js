@@ -1,6 +1,7 @@
 let showSettingsWindow = false;
 let showCreditsWindow = false;
 let showMapWindow = false;
+let hoverLocation = null;
 
 document.getElementById('BUTTON-open-settings').addEventListener('click', function(e) { toggleSettingsWindow(); });
 document.getElementById('BUTTON-close-settings').addEventListener('click', function(e) { toggleSettingsWindow(); });
@@ -22,8 +23,7 @@ function toggleSettingsWindow(forceState = null) {
 	} else {
 		document.getElementById('location-selection-input').blur();
 	}
-	
-	// console.log('Settings window turned ' + (showSettingsWindow ? 'ON' : 'OFF'));
+
 }
 
 
@@ -105,14 +105,22 @@ function setLocation(locationName) {
 
 function toggleMessageBasedOnLocation() {
 	let msg = document.getElementById('message');
+	msg.style.display = 'block';
 
-	// let correct = ['Yela', 'Cellin', 'Wala', 'microTech', 'Magda'];
-	let correct = [];
+	let correct = [
+		'Crusader', 'Cellin', 'Yela', 'Daymar',
+		'Hurston',
+		'microTech', 'Euterpe', 'Calliope',
+		];
 
 	if (correct.includes(window.ACTIVE_LOCATION.PARENT.NAME)) {
-		msg.style.display = 'none';
+		setText('message-title', 'Data may be inaccurate');
+		setText('message-text', 'Location updated for Alpha 3.20 - testing in progress.');
+		msg.style.backgroundColor = 'hsla(040, 80%, 30%, 0.70)';
 	} else {
-		msg.style.display = 'block';
+		setText('message-title', 'Invalid Data');
+		setText('message-text', 'Alpha 3.20 changed planetary rotations and VerseTime might display incorrect local times. Thanks for your patience while new data is collected.');
+		msg.style.backgroundColor = 'hsla(000, 70%, 20%, 0.70)';
 	}
 }
 
@@ -202,13 +210,34 @@ document.addEventListener('keydown', function(event){
 
 
 function showMapLocationData(location, triggerElement) {
+	hoverLocation = location;
+
 	document.getElementById('map-locationinfo-window').style.opacity = 1;
 
 	setText('map-info-locationname', location.NAME);
 	setText('map-info-locationtype', location.TYPE);
 	setText('map-info-elevation', Math.round(location.ELEVATION * 1000, 1).toLocaleString());
+	setText('map-info-phase', location.ILLUMINATION_STATUS);
+
+	let nextRise = window.HOURS_TO_TIME_STRING(hoverLocation.NEXT_STAR_RISE * 24);
+	let nextSet = window.HOURS_TO_TIME_STRING(hoverLocation.NEXT_STAR_SET * 24);
+	setText('map-info-nextstarrise', nextRise);
+	setText('map-info-nextstarset', nextSet);
 }
+
+setInterval(updateMapLocationData, 250);
+function updateMapLocationData() {
+	if (!hoverLocation) return;
+	setText('map-info-phase', hoverLocation.ILLUMINATION_STATUS);
+	
+	let nextRise = window.HOURS_TO_TIME_STRING(hoverLocation.NEXT_STAR_RISE * 24);
+	let nextSet = window.HOURS_TO_TIME_STRING(hoverLocation.NEXT_STAR_SET * 24);
+	setText('map-info-nextstarrise', nextRise);
+	setText('map-info-nextstarset', nextSet);
+}
+
 
 function hideMapLocationData() {
 	document.getElementById('map-locationinfo-window').style.opacity = 0;
+	hoverLocation = null;
 }

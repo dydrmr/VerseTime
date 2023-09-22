@@ -149,7 +149,6 @@ export default class CelestialBody {
 
 	MERIDIAN(distantObject = this.PARENT_STAR) {
 		// Position of distantObject if this celestial object didn't rotate
-
 		let bs = this.BS(distantObject);
 
 		let p2 = Math.atan2(bs.y, bs.x) - (Math.PI / 2);
