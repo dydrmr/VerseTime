@@ -93,7 +93,7 @@ function setLocation(locationName) {
 			window.suppressReload = false;
 		}, 1000)
 
-		toggleMessageBasedOnLocation();
+		// toggleMessageBasedOnLocation();
 
 		return true;
 
@@ -103,26 +103,15 @@ function setLocation(locationName) {
 	}
 }
 
-function toggleMessageBasedOnLocation() {
-	let msg = document.getElementById('message');
-	msg.style.display = 'block';
+// function toggleMessageBasedOnLocation() {
+// 	let msg = document.getElementById('message');
+// 	msg.style.display = 'block';
 
-	let correct = [
-		'Crusader', 'Cellin', 'Yela', 'Daymar',
-		'Hurston',
-		'microTech', 'Euterpe', 'Calliope',
-		];
+// 	setText('message-title', 'Data may be inaccurate');
+// 	setText('message-text', 'Location updated for Alpha 3.20 - testing in progress.');
+// 	msg.style.backgroundColor = 'hsla(040, 80%, 30%, 0.70)';
 
-	if (correct.includes(window.ACTIVE_LOCATION.PARENT.NAME)) {
-		setText('message-title', 'Data may be inaccurate');
-		setText('message-text', 'Location updated for Alpha 3.20 - testing in progress.');
-		msg.style.backgroundColor = 'hsla(040, 80%, 30%, 0.70)';
-	} else {
-		setText('message-title', 'Invalid Data');
-		setText('message-text', 'Alpha 3.20 changed planetary rotations and VerseTime might display incorrect local times. Thanks for your patience while new data is collected.');
-		msg.style.backgroundColor = 'hsla(000, 70%, 20%, 0.70)';
-	}
-}
+// }
 
 
 
@@ -218,20 +207,19 @@ function showMapLocationData(location, triggerElement) {
 	setText('map-info-locationtype', location.TYPE);
 	setText('map-info-elevation', Math.round(location.ELEVATION * 1000, 1).toLocaleString());
 	setText('map-info-phase', location.ILLUMINATION_STATUS);
-
-	let nextRise = window.HOURS_TO_TIME_STRING(hoverLocation.NEXT_STAR_RISE * 24);
-	let nextSet = window.HOURS_TO_TIME_STRING(hoverLocation.NEXT_STAR_SET * 24);
-	setText('map-info-nextstarrise', nextRise);
-	setText('map-info-nextstarset', nextSet);
+	updateHoverLocationNextRiseAndSet();
 }
 
 setInterval(updateMapLocationData, 250);
 function updateMapLocationData() {
 	if (!hoverLocation) return;
 	setText('map-info-phase', hoverLocation.ILLUMINATION_STATUS);
-	
-	let nextRise = window.HOURS_TO_TIME_STRING(hoverLocation.NEXT_STAR_RISE * 24);
-	let nextSet = window.HOURS_TO_TIME_STRING(hoverLocation.NEXT_STAR_SET * 24);
+	updateHoverLocationNextRiseAndSet();
+}
+
+function updateHoverLocationNextRiseAndSet() {
+	const nextRise = window.HOURS_TO_TIME_STRING(hoverLocation.NEXT_STAR_RISE * 24, true, false);
+	const nextSet = window.HOURS_TO_TIME_STRING(hoverLocation.NEXT_STAR_SET * 24, true, false);
 	setText('map-info-nextstarrise', nextRise);
 	setText('map-info-nextstarset', nextSet);
 }

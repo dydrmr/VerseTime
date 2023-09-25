@@ -354,7 +354,7 @@ const ARCCORP = new CelestialBody(
 	},
 	800.000,
 	3.1099999,
-	230.97696,
+	88.25719,
 	310.000,
 	28917272.576,
 	{
@@ -383,7 +383,7 @@ const LYRIA = new CelestialBody(
 	},
 	223.000,
 	6.4299998,
-	359.49913,
+	102.95503,
 	14.631,
 	119827.896,
 	{
@@ -412,7 +412,7 @@ const WALA = new CelestialBody(
 	},
 	283.000,
 	6.3200002,
-	45.63944,
+	294.6453612,
 	143.943,
 	257308.320,
 	{
@@ -441,7 +441,7 @@ const CRUSADER = new CelestialBody(
 	},
 	7450.010,
 	5.0999999,
-	252.8,
+	169.93400,
 	188.000,
 	19148527.616,
 	{
@@ -470,7 +470,7 @@ const CELLIN = new CelestialBody(
 	},
 	260.000,
 	4.4499998,
-	34.5,
+	300.18031,
 	240.000,
 	50863.260,
 	{
@@ -499,7 +499,7 @@ const DAYMAR = new CelestialBody(
 	},
 	295.000,
 	2.4800000,
-	193.5,
+	97.79532,
 	60.000,
 	63279.908,
 	{
@@ -528,7 +528,7 @@ const YELA = new CelestialBody(
 	},
 	313.000,
 	1.8200001,
-	358,
+	268.61241,
 	140.000,
 	79286.88,
 	{
@@ -557,7 +557,7 @@ const MICROTECH = new CelestialBody(
 	},
 	1000.000,
 	4.1199999,
-	247.9648359,
+	157.89088,
 	58.866,
 	43443216.384,
 	{
@@ -586,7 +586,7 @@ const CALLIOPE = new CelestialBody(
 	},
 	240.000,
 	4.5900002,
-	204.1333394,
+	114.10786,
 	194.774,
 	65823.064,
 	{
@@ -615,7 +615,7 @@ const CLIO = new CelestialBody(
 	},
 	337.170,
 	0.0000000,
-	410.7758566,
+	320.66965,
 	278.839,
 	95742.640,
 	{
@@ -644,7 +644,7 @@ const EUTERPE = new CelestialBody(
 	},
 	213.000,
 	4.2800002,
-	189.0716068,
+	98.98616,
 	284.020,
 	107710.472,
 	{
@@ -673,7 +673,7 @@ const HURSTON = new CelestialBody(
 	},
 	1000.000,
 	2.4800000,
-	152.7825492,
+	62.61832,
 	0.000,
 	12850457.600,
 	{
@@ -702,7 +702,7 @@ const ABERDEEN = new CelestialBody(
 	},
 	274.000,
 	2.5999999,
-	116.94539,
+	234.39502,
 	36.524,
 	68815.024,
 	{
@@ -731,7 +731,7 @@ const ARIAL = new CelestialBody(
 	},
 	344.500,
 	5.5100002,
-	38.54331,
+	311.37601,
 	323.292,
 	52658.856,
 	{
@@ -760,7 +760,7 @@ const ITA = new CelestialBody(
 	},
 	325.000,
 	4.8499999,
-	243.28827,
+	143.51618,
 	100.000,
 	116686.336,
 	{
@@ -789,7 +789,7 @@ const MAGDA = new CelestialBody(
 	},
 	340.830,
 	1.9400001,
-	152.94396,
+	116.65208,
 	232.195,
 	94246.656,
 	{
@@ -940,7 +940,7 @@ const SERAPHIM_STATION = new Location(
 		'z' : 5565.883
 	},
 	null,
-	'https://media.starcitizen.tools/thumb/4/43/Seraphim_Station_Preview_-_Overview.png/300px-Seraphim_Station_Preview_-_Overview.png'
+	'https://media.starcitizen.tools/d/d7/SeraphimRM.png'
 )
 
 const PORT_TRESSLER = new Location(
