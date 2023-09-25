@@ -46,7 +46,9 @@ export default class Location {
 			this.LONGITUDE = 0;
 		
 		} else {
-			let condition = DEGREES( MODULO( Math.atan2(this.COORDINATES.y, this.COORDINATES.x) - (Math.PI / 2), 2 * Math.PI ) );
+			// let condition = DEGREES( MODULO( Math.atan2(this.COORDINATES.y, this.COORDINATES.x) - (Math.PI / 2), 2 * Math.PI ) );
+			const atan2 = Math.atan2( this.COORDINATES.y, this.COORDINATES.x );
+			const condition = DEGREES(MODULO(atan2, 2 * Math.PI));
 
 			if( condition > 180 ) {
 				this.LONGITUDE = -( 360 - condition );
@@ -60,14 +62,13 @@ export default class Location {
 			this.LONGITUDE_360 = 0;
 
 		} else {
-			let distX = this.COORDINATES.x;
-			let distY = this.COORDINATES.y;
+			const x = this.COORDINATES.x;
+			const y = this.COORDINATES.y;
 
-			let p3 = Math.atan2(distY, distX);
-			let p2 = p3 - (Math.PI / 2);
-			let p1 = MODULO(p2, 2 * Math.PI);
+			const p2 = Math.atan2(y, x);
+			const p1 = MODULO(p2, 2 * Math.PI);
+
 			this.LONGITUDE_360 = DEGREES(p1);
-
 		}
 
 		// ELEVATION
