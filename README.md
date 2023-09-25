@@ -13,7 +13,7 @@ You can filter locations in the search interface in a variety of ways:
 - by location name: e.g. "Lorville".
 - by celestial body: e.g. "Daymar".
 - by current precise time: e.g. "12:00".
-- by current day phase: valid queries are "Night" "Twilight" "Starrise" "Morning" "Noon" "Afternoon" "Evening" "Starset" "Polar day" "Polar Night" "Permanen Day" "Permanent Night".
+- by current day phase: valid queries are "Night" "Twilight" "Starrise" "Morning" "Noon" "Afternoon" "Evening" "Starset" "Polar day" "Polar Night" "Permanent Day" "Permanent Night".
 - Combine queries using the **[ + ]** symbol: e.g. "Daymar+Afternoon" will return all locations on Daymar where the local time is in the afternoon.
 
 ## Sharing
