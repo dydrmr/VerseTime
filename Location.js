@@ -88,7 +88,6 @@ export default class Location {
 		p1 = Math.acos(p2); 
 		this.STARRISE_AND_STARSET_ANGLE = DEGREES(p1) + this.PARENT.APPARENT_RADIUS(this.PARENT_STAR) + this.ELEVATION_IN_DEGREES;
 
-
 		// FINALIZATION
 		window.LOCATIONS.push(this);
 	}

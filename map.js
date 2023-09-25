@@ -189,8 +189,10 @@ function render() {
 
 	// TERMINATOR LINE
 	const terminator = scene.getObjectByName('Terminator');
+
 	const terminatorAngle = window.ACTIVE_LOCATION.PARENT.LONGITUDE(window.ACTIVE_LOCATION.PARENT_STAR);
 	terminator.rotation.y = RADIANS(terminatorAngle);
+
 	terminator.visible = document.getElementById('map-settings-show-terminator').checked;
 }
 
@@ -496,7 +498,7 @@ function createTerminatorLine(celestialObject) {
 	const circle = new THREE.Line(geo, material);
 	circle.name = 'Terminator';
 	const declination = celestialObject.DECLINATION(celestialObject.PARENT_STAR);
-	circle.rotation.x = RADIANS(-declination);
+	circle.rotation.z = RADIANS(-declination);
 	scene.add(circle);
 }
 
