@@ -12,7 +12,6 @@ let celestial3DEntity = null;
 const omDistance = Math.sqrt(2);
 
 init();
-// createNewScene(window.ACTIVE_LOCATION.PARENT);
 render();
 
 window.addEventListener('resize', () => {
@@ -29,10 +28,7 @@ document.addEventListener('keydown', function(event){
 });
 
 document.getElementById('BUTTON-toggle-map-window').addEventListener('click', function(e) { 
-	// createNewScene(window.ACTIVE_LOCATION.PARENT);
-
 	let body = window.ACTIVE_LOCATION.PARENT;
-
 	createNewScene(body);
 
 	// Populate infobox data
@@ -52,9 +48,13 @@ document.getElementById('BUTTON-toggle-map-window').addEventListener('click', fu
 
 	let rot = body.ROTATION_RATE * 3600;
 	rot = 360 / rot;
-	window.setText('map-info-rotationrate', rot.toLocaleString());
+	let rotationRateString = rot.toLocaleString() + '° / sec';
+	if (rot === Infinity) rotationRateString = 'Tidally locked';
+	window.setText('map-info-rotationrate', rotationRateString);
 
-	window.setText('map-info-lengthofday', window.HOURS_TO_TIME_STRING(body.ROTATION_RATE));
+	let dayLengthString = window.HOURS_TO_TIME_STRING(body.ROTATION_RATE);
+	if (rot === Infinity) dayLengthString = '---';
+	window.setText('map-info-lengthofday', dayLengthString);
 
 	let sats = window.BODIES.filter(bod => {
 		if (!bod.PARENT) return false;
@@ -114,7 +114,7 @@ function render() {
 
 
 	// LABEL OCCLUSION
-	// Improve performance by doing it every 5th frame
+	// Improve performance by doing it every fifth frame
 	if (renderer.info.render.frame % 5 === 0) {
 		let raycaster = new THREE.Raycaster();
 		let v = new THREE.Vector3();
@@ -166,10 +166,10 @@ function render() {
 	// LOCATION TIMES
 	let timeLabels = document.querySelectorAll('.mapLocationTime');
 	timeLabels.forEach(label => {
-		let location = window.LOCATIONS.filter(loc => loc.NAME === label.parentNode.dataset.location)[0];
+		const location = window.LOCATIONS.filter(loc => loc.NAME === label.parentNode.dataset.location)[0];
 
-		let s = location.ILLUMINATION_STATUS;
-		if (s === 'Night' || s === 'Midnight' || s === 'Morning Twilight' || s === 'Evening Twilight' || s === 'Perma-Night') {
+		const nightStatus = ['Night', 'Midnight', 'Morning Twilight', 'Evening Twilight', 'Polar Night'];
+		if (nightStatus.includes(location.ILLUMINATION_STATUS)) {
 			label.classList.add('blue');
 			label.classList.remove('yellow');
 		} else {
@@ -178,10 +178,20 @@ function render() {
 		}
 
 		let string = window.HOURS_TO_TIME_STRING(location.LOCAL_TIME / 60 / 60, false);
-		if (string === 'NaN:NaN') string = location.ILLUMINATION_STATUS;
+		
+		const unchanging = ['Polar Day', 'Polar Night', 'Permanent Day', 'Permanent Night']
+		if (unchanging.includes(location.ILLUMINATION_STATUS)) {
+			string = location.ILLUMINATION_STATUS;
+		}
 		
 		window.setText(label, string);
 	});
+
+	// TERMINATOR LINE
+	const terminator = scene.getObjectByName('Terminator');
+	const terminatorAngle = window.ACTIVE_LOCATION.PARENT.LONGITUDE(window.ACTIVE_LOCATION.PARENT_STAR);
+	terminator.rotation.y = RADIANS(terminatorAngle);
+	terminator.visible = document.getElementById('map-settings-show-terminator').checked;
 }
 
 
@@ -201,6 +211,8 @@ function createNewScene(celestialObject) {
 
 	createLocationLabels(celestialObject);
 	createOrbitalMarkerLabels();
+
+	createTerminatorLine(celestialObject);
 }
 
 
@@ -328,7 +340,7 @@ function createNightSphere(celestialObject) {
 }
 
 function createTexturedSphere(celestialObject, scale = 1) {
-	let textureOpacity = document.getElementById('map-settings-planet-transparency').value / 100;
+	const textureOpacity = document.getElementById('map-settings-planet-transparency').value / 100;
 
 	var loader = new THREE.TextureLoader();
 	let file = 'static/assets/' + celestialObject.NAME.toLowerCase() + '.webp';
@@ -460,8 +472,38 @@ function createOrbitalMarkerLabels() {
 	scene.add(group);
 }
 
+
+function createTerminatorLine(celestialObject) {
+	const textureOpacity = document.getElementById('map-settings-planet-transparency').value / 100;
+	const angle = celestialObject.LONGITUDE(celestialObject.PARENT_STAR);
+
+	const material = new THREE.LineBasicMaterial( {
+		color: `rgb(${255}, ${255}, ${0})`,
+		transparent: true,
+		opacity: THREE.MathUtils.clamp(textureOpacity * 1.1, 0.1, 1)
+	});
+
+	const p = [];
+	for (let i = 0; i <= 360; i += 3) {
+		const rad = RADIANS(i);
+		const x = 0;
+		const y = Math.sin(rad);
+		const z = Math.cos(rad);
+		p.push(new THREE.Vector3(x, y, z));
+	}
+
+	const geo = new THREE.BufferGeometry().setFromPoints(p);
+	const circle = new THREE.Line(geo, material);
+	circle.name = 'Terminator';
+	const declination = celestialObject.DECLINATION(celestialObject.PARENT_STAR);
+	circle.rotation.x = RADIANS(-declination);
+	scene.add(circle);
+}
+
+
+
 function createCelestialMarkers() {
-	// for testing only right now
+	// TESTING; NOT IMPLEMENTED
 	const matRed = new THREE.LineBasicMaterial( {
 		color: `rgb(255, 0, 0)`,
 		transparent: true,
@@ -482,26 +524,38 @@ function createCelestialMarkers() {
 
 
 
+
+
 // MAP SETTINGS
 document.getElementById('map-settings-planet-transparency').addEventListener('change', function() {
 	saveSetting('mapPlanetTransparency', document.getElementById('map-settings-planet-transparency').value);
 
 	let opacityPercent = document.getElementById('map-settings-planet-transparency').value / 100;
-	let mesh = scene.getObjectByName('Celestial Object');
+	let planetMesh = scene.getObjectByName('Celestial Object');
 	let texturePath = 'static/assets/' + window.ACTIVE_LOCATION.PARENT.NAME.toLowerCase() + '.webp';
 
 	let loader = new THREE.TextureLoader();
-	let newMaterial;
+	let newPlanetMaterial;
 	loader.load(texturePath, function ( texture ) {
-		newMaterial = new THREE.MeshBasicMaterial({
+		newPlanetMaterial = new THREE.MeshBasicMaterial({
 			map: texture,
 			transparent: true,
 			opacity: opacityPercent
 		});
 
-		mesh.material.dispose();
-		mesh.material = newMaterial;
+		planetMesh.material.dispose();
+		planetMesh.material = newPlanetMaterial;
 	} );
+
+
+	let terminatorMesh = scene.getObjectByName('Terminator');
+	let newTerminatorMaterial = new THREE.LineBasicMaterial( {
+		color: `rgb(${255}, ${255}, ${0})`,
+		transparent: true,
+		opacity: THREE.MathUtils.clamp(opacityPercent * 1.25, 0.1, 1)
+	});
+	terminatorMesh.material.dispose();
+	terminatorMesh.material = newTerminatorMaterial;
 });
 
 document.getElementById('map-settings-show-grid').addEventListener('change', function() {
@@ -509,6 +563,10 @@ document.getElementById('map-settings-show-grid').addEventListener('change', fun
 
 	let object = scene.getObjectByName('Grid');
 	object.visible = document.getElementById('map-settings-show-grid').checked;
+});
+
+document.getElementById('map-settings-show-terminator').addEventListener('change', function() {
+	saveSetting('mapTerminator', document.getElementById('map-settings-show-terminator').checked);
 });
 
 document.getElementById('map-settings-show-orbitalmarkers').addEventListener('change', function() {

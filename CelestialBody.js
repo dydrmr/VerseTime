@@ -40,7 +40,7 @@ export default class CelestialBody {
 		this.ROTATION_QUATERNION = rotationQuaternion;
 		this.BODY_RADIUS = bodyRadius;
 		this.ROTATION_RATE = rotationRate;
-		this.ANGULAR_ROTATION_RATE = 6 / rotationRate;
+		this.ANGULAR_ROTATION_RATE = 6 / this.ROTATION_RATE;
 		this.ROTATION_CORRECTION = rotationCorrection;
 		this.ORBITAL_ANGLE = orbitalAngle;
 		this.ORBITAL_RADIUS = orbitalRadius;
@@ -142,6 +142,8 @@ export default class CelestialBody {
 	HOUR_ANGLE() {
 		// Current Rotation
 		let cycle = this.CURRENT_CYCLE();
+		if (cycle === Infinity) cycle = 0;
+
 		let correction = this.ROTATION_CORRECTION;
 		let result = MODULO((360 - MODULO(cycle, 1) * 360 - correction), 360)
 		return result;
@@ -157,21 +159,21 @@ export default class CelestialBody {
 	}
 
 	LONGITUDE(distantObject = this.PARENT_STAR) {
-		let meridModulo = MODULO(0 - this.MERIDIAN(distantObject), 360);
-		let cycleHourAngle = this.HOUR_ANGLE();
+		const meridModulo = MODULO(0 - this.MERIDIAN(distantObject), 360);
+		const cycleHourAngle = this.HOUR_ANGLE();
 
 		let condition = cycleHourAngle - meridModulo;
 		if (condition > 180) {
 			return cycleHourAngle - meridModulo - 360;
 
 		} else {
-			let condition2 = cycleHourAngle - meridModulo;
+			const subtotal = cycleHourAngle - meridModulo;
 
-			if (condition2 < -180) {
-				return cycleHourAngle - meridModulo + 360;
+			if (subtotal < -180) {
+				return subtotal + 360;
 
 			} else {
-				return cycleHourAngle - meridModulo;
+				return subtotal;
 			}
 		}
 

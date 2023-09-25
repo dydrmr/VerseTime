@@ -4,6 +4,7 @@ function loadSettings() {
 
 	const mapPlanetTransparency = window.localStorage.getItem('mapPlanetTransparency');
 	const mapGrid = window.localStorage.getItem('mapGrid');
+	const mapTerminator = window.localStorage.getItem('mapTerminator');
 	const mapOMs = window.localStorage.getItem('mapOMs');
 	const mapTimes = window.localStorage.getItem('mapTimes');
 	const mapStars = window.localStorage.getItem('mapStars');
@@ -29,6 +30,10 @@ function loadSettings() {
 
 	if (mapGrid) {
 		document.getElementById('map-settings-show-grid').checked = (mapGrid === 'false') ? false : true;
+	}
+
+	if (mapTerminator) {
+		document.getElementById('map-settings-show-terminator').checked = (mapTerminator === 'false') ? false : true;
 	}
 
 	if (mapOMs) {

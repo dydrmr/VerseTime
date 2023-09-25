@@ -39,7 +39,11 @@ function update() {
 
 
 	// MAIN LOCATION INFO
-	if (location.LOCAL_TIME.toString() === 'NaN') {
+	if (
+		location.ILLUMINATION_STATUS === 'Polar Day' ||
+		location.ILLUMINATION_STATUS === 'Polar Night' ||
+		location.LOCAL_TIME.toString() === 'NaN'
+	) {
 		setText('local-time', location.ILLUMINATION_STATUS);
 	} else {
 		setText('local-time', HOURS_TO_TIME_STRING(location.LOCAL_TIME/60/60, false));
@@ -50,7 +54,7 @@ function update() {
 
 	// RISE/SET COUNTDOWNS
 	let nextRise = location.NEXT_STAR_RISE;
-	if (nextRise.toString() === 'NaN') {
+	if (nextRise === 0) {
 		setText('next-rise-countdown', '---');
 
 	} else {
@@ -59,7 +63,7 @@ function update() {
 	}
 
 	let nextSet = location.NEXT_STAR_SET;
-	if (nextSet.toString() === 'NaN') {
+	if (nextSet === 0) {
 		setText('next-set-countdown', '---');
 
 	} else {
@@ -69,13 +73,13 @@ function update() {
 
 
 	// RISE/SET LOCAL TIMES
-	if (nextRise.toString() === 'NaN') {
+	if (nextRise === 0) {
 		setText('local-rise-time', '---');
 	} else {
 		setText('local-rise-time', HOURS_TO_TIME_STRING(location.LOCAL_STAR_RISE_TIME * 24, false, true));
 	}
 
-	if (nextSet.toString() === 'NaN') {
+	if (nextSet === 0) {
 		setText('local-set-time', '---');
 	} else {
 		setText('local-set-time', HOURS_TO_TIME_STRING(location.LOCAL_STAR_SET_TIME * 24, false, true));
@@ -84,7 +88,7 @@ function update() {
 
 	// RISE/SET REAL TIMES
 	let now = new Date();
-	if (nextRise.toString() === 'NaN') {
+	if (nextRise === 0) {
 		setText('next-rise-time', '---');
 	} else {
 		let rise = now.setSeconds(now.getSeconds() + (location.NEXT_STAR_RISE * 86400));
@@ -93,7 +97,7 @@ function update() {
 	}
 
 	now = new Date();
-	if (nextSet.toString() === 'NaN') {
+	if (nextSet === 0) {
 		setText('next-set-time', '---');
 	} else {
 		let set = now.setSeconds(now.getSeconds() + (location.NEXT_STAR_SET * 86400));

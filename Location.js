@@ -46,7 +46,6 @@ export default class Location {
 			this.LONGITUDE = 0;
 		
 		} else {
-			// let condition = DEGREES( MODULO( Math.atan2(this.COORDINATES.y, this.COORDINATES.x) - (Math.PI / 2), 2 * Math.PI ) );
 			const atan2 = Math.atan2( this.COORDINATES.y, this.COORDINATES.x );
 			const condition = DEGREES(MODULO(atan2, 2 * Math.PI));
 
@@ -152,8 +151,12 @@ export default class Location {
 	}
 
 	get ILLUMINATION_STATUS() {
-		if (this.LOCAL_STAR_RISE_TIME.toString() === 'NaN') {
-			return (this.STAR_MAX_ALTITUDE() < 0) ? 'Perma-night' : 'Perma-day';
+
+		if (this.PARENT.ROTATION_RATE === 0) {
+			return (this.STAR_MAX_ALTITUDE() < 0) ? 'Permanent Night' : 'Permanent Day';
+
+		} else if (this.LOCAL_STAR_RISE_TIME.toString() === 'NaN') {
+			return (this.STAR_MAX_ALTITUDE() < 0) ? 'Polar Night' : 'Polar Day';
 
 		} else {
 
@@ -172,8 +175,6 @@ export default class Location {
 				return 'Night';
 			} else if (t > set) {
 				return 'Evening Twilight';
-			// } else if (t > set - 600) {
-			// 	return 'Starset';
 			} else if (t > set - 7200) {
 				return 'Evening';
 			} else if (t > noon + 600) {
@@ -184,8 +185,6 @@ export default class Location {
 				return 'Late Morning';
 			} else if (t > rise) {
 				return 'Morning';
-			// } else if (t > rise - 60) {
-			// 	return 'Starrise';
 			} else if (t > rise - 1500) {
 				return 'Morning Twilight';
 			} else if (t > 300) {
@@ -204,14 +203,14 @@ export default class Location {
 	}
 
 	get LOCAL_STAR_RISE_TIME() {
-		let percent = 1 - (this.LENGTH_OF_DAYLIGHT / this.PARENT.LENGTH_OF_DAY());
-		let half = percent / 2;
+		const percent = 1 - (this.LENGTH_OF_DAYLIGHT / this.PARENT.LENGTH_OF_DAY());
+		const half = percent / 2;
 		return half;
 	}
 
 	get LOCAL_STAR_SET_TIME() {
-		let percent = 1 - (this.LENGTH_OF_DAYLIGHT / this.PARENT.LENGTH_OF_DAY());
-		let half = percent / 2;
+		const percent = 1 - (this.LENGTH_OF_DAYLIGHT / this.PARENT.LENGTH_OF_DAY());
+		const half = percent / 2;
 		return 1 - half;
 	}
 

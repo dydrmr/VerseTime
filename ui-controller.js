@@ -61,10 +61,10 @@ function getHashedLocation() {
 }
 
 function shareLocation() {
-	let url = location.protocol + '//' + location.host + location.pathname + '#' + getHashedLocation();
+	const url = location.protocol + '//' + location.host + location.pathname + '#' + getHashedLocation();
 	navigator.clipboard.writeText(url);
 	
-	let msg = document.getElementById('share-location-message');
+	const msg = document.getElementById('share-location-message');
 	msg.style.transition = '0s ease-out';
 	msg.style.opacity = 1;
 
@@ -98,7 +98,7 @@ function setLocation(locationName) {
 		return true;
 
 	} else {
-		throw 'Invalid [locationName] parameter passed to [setLocation] function!\nValue passed ➤ ' + locationName;
+		throw 'Invalid [locationName] parameter passed to [setLocation] function!\nValue passed: ' + locationName;
 		return false;
 	}
 }
@@ -218,8 +218,29 @@ function updateMapLocationData() {
 }
 
 function updateHoverLocationNextRiseAndSet() {
-	const nextRise = window.HOURS_TO_TIME_STRING(hoverLocation.NEXT_STAR_RISE * 24, true, false);
-	const nextSet = window.HOURS_TO_TIME_STRING(hoverLocation.NEXT_STAR_SET * 24, true, false);
+	let nextRise, nextSet;
+
+	const unchanging = ['Polar Day', 'Polar Night', 'Permanent Day', 'Permanent Night'];
+	if (unchanging.includes(hoverLocation.ILLUMINATION_STATUS)) {
+		nextRise = '---';
+		nextSet = '---';
+
+	} else {
+
+		if (hoverLocation.IS_STAR_RISING_NOW) {
+			nextRise = '- NOW -';
+		} else {
+			nextRise = window.HOURS_TO_TIME_STRING(hoverLocation.NEXT_STAR_RISE * 24, true, false);
+		}
+
+		if (hoverLocation.IS_STAR_SETTING_NOW) {
+			nextSet = '- NOW -';
+		} else {
+			nextSet = window.HOURS_TO_TIME_STRING(hoverLocation.NEXT_STAR_SET * 24, true, false);
+		}
+
+	}
+
 	setText('map-info-nextstarrise', nextRise);
 	setText('map-info-nextstarset', nextSet);
 }
