@@ -128,7 +128,9 @@
 		<p>User guide available on the <a href="https://github.com/dydrmr/VerseTime" target="_blank" rel="noreferrer noopener">Github page</a>.</p>
 		<br><br>
 		<p>Data collected by <a href="https://robertsspaceindustries.com/orgs/MURPH" target="_blank" rel="noreferrer noopener">Murphy Exploration Group</a> <a href="https://www.deltaconsultingsc.com/murphy-exploration-group" target="_blank" rel="noreferrer noopener">[Website]</a>.</p>
-		<p><a href="https://docs.google.com/spreadsheets/d/1VydKNxBHdljhO8ANSEcZRWogInCh-6tAdjI1HcwFlVE/edit#gid=1238406064" target="_blank" rel="noreferrer noopener">Detailed spreadsheet available here</a>.</p>
+		<p><a href="https://docs.google.com/spreadsheets/d/1aGJ0_49ve1NKf0GvSteSt3-a4jSxnj2snHmTDwKTBgs" target="_blank" rel="noreferrer noopener">Detailed spreadsheet available here</a>.</p>
+		<br><br>
+		<p>Planet surface textures generated with <a href="https://bitbucket.org/Cpt_BA/scexplorer_releases/downloads/" target="_blank" rel="noreferrer noopener">SCExplorer</a></p> by Cpt_BA.
 		<br><br>
 		<p>Background images from the <a href="https://starcitizen.tools/Star_Citizen_Wiki" target="_blank" rel="noreferrer noopener">starcitizen.tools Wiki</a>.</p>
 		<br><br>
@@ -172,12 +174,12 @@
 			<h3>Map settings</h3>
 			<div id="map-settings-container">
 				<p>Opacity</p>
-				<input type="range" min="10" max="100" value="20" class="slider" style="width:80px;" id="map-settings-planet-transparency">
+				<input type="range" min="0" max="100" value="20" class="slider" style="width:80px;" id="map-settings-planet-transparency">
 
 				<p>Times</p>
 				<input type="checkbox" id="map-settings-show-times" checked>
 
-				<p>Terminator</p>
+				<p>Shadow</p>
 				<input type="checkbox" id="map-settings-show-terminator" checked>
 
 				<p>OMs</p>
@@ -236,6 +238,8 @@
 			<p class="info-group-label">Length of night</p><p class="info-group-data"><span id="length-of-night"></span></p>
 			<p class="info-group-label">Local starrise time</p><p class="info-group-data"><span id="starrise-time"></span></p>
 			<p class="info-group-label">Local starset time</p><p class="info-group-data"><span id="starset-time"></span></p>
+			<p class="info-group-label">Next starrise</p><p class="info-group-data"><span id="next-starrise-countdown"></span> h</p>
+			<p class="info-group-label">Next starset</p><p class="info-group-data"><span id="next-starset-countdown"></span> h</p>
 			<p class="info-group-label">Hour angle</p><p class="info-group-data"><span id="hour-angle-location"></span>&deg;</p>
 			<p class="info-group-label">Star azimuth</p><p class="info-group-data"><span id="star-azimuth"></span>&deg;</p>
 			<p class="info-group-label">Star rise/set angle</p><p class="info-group-data"><span id="sunriseset-angle"></span>&deg; from N</p>

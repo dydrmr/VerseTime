@@ -580,7 +580,7 @@ body {
 }
 
 .mapLocationLabel[data-occluded=true] {
-	opacity: 0.025;
+	opacity: 0;
 	user-select: none;
 	pointer-events: none;
 }
@@ -594,7 +594,7 @@ body {
 	font-size: 9px;
 	font-weight: 500;
 	font-family: 'Roboto Mono', monospace;
-	opacity: 0.9;
+	opacity: 1;
 	transition: opacity 0.4s;
 }
 .mapLocationTime[data-visible=false] {
@@ -606,7 +606,7 @@ body {
 	height: 8px;
 	margin: 0 auto;
 	background-size: 100% 100%;
-	opacity: 0.7;
+	opacity: 0.9;
 	transition: opacity 0.4s;
 }
 

@@ -236,7 +236,7 @@ export default class Location {
 	}
 
 	get IS_STAR_RISING_NOW() {
-		let padding = 120;
+		let padding = 60;
 
 		if (
 			this.NEXT_STAR_RISE * 86400 < padding ||
@@ -270,7 +270,7 @@ export default class Location {
 	}
 
 	get IS_STAR_SETTING_NOW() {
-		let padding = 120;
+		let padding = 60;
 
 		if (
 			this.NEXT_STAR_SET * 86400 < padding ||

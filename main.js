@@ -92,7 +92,9 @@ function update() {
 		setText('next-rise-time', '---');
 	} else {
 		let rise = now.setSeconds(now.getSeconds() + (location.NEXT_STAR_RISE * 86400));
-		if (new Date(rise).getSeconds() === 59) rise = new Date(rise + 1000);
+		// if (new Date(rise).getSeconds() === 59) {
+		// 	rise = new Date(rise + 1000);
+		// }
 		setText('next-rise-time', DATE_TO_SHORT_TIME(new Date(rise)));
 	}
 
@@ -101,7 +103,9 @@ function update() {
 		setText('next-set-time', '---');
 	} else {
 		let set = now.setSeconds(now.getSeconds() + (location.NEXT_STAR_SET * 86400));
-		if (new Date(set).getSeconds() === 59) set = new Date(set.getTime() + 1000);
+		// if (new Date(set).getSeconds() === 59) {
+		// 	set = new Date(set.getTime() + 1000);
+		// }
 		setText('next-set-time', DATE_TO_SHORT_TIME(new Date(set)));
 	}
 
@@ -173,6 +177,8 @@ function updateDebugUI() {
 	setText('length-of-night', HOURS_TO_TIME_STRING((bod.ROTATION_RATE) - (loc.LENGTH_OF_DAYLIGHT *24), true, false));
 	setText('starrise-time', HOURS_TO_TIME_STRING(loc.LOCAL_STAR_RISE_TIME*24));
 	setText('starset-time', HOURS_TO_TIME_STRING(loc.LOCAL_STAR_SET_TIME*24));
+	setText('next-starrise-countdown', ROUND(parseFloat(loc.NEXT_STAR_RISE), 6).toFixed(6));
+	setText('next-starset-countdown', ROUND(parseFloat(loc.NEXT_STAR_SET), 6).toFixed(6));
 	setText('db-illumination-status', loc.ILLUMINATION_STATUS);
 	setText('hour-angle-location', loc.HOUR_ANGLE().toFixed(3));
 	setText('star-azimuth', loc.STAR_AZIMUTH().toFixed(3));
@@ -542,6 +548,11 @@ const YELA = new CelestialBody(
 	},
 	'https://starcitizen.tools/images/thumb/8/8f/Stanton-crusader-yela-orbit-3.8.0.jpg/300px-Stanton-crusader-yela-orbit-3.8.0.jpg'
 )
+
+YELA.RING = {
+	'radius-inner': 500,
+	'radius-outer': 750
+}
 
 const MICROTECH = new CelestialBody(
 	'microTech',
@@ -3480,6 +3491,16 @@ const YADAR_VALLEY = new Location(
 	null,
 	'https://media.starcitizen.tools/thumb/d/d2/Yadar_Valley_racetrack%2C_Daymar_-_day.jpg/300px-Yadar_Valley_racetrack%2C_Daymar_-_day.jpg'
 )
+
+function getLocationByName(string) {
+	let result = window.LOCATIONS.filter(loc => {
+		if (loc.NAME === string) {
+			return loc;
+		}
+	});
+	return result;
+}
+window.getLocationByName = getLocationByName;
 
 
 // INIT

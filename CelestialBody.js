@@ -28,6 +28,8 @@ let THEME_COLOR = {
 };
 let THEME_IMAGE = '';
 
+let RING = null;
+
 let ANGULAR_ROTATION_RATE = null;
 
 export default class CelestialBody {
@@ -51,6 +53,15 @@ export default class CelestialBody {
 	}
 
 	BS_INTERNAL(direction, distantObject) {
+		if (
+			direction !== 'x' &&
+			direction !== 'y' &&
+			direction !== 'z'
+		) {
+			throw 'Wrong direction value passed to function: ' + direction;
+			return null;
+		}
+
 		let qw = this.ROTATION_QUATERNION.w;
 		let qx = this.ROTATION_QUATERNION.x;
 		let qy = this.ROTATION_QUATERNION.y;
@@ -88,7 +99,8 @@ export default class CelestialBody {
 
 	BS(distantObject) {
 		// Convert from heliocentric coordinates to local coordinates centered on celestial object
-
+		// "distantObject" is the celestial object that sits at the 0,0,0 origin point (usually the system's star)
+		// returns 
 		let x = this.BS_INTERNAL('x', distantObject);
 		let y = this.BS_INTERNAL('y', distantObject);
 		let z = this.BS_INTERNAL('z', distantObject);
