@@ -220,6 +220,8 @@ export default class Location {
 
 		let partialResult = this.NEXT_NOON - ((riseSet - terrainRise) / rotation * 3 / 4300);
 
+		if (isNaN(partialResult)) return null;
+
 		if (this.HOUR_ANGLE() > (riseSet - terrainRise)) {
 			return partialResult;
 
@@ -236,7 +238,7 @@ export default class Location {
 	}
 
 	get IS_STAR_RISING_NOW() {
-		let padding = 60;
+		let padding = 90;
 
 		if (
 			this.NEXT_STAR_RISE * 86400 < padding ||
@@ -255,6 +257,8 @@ export default class Location {
 
 		let partialResult = this.NEXT_NOON + ((riseSet - terrainSet) / rotation * 3 / 4300);
 
+		if (isNaN(partialResult)) return null;
+		
 		if (this.HOUR_ANGLE() > -(riseSet - terrainSet)) {
 
 			if (this.HOUR_ANGLE() > 0) {
@@ -270,7 +274,7 @@ export default class Location {
 	}
 
 	get IS_STAR_SETTING_NOW() {
-		let padding = 60;
+		let padding = 90;
 
 		if (
 			this.NEXT_STAR_SET * 86400 < padding ||

@@ -54,7 +54,7 @@ function update() {
 
 	// RISE/SET COUNTDOWNS
 	let nextRise = location.NEXT_STAR_RISE;
-	if (nextRise === 0) {
+	if (!nextRise) {
 		setText('next-rise-countdown', '---');
 
 	} else {
@@ -63,7 +63,7 @@ function update() {
 	}
 
 	let nextSet = location.NEXT_STAR_SET;
-	if (nextSet === 0) {
+	if (!nextSet) {
 		setText('next-set-countdown', '---');
 
 	} else {
@@ -73,13 +73,13 @@ function update() {
 
 
 	// RISE/SET LOCAL TIMES
-	if (nextRise === 0) {
+	if (!nextRise) {
 		setText('local-rise-time', '---');
 	} else {
 		setText('local-rise-time', HOURS_TO_TIME_STRING(location.LOCAL_STAR_RISE_TIME * 24, false, true));
 	}
 
-	if (nextSet === 0) {
+	if (!nextSet) {
 		setText('local-set-time', '---');
 	} else {
 		setText('local-set-time', HOURS_TO_TIME_STRING(location.LOCAL_STAR_SET_TIME * 24, false, true));
@@ -88,7 +88,7 @@ function update() {
 
 	// RISE/SET REAL TIMES
 	let now = new Date();
-	if (nextRise === 0) {
+	if (!nextRise) {
 		setText('next-rise-time', '---');
 	} else {
 		let rise = now.setSeconds(now.getSeconds() + (location.NEXT_STAR_RISE * 86400));
@@ -99,7 +99,7 @@ function update() {
 	}
 
 	now = new Date();
-	if (nextSet === 0) {
+	if (!nextSet) {
 		setText('next-set-time', '---');
 	} else {
 		let set = now.setSeconds(now.getSeconds() + (location.NEXT_STAR_SET * 86400));
