@@ -958,6 +958,48 @@ const SERAPHIM_STATION = new Location(
 	'https://media.starcitizen.tools/d/d7/SeraphimRM.png'
 )
 
+const PROSPECT_POINT = new Location(
+	'Prospect Point',
+	'Settlement',
+	CRUSADER,
+	STANTON,
+	{
+		'x' : 3254.279,
+		'y' : -1225.248,
+		'z' : 6683.686
+	},
+	null,
+	'https://media.starcitizen.tools/thumb/3/39/Orison-demo-wip-isc-20210624-26.png/1024px-Orison-demo-wip-isc-20210624-26.png'
+)
+
+const CLOUDREST_RETREAT = new Location(
+	'Cloudrest Retreat',
+	'Settlement',
+	CRUSADER,
+	STANTON,
+	{
+		'x' : -7396.172,
+		'y' : -1420.246,
+		'z' : 29.007
+	},
+	null,
+	'https://media.starcitizen.tools/thumb/3/39/Orison-demo-wip-isc-20210624-26.png/1024px-Orison-demo-wip-isc-20210624-26.png'
+)
+
+const EMPYREAN_PARK = new Location(
+	'Empyrean Park',
+	'Settlement',
+	CRUSADER,
+	STANTON,
+	{
+		'x' : 1090.108,
+		'y' : 7304.364,
+		'z' : 1509.818
+	},
+	null,
+	'https://media.starcitizen.tools/thumb/3/39/Orison-demo-wip-isc-20210624-26.png/1024px-Orison-demo-wip-isc-20210624-26.png'
+)
+
 const PORT_TRESSLER = new Location(
 	'Port Tressler',
 	'Space station',
@@ -3491,6 +3533,246 @@ const YADAR_VALLEY = new Location(
 	null,
 	'https://media.starcitizen.tools/thumb/d/d2/Yadar_Valley_racetrack%2C_Daymar_-_day.jpg/300px-Yadar_Valley_racetrack%2C_Daymar_-_day.jpg'
 )
+
+const KUDRE_ORE_MINE_CLOSED = new Location(
+	'Kudre Ore Mine (Closed)',
+	'Cave',
+	DAYMAR,
+	STANTON,
+	{
+		'x' : 81.008,
+		'y' : -280.683,
+		'z' : 43.649
+	},
+	null,
+	null
+)
+
+const LUDLOW = new Location(
+	'Ludlow',
+	'Settlement',
+	HURSTON,
+	STANTON,
+	{
+		'x' : -878.668,
+		'y' : -467.858,
+		'z' : 111.091
+	},
+	null,
+	null
+)
+
+const FINNS_FOLLY = new Location(
+	'Finn\'s Folly',
+	'Settlement',
+	HURSTON,
+	STANTON,
+	{
+		'x' : -196.592,
+		'y' : -197.871,
+		'z' : 961.999
+	},
+	null,
+	null
+)
+
+const PICKERS_FIELD = new Location(
+	'Picker\'s Field',
+	'Settlement',
+	HURSTON,
+	STANTON,
+	{
+		'x' : -679.766,
+		'y' : 262.266,
+		'z' : -686.080
+	},
+	null,
+	null
+)
+
+const MAKERS_POINT = new Location(
+	'Maker\'s Point',
+	'Settlement',
+	HURSTON,
+	STANTON,
+	{
+		'x' : -154.007,
+		'y' : 128.325,
+		'z' : 979.766
+	},
+	null,
+	null
+)
+
+const ZEPHYR = new Location(
+	'Zephyr',
+	'Settlement',
+	HURSTON,
+	STANTON,
+	{
+		'x' : 108.160,
+		'y' : -133.662,
+		'z' : 986.694
+	},
+	null,
+	null
+)
+
+const RAPPEL = new Location(
+	'Rappel',
+	'Settlement',
+	HURSTON,
+	STANTON,
+	{
+		'x' : 352.952,
+		'y' : -661.890,
+		'z' : 663.889
+	},
+	null,
+	null
+)
+
+const CUTTERS_RIG = new Location(
+	'Cutter\'s Rig',
+	'Settlement',
+	HURSTON,
+	STANTON,
+	{
+		'x' : -455.119,
+		'y' : -200.497,
+		'z' : 867.564
+	},
+	null,
+	null
+)
+
+const WEEPING_COVE = new Location(
+	'Weeping Cove',
+	'Settlement',
+	HURSTON,
+	STANTON,
+	{
+		'x' : -455.172,
+		'y' : -202.318,
+		'z' : 867.424
+	},
+	null,
+	null
+)
+
+const HDES_CALTHROPE_NA = new Location(
+	'HDES Calthrope (NA)',
+	'Cave',
+	HURSTON,
+	STANTON,
+	{
+		'x' : -203.376,
+		'y' : -806.580,
+		'z' : 557.779
+	},
+	null,
+	null
+)
+
+const ASTORS_CLEARING = new Location(
+	'Astor\'s Clearing',
+	'Settlement',
+	MICROTECH,
+	STANTON,
+	{
+		'x' : -810.219,
+		'y' : 577.884,
+		'z' : -101.430
+	},
+	null,
+	null
+)
+
+const BLOODSHOT_RIDGE = new Location(
+	'Bloodshot Ridge',
+	'Settlement',
+	MICROTECH,
+	STANTON,
+	{
+		'x' : 733.940,
+		'y' : -674.648,
+		'z' : 101.876
+	},
+	null,
+	null
+)
+
+const DUNBORO = new Location(
+	'Dunboro',
+	'Settlement',
+	MICROTECH,
+	STANTON,
+	{
+		'x' : -735.672,
+		'y' : 678.040,
+		'z' : 9.310
+	},
+	null,
+	null
+)
+
+const FROSTBITE = new Location(
+	'Frostbite',
+	'Settlement',
+	MICROTECH,
+	STANTON,
+	{
+		'x' : 539.620,
+		'y' : 762.339,
+		'z' : -361.448
+	},
+	null,
+	null
+)
+
+const HARPERS_POINT = new Location(
+	'Harper\'s Point',
+	'Settlement',
+	MICROTECH,
+	STANTON,
+	{
+		'x' : -687.373,
+		'y' : 716.613,
+		'z' : 128.227
+	},
+	null,
+	null
+)
+
+const MORELAND_HILLS = new Location(
+	'Moreland Hills',
+	'Settlement',
+	MICROTECH,
+	STANTON,
+	{
+		'x' : -665.088,
+		'y' : 726.918,
+		'z' : 178.064
+	},
+	null,
+	null
+)
+
+const RAZORS_EDGE = new Location(
+	'Razor\'s Edge',
+	'Settlement',
+	MICROTECH,
+	STANTON,
+	{
+		'x' : -666.067,
+		'y' : 726.221,
+		'z' : 179.518
+	},
+	null,
+	null
+)
+
+
 
 function getLocationByName(string) {
 	let result = window.LOCATIONS.filter(loc => {
