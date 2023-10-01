@@ -215,8 +215,8 @@ function createNewScene(celestialObject) {
 	camera.position.set(2, 0.5, 2);
 
 	createStarfield();
-	createLatLonGrid(scene, c, 0.9925);
-	createOcclusionSphere(c, 0.992);
+	createLatLonGrid(scene, c, 0.99405);
+	createOcclusionSphere(c, 0.994);
 	createTexturedSphere(celestialObject, 0.995);
 
 	createLocationLabels(celestialObject);
