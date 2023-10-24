@@ -66,3 +66,20 @@ export function RANDOM(min, max) {
 
 	return rand * (max - min) + min;
 }
+
+export function GREAT_CIRCLE_DISTANCE(x1, y1, z1, x2, y2, z2, radius) {
+	// Convert X, Y, Z coordinates to latitude and longitude
+	const lat1 = Math.asin(z1 / radius);
+	const lon1 = Math.atan2(y1, x1);
+	const lat2 = Math.asin(z2 / radius);
+	const lon2 = Math.atan2(y2, x2);
+
+	// Haversine formula
+	const dLat = lat2 - lat1;
+	const dLon = lon2 - lon1;
+
+	const a = Math.sin(dLat / 2) ** 2 + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) ** 2;
+	const c = 2 * Math.asin(Math.sqrt(a));
+
+	return radius * c;
+}

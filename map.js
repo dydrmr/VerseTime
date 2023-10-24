@@ -1,13 +1,20 @@
-import * as THREE from 'https://cdn.skypack.dev/three@0.134.0/build/three.module.js';
-import { OrbitControls } from 'https://cdn.skypack.dev/three@0.134.0/examples/jsm/controls/OrbitControls.js';
-import { CSS2DRenderer, CSS2DObject } from 'https://cdn.skypack.dev/three@0.134.0/examples/jsm/renderers/CSS2DRenderer.js';
-import { CSS3DRenderer, CSS3DObject } from 'https://cdn.skypack.dev/three@0.134.0/examples/jsm/renderers/CSS3DRenderer.js';
+// import * as THREE from 'https://cdn.skypack.dev/three@0.134.0/build/three.module.js';
+// import { OrbitControls } from 'https://cdn.skypack.dev/three@0.134.0/examples/jsm/controls/OrbitControls.js';
+// import { TrackballControls }  from 'https://cdn.skypack.dev/three@0.134.0/examples/jsm/controls/TrackballControls.js';
+// import { CSS2DRenderer, CSS2DObject } from 'https://cdn.skypack.dev/three@0.134.0/examples/jsm/renderers/CSS2DRenderer.js';
+// import { CSS3DRenderer, CSS3DObject } from 'https://cdn.skypack.dev/three@0.134.0/examples/jsm/renderers/CSS3DRenderer.js';
 
-import { DEGREES, RADIANS, MODULO, SQUARE, ROUND, JULIAN_DATE, POLAR_TO_CARTESIAN, RANDOM } from './HelperFunctions.js';
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls';
+import { TrackballControls }  from 'three/addons/controls/TrackballControls';
+import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer';
+import { CSS3DRenderer, CSS3DObject } from 'three/addons/renderers/CSS3DRenderer';
 
-let scene, camera, renderer, labelRenderer, controls;
+import { DEGREES, RADIANS, MODULO, SQUARE, ROUND, JULIAN_DATE, POLAR_TO_CARTESIAN, RANDOM, GREAT_CIRCLE_DISTANCE } from './HelperFunctions.js';
+
+let scene, camera, renderer, labelRenderer, controls, zoomControls;
+let cameraDestination;
 let mapDiv = document.getElementById('map-window');
-
 let celestial3DEntity = null;
 const omDistance = Math.sqrt(2);
 
@@ -19,12 +26,6 @@ window.addEventListener('resize', () => {
 	labelRenderer.setSize(window.innerWidth, window.innerHeight);
 	camera.aspect = window.innerWidth / window.innerHeight;
 	camera.updateProjectionMatrix();
-});
-
-document.addEventListener('keydown', function(event){
-	if (event.keyCode === 77) {
-		createNewScene(window.ACTIVE_LOCATION.PARENT); 		
-	}
 });
 
 document.getElementById('BUTTON-toggle-map-window').addEventListener('click', function(e) { 
@@ -69,7 +70,7 @@ document.getElementById('BUTTON-toggle-map-window').addEventListener('click', fu
 });
 
 function init() {
-	//console.debug('THREE.js revision: ' + THREE.REVISION);
+	// console.debug('THREE.js revision: ' + THREE.REVISION);
 	
 	scene = new THREE.Scene();
 
@@ -83,28 +84,40 @@ function init() {
 	labelRenderer.domElement.style.top = '0px';
 	mapDiv.appendChild( labelRenderer.domElement );
 
-	camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 3000);
+	camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 3000);
 	camera.position.set(0, 20, 0);
 	camera.lookAt(0, 0, 0);
 
 	controls = new OrbitControls(camera, labelRenderer.domElement);
 	controls.enablePan = false;
 	controls.enableDamping = true;
-	controls.dampingFactor = 0.03;
+	controls.dampingFactor = 0.08;
 	controls.rotateSpeed = 0.5;
 	controls.maxPolarAngle = Math.PI * 0.95;
 	controls.minPolarAngle = Math.PI * 0.05;
-	controls.smoothZoom = true;
-	controls.zoomDampingFactor = 0.2;
-	controls.smoothZoomSpeed = 5.0;
-	controls.maxDistance = 10;
-	controls.minDistance = 1.2;
+
+	controls.enableZoom = false;
+
+	zoomControls = new TrackballControls(camera, labelRenderer.domElement);
+	zoomControls.noRotate = true;
+	zoomControls.noPan = true;
+	zoomControls.noZoom = false;
+	zoomControls.zoomSpeed = 0.5;
+	zoomControls.maxDistance = 5;
+	zoomControls.minDistance = 1.15;
+	zoomControls.zoomDampingFactor = 0.2;
+	zoomControls.smoothZoomSpeed = 5.0;
+
 
 	mapDiv.appendChild( renderer.domElement );
 }
 
 function render() {
+	const target = controls.target;
 	controls.update();
+	zoomControls.target.set(target.x, target.y, target.z);
+	zoomControls.update();
+
 	renderer.render(scene, camera);
 	labelRenderer.render(scene, camera);
 	requestAnimationFrame(render);
@@ -124,17 +137,14 @@ function render() {
 		//LOCATION LABELS
 		let locationLabels = document.querySelectorAll('.mapLocationLabel');
 		locationLabels.forEach(label => {
-			let location = window.LOCATIONS.filter(loc => loc.NAME === label.dataset.location)[0];
+			const location = window.LOCATIONS.filter(loc => loc.NAME === label.dataset.location)[0];
 
-			let coord = location.COORDINATES;
-			let x = -coord.x / r; // adjust for rotation direction
-			let y = coord.y / r;
-			let z = coord.z / r;
-			let pos = new THREE.Vector3(x, z, y); // Y = UP in THREE.JS
+			const coord = location.COORDINATES_3DMAP;
+			const pos = new THREE.Vector3(coord.x, coord.z, coord.y); // Y = UP in THREE.JS
 
 			v.copy(pos).sub(camera.position).normalize().multiply(new THREE.Vector3(-1, -1, -1));
 			raycaster.set( pos, v );
-			let intersects = raycaster.intersectObject(bodyMesh, false);
+			const intersects = raycaster.intersectObject(bodyMesh, false);
 			label.dataset.occluded = (intersects.length > 0) ? true : false;
 		});
 
@@ -207,24 +217,25 @@ function setLocationLabelColor(label, phase) {
 
 function createNewScene(celestialObject) {
 	scene.clear();
-	let oldLabels = document.querySelectorAll( '.mapLocationName, .mapLocationTime, .mapLocationIcon, .mapOrbitalMarker' );
+	let oldLabels = document.querySelectorAll( '.mapLocationLabel, .mapLocationName, .mapLocationTime, .mapLocationIcon, .mapOrbitalMarker' );
 	oldLabels.forEach(l => {l.remove()});
 
 	let c = celestialObject.THEME_COLOR;
 	document.getElementById('map-body-name').textContent = celestialObject.NAME;
-	camera.position.set(2, 0.5, 2);
 
 	createStarfield();
-	createLatLonGrid(scene, c, 0.99405);
-	createOcclusionSphere(c, 0.994);
-	createTexturedSphere(celestialObject, 0.995);
+
+	createOcclusionSphere(c, 0.998);
+	createLatLonGrid(scene, c, 0.998);
+	createTexturedSphere(celestialObject, 0.9995);
+	createShadow(celestialObject, 1);
 
 	createLocationLabels(celestialObject);
 	createOrbitalMarkerLabels();
 
-	createTerminatorLine(celestialObject);
-
 	createRing(celestialObject);
+
+	setCameraAboveActiveLocation();
 }
 
 
@@ -265,10 +276,15 @@ function makeLine(x1, y1, z1, x2, y2, z2, mat) {
 }
 
 function createLatLonGrid(scene, color, scale = 1) {
+
+	let r = parseInt(color.r / 3);
+	let g = parseInt(color.g / 3);
+	let b = parseInt(color.b / 3);
+
 	const material = new THREE.LineBasicMaterial( {
-		color: `rgb(${color.r}, ${color.g}, ${color.b})`,
-		transparent: true,
-		opacity: 0.1
+		color: `rgb(${r}, ${g}, ${b})`,
+		transparent: false,
+		opacity: 0.15
 	});
 
 	let grid = new THREE.Group();
@@ -306,7 +322,6 @@ function makeLongitudeCircle(angle, material, scale) {
 
 function makeLatitudeCircle(angle, material, scale) {
 	const p = [];
-
 	for (let i = 0; i <= 360; i += 360 / 96) {
 		let rad = RADIANS(i);
 		let x = Math.cos(rad) * Math.sin(RADIANS(angle)) * scale;
@@ -320,37 +335,6 @@ function makeLatitudeCircle(angle, material, scale) {
 	return circle;
 }
 
-
-function createDaySphere(celestialObject, scale = 1) {
-	let c = celestialObject.THEME_COLOR;
-	let geo = new THREE.SphereGeometry(scale, 48, 48);
-	let mat = new THREE.MeshBasicMaterial({
-		color: `rgb(${c.r}, ${c.g}, ${c.b})`,
-		transparent: true,
-		opacity: 0.15,
-		// depthWrite: false
-	});
-
-	let obj = new THREE.Mesh(geo, mat);
-	obj.name = 'Celestial Object';
-	scene.add(obj);
-}
-
-function createNightSphere(celestialObject) {
-	// TESTING ONLY
-	let c = celestialObject.THEME_COLOR;
-	let geo = new THREE.SphereGeometry(1, 48, 48, 0, Math.PI);
-	let mat = new THREE.MeshBasicMaterial({
-		color: `rgb(20, 20, 20)`,
-		transparent: true,
-		opacity: 0.3
-	});
-
-	let obj = new THREE.Mesh(geo, mat);
-	obj.rotation.y = RADIANS(celestialObject.MERIDIAN() + celestialObject.ROTATION_CORRECTION + 180);
-	scene.add(obj);
-}
-
 function createTexturedSphere(celestialObject, scale = 1) {
 	const textureOpacity = document.getElementById('map-settings-planet-transparency').value / 100;
 
@@ -358,11 +342,9 @@ function createTexturedSphere(celestialObject, scale = 1) {
 	let file = 'static/assets/' + celestialObject.NAME.toLowerCase() + '.webp';
 	loader.load(file, function ( texture ) {
 
-		// Disable pixel interpolation
-		// texture.minFilter = THREE.NearestFilter;
-		// texture.magFilter = THREE.NearestFilter;
+		texture.colorSpace = THREE.SRGBColorSpace;
 
-		let geo = new THREE.SphereGeometry(scale, 72, 72, 0, Math.PI * 2);
+		let geo = new THREE.SphereGeometry(scale, 96, 96, 0, Math.PI * 2);
 		let mat = new THREE.MeshBasicMaterial({
 			map: texture,
 			transparent: true,
@@ -377,7 +359,7 @@ function createTexturedSphere(celestialObject, scale = 1) {
 }
 
 function createOcclusionSphere(color, scale = 1) {
-	let blackGeo = new THREE.SphereGeometry(scale * 0.999, 72, 72, 0, Math.PI * 2);
+	let blackGeo = new THREE.SphereGeometry(scale * 0.999, 96, 96, 0, Math.PI * 2);
 	let blackMat = new THREE.MeshBasicMaterial({
 		color: `rgb(${parseInt(color.r /5)}, ${parseInt(color.g /5)}, ${parseInt(color.b /5)})`,
 		transparent: false,
@@ -419,12 +401,8 @@ function createLocationLabels(celestialObject) {
 	let locations = window.LOCATIONS.filter(loc => loc.PARENT === celestialObject);
 
 	for (let i = 0; i < locations.length; i++) {
-		let pos = locations[i].COORDINATES;
-		let x = -pos.x / r; // adjust for rotation direction
-		let y = pos.y / r;
-		let z = pos.z / r;
 
-		let container = document.createElement('div');
+		const container = document.createElement('div');
 		container.className = 'mapLocationLabel';
 		container.dataset.location = locations[i].NAME;
 		container.dataset.occluded = true;
@@ -437,27 +415,29 @@ function createLocationLabels(celestialObject) {
 
 		container.addEventListener('pointerdown', () => {
 			setLocation(locations[i].NAME);
+			setCameraAboveActiveLocation(true);
 		});
 
-		let name = document.createElement('p');
+		const name = document.createElement('p');
 		container.append(name);
 		name.className = 'mapLocationName';
 		name.innerText = locations[i].NAME;
 
-		let icon = document.createElement('div');
+		const icon = document.createElement('div');
 		container.append(icon);
 		icon.className = 'mapLocationIcon';
 		setLocationIcon(locations[i].TYPE, icon);
 
-		let time = document.createElement('p');
+		const time = document.createElement('p');
 		container.append(time);
 		time.className = 'mapLocationTime';
 		time.innerText = 'XX:XX';
 
 		time.dataset.visible = document.getElementById('map-settings-show-times').checked;
 
-		let locationLabel = new CSS2DObject(container);
-		locationLabel.position.copy(new THREE.Vector3(x, z, y));
+		const pos = locations[i].COORDINATES_3DMAP;
+		const locationLabel = new CSS2DObject(container);
+		locationLabel.position.copy(new THREE.Vector3(pos.x, pos.z, pos.y));
 		scene.add(locationLabel);
 	}
 }
@@ -497,7 +477,7 @@ function createOrbitalMarkerLabels() {
 }
 
 
-function createTerminatorLine(celestialObject) {
+function createShadow(celestialObject, scale) {
 	let textureOpacity = document.getElementById('map-settings-planet-transparency').value / 100;
 	textureOpacity = THREE.MathUtils.mapLinear(textureOpacity, 0, 1, 0.15, 0.5);
 
@@ -508,55 +488,6 @@ function createTerminatorLine(celestialObject) {
 	group.name = 'Terminator';
 	scene.add(group);
 
-	// const separationDistance = 0.0015;
-	const scale = 0.996;
-
-	// DAY HALF
-	// const materialDay = new THREE.LineBasicMaterial( {
-	// 	color: `rgb(255, 255, 0)`,
-	// 	transparent: true,
-	// 	opacity: textureOpacity
-	// });
-
-	// let p = [];
-	// for (let i = 0; i <= 360; i += 3) {
-	// 	const rad = RADIANS(i);
-	// 	const x = -separationDistance;
-	// 	const y = Math.sin(rad) * scale;
-	// 	const z = Math.cos(rad) * scale;
-	// 	p.push(new THREE.Vector3(x, y, z));
-	// }
-
-	// let geo = new THREE.BufferGeometry().setFromPoints(p);
-	// let circle = new THREE.Line(geo, materialDay);
-	// circle.name = 'Terminator Day';
-	// circle.rotation.z = RADIANS(-declination);
-	// group.add(circle);
-
-	// NIGHT HALF
-	// const materialNight = new THREE.LineBasicMaterial( {
-	// 	color: `rgb(173, 216, 230)`,
-	// 	transparent: true,
-	// 	opacity: textureOpacity
-	// });
-
-	// p = [];
-	// for (let i = 0; i <= 360; i += 3) {
-	// 	const rad = RADIANS(i);
-	// 	const x = separationDistance;
-	// 	const y = Math.sin(rad) * scale;
-	// 	const z = Math.cos(rad) * scale;
-	// 	p.push(new THREE.Vector3(x, y, z));
-	// }
-
-	// geo = new THREE.BufferGeometry().setFromPoints(p);
-	// circle = new THREE.Line(geo, materialNight);
-	// circle.name = 'Terminator Night';
-	// circle.rotation.z = RADIANS(-declination);
-	// group.add(circle);
-
-
-	// SHADOW
 	const shadowGeo = new THREE.SphereGeometry(scale, 72, 72, Math.PI / 2, Math.PI, 0, Math.PI);
 	const shadowMat = new THREE.MeshBasicMaterial({
 		color: 0x000000,
@@ -575,7 +506,6 @@ function createTerminatorLine(celestialObject) {
 
 function createRing(celestialObject) {
 	if (!celestialObject.RING) return;
-	// console.log(celestialObject.RING);
 
 	const inner = celestialObject.RING['radius-inner'] / celestialObject.BODY_RADIUS;
 	const outer = celestialObject.RING['radius-outer'] / celestialObject.BODY_RADIUS;
@@ -616,6 +546,15 @@ function createCelestialMarkers() {
 }
 
 
+function setCameraAboveActiveLocation(customScalar = false) {
+	let coord = window.ACTIVE_LOCATION.COORDINATES_3DMAP;
+	let camVector = new THREE.Vector3(coord.x, coord.z, coord.y);
+	camVector.normalize();
+
+	const scalar = customScalar ? camera.position.length() : 3;
+	camVector.multiplyScalar(scalar);
+	camera.position.set(camVector.x, camVector.y, camVector.z);
+}
 
 
 
@@ -630,6 +569,8 @@ document.getElementById('map-settings-planet-transparency').addEventListener('ch
 	let loader = new THREE.TextureLoader();
 	let newPlanetMaterial;
 	loader.load(texturePath, function ( texture ) {
+		texture.colorSpace = THREE.SRGBColorSpace;
+
 		newPlanetMaterial = new THREE.MeshBasicMaterial({
 			map: texture,
 			transparent: true,
@@ -639,16 +580,6 @@ document.getElementById('map-settings-planet-transparency').addEventListener('ch
 		planetMesh.material.dispose();
 		planetMesh.material = newPlanetMaterial;
 	} );
-
-
-
-	// let terminator = scene.getObjectByName('Terminator');
-	// terminator.children.forEach((child)=>{
-	// 	if(child.material) {
-	// 		const textureOpacity = THREE.MathUtils.mapLinear(opacityPercent, 0, 1, 0.15, 0.5);
-	// 		child.material.opacity = textureOpacity;
-	// 	}
-	// });
 });
 
 document.getElementById('map-settings-show-grid').addEventListener('change', function() {

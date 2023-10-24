@@ -1,4 +1,6 @@
 import { DEGREES, RADIANS, MODULO, SQUARE, ROUND, JULIAN_DATE } from './HelperFunctions.js';
+// import * as THREE from 'https://cdn.skypack.dev/three@0.134.0/build/three.module.js';
+import * as THREE from 'three';
 
 let NAME = '[name not defined]';
 let TYPE = '[type not defined]';
@@ -9,6 +11,11 @@ let COORDINATES = {
 	'y' : null,
 	'z' : null
 };
+let COORDINATES_3DMAP = {
+	'x' : null,
+	'y' : null,
+	'z' : null
+}
 
 let THEME_COLOR = {
 	'r' : null,
@@ -32,6 +39,7 @@ export default class Location {
 		this.PARENT = parentBody;
 		this.PARENT_STAR = parentStar;
 		this.COORDINATES = coordinates;
+
 		this.THEME_COLOR = themeColor ? themeColor : this.PARENT.THEME_COLOR;
 		this.THEME_IMAGE = (themeImage === '' || themeImage === null) ? this.PARENT.THEME_IMAGE : themeImage;
 
@@ -87,6 +95,26 @@ export default class Location {
 		p2 = -p3 * p4;
 		p1 = Math.acos(p2); 
 		this.STARRISE_AND_STARSET_ANGLE = DEGREES(p1) + this.PARENT.APPARENT_RADIUS(this.PARENT_STAR) + this.ELEVATION_IN_DEGREES;
+
+		// NORMALIZED COORDINATES FOR 3D MAP
+		let x = -coordinates.x / parentBody.BODY_RADIUS; // -x adjusts for rotation direction in 3D map
+		let y = coordinates.y / parentBody.BODY_RADIUS;
+		let z = coordinates.z / parentBody.BODY_RADIUS;
+		const vec = new THREE.Vector3(x, y, z);
+
+		if (vec.length() < 1) {
+			// console.log(`${name} on ${parentBody.NAME} is inside geometry (Elevation: ${ROUND(this.ELEVATION * 1000)} m)`);
+			vec.normalize();
+			x = vec.x;
+			y = vec.y;
+			z = vec.z;
+		}
+
+		this.COORDINATES_3DMAP = {
+			'x': x,
+			'y': y,
+			'z': z
+		}
 
 		// FINALIZATION
 		window.LOCATIONS.push(this);

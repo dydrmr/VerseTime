@@ -184,6 +184,10 @@ document.addEventListener('keydown', function(event){
 
 
 	if (event.keyCode === 68) { toggleDebugWindow(); }
+
+	if (event.keyCode === 77) {
+		document.getElementById('BUTTON-toggle-map-window').click();
+	}
 	
 	if (event.keyCode === 84) {
 		window.SETTING_24HR = !window.SETTING_24HR;
