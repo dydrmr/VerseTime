@@ -557,7 +557,10 @@ body {
 .blue {color: lightblue;}
 
 .mapLocationLabel {
-	text-shadow: 0px 0px 8px rgb(0, 0, 0);
+	text-shadow: 
+		0 0 8px var(--theme-color-dark), 
+		0 0 8px var(--theme-color-dark), 
+		0 0 8px var(--theme-color-dark);
 	font-family: 'Rajdhani', sans-serif;
 	text-align: center;
 	white-space: pre-line;
@@ -638,7 +641,7 @@ body {
 	pointer-events: none;
 }
 .mapOrbitalMarker[data-occluded=true] {
-	opacity: 0.025;
+	opacity: 0;
 }
 .mapOrbitalMarker[data-visible=false] {
 	opacity: 0;

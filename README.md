@@ -6,7 +6,7 @@ Visit [this link](https://dydrmr.github.io/VerseTime/) to check it out.
 Your selected options are saved when you change them.
 * To change your location, click on the location name in the center of the window.
 * Toggle 24-hour time notation off with <kbd>T</kbd>.
-* Open the 3D with <kbd>M</kbd>.
+* Open the 3D map with <kbd>M</kbd>.
 * Toggle debug information with <kbd>D</kbd>.
 
 ## Search functionality

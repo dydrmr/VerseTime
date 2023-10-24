@@ -16,7 +16,16 @@ let scene, camera, renderer, labelRenderer, controls, zoomControls;
 let cameraDestination;
 let mapDiv = document.getElementById('map-window');
 let celestial3DEntity = null;
+const circleDetail = 72;
 const omDistance = Math.sqrt(2);
+const orbitalMarkerCoordinates = [
+	{ x:  0, y:  0,  z:  omDistance },
+	{ x:  0, y:  0,  z: -omDistance },
+	{ x:  0, y:  omDistance,  z:  0 },
+	{ x:  0, y: -omDistance,  z:  0 },
+	{ x: -omDistance, y:  0,  z:  0 },
+	{ x:  omDistance, y:  0,  z:  0 },
+];
 
 init();
 render();
@@ -71,7 +80,6 @@ document.getElementById('BUTTON-toggle-map-window').addEventListener('click', fu
 
 function init() {
 	// console.debug('THREE.js revision: ' + THREE.REVISION);
-	
 	scene = new THREE.Scene();
 
 	renderer = new THREE.WebGLRenderer({antialias: true});
@@ -95,7 +103,6 @@ function init() {
 	controls.rotateSpeed = 0.5;
 	controls.maxPolarAngle = Math.PI * 0.95;
 	controls.minPolarAngle = Math.PI * 0.05;
-
 	controls.enableZoom = false;
 
 	zoomControls = new TrackballControls(camera, labelRenderer.domElement);
@@ -107,7 +114,6 @@ function init() {
 	zoomControls.minDistance = 1.15;
 	zoomControls.zoomDampingFactor = 0.2;
 	zoomControls.smoothZoomSpeed = 5.0;
-
 
 	mapDiv.appendChild( renderer.domElement );
 }
@@ -125,60 +131,57 @@ function render() {
 
 	if (!showMapWindow) return;
 
+	updateLabelOcclusion();
+	updateLocationLabelTimes();
+	updatePlanetShadow();
+}
 
-	// LABEL OCCLUSION
-	// Improve performance by doing it every fifth frame
-	if (renderer.info.render.frame % 5 === 0) {
-		let raycaster = new THREE.Raycaster();
-		let v = new THREE.Vector3();
-		let r = window.ACTIVE_LOCATION.PARENT.BODY_RADIUS;
-		let bodyMesh = scene.getObjectByName('Celestial Object');
+function updateLabelOcclusion() {
+	if (renderer.info.render.frame % 10 !== 0) { return; }
+	
+	let raycaster = new THREE.Raycaster();
+	let v = new THREE.Vector3();
+	let r = window.ACTIVE_LOCATION.PARENT.BODY_RADIUS;
+	let bodyMesh = scene.getObjectByName('Celestial Object');
 
-		//LOCATION LABELS
-		let locationLabels = document.querySelectorAll('.mapLocationLabel');
-		locationLabels.forEach(label => {
-			const location = window.LOCATIONS.filter(loc => loc.NAME === label.dataset.location)[0];
+	//LOCATION LABELS
+	let locationLabels = document.querySelectorAll('.mapLocationLabel');
+	locationLabels.forEach(label => {
+		const location = window.LOCATIONS.filter(loc => loc.NAME === label.dataset.location)[0];
 
-			const coord = location.COORDINATES_3DMAP;
-			const pos = new THREE.Vector3(coord.x, coord.z, coord.y); // Y = UP in THREE.JS
+		const coord = location.COORDINATES_3DMAP;
+		const pos = new THREE.Vector3(coord.x, coord.z, coord.y); // Y = UP
 
-			v.copy(pos).sub(camera.position).normalize().multiply(new THREE.Vector3(-1, -1, -1));
-			raycaster.set( pos, v );
-			const intersects = raycaster.intersectObject(bodyMesh, false);
-			label.dataset.occluded = (intersects.length > 0) ? true : false;
-		});
+		v.copy(pos).sub(camera.position).normalize().multiply(new THREE.Vector3(-1, -1, -1));
+		raycaster.set( pos, v );
+		const intersects = raycaster.intersectObject(bodyMesh, false);
+		label.dataset.occluded = (intersects.length > 0) ? true : false;
+	});
 
+	// ORBITAL MARKERS
+	if (!document.getElementById('map-settings-show-orbitalmarkers').checked) { return; }
 
-		// ORBITAL MARKERS
-		let orbitalMarkerCoordinates = [
-			{ x:  0, y:  0,  z:  omDistance },
-			{ x:  0, y:  0,  z: -omDistance },
-			{ x:  0, y:  omDistance,  z:  0 },
-			{ x:  0, y: -omDistance,  z:  0 },
-			{ x: -omDistance, y:  0,  z:  0 },
-			{ x:  omDistance, y:  0,  z:  0 },
-		];
+	let orbitalMarkerLabels = document.querySelectorAll('.mapOrbitalMarker');
+	orbitalMarkerLabels.forEach(label => {
+		const markerNumber = label.innerText.replace('OM', '');
+		const coord = orbitalMarkerCoordinates[markerNumber - 1];
+		const pos = new THREE.Vector3(coord.x, coord.z, coord.y); // Y = UP
 
-		let orbitalMarkerLabels = document.querySelectorAll('.mapOrbitalMarker');
-		orbitalMarkerLabels.forEach(label => {
-			let markerNumber = label.innerText.replace('OM', '');
-			let coord = orbitalMarkerCoordinates[markerNumber - 1];
-			let pos = new THREE.Vector3(coord.x, coord.z, coord.y); // Y = UP
+		v.copy(pos).sub(camera.position).normalize().multiply(new THREE.Vector3(-1, -1, -1));
+		raycaster.set( pos, v );
+		const intersects = raycaster.intersectObject(bodyMesh, true);
+		label.dataset.occluded = intersects.length > 0 ? true : false;
+	});
+}
 
-			v.copy(pos).sub(camera.position).normalize().multiply(new THREE.Vector3(-1, -1, -1));
-			raycaster.set( pos, v );
-			let intersects = raycaster.intersectObject(bodyMesh, true);
-			label.dataset.occluded = intersects.length > 0 ? true : false;
-		});
-	}
+function updateLocationLabelTimes() {
+	const unchanging = ['Polar Day', 'Polar Night', 'Permanent Day', 'Permanent Night'];
+	const nightStatus = ['Night', 'Midnight', 'Morning Twilight', 'Evening Twilight', 'Polar Night', 'Starset'];
 
-
-	// LOCATION TIMES
 	let timeLabels = document.querySelectorAll('.mapLocationTime');
-	timeLabels.forEach(label => {
+	for (let label of timeLabels) {
 		const location = window.LOCATIONS.filter(loc => loc.NAME === label.parentNode.dataset.location)[0];
 
-		const nightStatus = ['Night', 'Midnight', 'Morning Twilight', 'Evening Twilight', 'Polar Night', 'Starset'];
 		if (nightStatus.includes(location.ILLUMINATION_STATUS)) {
 			setLocationLabelColor(label, 'night');
 		} else {
@@ -186,21 +189,12 @@ function render() {
 		}
 
 		let string = window.HOURS_TO_TIME_STRING(location.LOCAL_TIME / 60 / 60, false);
-		
-		const unchanging = ['Polar Day', 'Polar Night', 'Permanent Day', 'Permanent Night'];
 		if (unchanging.includes(location.ILLUMINATION_STATUS)) {
 			string = location.ILLUMINATION_STATUS;
 		}
 		
 		window.setText(label, string);
-	});
-
-
-	// TERMINATOR LINE
-	const terminator = scene.getObjectByName('Terminator');
-	const terminatorAngle = window.ACTIVE_LOCATION.PARENT.LONGITUDE(window.ACTIVE_LOCATION.PARENT_STAR);
-	terminator.rotation.y = RADIANS(terminatorAngle);
-	terminator.visible = document.getElementById('map-settings-show-terminator').checked;
+	}
 }
 
 function setLocationLabelColor(label, phase) {
@@ -212,6 +206,15 @@ function setLocationLabelColor(label, phase) {
 		label.classList.add('blue');
 	}
 }
+
+function updatePlanetShadow() {
+	const terminator = scene.getObjectByName('Terminator');
+	const terminatorAngle = window.ACTIVE_LOCATION.PARENT.LONGITUDE(window.ACTIVE_LOCATION.PARENT_STAR);
+	terminator.rotation.y = RADIANS(terminatorAngle);
+	terminator.visible = document.getElementById('map-settings-show-terminator').checked;
+}
+
+
 
 
 
@@ -225,7 +228,7 @@ function createNewScene(celestialObject) {
 
 	createStarfield();
 
-	createOcclusionSphere(c, 0.998);
+	createOcclusionSphere(c, 0.997);
 	createLatLonGrid(scene, c, 0.998);
 	createTexturedSphere(celestialObject, 0.9995);
 	createShadow(celestialObject, 1);
@@ -240,31 +243,6 @@ function createNewScene(celestialObject) {
 
 
 
-function setLocationIcon(type, element) {
-	if (
-		type === 'Underground bunker' ||
-		type === 'Emergency shelter' ||
-		type === 'Outpost' ||
-		type === 'Prison' ||
-		type === 'Shipwreck' ||
-		type === 'Scrapyard' ||
-		type === 'Settlement'
-	) {
-		element.classList.add('icon-outpost');
-	
-	} else if (
-		type === 'Space station' ||
-		type === 'Asteroid base'
-	) {
-		element.classList.add('icon-spacestation');
-	
-	} else if (type === 'Landing zone') {
-		element.classList.add('icon-landingzone');
-	
-	} else {
-		element.classList.add('icon-space');
-	}
-}
 
 function makeLine(x1, y1, z1, x2, y2, z2, mat) {
 	const p = [];
@@ -306,7 +284,7 @@ function createLatLonGrid(scene, color, scale = 1) {
 
 function makeLongitudeCircle(angle, material, scale) {
 	const p = [];
-	for (let i = 0; i <= 360; i += 360 / 96) {
+	for (let i = 0; i <= 360; i += 360 / circleDetail) {
 		let rad = RADIANS(i);
 		let x = 0;
 		let y = Math.sin(rad) * scale;
@@ -322,7 +300,7 @@ function makeLongitudeCircle(angle, material, scale) {
 
 function makeLatitudeCircle(angle, material, scale) {
 	const p = [];
-	for (let i = 0; i <= 360; i += 360 / 96) {
+	for (let i = 0; i <= 360; i += 360 / circleDetail) {
 		let rad = RADIANS(i);
 		let x = Math.cos(rad) * Math.sin(RADIANS(angle)) * scale;
 		let y = Math.cos(RADIANS(angle)) * scale;
@@ -344,7 +322,7 @@ function createTexturedSphere(celestialObject, scale = 1) {
 
 		texture.colorSpace = THREE.SRGBColorSpace;
 
-		let geo = new THREE.SphereGeometry(scale, 96, 96, 0, Math.PI * 2);
+		let geo = new THREE.SphereGeometry(scale, circleDetail, circleDetail, 0, Math.PI * 2);
 		let mat = new THREE.MeshBasicMaterial({
 			map: texture,
 			transparent: true,
@@ -359,13 +337,57 @@ function createTexturedSphere(celestialObject, scale = 1) {
 }
 
 function createOcclusionSphere(color, scale = 1) {
-	let blackGeo = new THREE.SphereGeometry(scale * 0.999, 96, 96, 0, Math.PI * 2);
+	let blackGeo = new THREE.SphereGeometry(scale, circleDetail, circleDetail, 0, Math.PI * 2);
 	let blackMat = new THREE.MeshBasicMaterial({
 		color: `rgb(${parseInt(color.r /5)}, ${parseInt(color.g /5)}, ${parseInt(color.b /5)})`,
 		transparent: false,
 	});
 	let blackObj = new THREE.Mesh(blackGeo, blackMat);
 	scene.add(blackObj);
+}
+
+function createShadow(celestialObject, scale) {
+	let textureOpacity = document.getElementById('map-settings-planet-transparency').value / 100;
+	textureOpacity = THREE.MathUtils.mapLinear(textureOpacity, 0, 1, 0.15, 0.5);
+
+	const angle = celestialObject.LONGITUDE(celestialObject.PARENT_STAR);
+	const declination = celestialObject.DECLINATION(celestialObject.PARENT_STAR);
+
+	let group = new THREE.Group();
+	group.name = 'Terminator';
+	scene.add(group);
+
+	const shadowGeo = new THREE.SphereGeometry(scale, circleDetail, circleDetail, Math.PI / 2, Math.PI, 0, Math.PI);
+	const shadowMat = new THREE.MeshBasicMaterial({
+		color: 0x000000,
+		transparent: true,
+		depthWrite: false,
+		opacity: 0.25
+	}); 
+	const shadow = new THREE.Mesh( shadowGeo, shadowMat );
+	shadow.name = 'Shadow';
+	shadow.rotation.z = RADIANS(-declination);
+	shadow.renderOrder = 1;
+	group.add(shadow);
+}
+
+function createRing(celestialObject) {
+	if (!celestialObject.RING) return;
+
+	const inner = celestialObject.RING['radius-inner'] / celestialObject.BODY_RADIUS;
+	const outer = celestialObject.RING['radius-outer'] / celestialObject.BODY_RADIUS;
+
+	const geometry = new THREE.RingGeometry(inner, outer, 90); 
+	const material = new THREE.MeshBasicMaterial({ 
+		color: 0xA9A9A9,
+		transparent: true,
+		depthWrite: false,
+		opacity: 0.15,
+		side: THREE.DoubleSide
+	});
+	const mesh = new THREE.Mesh( geometry, material );
+	mesh.rotation.x = RADIANS(90);
+	scene.add( mesh );
 }
 
 function createStarfield(amount = 300) {
@@ -442,15 +464,41 @@ function createLocationLabels(celestialObject) {
 	}
 }
 
+function setLocationIcon(type, element) {
+	if (
+		type === 'Underground bunker' ||
+		type === 'Emergency shelter' ||
+		type === 'Outpost' ||
+		type === 'Prison' ||
+		type === 'Shipwreck' ||
+		type === 'Scrapyard' ||
+		type === 'Settlement'
+	) {
+		element.classList.add('icon-outpost');
+	
+	} else if (
+		type === 'Space station' ||
+		type === 'Asteroid base'
+	) {
+		element.classList.add('icon-spacestation');
+	
+	} else if (type === 'Landing zone') {
+		element.classList.add('icon-landingzone');
+	
+	} else {
+		element.classList.add('icon-space');
+	}
+}
+
 function createOrbitalMarkerLabels() {
-	let orbitalMarkerCoordinates = [
-		{ x:  0, y:  0,  z:  omDistance },
-		{ x:  0, y:  0,  z: -omDistance },
-		{ x:  0, y:  omDistance,  z:  0 },
-		{ x:  0, y: -omDistance,  z:  0 },
-		{ x: -omDistance, y:  0,  z:  0 },
-		{ x:  omDistance, y:  0,  z:  0 },
-	];
+	// let orbitalMarkerCoordinates = [
+	// 	{ x:  0, y:  0,  z:  omDistance },
+	// 	{ x:  0, y:  0,  z: -omDistance },
+	// 	{ x:  0, y:  omDistance,  z:  0 },
+	// 	{ x:  0, y: -omDistance,  z:  0 },
+	// 	{ x: -omDistance, y:  0,  z:  0 },
+	// 	{ x:  omDistance, y:  0,  z:  0 },
+	// ];
 
 	let group = new THREE.Group();
 	group.name = 'Orbital Markers';
@@ -474,75 +522,6 @@ function createOrbitalMarkerLabels() {
 	}
 
 	scene.add(group);
-}
-
-
-function createShadow(celestialObject, scale) {
-	let textureOpacity = document.getElementById('map-settings-planet-transparency').value / 100;
-	textureOpacity = THREE.MathUtils.mapLinear(textureOpacity, 0, 1, 0.15, 0.5);
-
-	const angle = celestialObject.LONGITUDE(celestialObject.PARENT_STAR);
-	const declination = celestialObject.DECLINATION(celestialObject.PARENT_STAR);
-
-	let group = new THREE.Group();
-	group.name = 'Terminator';
-	scene.add(group);
-
-	const shadowGeo = new THREE.SphereGeometry(scale, 72, 72, Math.PI / 2, Math.PI, 0, Math.PI);
-	const shadowMat = new THREE.MeshBasicMaterial({
-		color: 0x000000,
-		transparent: true,
-		depthWrite: false,
-		opacity: 0.25
-	}); 
-	const shadow = new THREE.Mesh( shadowGeo, shadowMat );
-	shadow.name = 'Shadow';
-	shadow.rotation.z = RADIANS(-declination);
-	shadow.renderOrder = 1;
-	group.add(shadow);
-
-}
-
-
-function createRing(celestialObject) {
-	if (!celestialObject.RING) return;
-
-	const inner = celestialObject.RING['radius-inner'] / celestialObject.BODY_RADIUS;
-	const outer = celestialObject.RING['radius-outer'] / celestialObject.BODY_RADIUS;
-
-	const geometry = new THREE.RingGeometry(inner, outer, 90); 
-	const material = new THREE.MeshBasicMaterial({ 
-		color: 0xA9A9A9,
-		transparent: true,
-		depthWrite: false,
-		opacity: 0.15,
-		side: THREE.DoubleSide
-	});
-	const mesh = new THREE.Mesh( geometry, material );
-	mesh.rotation.x = RADIANS(90);
-	scene.add( mesh );
-
-}
-
-
-function createCelestialMarkers() {
-	// TESTING; NOT IMPLEMENTED
-	const matRed = new THREE.LineBasicMaterial( {
-		color: `rgb(255, 0, 0)`,
-		transparent: true,
-		opacity: 0.5
-	});
-	scene.add(makeLine(-3, 0, 0, 3, 0, 0, matRed));
-
-	const matStarDirection = new THREE.LineBasicMaterial( {
-		color: `rgb(255, 255, 0)`,
-		transparent: true,
-		opacity: 0.4
-	});
-
-	let m = RADIANS(celestialObject.MERIDIAN() - celestialObject.ROTATION_CORRECTION);
-	let starDirection = makeLine(0, 0, 0, Math.cos(m)*2, 0, Math.sin(m)*2, matStarDirection);
-	scene.add(starDirection);
 }
 
 

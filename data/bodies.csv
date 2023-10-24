@@ -17,15 +17,15 @@ Magda,1c,Moon,Hurston,Stanton,12792686.359,-74464.581,0.000,1.00000000,0.0000000
 Wala,3b,Moon,ArcCorp,Stanton,18379649.310,-22000466.768,0.000,1.00000000,0.00000000,0.00000000,0.00000000,283.000,6.3200002,294.59587,143.943,257308.320,null,null,124,150,158,https://starcitizen.tools/images/thumb/f/ff/Stanton-arccorp-wala-orbit-3.12.jpg/300px-Stanton-arccorp-wala-orbit-3.12.jpg
 Yela,2c,Moon,Crusader,Stanton,-19022916.799,-2613996.152,0.000,1.00000000,0.00000000,0.00000000,0.00000000,313.000,1.8200001,268.61241,140.000,79286.880,500,750,128,128,150,https://starcitizen.tools/images/thumb/8/8f/Stanton-crusader-yela-orbit-3.8.0.jpg/300px-Stanton-crusader-yela-orbit-3.8.0.jpg
 Pyro,0,Star,null,null,0,0,0,1.00000000,0.00000000,0.00000000,0.00000000,0,0,0,0,0,null,null,0,0,0,null
-Pyro1,1,Planet,Pyro,Pyro,0,0,0,1.00000000,0.00000000,0.00000000,0.00000000,0,0,0,0,0,null,null,0,0,0,null
+Pyro I,1,Planet,Pyro,Pyro,0,0,0,1.00000000,0.00000000,0.00000000,0.00000000,0,0,0,0,0,null,null,0,0,0,null
 Monox,2,Planet,Pyro,Pyro,0,0,0,1.00000000,0.00000000,0.00000000,0.00000000,0,0,0,0,0,null,null,0,0,0,null
 Bloom,3,Planet,Pyro,Pyro,0,0,0,1.00000000,0.00000000,0.00000000,0.00000000,0,0,0,0,0,null,null,0,0,0,null
-Pyro4,4,Planet,Pyro,Pyro,0,0,0,1.00000000,0.00000000,0.00000000,0.00000000,0,0,0,0,0,null,null,0,0,0,null
-Pyro5,5,Planet,Pyro,Pyro,0,0,0,1.00000000,0.00000000,0.00000000,0.00000000,0,0,0,0,0,null,null,0,0,0,null
+Pyro IV,4,Planet,Pyro V,Pyro,0,0,0,1.00000000,0.00000000,0.00000000,0.00000000,0,0,0,0,0,null,null,0,0,0,null
+Pyro V,5,Planet,Pyro,Pyro,0,0,0,1.00000000,0.00000000,0.00000000,0.00000000,0,0,0,0,0,null,null,0,0,0,null
 Terminus,6,Planet,Pyro,Pyro,0,0,0,1.00000000,0.00000000,0.00000000,0.00000000,0,0,0,0,0,null,null,0,0,0,null
-Pyro5a,5a,Planet,Pyro5,Pyro,0,0,0,1.00000000,0.00000000,0.00000000,0.00000000,0,0,0,0,0,null,null,0,0,0,null
-Pyro5b,5b,Planet,Pyro5,Pyro,0,0,0,1.00000000,0.00000000,0.00000000,0.00000000,0,0,0,0,0,null,null,0,0,0,null
-Pyro5c,5c,Planet,Pyro5,Pyro,0,0,0,1.00000000,0.00000000,0.00000000,0.00000000,0,0,0,0,0,null,null,0,0,0,null
-Pyro5d,5d,Planet,Pyro5,Pyro,0,0,0,1.00000000,0.00000000,0.00000000,0.00000000,0,0,0,0,0,null,null,0,0,0,null
-Pyro5e,5e,Planet,Pyro5,Pyro,0,0,0,1.00000000,0.00000000,0.00000000,0.00000000,0,0,0,0,0,null,null,0,0,0,null
-Pyro5f,5f,Planet,Pyro5,Pyro,0,0,0,1.00000000,0.00000000,0.00000000,0.00000000,0,0,0,0,0,null,null,0,0,0,null
+Ignis,5a,Moon,Pyro V,Pyro,0,0,0,1.00000000,0.00000000,0.00000000,0.00000000,0,0,0,0,0,null,null,0,0,0,null
+Vatra,5b,Moon,Pyro V,Pyro,0,0,0,1.00000000,0.00000000,0.00000000,0.00000000,0,0,0,0,0,null,null,0,0,0,null
+Adir,5c,Moon,Pyro V,Pyro,0,0,0,1.00000000,0.00000000,0.00000000,0.00000000,0,0,0,0,0,null,null,0,0,0,null
+Fairo,5d,Moon,Pyro V,Pyro,0,0,0,1.00000000,0.00000000,0.00000000,0.00000000,0,0,0,0,0,null,null,0,0,0,null
+Fuego,5e,Moon,Pyro V,Pyro,0,0,0,1.00000000,0.00000000,0.00000000,0.00000000,0,0,0,0,0,null,null,0,0,0,null
+Vuur,5f,Moon,Pyro V,Pyro,0,0,0,1.00000000,0.00000000,0.00000000,0.00000000,0,0,0,0,0,null,null,0,0,0,null
