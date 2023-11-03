@@ -125,6 +125,7 @@ body {
 #chosen-time {
 	font-size: 2rem;
 	margin-top: 2rem;
+	letter-spacing: 0em;
 }
 
 #BUTTON-open-settings {
@@ -195,11 +196,11 @@ body {
 #illumination-status {
 	position: absolute;
 	bottom: 20px;
-    left: 50%;
-    transform: translate(-50%, -50%);
+	left: 50%;
+	transform: translate(-50%, -50%);
 
-    font-size: 18px;
-    text-transform: uppercase;
+	font-size: 18px;
+	text-transform: uppercase;
 	text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.9);
 	white-space: pre-line;
 	text-align: center;
@@ -322,6 +323,11 @@ body {
 }
 #location-selection-input:focus, #time-selection-input:focus {
 	outline: none;
+}
+
+#time-selection-input::-webkit-calendar-picker-indicator {
+	filter: invert(1);
+	cursor: pointer;
 }
 
 #available-locations-container {
