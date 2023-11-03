@@ -112,7 +112,7 @@ body {
 	text-transform: uppercase;
 	text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.4);
 }
-.selected-location-sublabel {
+.selected-location-sublabel, #chosen-time {
 	font-size: 1rem;
 	font-family: 'Rajdhani', sans-serif;
 	font-weight: 500;
@@ -121,6 +121,10 @@ body {
 	text-align: center;
 	text-transform: uppercase;
 	text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+}
+#chosen-time {
+	font-size: 2rem;
+	margin-top: 2rem;
 }
 
 #BUTTON-open-settings {
@@ -303,7 +307,7 @@ body {
 	border-radius: 10px;
 }
 
-#location-selection-input {
+#location-selection-input, #time-selection-input {
 	width: 80%;
 	display: block;
 	margin: 15px auto 0px;
@@ -316,7 +320,7 @@ body {
 	font-size: 18px;
 	text-align: center;
 }
-#location-selection-input:focus {
+#location-selection-input:focus, #time-selection-input:focus {
 	outline: none;
 }
 

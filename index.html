@@ -26,12 +26,17 @@
 	<div id="selected-location-container">
 
 		<div id="selected-location-bg-image"></div>
-		
+
 		<p class="selected-location-time" id="local-time"></p>
 
 		<div id="BUTTON-open-settings">
 			<p class="selected-location-label"><span id="location-name"></span>, <span id="location-body-type"></span> <span id="location-body-name"></span></p>
 			<p class="selected-location-sublabel">local synodic time</p>
+		</div>
+		
+		<div>
+			<p id="chosen-time"></p>
+			<p class="selected-location-sublabel" id="chosen-time-sublabel"></p>
 		</div>
 
 		<div class="riseset-container" id="next-rise-container">
@@ -109,6 +114,10 @@
 <section class="modal" id="modal-settings">
 	<div id="settings-window">
 		<div id="BUTTON-close-settings"></div>
+
+		<div id="settings-change-location-container">			
+			<input id="time-selection-input" type="datetime-local" name="time-selection-input">
+		</div>
 
 		<div id="settings-change-location-container">			
 			<input id="location-selection-input" type="text" name="location-selection-input" placeholder="Search locations..." spellcheck="false">
@@ -198,9 +207,17 @@
 
 <section id="detailed-info">
 	<div class="detailed-info-group">
+		<h3>GENERAL</h3>
+		<div class="info-group-table">
+			<p class="info-group-label">HASH</p><p id="db-hash" class="info-group-data"></p>
+		</div>
+	</div>
+
+	<div class="detailed-info-group">
 		<h3>TIME</h3>
 		<div class="info-group-table">
 			<p class="info-group-label">UNIX</p><p id="db-unix-time" class="info-group-data"></p>
+			<p class="info-group-label">CHOSEN</p><p id="db-chosen-time" class="info-group-data"></p>
 			<p class="info-group-label">GMT</p><p id="db-gmt-time" class="info-group-data"></p>
 			<p class="info-group-label">VERSE</p><p id="db-universe-time" class="info-group-data"></p>
 		</div>

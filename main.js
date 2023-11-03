@@ -1,4 +1,4 @@
-import { DEGREES, RADIANS, MODULO, SQUARE, ROUND, JULIAN_DATE } from './HelperFunctions.js';
+import { ROUND, CHOSEN_TIME } from './HelperFunctions.js';
 import CelestialBody from './CelestialBody.js';
 import Location from './Location.js';
 
@@ -12,7 +12,7 @@ window.HOURS_TO_TIME_STRING = HOURS_TO_TIME_STRING;
 window.setText = setText;
 
 window.suppressReload = false;
-
+window.CHOSEN_TIME = 'now';
 
 
 // FUNCTIONS
@@ -20,8 +20,14 @@ function checkHash() {
 	let hash = window.location.hash;
 	if (hash === '') return;
 
-	let locationName = hash.replace('#', '').replaceAll('_', ' ');
+	let hashParts = hash.replace('#', '').replaceAll('_', ' ').split('@');
+
+	let locationName = hashParts[0];
 	let location = LOCATIONS.filter(loc => loc.NAME === locationName);
+
+	if (hashParts[1] !== undefined) {
+		setChosenTime(hashParts[1], true);
+	}
 
 	if (location.length === 0) return;
 	setLocation(locationName);
@@ -34,7 +40,7 @@ function update() {
 
 	let col = location.THEME_COLOR;
 	document.querySelector(':root').style.setProperty('--theme-color', `rgb(${col.r}, ${col.g}, ${col.b})`);
-	document.querySelector(':root').style.setProperty('--theme-color-dark', `rgb(${col.r*0.2}, ${col.g*0.2}, ${col.b*0.2})`);
+	document.querySelector(':root').style.setProperty('--theme-color-dark', `rgb(${col.r * 0.2}, ${col.g * 0.2}, ${col.b * 0.2})`);
 	document.getElementById('selected-location-bg-image').backgroundColor = `rgb(${col.r}, ${col.g}, ${col.b})`;
 	document.getElementById('selected-location-bg-image').style.backgroundImage = `url('${location.THEME_IMAGE}')`;
 
@@ -47,7 +53,14 @@ function update() {
 	) {
 		setText('local-time', location.ILLUMINATION_STATUS);
 	} else {
-		setText('local-time', HOURS_TO_TIME_STRING(location.LOCAL_TIME/60/60, false));
+		setText('local-time', HOURS_TO_TIME_STRING(location.LOCAL_TIME / 60 / 60, false));
+	}
+	if (window.CHOSEN_TIME != 'now') {
+		setText('chosen-time', CHOSEN_TIME().toLocaleString());
+		setText('chosen-time-sublabel', 'local selected time');
+	} else {
+		setText('chosen-time', '');
+		setText('chosen-time-sublabel', '');
 	}
 	setText('location-name', location.NAME);
 	setText('location-body-name', location.PARENT.NAME);
@@ -88,7 +101,7 @@ function update() {
 
 
 	// RISE/SET REAL TIMES
-	let now = new Date();
+	let now = CHOSEN_TIME();
 	if (!nextRise) {
 		setText('next-rise-time', '---');
 	} else {
@@ -99,7 +112,7 @@ function update() {
 		setText('next-rise-time', DATE_TO_SHORT_TIME(new Date(rise)));
 	}
 
-	now = new Date();
+	now = CHOSEN_TIME();
 	if (!nextSet) {
 		setText('next-set-time', '---');
 	} else {
@@ -112,24 +125,27 @@ function update() {
 
 
 	// ILLUMINATION STATUS & IN-LORE CALENDAR DATE
-	let scDate = new Date();
+	let scDate = CHOSEN_TIME();
 	scDate.setFullYear(scDate.getFullYear() + 930);
-	let scDateString = scDate.toLocaleString('default', {year: 'numeric', month: 'long', day: 'numeric'});
+	let scDateString = scDate.toLocaleString('default', { year: 'numeric', month: 'long', day: 'numeric' });
 
 	setText('illumination-status', location.ILLUMINATION_STATUS + '\r\n' + scDateString);
 
 
 	if (showSettingsWindow) updateSettingsLocationTimes();
-	if (window.DEBUG_MODE) updateDebugUI();	
+	if (window.DEBUG_MODE) updateDebugUI();
 }
 
 function updateDebugUI() {
 	let loc = window.ACTIVE_LOCATION;
 	let bod = window.ACTIVE_LOCATION ? window.ACTIVE_LOCATION.PARENT : null;
 
+	setText('db-hash', window.location.hash);
+
 	// CLOCKS
-	let unix = Math.floor(REAL_TIME() / 1000);
+	let unix = Math.floor(CHOSEN_TIME().valueOf() / 1000);
 	setText('db-unix-time', unix.toLocaleString());
+	setText('db-chosen-time', CHOSEN_TIME().toUTCString());
 	setText('db-gmt-time', new Date().toUTCString());
 	setText('db-universe-time', UNIVERSE_TIME(true).replace('GMT', 'SET'));
 
@@ -140,7 +156,7 @@ function updateDebugUI() {
 		setText('body-system', bod.PARENT_STAR.NAME);
 		setText('body-parent-name', bod.PARENT.NAME);
 		setText('body-radius', bod.BODY_RADIUS.toLocaleString());
-		setText('day-length', (bod.ROTATION_RATE*60*60).toLocaleString());
+		setText('day-length', (bod.ROTATION_RATE * 60 * 60).toLocaleString());
 		setText('day-length-readable', HOURS_TO_TIME_STRING(bod.ROTATION_RATE));
 		setText('hour-length-readable', HOURS_TO_TIME_STRING(bod.ROTATION_RATE / 24));
 		setText('current-cycle', ROUND(bod.CURRENT_CYCLE(), 3).toLocaleString());
@@ -152,7 +168,7 @@ function updateDebugUI() {
 
 	//LOCATION
 	setText('db-local-name', loc.NAME);
-	setText('db-local-time', HOURS_TO_TIME_STRING(loc.LOCAL_TIME/60/60));
+	setText('db-local-time', HOURS_TO_TIME_STRING(loc.LOCAL_TIME / 60 / 60));
 
 	let latitude = loc.LATITUDE.toFixed(3);
 	if (parseFloat(latitude) < 0) {
@@ -169,15 +185,15 @@ function updateDebugUI() {
 		longitude = 'E ' + longitude;
 	}
 	setText('longitude', longitude);
-	
+
 	setText('longitude-360', ROUND(loc.LONGITUDE_360, 3));
 	setText('elevation', ROUND(loc.ELEVATION * 1000, 1).toLocaleString());
 	setText('elevation-degrees', loc.ELEVATION_IN_DEGREES.toFixed(3));
 	setText('sunriseset-angle', loc.STARRISE_AND_STARSET_ANGLE.toFixed(3));
 	setText('length-of-daylight', HOURS_TO_TIME_STRING(loc.LENGTH_OF_DAYLIGHT * 24, true, false));
-	setText('length-of-night', HOURS_TO_TIME_STRING((bod.ROTATION_RATE) - (loc.LENGTH_OF_DAYLIGHT *24), true, false));
-	setText('starrise-time', HOURS_TO_TIME_STRING(loc.LOCAL_STAR_RISE_TIME*24));
-	setText('starset-time', HOURS_TO_TIME_STRING(loc.LOCAL_STAR_SET_TIME*24));
+	setText('length-of-night', HOURS_TO_TIME_STRING((bod.ROTATION_RATE) - (loc.LENGTH_OF_DAYLIGHT * 24), true, false));
+	setText('starrise-time', HOURS_TO_TIME_STRING(loc.LOCAL_STAR_RISE_TIME * 24));
+	setText('starset-time', HOURS_TO_TIME_STRING(loc.LOCAL_STAR_SET_TIME * 24));
 	setText('next-starrise-countdown', ROUND(parseFloat(loc.NEXT_STAR_RISE), 6).toFixed(6));
 	setText('next-starset-countdown', ROUND(parseFloat(loc.NEXT_STAR_SET), 6).toFixed(6));
 	setText('db-illumination-status', loc.ILLUMINATION_STATUS);
@@ -186,7 +202,7 @@ function updateDebugUI() {
 	setText('star-altitude', loc.STAR_ALTITUDE().toFixed(3));
 	setText('max-star-altitude', loc.STAR_MAX_ALTITUDE().toFixed(3));
 
-	let now = new Date();
+	let now = CHOSEN_TIME();
 	now.setMilliseconds(0);
 	let next = now.setSeconds(now.getSeconds() + (loc.NEXT_STAR_RISE * 24 * 60 * 60));
 	next = new Date(next).toLocaleString();
@@ -195,7 +211,7 @@ function updateDebugUI() {
 	setText('db-next-starrise-countdown', remain);
 	setText('db-next-starrise-date', next);
 
-	now = new Date();
+	now = CHOSEN_TIME();
 	now.setMilliseconds(0);
 	next = now.setSeconds(now.getSeconds() + (loc.NEXT_NOON * 24 * 60 * 60));
 	next = new Date(next).toLocaleString();
@@ -204,7 +220,7 @@ function updateDebugUI() {
 	setText('next-noon-countdown', remain);
 	setText('next-noon-date', next);
 
-	now = new Date();
+	now = CHOSEN_TIME();
 	now.setMilliseconds(0);
 	next = now.setSeconds(now.getSeconds() + (loc.NEXT_STAR_SET * 24 * 60 * 60));
 	next = new Date(next).toLocaleString();
@@ -216,7 +232,7 @@ function updateDebugUI() {
 
 function updateSettingsLocationTimes() {
 	let buttons = document.getElementsByClassName('BUTTON-set-location');
-	
+
 	for (let element of buttons) {
 		let timeElement = element.querySelector('.set-location-time');
 		let locationName = element.dataset.locationName;
@@ -237,7 +253,7 @@ function updateSettingsLocationTimes() {
 }
 
 function setText(elementID, string) {
-	let el = (typeof(elementID) === 'string') ? document.getElementById(elementID) : elementID;
+	let el = (typeof (elementID) === 'string') ? document.getElementById(elementID) : elementID;
 
 	if (!el) {
 		console.log('Problematic elementID:', elementID);
@@ -256,7 +272,7 @@ function REAL_TIME(formatAsString = false) {
 function UNIVERSE_TIME(formatAsString = false) {
 	let date2020 = new Date('January 1, 2020 00:00:00Z');
 	let date2950 = new Date('January 1, 2950 00:00:00Z');
-	let universeTime = date2950.getTime() + ( (new Date() - date2020) * 6);
+	let universeTime = date2950.getTime() + ((CHOSEN_TIME() - date2020) * 6);
 	return (!formatAsString) ? universeTime : new Date(universeTime).toUTCString();
 }
 
@@ -264,8 +280,8 @@ function HOURS_TO_TIME_STRING(hours, includeSeconds = true, limitTo24Hours = tru
 	if (hours < 0) return '- NEGATIVE -';
 
 	let h = hours;
-	let m = ( h - Math.floor(h) ) * 60;
-	let s = ( m - Math.floor(m) ) * 60;
+	let m = (h - Math.floor(h)) * 60;
+	let s = (m - Math.floor(m)) * 60;
 
 	s = Math.round(s);
 	if (s >= 60) {
@@ -283,7 +299,7 @@ function HOURS_TO_TIME_STRING(hours, includeSeconds = true, limitTo24Hours = tru
 	if (limitTo24Hours) {
 		while (h >= 24) h -= 24;
 	}
-	
+
 	let ampm = '';
 	if (limitTo24Hours && !window.SETTING_24HR) {
 		ampm = ' ' + GET_AM_PM(h);
@@ -331,7 +347,7 @@ async function loadDatabase() {
 			throw new Error(`Error fetching celestial bodies: ${response.status}`);
 		}
 		bodiesCSV = await response.text();
-	
+
 	} catch (error) {
 		console.error('Error fetching celestial bodies:', error);
 	}
@@ -349,7 +365,7 @@ async function loadDatabase() {
 			throw new Error(`Error fetching locations: ${response.status}`);
 		}
 		locationsCSV = await response.text();
-	
+
 	} catch (error) {
 		console.error('Error fetching locations:', error);
 	}
@@ -390,15 +406,15 @@ function createCelestialBody(data) {
 		parentBody,
 		parentStar,
 		{
-			'x' : parseFloat(data.coordinateX),
-			'y' : parseFloat(data.coordinateY),
-			'z' : parseFloat(data.coordinateZ)
+			'x': parseFloat(data.coordinateX),
+			'y': parseFloat(data.coordinateY),
+			'z': parseFloat(data.coordinateZ)
 		},
 		{
-			'w' : parseFloat(data.quaternionW),
-			'x' : parseFloat(data.quaternionX),
-			'y' : parseFloat(data.quaternionY),
-			'z' : parseFloat(data.quaternionZ)
+			'w': parseFloat(data.quaternionW),
+			'x': parseFloat(data.quaternionX),
+			'y': parseFloat(data.quaternionY),
+			'z': parseFloat(data.quaternionZ)
 		},
 		parseFloat(data.bodyRadius),
 		parseFloat(data.rotationRate),
@@ -406,9 +422,9 @@ function createCelestialBody(data) {
 		parseFloat(data.orbitAngle),
 		parseFloat(data.orbitRadius),
 		{
-			'r' : parseInt(data.themeColorR),
-			'g' : parseInt(data.themeColorG),
-			'b' : parseInt(data.themeColorB)
+			'r': parseInt(data.themeColorR),
+			'g': parseInt(data.themeColorG),
+			'b': parseInt(data.themeColorB)
 		},
 		String(themeImage)
 	);
@@ -433,9 +449,9 @@ function createLocation(data) {
 		parentBody,
 		parentStar,
 		{
-			'x' : parseFloat(data.coordinateX),
-			'y' : parseFloat(data.coordinateY),
-			'z' : parseFloat(data.coordinateZ)
+			'x': parseFloat(data.coordinateX),
+			'y': parseFloat(data.coordinateY),
+			'z': parseFloat(data.coordinateZ)
 		},
 		null,
 		String(themeImage)
@@ -492,6 +508,6 @@ startVerseTime();
 
 
 window.addEventListener('hashchange', () => {
-	if (window.suppressReload) return; 
+	if (window.suppressReload) return;
 	window.location.reload(true);
 }, false);
