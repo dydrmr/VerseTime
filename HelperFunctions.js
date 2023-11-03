@@ -75,8 +75,23 @@ export function RANDOM(min, max) {
 	return rand * (max - min) + min;
 }
 
+export function DISTANCE_2D(x1, y1, x2, y2) {
+	const a = x2 - x1;
+	const b = y2 - y1;
+	return Math.sqrt((a * a) + (b * b));
+}
+
+export function DISTANCE_3D(x1, y1, z1, x2, y2, z2, squared = false) {
+	const x = parseFloat(x2) - parseFloat(x1);
+	const y = parseFloat(y2) - parseFloat(y1);
+	const z = parseFloat(z2) - parseFloat(z1);
+
+	let sum = (x * x) + (y * y) + (z * z);
+	return squared ? sum : Math.sqrt(sum);
+}
+
 export function GREAT_CIRCLE_DISTANCE(x1, y1, z1, x2, y2, z2, radius) {
-	// Convert X, Y, Z coordinates to latitude and longitude
+	// Convert coordinates to latitude and longitude
 	const lat1 = Math.asin(z1 / radius);
 	const lon1 = Math.atan2(y1, x1);
 	const lat2 = Math.asin(z2 / radius);

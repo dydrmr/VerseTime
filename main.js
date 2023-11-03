@@ -396,9 +396,20 @@ function parseCSV(csvString) {
 }
 
 function createCelestialBody(data) {
-	let parentBody = (data.parentBody === 'null') ? null : getBodyByName(data.parentBody);
-	let parentStar = (data.parentStar === 'null') ? null : getBodyByName(data.parentStar);
-	let themeImage = (data.themeImage === 'null') ? null : data.themeImage;
+	if (data.bodyRadius === '') return;
+
+	let parentBody = (data.parentBody === '') ? null : getBodyByName(data.parentBody);
+	let parentStar = (data.parentStar === '') ? null : getBodyByName(data.parentStar);
+	let themeImage = (data.themeImage === '') ? null : String(data.themeImage);
+
+	let themeColor = {'r': 0, 'g': 0, 'b': 0};
+	if (data.themeColorR !== '') {
+		themeColor = {
+			'r' : parseInt(data.themeColorR),
+			'g' : parseInt(data.themeColorG),
+			'b' : parseInt(data.themeColorB)
+		}
+	}
 
 	let body = new CelestialBody(
 		String(data.name),
@@ -421,12 +432,8 @@ function createCelestialBody(data) {
 		parseFloat(data.rotationCorrection),
 		parseFloat(data.orbitAngle),
 		parseFloat(data.orbitRadius),
-		{
-			'r': parseInt(data.themeColorR),
-			'g': parseInt(data.themeColorG),
-			'b': parseInt(data.themeColorB)
-		},
-		String(themeImage)
+		themeColor,
+		themeImage
 	);
 
 	if (data.ringRadiusInner !== 'null') {
@@ -460,11 +467,7 @@ function createLocation(data) {
 
 
 function getBodyByName(string) {
-	let result = window.BODIES.filter(bod => {
-		if (bod.NAME === string) {
-			return bod;
-		}
-	});
+	const result = BODIES.filter(bod => bod.NAME === string);
 
 	if (result.length === 0) {
 		console.error(`Body "${string}" not found.`);
@@ -476,11 +479,7 @@ function getBodyByName(string) {
 window.getBodyByName = getBodyByName;
 
 function getLocationByName(string) {
-	let result = window.LOCATIONS.filter(loc => {
-		if (loc.NAME === string) {
-			return loc;
-		}
-	});
+	const result = LOCATIONS.filter(loc => loc.NAME === string);
 
 	if (result.length === 0) {
 		console.error(`Location "${string}" not found.`);

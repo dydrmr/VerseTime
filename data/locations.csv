@@ -9,8 +9,8 @@ ArcCorp Mining Area 056,Outpost,Wala,Stanton,116.546,-50.147,253.155,https://sta
 ArcCorp Mining Area 061,Outpost,Wala,Stanton,-21.04,-247.548,-132.57,https://starcitizen.tools/images/thumb/d/d6/ArcCorp_Mining_Area_061.png/300px-ArcCorp_Mining_Area_061.png
 ArcCorp Mining Area 141,Outpost,Daymar,Stanton,-18.167,180.362,-232.76,https://media.starcitizen.tools/thumb/4/4f/Daymar_ArcCorp-Mining-Area-141_Morning.jpg/300px-Daymar_ArcCorp-Mining-Area-141_Morning.jpg
 ArcCorp Mining Area 157,Outpost,Yela,Stanton,6.023,222.356,220.313,https://starcitizen.tools/images/thumb/0/0f/Yela_Arccorp-157_Day_Alpha-3.10.jpg/300px-Yela_Arccorp-157_Day_Alpha-3.10.jpg
-ArcCorp Processing Center 115,Underground bunker,Wala,Stanton,-277.356,50.11,27.88,
-ArcCorp Processing Center 123,Underground bunker,Wala,Stanton,130.624,-247.521,43.129,
+ArcCorp Processing Center 115,Underground bunker,Wala,Stanton,-277.356,50.11,27.88,https://media.starcitizen.tools/thumb/7/7d/ArcCorp_Processing_Center_115%2C_Wala.png/300px-ArcCorp_Processing_Center_115%2C_Wala.png
+ArcCorp Processing Center 123,Underground bunker,Wala,Stanton,130.624,-247.521,43.129,https://media.starcitizen.tools/thumb/3/3b/ArcCorp_Processing_Center_123%2C_Wala.png/300px-ArcCorp_Processing_Center_123%2C_Wala.png
 Area04,City,ArcCorp,Stanton,-314.306,-601.435,423.659,
 Area06,City,ArcCorp,Stanton,-745.806,-111.306,267.38,
 Area11,City,ArcCorp,Stanton,508.204,397.589,472.922,
@@ -83,7 +83,6 @@ HDMS-Ryder,Outpost,Ita,Stanton,-175.874,-263.381,73.709,https://starcitizen.tool
 HDMS-Stanhope,Outpost,Hurston,Stanton,-648.608,198.313,735.121,https://starcitizen.tools/images/thumb/9/9b/HDMS_Stanhope.png/300px-HDMS_Stanhope.png
 HDMS-Thedus,Outpost,Hurston,Stanton,443.322,891.525,101.509,https://starcitizen.tools/images/thumb/d/d3/HDMS_Thedus_Sunrise.jpg/300px-HDMS_Thedus_Sunrise.jpg
 HDMS-Woodruff,Outpost,Ita,Stanton,114.792,219.661,210.467,https://starcitizen.tools/images/thumb/4/4a/HDMS-Woodruff2.png/300px-HDMS-Woodruff2.png
-HDRSO-Bramen (Security Post Hurston-1),Underground bunker,Hurston,Stanton,766.55,-74.234,-640.243,https://starcitizen.tools/images/thumb/3/36/HDRSO-Bramen3.png/300px-HDRSO-Bramen3.png
 HDSF-Adlai,Underground bunker,Hurston,Stanton,-236.846,-810.89,537.736,https://starcitizen.tools/images/thumb/e/e3/HDSF_Adlai.png/300px-HDSF_Adlai.png
 HDSF-Barnabas,Underground bunker,Hurston,Stanton,-895.864,365.595,-252.546,https://starcitizen.tools/images/thumb/1/19/HDSF-Barnabas37.png/300px-HDSF-Barnabas37.png
 HDSF-Breckinridge,Underground bunker,Hurston,Stanton,-557.599,680.528,-477.825,https://starcitizen.tools/images/thumb/2/20/Breckinridge3.png/300px-Breckinridge3.png
@@ -95,7 +94,7 @@ HDSF-Hiram,Underground bunker,Hurston,Stanton,-942.48,-317.031,122.747,https://s
 HDSF-Hobart,Underground bunker,Hurston,Stanton,-492.22,768.371,410.823,https://starcitizen.tools/images/thumb/8/8b/HDSD-Hobart48.png/300px-HDSD-Hobart48.png
 HDSF-Ishmael,Underground bunker,Hurston,Stanton,-266.171,-159.479,952.333,https://starcitizen.tools/images/thumb/e/e5/HDSF-Ishmael14.png/300px-HDSF-Ishmael14.png
 HDSF-Millerand,Underground bunker,Hurston,Stanton,-847.551,517.597,126.804,https://starcitizen.tools/images/thumb/d/df/HDSF-Millerand_19.png/300px-HDSF-Millerand_19.png
-HDSF-Palomar,Underground bunker,Hurston,Stanton,766.601,-74.225,-640.183,
+HDSF-Palomar,Underground bunker,Hurston,Stanton,766.601,-74.225,-640.183,https://starcitizen.tools/images/thumb/3/36/HDRSO-Bramen3.png/300px-HDRSO-Bramen3.png
 HDSF-Rufus,Underground bunker,Hurston,Stanton,-64.794,11.531,-998.425,https://starcitizen.tools/images/thumb/e/e3/HDSF-Rufus48.png/300px-HDSF-Rufus48.png
 HDSF-Sherman,Underground bunker,Hurston,Stanton,899.38,-406.057,168.518,https://starcitizen.tools/images/thumb/5/55/HDSF-Sherman59.png/300px-HDSF-Sherman59.png
 HDSF-Tamar,Underground bunker,Hurston,Stanton,121.122,-810.963,-573.527,https://starcitizen.tools/images/thumb/2/2b/HDSF-Tamar24.png/300px-HDSF-Tamar24.png
@@ -210,3 +209,18 @@ Whistler's Crypt,Settlement,Daymar,Stanton,182.262,222.629,65.625,https://starci
 Wolf Point Aid Shelter,Emergency shelter,Daymar,Stanton,-4.42,279.067,95.733,https://starcitizen.tools/images/thumb/7/76/Wolf_Point_Aid_Shelter%2C_Daymar_%28Alpha_3.17%29.png/300px-Wolf_Point_Aid_Shelter%2C_Daymar_%28Alpha_3.17%29.png
 Yadar Valley,Racetrack,Daymar,Stanton,-171.798,157.576,181.015,https://media.starcitizen.tools/thumb/d/d2/Yadar_Valley_racetrack%2C_Daymar_-_day.jpg/300px-Yadar_Valley_racetrack%2C_Daymar_-_day.jpg
 Zephyr,Settlement,Hurston,Stanton,108.16,-133.662,986.694,
+[TEST] Bueno Ravine,Settlement,Bloom,Pyro,-15.8325105,184.964996,-136.8504014,https://media.starcitizen.tools/thumb/5/56/Bueno_Ravine_overview_-_Bloom%2C_Pyro_system.png/300px-Bueno_Ravine_overview_-_Bloom%2C_Pyro_system.png
+[TEST] Sunset Mesa,Scrapyard,Monox,Pyro,-186.040881,-4.858037656,-171.9640058,https://media.starcitizen.tools/thumb/2/2f/Sunset_Mesa_-_Monox%2C_Pyro_system.png/400px-Sunset_Mesa_-_Monox%2C_Pyro_system.png
+[TEST] Yang's Place,Settlement,Monox,Pyro,-35.8825319,155.9626035,-49.61542713,https://media.starcitizen.tools/thumb/2/2a/Yang%27s_Place_-_lower_area_-_Monox%2C_Pyro_system.png/300px-Yang%27s_Place_-_lower_area_-_Monox%2C_Pyro_system.png
+[TEST] Shadowfall,Settlement,Bloom,Pyro,-247.3585168,-108.9401279,-101.8631546,https://media.starcitizen.tools/thumb/4/45/Shadowfall_-_Bloom%2C_Pyro_system.png/400px-Shadowfall_-_Bloom%2C_Pyro_system.png
+[TEST] The Yard,Settlement,Bloom,Pyro,147.8327199,-77.37121245,-48.53444763,https://media.starcitizen.tools/thumb/0/01/The_Yard_-_Bloom%2C_Pyro_system.png/400px-The_Yard_-_Bloom%2C_Pyro_system.png
+[TEST] Orbituary,Space station,Bloom,Pyro,181.3157082,-81.47757167,182.9359409,https://media.starcitizen.tools/thumb/2/24/Pyro_-_Orbituary_space_station.png/300px-Pyro_-_Orbituary_space_station.png
+[TEST] The Golden Riviera,Settlement,Bloom,Pyro,225.9287335,96.92386654,-118.7144882,https://media.starcitizen.tools/thumb/1/10/Golden_Riviera_exterior_overview_-_Bloom%2C_Pyro_system.png/300px-Golden_Riviera_exterior_overview_-_Bloom%2C_Pyro_system.png
+[TEST] Shepherd's Rest,Settlement,Bloom,Pyro,148.5860756,-60.67650562,-141.9192363,https://media.starcitizen.tools/thumb/8/8e/Shepherd%27s_Rest%2C_morning_-_Bloom%2C_Pyro_system.png/300px-Shepherd%27s_Rest%2C_morning_-_Bloom%2C_Pyro_system.png
+[TEST] Last Ditch,Settlement,Monox,Pyro,98.34570478,126.2819652,134.0246699,https://media.starcitizen.tools/thumb/d/d7/Last_Ditch_-_Monox%2C_Pyro_system.png/400px-Last_Ditch_-_Monox%2C_Pyro_system.png
+[TEST] Jackson's Swap,Settlement,Monox,Pyro,-157.3724124,-122.9624903,76.63352522,https://media.starcitizen.tools/thumb/6/69/Jackson%27s_Swap_-_Monox%2C_Pyro_system.png/400px-Jackson%27s_Swap_-_Monox%2C_Pyro_system.png
+[TEST] Rustville,Settlement,Pyro I,Pyro,-39.46676666,-146.4131997,-38.27341412,https://media.starcitizen.tools/thumb/e/e1/Rustville_-_Pyro_I%2C_Pyro_system.png/400px-Rustville_-_Pyro_I%2C_Pyro_system.png
+[TEST] Derelict Outpost (Pyro I),Ruins,Pyro I,Pyro,-145.5648288,-233.6271118,-91.37818487,
+[TEST] Derelict Outpost (Monox),Ruins,Monox,Pyro,-126.6490066,-0.04514847222,-34.41236065,
+[TEST] Derelict Outpost (Bloom),Ruins,Bloom,Pyro,91.1372073,-243.8708992,-41.53647228,
+[TEST] Ruin Station,Space station,Terminus,Pyro,176.1960241,48.39257946,-205.9368609,https://media.starcitizen.tools/thumb/a/ac/PYRO_STATION_EXTERIOR_WHITEBOX_04-scaled.jpg/300px-PYRO_STATION_EXTERIOR_WHITEBOX_04-scaled.jpg

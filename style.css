@@ -636,6 +636,15 @@ body {
 .icon-space {
 	background-image: url('img/icon-space.png');
 }
+.icon-star {
+	background-image: url('img/icon-star.png');
+}
+.icon-planet {
+	background-image: url('img/icon-planet.png');
+}
+.icon-wormhole {
+	background-image: url('img/icon-wormhole.png');
+}
 
 
 .mapOrbitalMarker {
@@ -716,6 +725,84 @@ body {
 #map-settings-container:nth-child(even) {
 	text-align: left;
 	width: auto;
+}
+
+
+
+
+.atlas-label {
+	padding: 1px;
+	color: white;
+	font-family: 'Rajdhani', sans-serif;
+	font-weight: bold;
+	font-size: 15px;
+	
+	text-shadow: 
+		0 0 8px var(--theme-color-dark), 
+		0 0 8px var(--theme-color-dark), 
+		0 0 8px var(--theme-color-dark);
+
+	cursor: pointer;
+	opacity: 1;
+	transition: opacity 0.2s;
+	margin-top: 11.5px;
+
+	outline: 1px solid rgba(255, 0, 0, 0.8);
+}
+.atlas-label[data-visible=false] {
+	opacity: 0;
+	user-select: none;
+	pointer-events: none;
+}
+.atlas-label[data-object-type="Lagrange Point"] {
+	font-weight: normal;
+	font-size: 70%;
+	color: rgba(255, 255, 255, 0.5);
+}
+.atlas-label[data-object-type="Jump Point"] {
+	font-weight: normal;
+	font-size: 70%;
+	color: rgba(255, 255, 255, 0.5);
+}
+.atlas-label[data-object-type="Location"] {
+	font-size: 70%;
+	color: rgba(255, 255, 255, 0.5);
+}
+
+.atlas-label-location {
+	pointer-events: none;
+	user-select: none;
+}
+
+#atlas-debug-info {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	color: white;
+	font-size: 12px;
+	font-family: 'Roboto Mono', monospace;
+}
+
+#BUTTON-atlas-zoom-in, #BUTTON-atlas-zoom-out {
+	z-index: 10;
+	position: absolute;
+	color: white;
+	background-color: gray;
+	right: 0px;
+	margin: 5px;
+	padding: 3px;
+	font-size: 12px;
+	line-height: 12px;
+	text-align: center;
+	cursor: pointer;
+}
+
+#BUTTON-atlas-zoom-in {
+	top: 0px;
+}
+
+#BUTTON-atlas-zoom-out {
+	top: 25px;
 }
 
 

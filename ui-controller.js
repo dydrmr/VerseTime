@@ -1,10 +1,11 @@
 let showSettingsWindow = false;
 let showCreditsWindow = false;
 let showMapWindow = false;
+let showAtlasWindow = false;
 let hoverLocation = null;
 
-document.getElementById('BUTTON-open-settings').addEventListener('click', function (e) { toggleSettingsWindow(); });
-document.getElementById('BUTTON-close-settings').addEventListener('click', function (e) { toggleSettingsWindow(); });
+document.getElementById('BUTTON-open-settings').addEventListener('click', function(e) { toggleSettingsWindow(); });
+document.getElementById('BUTTON-close-settings').addEventListener('click', function(e) { toggleSettingsWindow(); });
 
 function toggleSettingsWindow(forceState = null) {
 
@@ -27,13 +28,13 @@ function toggleSettingsWindow(forceState = null) {
 }
 
 
-document.getElementById('BUTTON-toggle-credits-window').addEventListener('click', function (e) { toggleCreditsWindow(); });
-document.getElementById('BUTTON-close-credits').addEventListener('click', function (e) { toggleCreditsWindow(); });
+document.getElementById('BUTTON-toggle-credits-window').addEventListener('click', function(e) { toggleCreditsWindow(); });
+document.getElementById('BUTTON-close-credits').addEventListener('click', function(e) { toggleCreditsWindow(); });
 
-document.getElementById('BUTTON-toggle-map-window').addEventListener('click', function (e) { toggleMapWindow(); });
-document.getElementById('BUTTON-close-map').addEventListener('click', function (e) { toggleMapWindow(); });
+document.getElementById('BUTTON-toggle-map-window').addEventListener('click', function(e) { toggleMapWindow(); });
+document.getElementById('BUTTON-close-map').addEventListener('click', function(e) { toggleMapWindow(); });
 
-document.getElementById('BUTTON-share-location').addEventListener('click', function (e) { shareLocation(); });
+document.getElementById('BUTTON-share-location').addEventListener('click', function(e) { shareLocation(); });
 
 
 function toggleCreditsWindow() {
@@ -55,30 +56,30 @@ function toggleMapWindow() {
 	document.getElementById('map-window').style.transform = (showMapWindow ? 'scale(1)' : 'scale(0)');
 }
 
+function toggleAtlasWindow() {
+	showAtlasWindow = !showAtlasWindow;
+
+	if (showAtlasWindow) { 
+		document.dispatchEvent(new CustomEvent('createAtlasScene'));
+	}
+
+	const atlasModal = document.getElementById('modal-atlas');
+	const atlasContainer = document.getElementById('atlas-container');
+
+	atlasModal.style.opacity = (showAtlasWindow ? 1 : 0);
+	atlasModal.style.pointerEvents = (showAtlasWindow ? 'auto' : 'none');
+	atlasContainer.style.transform = (showAtlasWindow ? 'scale(1)' : 'scale(0)');
+}
+
 function getHashedLocation() {
-	let loc = window?.ACTIVE_LOCATION?.NAME;
-	if (loc !== undefined) {
-		loc = loc.replaceAll(' ', '_');
-	}
-	return loc;
-}
-
-function getHashedChosenTime() {
-	if (window.CHOSEN_TIME != 'now') {
-		return '@' + window.CHOSEN_TIME;
-	}
-	return '';
-}
-
-function getHash() {
-	let loc = getHashedLocation() + getHashedChosenTime()
+	let loc = window.ACTIVE_LOCATION.NAME;
 	return loc.replaceAll(' ', '_');
 }
 
 function shareLocation() {
-	const url = location.protocol + '//' + location.host + location.pathname + '#' + getHash();
+	const url = location.protocol + '//' + location.host + location.pathname + '#' + getHashedLocation();
 	navigator.clipboard.writeText(url);
-
+	
 	const msg = document.getElementById('share-location-message');
 	msg.style.transition = '0s ease-out';
 	msg.style.opacity = 1;
@@ -103,10 +104,10 @@ function setLocation(locationName) {
 		toggleSettingsWindow('off');
 
 		window.suppressReload = true;
-		parent.location.hash = getHash();
+		parent.location.hash = getHashedLocation();
 		setTimeout(() => {
 			window.suppressReload = false;
-		}, 1000);
+		}, 1000)
 
 		// toggleMessageBasedOnLocation();
 
@@ -116,31 +117,6 @@ function setLocation(locationName) {
 		throw 'Invalid [locationName] parameter passed to [setLocation] function!\nValue passed: ' + locationName;
 		return false;
 	}
-}
-
-function setChosenTime(inputTime, isUnix = false) {
-	let newChosenTime = 'now';
-	if (isUnix) {
-		newChosenTime = Number.parseInt(inputTime);
-	} else {
-		let inputDate = new Date(inputTime);
-		newChosenTime = inputDate.valueOf() / 1000;
-	}
-
-	if (Number.isNaN(newChosenTime) || !Number.isFinite(newChosenTime)) {
-		newChosenTime = 'now';
-	}
-
-	window.CHOSEN_TIME = newChosenTime;
-
-	// saveSetting('chosenTime', window.CHOSEN_TIME.NAME);
-	// toggleSettingsWindow('off');
-
-	window.suppressReload = true;
-	parent.location.hash = getHash();
-	setTimeout(() => {
-		window.suppressReload = false;
-	}, 1000);
 }
 
 // function toggleMessageBasedOnLocation() {
@@ -161,7 +137,7 @@ function populateLocationList() {
 	for (let loc of window.LOCATIONS) {
 		let el = document.createElement('div');
 		el.className = 'BUTTON-set-location';
-		el.addEventListener('click', function (e) { setLocation(loc.NAME); });
+		el.addEventListener('click', function(e) { setLocation(loc.NAME); });
 		el.dataset.locationName = loc.NAME;
 
 		let elName = document.createElement('p');
@@ -185,7 +161,7 @@ function populateLocationList() {
 
 
 // LOCATION SEARCH FILTER
-document.getElementById('location-selection-input').addEventListener('input', (event) => {
+document.getElementById('location-selection-input').addEventListener('input', (event) => { 
 	let search = document.getElementById("location-selection-input").value.toLowerCase();
 	let searchFragments = search.split('+');
 	let buttons = document.getElementsByClassName('BUTTON-set-location');
@@ -208,15 +184,11 @@ document.getElementById('location-selection-input').addEventListener('input', (e
 	}
 });
 
-// TIME SELECTION FILTER
-document.getElementById('time-selection-input').addEventListener('input', (event) => {
-	let timeInput = document.getElementById("time-selection-input").value;
-	setChosenTime(timeInput);
-});
+
 
 
 // KEYBOARD INPUT
-document.addEventListener('keydown', function (event) {
+document.addEventListener('keydown', function(event){
 	if (event.key === 'Escape') {
 		if (showSettingsWindow) toggleSettingsWindow();
 		if (showCreditsWindow) toggleCreditsWindow();
@@ -226,13 +198,14 @@ document.addEventListener('keydown', function (event) {
 
 	if (event.target.tagName.toLowerCase() === 'input') { return; }
 
+	if (event.keyCode === 65) { toggleAtlasWindow(); }
 
 	if (event.keyCode === 68) { toggleDebugWindow(); }
 
 	if (event.keyCode === 77) {
 		document.getElementById('BUTTON-toggle-map-window').click();
 	}
-
+	
 	if (event.keyCode === 84) {
 		window.SETTING_24HR = !window.SETTING_24HR;
 		saveSetting('time24', window.SETTING_24HR);
