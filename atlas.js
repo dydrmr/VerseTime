@@ -116,13 +116,12 @@ document.addEventListener('createAtlasScene', function (e) {
 });
 
 function createAtlasScene() {
-	console.log('we are in');
 	scene.clear();
 	const mapScale = 1_000_000;
 	const activeBody = window.ACTIVE_LOCATION.PARENT;
 	const systemBodies = getCelestialBodiesInSystem(activeBody.PARENT_STAR.NAME);
 
-	createReferenceGrid(mapScale, 50_000_000);
+	// createReferenceGrid(mapScale, 50_000_000);
 
 	for (let body of systemBodies) {
 		const rawPos = body.COORDINATES;
@@ -302,8 +301,45 @@ function organizeLabels() {
 	if (renderer.info.render.frame % 5 !== 0) { return false; }
 
 	// organizeLocationLabels();
-	organizeBodyLabels();
+	// organizeBodyLabels();
+
+	organizeLabelsVersionTwo();
+
 	return true;
+}
+
+function organizeLabelsVersionTwo() {
+	const allLabels = document.querySelectorAll('.atlas-label');
+	const distance = controls.getDistance();
+
+	for (let label of allLabels) {
+		label.dataset.visible = true;
+
+		if (distance > 700 && label.dataset.objectType !== 'Star') {
+			label.dataset.visible = false;
+			continue;
+		}
+
+		if (distance > 110 && label.dataset.objectType === 'Lagrange Point') {
+			label.dataset.visible = false;
+			continue;
+		}
+
+		if (distance > 5 && label.dataset.objectType === 'Moon') {
+			label.dataset.visible = false;
+			continue;
+		}
+
+		if (distance > 0.5 && label.dataset.objectType === 'Location') {
+			label.dataset.visible = false;
+			continue;
+		}
+
+		if (label.dataset.objectType === 'Location' && label.dataset.bodyName !== focusedBody) {
+			label.dataset.visible = false;
+			continue;
+		}
+	}
 }
 
 function organizeBodyLabels() {

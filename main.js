@@ -38,11 +38,18 @@ function update() {
 	let location = window.ACTIVE_LOCATION;
 	let body = window.ACTIVE_LOCATION ? window.ACTIVE_LOCATION.PARENT : null;
 
-	let col = location.THEME_COLOR;
-	document.querySelector(':root').style.setProperty('--theme-color', `rgb(${col.r}, ${col.g}, ${col.b})`);
-	document.querySelector(':root').style.setProperty('--theme-color-dark', `rgb(${col.r * 0.2}, ${col.g * 0.2}, ${col.b * 0.2})`);
-	document.getElementById('selected-location-bg-image').backgroundColor = `rgb(${col.r}, ${col.g}, ${col.b})`;
-	document.getElementById('selected-location-bg-image').style.backgroundImage = `url('${location.THEME_IMAGE}')`;
+	const col = location.THEME_COLOR;
+	const colorMain = `rgb(${col.r}, ${col.g}, ${col.b})`;
+	const colorDark = `rgb(${col.r*0.2}, ${col.g*0.2}, ${col.b*0.2})`;
+
+	document.querySelector(':root').style.setProperty('--theme-color', colorMain);
+	document.querySelector(':root').style.setProperty('--theme-color-dark', colorDark);
+
+	const bg = document.getElementById('selected-location-bg-image');
+	const bgImage = `url('${location.THEME_IMAGE}')`;
+	if (bg.backgroundColor !== colorMain) bg.backgroundColor = colorMain;
+	// TODO: re-enable after testing:
+	// if (bg.style.backgroundImage !== bgImage) bg.style.backgroundImage = bgImage;
 
 
 	// MAIN LOCATION INFO
