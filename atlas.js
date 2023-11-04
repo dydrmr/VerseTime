@@ -12,6 +12,8 @@ import { RADIANS, ROUND, DISTANCE_3D } from './HelperFunctions.js';
 
 let scene, camera, renderer, labelRenderer, controls, zoomControls;
 let atlasDiv = document.getElementById('atlas-container');
+
+const mapScale = 1_000_000;
 let focusedBody = null;
 
 // TODO:
@@ -84,12 +86,15 @@ function render() {
 
 
 	//TODO: SCALE CELESTIAL BODIES BASED ON ZOOM LEVEL
-	renderDebugInfo();
-	
+	updateDebugInfo();
 }
 
-function renderDebugInfo() {
-	const start = window.performance.now();
+function updateDebugInfo() {
+	setText('atlas-zoom', 'Zoom: ' + ROUND(controls.getDistance(), 4));
+	setText('atlas-focused-object', 'Focus: ' + String(focusedBody));
+
+
+	/*const start = window.performance.now();
 	const organized = organizeLabels();
 	const end = window.performance.now();
 	
@@ -105,10 +110,7 @@ function renderDebugInfo() {
 
 	if (organized) {
 		setText('atlas-label-render', `${allLabels.length} labels / ${visibleLabels.length} visible / time: ${ROUND(end - start, 3)} ms`);
-	}
-
-	setText('atlas-zoom', 'Zoom: ' + ROUND(controls.getDistance(), 4));
-	setText('atlas-focused-object', 'Focus: ' + String(focusedBody));
+	}*/
 }
 
 document.addEventListener('createAtlasScene', function (e) {
@@ -116,12 +118,67 @@ document.addEventListener('createAtlasScene', function (e) {
 });
 
 function createAtlasScene() {
+	if (scene.children.length !== 0) return;
+
+	createGalaxyGrid(100);
+
+	for (const system of window.SYSTEMS) {
+		const geo = new THREE.SphereGeometry(1, 24, 24);
+		const mat = new THREE.MeshBasicMaterial({
+			color: `rgb(180, 50, 50)`,
+		});
+		const object = new THREE.Mesh(geo, mat);
+		object.position.x = system.COORDINATES.x;
+		object.position.y = system.COORDINATES.y;
+		object.position.z = system.COORDINATES.z;
+		scene.add(object);
+	}
+
+	console.log(scene);
+}
+
+function createGalaxyGrid(size) {
+	const axisMaterial = new THREE.LineBasicMaterial({
+		color: `rgb(255, 255, 255)`,
+		transparent: true,
+		opacity: 0.2
+	});
+
+	const regularMaterial = new THREE.LineBasicMaterial({
+		color: `rgb(255, 255, 255)`,
+		transparent: true,
+		opacity: 0.05
+	});
+
+	const halfSize = size / 2;
+
+	for (let x = -halfSize; x <= halfSize; x += 5) {
+		const mat = (x === 0) ? axisMaterial : regularMaterial;
+		const line = makeLine(x, -halfSize, 0, x, halfSize, 0, mat);
+		scene.add(line);
+	}
+
+	for (let y = -halfSize; y <= halfSize; y += 5) {
+		const mat = (y === 0) ? axisMaterial : regularMaterial;
+		const line = makeLine(-halfSize, y, 0, halfSize, y, 0, mat);
+		scene.add(line);
+	}
+}
+
+function createLables() {
+
+}
+
+
+
+
+
+
+// OLD OLD OLD OLD OLD OLD
+function createAtlasScene_version1() {
 	scene.clear();
-	const mapScale = 1_000_000;
 	const activeBody = window.ACTIVE_LOCATION.PARENT;
 	const systemBodies = getCelestialBodiesInSystem(activeBody.PARENT_STAR.NAME);
-
-	// createReferenceGrid(mapScale, 50_000_000);
 
 	for (let body of systemBodies) {
 		const rawPos = body.COORDINATES;
@@ -241,22 +298,6 @@ function setBodyIcon(type, element) {
 	}
 }
 
-
-function createReferenceGrid(mapScale, systemSize = 50_000_000) {
-	const material = new THREE.LineBasicMaterial( {
-		color: `rgb(255, 255, 255)`,
-		transparent: true,
-		opacity: 0.05
-	});
-
-	const maximum = systemSize / mapScale;
-
-	const xAxis = makeLine(-maximum, 0, 0, maximum, 0, 0, material);
-	const yAxis = makeLine(0, -maximum, 0, 0, maximum, 0, material);
-
-	scene.add(xAxis);
-	scene.add(yAxis);
-}
 
 function createOrbitLines(bodies, mapScale) {
 	const material = new THREE.LineBasicMaterial( {

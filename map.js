@@ -69,7 +69,7 @@ document.getElementById('BUTTON-toggle-map-window').addEventListener('click', fu
 	let sats = window.BODIES.filter(bod => {
 		if (!bod.PARENT) return false;
 
-		if (bod.PARENT.NAME === body.NAME) {
+		if (bod.PARENT.NAME === body.NAME && bod.TYPE !== 'Lagrange Point') {
 			return true;
 		} else {
 			return false;

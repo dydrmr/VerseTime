@@ -1,8 +1,9 @@
 import { ROUND, CHOSEN_TIME } from './HelperFunctions.js';
-import CelestialBody from './CelestialBody.js';
-import Location from './Location.js';
+import SolarSystem from './classes/System.js';
+import CelestialBody from './classes/CelestialBody.js';
+import Location from './classes/Location.js';
 
-
+window.SYSTEMS = Array();
 window.BODIES = Array();
 window.LOCATIONS = Array();
 window.ACTIVE_LOCATION = null;
@@ -346,8 +347,23 @@ function CONVERT_24H_TO_12H(hour) {
 
 
 async function loadDatabase() {
-	let bodiesCSV = null;
+	let systemsCSV = null;
+	try {
+		const response = await fetch('data/systems.csv');
+		if (!response.ok) {
+			throw new Error(`Error fetching solar systems: ${response.status}`);
+		}
+		systemsCSV = await response.text();
 
+	} catch (error) {
+		console.error('Error fetching solar systems:', error);
+	}
+
+	const systems = parseCSV(systemsCSV);
+	for (const system of systems) { createSolarSystem(system); }
+
+
+	let bodiesCSV = null;
 	try {
 		const response = await fetch('data/bodies.csv');
 		if (!response.ok) {
@@ -359,10 +375,8 @@ async function loadDatabase() {
 		console.error('Error fetching celestial bodies:', error);
 	}
 
-	let bodies = parseCSV(bodiesCSV);
-	for (let i = 0; i < bodies.length; i++) {
-		createCelestialBody(bodies[i]);
-	}
+	const bodies = parseCSV(bodiesCSV);
+	for (const body of bodies) { createCelestialBody(body); }
 
 
 	let locationsCSV = null;
@@ -377,10 +391,8 @@ async function loadDatabase() {
 		console.error('Error fetching locations:', error);
 	}
 
-	let locations = parseCSV(locationsCSV);
-	for (let i = 0; i < locations.length; i++) {
-		createLocation(locations[i]);
-	}
+	const locations = parseCSV(locationsCSV);
+	for (const location of locations) { createLocation(location); }
 }
 
 function parseCSV(csvString) {
@@ -400,6 +412,15 @@ function parseCSV(csvString) {
 	}
 
 	return data;
+}
+
+function createSolarSystem(data) {
+	let system = new SolarSystem(
+		String(data.name),
+		parseFloat(data.coordinateX),
+		parseFloat(data.coordinateY),
+		parseFloat(data.coordinateZ)
+	)
 }
 
 function createCelestialBody(data) {
