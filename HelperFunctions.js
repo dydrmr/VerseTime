@@ -1,3 +1,5 @@
+import * as THREE from 'three';
+
 export function DEGREES(rad) {
 	return (rad * 180) / Math.PI;
 }
@@ -105,4 +107,55 @@ export function GREAT_CIRCLE_DISTANCE(x1, y1, z1, x2, y2, z2, radius) {
 	const c = 2 * Math.asin(Math.sqrt(a));
 
 	return radius * c;
+}
+
+export function makeLine(x1, y1, z1, x2, y2, z2, mat) {
+	const p = [];
+	p.push(new THREE.Vector3(x1, y1, z1));
+	p.push(new THREE.Vector3(x2, y2, z2));
+	const geo = new THREE.BufferGeometry().setFromPoints(p);
+	const line = new THREE.Line(geo, mat);
+	return line;
+}
+
+export function makeCircle(radius, detail, centerX, centerY, centerZ, rotationX, rotationY, rotationZ, material) {
+	const p = [];
+
+	for (let i = 0; i <= 360; i += 360 / detail) {
+		let rad = RADIANS(i);
+
+		let x = Math.sin(rad) * radius;
+		let y = Math.cos(rad) * radius;
+		let z = 0;
+
+		x += centerX;
+		y += centerY;
+		z += centerZ;
+
+		p.push(new THREE.Vector3(x, y, z));
+	}
+
+	// TODO: rotation X, Y, Z
+
+	const geo = new THREE.BufferGeometry().setFromPoints(p);
+	const circle = new THREE.Line(geo, material);
+
+	return circle;
+}
+
+export function getCelestialBodiesInSystem(systemName) {
+	const bodies = window.BODIES.filter(body => {
+		if (
+			body.NAME === systemName ||
+			body.PARENT_STAR && body.PARENT_STAR.NAME === systemName
+		) {
+			return true;
+		}
+	});
+	return bodies;
+}
+
+export function getLocationsInSystem(systemName) {
+	const locations = window.LOCATIONS.filter(loc => loc.PARENT_STAR.NAME === systemName);
+	return locations;
 }

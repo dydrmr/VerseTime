@@ -415,6 +415,8 @@ function parseCSV(csvString) {
 }
 
 function createSolarSystem(data) {
+	if (data.coordinateX === '') return null;
+
 	let system = new SolarSystem(
 		String(data.name),
 		parseFloat(data.coordinateX),
