@@ -4,14 +4,15 @@ import { TrackballControls }  from 'three/addons/controls/TrackballControls';
 import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer';
 // import { CSS3DRenderer, CSS3DObject } from 'three/addons/renderers/CSS3DRenderer';
 
-import { RADIANS, ROUND, DISTANCE_3D, makeLine, makeCircle, getCelestialBodiesInSystem, getLocationsInSystem } from './HelperFunctions.js';
+import { RADIANS, ROUND, DISTANCE_3D, makeLine, makeCircle, getCelestialBodiesInSystem, getLocationsInSystem, readableNumber } from './HelperFunctions.js';
 import SolarSystem from './classes/SolarSystem.js';
 
 // NOTE: map-window CSS CLASS MIS-USED AS ID; CREATE map-container AND ADJUST CODE WHERE APPLICABLE
 
 
 let scene, camera, renderer, labelRenderer, controls, zoomControls;
-let atlasDiv = document.getElementById('atlas-container');
+const atlasDiv = document.getElementById('atlas-container');
+const infoBox = document.getElementById('atlas-hoverinfo');
 
 const mapScale = 10_000_000;
 let focusBody = null;
@@ -107,9 +108,8 @@ function updateDebugInfo() {
 	}
 }
 
-document.addEventListener('createAtlasScene', function (e) {
-	createAtlasScene();
-});
+
+
 
 function setFocus(object, zoomToObject = false) {
 	setFocus_moveCamera(object, zoomToObject);
@@ -174,6 +174,94 @@ function setFocus_moveCamera(object, zoomToObject) {
 
 
 
+function showInfobox(object, event) {
+	moveInfobox(event);
+	populateInfobox(object);
+	infoBox.style.opacity = '1';
+}
+
+function moveInfobox(event) {
+	const rect = event.target.getBoundingClientRect();
+
+	infoBox.style.left = `${rect.right}px`;
+	infoBox.style.top = `${rect.top}px`;
+}
+
+function populateInfobox(object) {
+	if (object instanceof SolarSystem) {
+		infoBox.innerText = 'TYPE: Solar System';
+	} else {
+		infoBox.innerText = `TYPE: ${object.TYPE}`;
+	}
+
+
+	let distance = null;
+	let distanceUnit = null;
+
+	if (object !== focusBody && object !== focusSystem) {
+		let here = null;
+		let there = null;
+
+		if (object instanceof SolarSystem) {
+			here = focusSystem.COORDINATES;
+			there = object.COORDINATES;
+			distanceUnit = 'ly';
+
+		} else {
+			here = { 'x': focusBody.COORDINATES.x * 1000, 'y': focusBody.COORDINATES.y * 1000, 'z': focusBody.COORDINATES.z * 1000 };
+			there = { 'x': object.COORDINATES.x * 1000, 'y': object.COORDINATES.y * 1000, 'z': object.COORDINATES.z * 1000 };
+			distanceUnit = 'm';
+		}
+
+		distance = DISTANCE_3D(here.x, here.y, here.z, there.x, there.y, there.z, false);
+		distance = readableNumber(distance, distanceUnit);
+	}
+
+	if (distance) {
+		infoBox.innerText += `\nDISTANCE: ${distance}`;
+	}
+
+	if (object instanceof SolarSystem) {
+		const planets = window.BODIES.filter((body) => {
+			if (
+				body.TYPE === 'Planet' &&
+				body.PARENT_STAR.NAME === object.NAME
+			) {
+				return true;
+			}
+		});
+
+		if (planets.length > 0) {
+			infoBox.innerText += `\nPLANETS: ${planets.length}`;
+		}
+	}
+
+	if (object.TYPE === 'Planet') {
+		const moons = window.BODIES.filter((body) => {
+			if (
+				body.TYPE === 'Moon' &&
+				body.PARENT.NAME === object.NAME
+			) {
+				return true;
+			}
+		});
+
+		if (moons.length > 0) {
+			infoBox.innerText += `\nMOONS: ${moons.length}`;
+		}
+	}
+}
+
+function hideInfobox() {
+	infoBox.style.opacity = '0';
+	infoBox.innerText = '';
+}
+
+
+
+document.addEventListener('createAtlasScene', function (e) {
+	createAtlasScene();
+});
 function createAtlasScene() {
 	if (scene.children.length !== 0) return;
 
@@ -258,7 +346,7 @@ function createLollipops(size = 0.5) {
 	const material = new THREE.LineBasicMaterial({
 		color: `rgb(255, 255, 255)`,
 		transparent: true,
-		opacity: 0.075
+		opacity: 0.05
 	});
 
 	for (const system of window.SYSTEMS) {
@@ -315,17 +403,7 @@ function createLabel_SolarSystem(system) {
 	div.classList.add('atlas-label-system');
 	div.dataset.objectType = 'Solar System';
 
-	div.addEventListener('pointerdown', (event) => {
-		if (event.button === 0) {
-			setFocus(system);
-		}
-		
-	});
-
-	/*const iconElement = document.createElement('div');
-	iconElement.classList.add('mapLocationIcon');
-	setBodyIcon('Star', iconElement);
-	div.appendChild(iconElement);*/
+	setLabelEvents(div, system);
 
 	const nameElement = document.createElement('p');
 	nameElement.classList.add('atlas-label-name');
@@ -347,11 +425,13 @@ function createLabel_CelestialBody(body, group) {
 	div.dataset.parentName = body.TYPE === 'Star' ? null : body.PARENT.NAME;
 	div.dataset.objectName = body.NAME;
 
-	div.addEventListener('pointerdown', (event) => {
-		if (event.button === 0) {
-			setFocus(body);
-		}
-	});
+	setLabelEvents(div, body);
+
+	/*const iconElement = document.createElement('div');
+	iconElement.classList.add('mapLocationIcon');
+	setBodyIcon(body.TYPE, iconElement);
+	iconElement.style.marginTop = '15px';
+	div.appendChild(iconElement);*/
 
 	const nameElement = document.createElement('p');
 	nameElement.classList.add('atlas-label-name');
@@ -365,18 +445,31 @@ function createLabel_CelestialBody(body, group) {
 	group.add(label);
 }
 
+function setLabelEvents(domElement, targetObject) {
+	domElement.addEventListener('pointerdown', (event) => {
+		if (event.button === 0) {
+			setFocus(targetObject);
+		}
+	});
 
+	domElement.addEventListener('mouseenter', (event) => {
+		showInfobox(targetObject, event);
+	});
 
+	domElement.addEventListener('mousemove', (event) => {
+		moveInfobox(event);
+	})
 
-
-
-
-
+	domElement.addEventListener('mouseleave', (event) => {
+		hideInfobox(targetObject);
+	});
+}
 
 function setBodyIcon(type, element) {
 	element.style.width = '10px';
 	element.style.height = '10px';
 	element.style.marginBottom = '2px';
+	element.style.opacity = '0.7 !important';
 
 	if (type === 'Star') {
 		element.classList.add('icon-star');
@@ -391,6 +484,8 @@ function setBodyIcon(type, element) {
 		element.style.display = 'none';
 	}
 }
+
+
 
 
 function organizeLabels() {
@@ -464,7 +559,7 @@ function organizeLabelsVersionTwo() {
 			label.dataset.objectType === 'Lagrange Point' ||
 			label.dataset.objectType === 'Jump Point'
 		) {
-			if (distance > 15) {
+			if (distance > 12) {
 				label.dataset.visible = false;
 				continue;
 			}

@@ -761,7 +761,26 @@ body {
 	text-transform: uppercase;
 }
 
+#atlas-hoverinfo {
+	z-index: 1000;
+	position: fixed;
+	margin-left: 8px;
+	border-radius: 2px;
+	padding: 3px 6px;
+
+	background-color: rgba(0, 0, 0, 0.8);
+	backdrop-filter: blur(7px);
+
+	font-family: 'Roboto Mono', monospace;
+	font-size: 10px;
+	text-transform: uppercase;
+
+	transition: opacity 0.2s;
+	/*outline: 1px solid red;*/
+}
+
 .atlas-label {
+	z-index: 10;
 	padding: 1px 2px;
 	color: white;
 	font-size: 10px;
@@ -776,10 +795,12 @@ body {
 	opacity: 1;
 	transition: opacity 0.2s;
 }
-.atlas-label:hover {
-	outline: 1px solid rgba(255, 255, 255, 0.5);
-	border-radius: 2px;
-}
+	.atlas-label:hover {
+		outline: 1px solid rgba(255, 255, 255, 0.25);
+		border-radius: 2px;
+		background-color: rgba(0, 0, 0, 0.8);
+		backdrop-filter: blur(7px);
+	}
 
 .atlas-label[data-visible=false] {
 	opacity: 0;
@@ -792,10 +813,10 @@ body {
 		color: rgba(255, 255, 255, 0.65);
 	}
 .atlas-label[data-object-type="Lagrange Point"] {
-	color: rgba(255, 255, 255, 0.5);
+	color: rgba(255, 255, 255, 0.4);
 }
 .atlas-label[data-object-type="Jump Point"] {
-	color: rgba(255, 255, 255, 0.5);
+	color: rgba(255, 255, 255, 0.4);
 }
 .atlas-label[data-object-type="Location"] {
 	color: rgba(255, 255, 255, 0.5);

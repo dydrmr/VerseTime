@@ -159,3 +159,31 @@ export function getLocationsInSystem(systemName) {
 	const locations = window.LOCATIONS.filter(loc => loc.PARENT_STAR.NAME === systemName);
 	return locations;
 }
+
+export function readableNumber(number, unitString) {
+	let unitScalar = null;
+	let newNumber = null;
+
+	if (number > 1000000000000) {
+		newNumber = number / 1000000000000;
+		unitScalar = 'T';
+
+	} else if (number > 1000000000) {
+		newNumber = number / 1000000000;
+		unitScalar = 'G';
+
+	} else if (number > 1000000) {
+		newNumber = number / 1000000;
+		unitScalar = 'M';
+
+	} else if (number > 1000) {
+		newNumber = number / 1000;
+		unitScalar = 'k';
+
+	} else {
+		newNumber = number;
+		unitScalar = '';
+	}
+
+	return `${newNumber.toFixed(2)} ${unitScalar}${unitString}`;
+}
