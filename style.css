@@ -548,6 +548,26 @@ body {
 }
 
 
+#BUTTON-toggle-atlas-window {
+	position: absolute;
+	left: 5px;
+	top: 35px;
+	padding: 5px 10px;
+	font-family: 'Rajdhani', sans-serif;
+	font-size: 14px;
+	font-weight: 700;
+	text-transform: uppercase;
+	border-radius: 10px;
+	opacity: 0.4;
+	transition: 0.2s ease-out;
+}
+#BUTTON-toggle-atlas-window:hover {
+	cursor: pointer;
+	opacity: 1;
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+
 
 
 #map-body-name {

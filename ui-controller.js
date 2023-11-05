@@ -32,7 +32,8 @@ document.getElementById('BUTTON-toggle-credits-window').addEventListener('click'
 document.getElementById('BUTTON-close-credits').addEventListener('click', function(e) { toggleCreditsWindow(); });
 
 document.getElementById('BUTTON-toggle-map-window').addEventListener('click', function(e) { toggleMapWindow(); });
-document.getElementById('BUTTON-close-map').addEventListener('click', function(e) { toggleMapWindow(); });
+document.getElementById('BUTTON-close-map').addEventListener('click', function (e) { toggleMapWindow(); });
+document.getElementById('BUTTON-toggle-atlas-window').addEventListener('click', function (e) { toggleAtlasWindow(); });
 
 document.getElementById('BUTTON-share-location').addEventListener('click', function(e) { shareLocation(); });
 
@@ -194,6 +195,8 @@ document.addEventListener('keydown', function(event){
 	if (event.key === 'Escape') {
 		if (showSettingsWindow) toggleSettingsWindow();
 		if (showCreditsWindow) toggleCreditsWindow();
+		if (showAtlasWindow) toggleAtlasWindow();
+		if (showMapWindow) toggleMapWindow();
 		if (window.DEBUG_MODE) toggleDebugWindow();
 	}
 
