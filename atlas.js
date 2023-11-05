@@ -13,7 +13,7 @@ import { RADIANS, ROUND, DISTANCE_3D, makeLine, makeCircle, getCelestialBodiesIn
 let scene, camera, renderer, labelRenderer, controls, zoomControls;
 let atlasDiv = document.getElementById('atlas-container');
 
-const mapScale = 1_000_000;
+const mapScale = 7_000_000;
 let focusedBody = null;
 
 // TODO:
@@ -45,8 +45,8 @@ function init() {
 	labelRenderer.domElement.style.top = '0px';
 	atlasDiv.appendChild( labelRenderer.domElement );
 
-	camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.0001, 1_000_000);
-	camera.up.set(0,0,1);
+	camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.000001, 1000);
+	camera.up.set(0, 0, 1);
 	camera.position.set(0, -100, 50);
 	camera.lookAt(0, 0, 0);
 
@@ -64,8 +64,8 @@ function init() {
 	zoomControls.noPan = true;
 	zoomControls.noZoom = false;
 	zoomControls.zoomSpeed = 0.5;
-	zoomControls.maxDistance = 5_000;
-	zoomControls.minDistance = 0.001;
+	zoomControls.maxDistance = 500;
+	zoomControls.minDistance = 0.0001;
 	zoomControls.zoomDampingFactor = 0.2;
 	zoomControls.smoothZoomSpeed = 5.0;
 
@@ -84,8 +84,6 @@ function render() {
 
 	if (!showAtlasWindow) return;
 
-
-	//TODO: SCALE CELESTIAL BODIES BASED ON ZOOM LEVEL
 	updateDebugInfo();
 }
 
@@ -100,14 +98,6 @@ function updateDebugInfo() {
 	
 	let allLabels = document.querySelectorAll('.atlas-label');
 	allLabels = [...allLabels];
-
-	/*const visibleLabels = [];
-	for (let label of allLabels) {
-		if (label.dataset.visible === 'true') {
-			visibleLabels.push(label);
-		}
-	}*/
-
 	const visibleLabels = document.querySelectorAll('.atlas-label[data-visible="true"]');
 
 	if (organized) {
@@ -121,6 +111,14 @@ document.addEventListener('createAtlasScene', function (e) {
 
 function createAtlasScene() {
 	if (scene.children.length !== 0) return;
+
+	focusedBody = 'Stanton';
+	const focus = getSystemByName(focusedBody);
+	const target = new THREE.Vector3(focus.COORDINATES.x, focus.COORDINATES.y, focus.COORDINATES.z);
+	controls.target.copy(target);
+	zoomControls.target.copy(target);
+	controls.update();
+	zoomControls.update();
 
 
 	for (const system of window.SYSTEMS) {
@@ -138,23 +136,30 @@ function createSolarSystem(system) {
 	const bodies = getCelestialBodiesInSystem(system.NAME);
 	if (bodies.length === 0) return;
 
-	console.log(bodies);
-
 	const group = new THREE.Group();
 	group.name = `SYSTEM:${system.NAME}`;
-	group.position.x = system.COORDINATES.x;
-	group.position.y = system.COORDINATES.y;
-	group.position.z = system.COORDINATES.z;
+	group.position.set(system.COORDINATES.x, system.COORDINATES.y, system.COORDINATES.z);
+	group.scale.setScalar(1 / mapScale);
 	scene.add(group);
 
-	const geo = new THREE.SphereGeometry(0.2, 24, 24);
+	for (const body of bodies) {
+		createCelestialBody(body, group);
+	}
+}
+
+
+function createCelestialBody(body, group) {
+	const geo = new THREE.SphereGeometry(body.BODY_RADIUS * (1 / mapScale), 24, 24);
 	const mat = new THREE.MeshBasicMaterial({
-		color: `rgb(255, 255, 255)`,
+		color: `rgb(255, 0, 70)`,
 	});
 	const object = new THREE.Mesh(geo, mat);
-	group.add(object);
+	object.name = body.NAME;
 
+	object.position.set(body.COORDINATES.x, body.COORDINATES.y, body.COORDINATES.z);
+	group.add(object);
 }
+
 
 function createGalaxyGrid(size, spacing) {
 	const axisMaterial = new THREE.LineBasicMaterial({
@@ -185,7 +190,6 @@ function createGalaxyGrid(size, spacing) {
 }
 
 function createCircularGrid(size, spacing) {
-
 	const group = new THREE.Group();
 	group.name = 'Galaxy Grid';
 	scene.add(group);
@@ -243,6 +247,12 @@ function createLabels() {
 	for (const system of window.SYSTEMS) {
 		createLabel_SolarSystem(system);
 	}
+
+	for (const body of window.BODIES) {
+		const systemName = (body.TYPE === 'Star') ? body.NAME : body.PARENT_STAR.NAME;
+		const group = scene.getObjectByName(`SYSTEM:${systemName}`);
+		createLabel_CelestialBody(body, group);
+	}
 }
 
 function createLabel_SolarSystem(system) {
@@ -275,6 +285,24 @@ function createLabel_SolarSystem(system) {
 	label.position.copy(new THREE.Vector3(system.COORDINATES.x, system.COORDINATES.y, system.COORDINATES.z));
 
 	scene.add(label);
+}
+
+function createLabel_CelestialBody(body, group) {
+	const div = document.createElement('div');
+	div.classList.add('atlas-label');
+	div.classList.add('atlas-label-system');
+	div.dataset.objectType = body.TYPE;
+
+	const nameElement = document.createElement('p');
+	nameElement.classList.add('atlas-label-name');
+	nameElement.innerText = body.NAME;
+	div.appendChild(nameElement);
+
+	const label = new CSS2DObject(div);
+	const labelPosition = new THREE.Vector3(body.COORDINATES.x, body.COORDINATES.y,	body.COORDINATES.z);
+	label.position.copy(labelPosition);
+
+	group.add(label);
 }
 
 
@@ -410,7 +438,7 @@ function setBodyIcon(type, element) {
 
 
 function createOrbitLines(bodies, mapScale) {
-	const material = new THREE.LineBasicMaterial( {
+	const material = new THREE.LineBasicMaterial({
 		color: `rgb(255, 255, 255)`,
 		transparent: true,
 		opacity: 0.05
@@ -421,12 +449,12 @@ function createOrbitLines(bodies, mapScale) {
 			!body.PARENT ||
 			body.TYPE === 'Lagrange Point' ||
 			body.TYPE === 'Jump Point'
-		) { 
+		) {
 			continue;
 		}
 
 		const c = body.PARENT.COORDINATES;
-		const center = {'x': c.x / mapScale, 'y': c.y / mapScale, 'z': c.z / mapScale};
+		const center = { 'x': c.x / mapScale, 'y': c.y / mapScale, 'z': c.z / mapScale };
 		const radius = body.ORBITAL_RADIUS / mapScale;
 
 		const p = [];
@@ -463,13 +491,35 @@ function organizeLabelsVersionTwo() {
 	const allLabels = document.querySelectorAll('.atlas-label');
 	const distance = controls.getDistance();
 
-	const pops = scene.getObjectByName('Lollipops');
-	pops.visible = (distance > 2) ? true : false
+
+	const visibility = distance > 20 ? true : false;
+	scene.getObjectByName('Lollipops').visible = visibility;
+	scene.getObjectByName('Galaxy Grid').visible = visibility;
+
 
 	for (const label of allLabels) {
 
 		if (label.dataset.objectType === 'Solar System') {
-			if (distance > 150 || distance < 2) {
+			if (distance < 20) {
+				label.dataset.visible = false;
+				continue;
+			}
+		}
+
+		if (
+			label.dataset.objectType === 'Star' ||
+			label.dataset.objectType === 'Planet' ||
+			label.dataset.objectType === 'Lagrange Point' ||
+			label.dataset.objectType === 'Jump Point'
+		) {
+			if (distance > 20) {
+				label.dataset.visible = false;
+				continue;
+			}
+		}
+
+		if (label.dataset.objectType === 'Moon') {
+			if (distance > 1) {
 				label.dataset.visible = false;
 				continue;
 			}
@@ -481,22 +531,22 @@ function organizeLabelsVersionTwo() {
 			label.dataset.visible = false;
 			continue;
 		}
-
+	
 		if (distance > 110 && label.dataset.objectType === 'Lagrange Point') {
 			label.dataset.visible = false;
 			continue;
 		}
-
+	
 		if (distance > 5 && label.dataset.objectType === 'Moon') {
 			label.dataset.visible = false;
 			continue;
 		}
-
+	
 		if (distance > 0.5 && label.dataset.objectType === 'Location') {
 			label.dataset.visible = false;
 			continue;
 		}
-
+	
 		if (label.dataset.objectType === 'Location' && label.dataset.bodyName !== focusedBody) {
 			label.dataset.visible = false;
 			continue;
@@ -551,10 +601,10 @@ function organizeBodyLabels() {
 			const thisPos = labels[index].getBoundingClientRect();
 			const otherPos = labels[otherIndex].getBoundingClientRect();
 
-			const notOverlapping = (thisPos.right < otherPos.left || 
-                thisPos.left > otherPos.right || 
-                thisPos.bottom < otherPos.top || 
-                thisPos.top > otherPos.bottom);
+			const notOverlapping = (thisPos.right < otherPos.left ||
+				thisPos.left > otherPos.right ||
+				thisPos.bottom < otherPos.top ||
+				thisPos.top > otherPos.bottom);
 
 			if (notOverlapping) { continue; }
 
@@ -603,7 +653,7 @@ function organizeLocationLabels() {
 			label.dataset.visible = false;
 			continue;
 		}
-		
+
 		label.dataset.visible = true;
 	}
 }

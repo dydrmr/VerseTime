@@ -495,6 +495,17 @@ function createLocation(data) {
 	);
 }
 
+function getSystemByName(string) {
+	const result = SYSTEMS.filter(sys => sys.NAME === string);
+
+	if (result.length === 0) {
+		console.error(`Ssytem "${string} not found."`);
+		return null;
+	}
+
+	return result[0];
+}
+window.getSystemByName = getSystemByName;
 
 function getBodyByName(string) {
 	const result = BODIES.filter(bod => bod.NAME === string);
