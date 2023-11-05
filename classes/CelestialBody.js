@@ -1,4 +1,4 @@
-import { DEGREES, RADIANS, MODULO, SQUARE, ROUND, JULIAN_DATE } from '../HelperFunctions.js';
+import { DEGREES, MODULO, SQUARE, JULIAN_DATE, DISTANCE_2D } from '../HelperFunctions.js';
 
 let NAME = '[name not defined]';
 let TYPE = '[type not defined]';
@@ -44,8 +44,16 @@ export default class CelestialBody {
 		this.ROTATION_RATE = rotationRate;
 		this.ANGULAR_ROTATION_RATE = 6 / this.ROTATION_RATE;
 		this.ROTATION_CORRECTION = rotationCorrection;
-		this.ORBITAL_ANGLE = orbitalAngle;
-		this.ORBITAL_RADIUS = orbitalRadius;
+
+		// this.ORBITAL_ANGLE = orbitalAngle;
+		// this.ORBITAL_ANGLE = this.PARENT ? Math.atan( (coordinates.y - this.PARENT.COORDINATES.y) / (coordinates.x - this.PARENT.COORDINATES.x) ) : 0;
+
+		if (parseFloat(orbitalRadius) === 0) {
+			this.ORBITAL_RADIUS = this.PARENT ? DISTANCE_2D(coordinates.x, coordinates.y, this.PARENT.COORDINATES.x, this.PARENT.COORDINATES.y) : 0;
+		} else {
+			this.ORBITAL_RADIUS = orbitalRadius;
+		}
+
 		this.THEME_COLOR = themeColor ? themeColor : {'r' : null, 'g' : null, 'b' : null};
 		this.THEME_IMAGE = themeImage;
 

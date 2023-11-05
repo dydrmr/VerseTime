@@ -5,7 +5,7 @@ import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer
 // import { CSS3DRenderer, CSS3DObject } from 'three/addons/renderers/CSS3DRenderer';
 
 import { RADIANS, ROUND, DISTANCE_3D, makeLine, makeCircle, getCelestialBodiesInSystem, getLocationsInSystem } from './HelperFunctions.js';
-
+import SolarSystem from './classes/SolarSystem.js';
 
 // NOTE: map-window CSS CLASS MIS-USED AS ID; CREATE map-container AND ADJUST CODE WHERE APPLICABLE
 
@@ -13,8 +13,9 @@ import { RADIANS, ROUND, DISTANCE_3D, makeLine, makeCircle, getCelestialBodiesIn
 let scene, camera, renderer, labelRenderer, controls, zoomControls;
 let atlasDiv = document.getElementById('atlas-container');
 
-const mapScale = 7_000_000;
-let focusedBody = null;
+const mapScale = 10_000_000;
+let focusBody = null;
+let focusSystem = null;
 
 // TODO:
 // switch to distance-based label visibility determination first, and only ever add location labels for currently selected location
@@ -89,7 +90,8 @@ function render() {
 
 function updateDebugInfo() {
 	setText('atlas-zoom', 'Zoom: ' + ROUND(controls.getDistance(), 4));
-	setText('atlas-focused-object', 'Focus: ' + String(focusedBody));
+	setText('atlas-focus-system', `Selected System: ${focusSystem.NAME}`);
+	setText('atlas-focus-object', `Selected Body: ${focusBody ? focusBody.NAME : 'none'}`);
 
 
 	const start = window.performance.now();
@@ -109,17 +111,33 @@ document.addEventListener('createAtlasScene', function (e) {
 	createAtlasScene();
 });
 
-function createAtlasScene() {
-	if (scene.children.length !== 0) return;
+function setFocus(object) {
+	let target = null;
+	if (object instanceof SolarSystem) {
+		target = new THREE.Vector3(object.COORDINATES.x, object.COORDINATES.y, object.COORDINATES.z);
+	} else {
+		target = new THREE.Vector3();
+		const mesh = scene.getObjectByName(object.NAME);
+		mesh.getWorldPosition(target);
+	}
 
-	focusedBody = 'Stanton';
-	const focus = getSystemByName(focusedBody);
-	const target = new THREE.Vector3(focus.COORDINATES.x, focus.COORDINATES.y, focus.COORDINATES.z);
 	controls.target.copy(target);
-	zoomControls.target.copy(target);
 	controls.update();
+	zoomControls.target.copy(target);
 	zoomControls.update();
 
+	if (object instanceof SolarSystem) {
+		focusSystem = object;
+		focusBody = null;
+	} else {
+		const systemName = (object.TYPE === 'Star') ? object.NAME : object.PARENT_STAR.NAME;
+		focusSystem = getSystemByName(systemName);
+		focusBody = object;
+	}
+}
+
+function createAtlasScene() {
+	if (scene.children.length !== 0) return;
 
 	for (const system of window.SYSTEMS) {
 		createSolarSystem(system);
@@ -127,9 +145,9 @@ function createAtlasScene() {
 
 	createCircularGrid(300, 25);
 	createLollipops();
-
 	createLabels();
 
+	setFocus(getBodyByName('Stanton'));
 }
 
 function createSolarSystem(system) {
@@ -142,51 +160,29 @@ function createSolarSystem(system) {
 	group.scale.setScalar(1 / mapScale);
 	scene.add(group);
 
+	const orbitLineGroup = new THREE.Group();
+	orbitLineGroup.name = `ORBITLINES:${system.NAME}`;
+	orbitLineGroup.position.set(system.COORDINATES.x, system.COORDINATES.y, system.COORDINATES.z);
+	orbitLineGroup.scale.setScalar(1 / mapScale);
+	scene.add(orbitLineGroup);
+
 	for (const body of bodies) {
 		createCelestialBody(body, group);
+		createOrbitLine(body, orbitLineGroup);
 	}
 }
 
 
 function createCelestialBody(body, group) {
-	const geo = new THREE.SphereGeometry(body.BODY_RADIUS * (1 / mapScale), 24, 24);
+	const geo = new THREE.SphereGeometry(body.BODY_RADIUS, 24, 24);
 	const mat = new THREE.MeshBasicMaterial({
-		color: `rgb(255, 0, 70)`,
+		color: `rgb(70, 10, 40)`,
 	});
 	const object = new THREE.Mesh(geo, mat);
 	object.name = body.NAME;
 
 	object.position.set(body.COORDINATES.x, body.COORDINATES.y, body.COORDINATES.z);
 	group.add(object);
-}
-
-
-function createGalaxyGrid(size, spacing) {
-	const axisMaterial = new THREE.LineBasicMaterial({
-		color: `rgb(255, 255, 255)`,
-		transparent: true,
-		opacity: 0.2
-	});
-
-	const regularMaterial = new THREE.LineBasicMaterial({
-		color: `rgb(255, 255, 255)`,
-		transparent: true,
-		opacity: 0.025
-	});
-
-	const halfSize = size / 2;
-
-	for (let x = -halfSize; x <= halfSize; x += spacing) {
-		const mat = (x === 0) ? axisMaterial : regularMaterial;
-		const line = makeLine(x, -halfSize, 0, x, halfSize, 0, mat);
-		scene.add(line);
-	}
-
-	for (let y = -halfSize; y <= halfSize; y += spacing) {
-		const mat = (y === 0) ? axisMaterial : regularMaterial;
-		const line = makeLine(-halfSize, y, 0, halfSize, y, 0, mat);
-		scene.add(line);
-	}
 }
 
 function createCircularGrid(size, spacing) {
@@ -215,7 +211,7 @@ function createCircularGrid(size, spacing) {
 
 }
 
-function createLollipops() {
+function createLollipops(size = 0.5) {
 	const group = new THREE.Group();
 	group.name = 'Lollipops';
 	scene.add(group);
@@ -223,10 +219,8 @@ function createLollipops() {
 	const material = new THREE.LineBasicMaterial({
 		color: `rgb(255, 255, 255)`,
 		transparent: true,
-		opacity: 0.1
+		opacity: 0.075
 	});
-
-	const size = 0.5;
 
 	for (const system of window.SYSTEMS) {
 		if (system.NAME === 'Sol') continue;
@@ -241,6 +235,27 @@ function createLollipops() {
 		const cross2 = makeLine(system.COORDINATES.x - size, system.COORDINATES.y, 0, system.COORDINATES.x + size, system.COORDINATES.y, 0, material);
 		group.add(cross2);
 	}
+}
+
+function createOrbitLine(body, group) {
+	if (
+		!body.PARENT ||
+		body.TYPE === 'Lagrange Point' ||
+		body.TYPE === 'Jump Point'
+	) {
+		return;
+	}
+
+	const material = new THREE.LineBasicMaterial({
+		color: `rgb(255, 255, 255)`,
+		transparent: true,
+		opacity: 0.05
+	});
+
+	const center = body.PARENT.TYPE === 'Star' ? { 'x': 0, 'y': 0, 'z': 0 } : body.PARENT.COORDINATES;
+	const radius = body.ORBITAL_RADIUS;
+	const circle = makeCircle(radius, 240, center.x, center.y, center.z, 0, 0, 0, material);
+	group.add(circle);
 }
 
 function createLabels() {
@@ -261,14 +276,11 @@ function createLabel_SolarSystem(system) {
 	div.classList.add('atlas-label-system');
 	div.dataset.objectType = 'Solar System';
 
-	div.addEventListener('pointerdown', () => {
-		const target = new THREE.Vector3(system.COORDINATES.x, system.COORDINATES.y, system.COORDINATES.z);
-		controls.target.copy(target);
-		controls.update();
-		zoomControls.target.copy(target);
-		zoomControls.update();
-
-		focusedBody = system.NAME;
+	div.addEventListener('pointerdown', (event) => {
+		if (event.button === 0) {
+			setFocus(system);
+		}
+		
 	});
 
 	/*const iconElement = document.createElement('div');
@@ -292,6 +304,13 @@ function createLabel_CelestialBody(body, group) {
 	div.classList.add('atlas-label');
 	div.classList.add('atlas-label-system');
 	div.dataset.objectType = body.TYPE;
+	div.dataset.systemName = body.TYPE === 'Star' ? body.NAME : body.PARENT_STAR.NAME;
+
+	div.addEventListener('pointerdown', (event) => {
+		if (event.button === 0) {
+			setFocus(body);
+		}
+	});
 
 	const nameElement = document.createElement('p');
 	nameElement.classList.add('atlas-label-name');
@@ -312,110 +331,6 @@ function createLabel_CelestialBody(body, group) {
 
 
 
-// OLD OLD OLD OLD OLD OLD
-function createAtlasScene_version1() {
-	scene.clear();
-	const activeBody = window.ACTIVE_LOCATION.PARENT;
-	const systemBodies = getCelestialBodiesInSystem(activeBody.PARENT_STAR.NAME);
-
-	for (let body of systemBodies) {
-		const rawPos = body.COORDINATES;
-		const pos = {
-			'x': rawPos.x / mapScale,
-			'y': rawPos.y / mapScale,
-			'z': rawPos.z / mapScale
-		}
-
-		createBody(body, mapScale, pos);
-		createBodyLabel(body, pos);
-	}
-
-	createOrbitLines(systemBodies, mapScale);
-
-	const systemLocations = getLocationsInSystem(activeBody.PARENT_STAR.NAME);
-	for (let location of systemLocations) {
-		const p1 = {
-			'x': location.PARENT.COORDINATES.x / mapScale,
-			'y': location.PARENT.COORDINATES.y / mapScale,
-			'z': location.PARENT.COORDINATES.z / mapScale
-		};
-
-		const p2 = {
-			'x': location.COORDINATES.x / mapScale,
-			'y': location.COORDINATES.y / mapScale,
-			'z': location.COORDINATES.z / mapScale
-		}
-
-		let pos = {
-			'x': parseFloat(p1.x) + parseFloat(p2.x),
-			'y': parseFloat(p1.y) + parseFloat(p2.y),
-			'z': parseFloat(p1.z) + parseFloat(p2.z)
-		}
-
-		const div = document.createElement('div');
-		div.classList.add('atlas-label');
-		div.classList.add('atlas-label-location');
-		div.innerText = location.NAME;
-		div.dataset.visible = false;
-		div.dataset.objectType = 'Location';
-		div.dataset.bodyName = location.PARENT.NAME;
-		div.dataset.x = pos.x;
-		div.dataset.y = pos.y;
-		div.dataset.z = pos.z;
-
-		const locationLabel = new CSS2DObject(div);
-		locationLabel.position.copy(new THREE.Vector3(pos.x, pos.y, pos.z));
-		scene.add(locationLabel);
-	}
-
-}
-
-function createBody(body, mapScale, scenePosition) {
-	const geo = new THREE.SphereGeometry(body.BODY_RADIUS / mapScale, 24, 24);
-	const mat = new THREE.MeshBasicMaterial({
-		color: `rgb(180, 30, 30)`,
-	});
-	const object = new THREE.Mesh(geo, mat);
-	object.position.x = scenePosition.x;
-	object.position.y = scenePosition.y;
-	object.position.z = scenePosition.z;
-	scene.add(object);
-}
-
-function createBodyLabel(body, scenePosition) {
-	const div = document.createElement('div');
-	div.classList.add('atlas-label');
-	div.classList.add('atlas-label-body');
-	div.dataset.visible = false;
-	div.dataset.objectType = body.TYPE;
-	div.dataset.x = scenePosition.x;
-	div.dataset.y = scenePosition.y;
-	div.dataset.z = scenePosition.z;
-
-	const iconElement = document.createElement('div');
-	iconElement.classList.add('mapLocationIcon');
-	setBodyIcon(body.TYPE, iconElement);
-	div.appendChild(iconElement);
-
-	const nameElement = document.createElement('p');
-	nameElement.classList.add('atlas-label-name');
-	nameElement.innerText = body.NAME;
-	div.appendChild(nameElement);
-
-	div.addEventListener('pointerdown', () => {
-		const target = new THREE.Vector3(scenePosition.x, scenePosition.y, scenePosition.z);
-		controls.target.copy(target);
-		controls.update();
-		zoomControls.target.copy(target);
-		zoomControls.update();
-
-		focusedBody = body.NAME;
-	});
-
-	const bodyLabel = new CSS2DObject(div);
-	bodyLabel.position.copy(new THREE.Vector3(scenePosition.x, scenePosition.y, scenePosition.z));
-	scene.add(bodyLabel);
-}
 
 function setBodyIcon(type, element) {
 	element.style.width = '10px';
@@ -437,45 +352,6 @@ function setBodyIcon(type, element) {
 }
 
 
-function createOrbitLines(bodies, mapScale) {
-	const material = new THREE.LineBasicMaterial({
-		color: `rgb(255, 255, 255)`,
-		transparent: true,
-		opacity: 0.05
-	});
-
-	for (const body of bodies) {
-		if (
-			!body.PARENT ||
-			body.TYPE === 'Lagrange Point' ||
-			body.TYPE === 'Jump Point'
-		) {
-			continue;
-		}
-
-		const c = body.PARENT.COORDINATES;
-		const center = { 'x': c.x / mapScale, 'y': c.y / mapScale, 'z': c.z / mapScale };
-		const radius = body.ORBITAL_RADIUS / mapScale;
-
-		const p = [];
-		for (let i = 0; i <= 360; i += 360 / 600) {
-			let angle = RADIANS(i);
-			let x = Math.sin(angle) * radius;
-			let y = Math.cos(angle) * radius;
-			let z = 0;
-			p.push(new THREE.Vector3(x + center.x, y + center.y, 0));
-			// NOTE: z-coordinate above is zero. Should be z + center.z.
-			// However, Stanton's star is above the system plane, and the planet orbits aren't actually centered on it.
-			// This creates coding headaches :/
-			// Rule does not apply to Pyro
-		}
-
-		const geo = new THREE.BufferGeometry().setFromPoints(p);
-		const circle = new THREE.Line(geo, material);
-		scene.add(circle);
-	}
-}
-
 function organizeLabels() {
 	if (renderer.info.render.frame % 5 !== 0) { return false; }
 
@@ -488,73 +364,62 @@ function organizeLabels() {
 }
 
 function organizeLabelsVersionTwo() {
-	const allLabels = document.querySelectorAll('.atlas-label');
 	const distance = controls.getDistance();
 
-
-	const visibility = distance > 20 ? true : false;
+	const visibility = distance > 30 ? true : false;
 	scene.getObjectByName('Lollipops').visible = visibility;
 	scene.getObjectByName('Galaxy Grid').visible = visibility;
 
-
+	const allLabels = document.querySelectorAll('.atlas-label');
 	for (const label of allLabels) {
 
 		if (label.dataset.objectType === 'Solar System') {
-			if (distance < 20) {
+			if (distance < 30) {
 				label.dataset.visible = false;
 				continue;
 			}
 		}
 
 		if (
+			label.dataset.objectType !== 'Solar System' &&
+			label.dataset.systemName !== focusSystem.NAME
+		) {
+			label.dataset.visible = false;
+			continue;
+		}
+
+		if (
 			label.dataset.objectType === 'Star' ||
-			label.dataset.objectType === 'Planet' ||
+			label.dataset.objectType === 'Planet'
+		) {
+			if (distance > 30) {
+				label.dataset.visible = false;
+				continue;
+			}
+		}
+
+		if (
 			label.dataset.objectType === 'Lagrange Point' ||
 			label.dataset.objectType === 'Jump Point'
 		) {
-			if (distance > 20) {
+			
+			if (distance > 15) {
 				label.dataset.visible = false;
 				continue;
 			}
 		}
 
 		if (label.dataset.objectType === 'Moon') {
-			if (distance > 1) {
+			if (distance > 0.5) {
 				label.dataset.visible = false;
 				continue;
 			}
 		}
 
 		label.dataset.visible = true;
-
-		/*if (distance > 700 && label.dataset.objectType !== 'Star') {
-			label.dataset.visible = false;
-			continue;
-		}
-	
-		if (distance > 110 && label.dataset.objectType === 'Lagrange Point') {
-			label.dataset.visible = false;
-			continue;
-		}
-	
-		if (distance > 5 && label.dataset.objectType === 'Moon') {
-			label.dataset.visible = false;
-			continue;
-		}
-	
-		if (distance > 0.5 && label.dataset.objectType === 'Location') {
-			label.dataset.visible = false;
-			continue;
-		}
-	
-		if (label.dataset.objectType === 'Location' && label.dataset.bodyName !== focusedBody) {
-			label.dataset.visible = false;
-			continue;
-		}*/
 	}
 
-	let visibleLables = document.querySelectorAll('.atlas-label[data-visible="true"]');
-
+	const visibleLables = document.querySelectorAll('.atlas-label[data-visible="true"]');
 	for (const label of visibleLables) {
 		// do overlap checking & prioritization here
 	}

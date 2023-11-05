@@ -731,10 +731,10 @@ body {
 
 
 .atlas-label {
-	padding: 1px;
+	padding: 1px 2px;
 	color: white;
-	font-family: 'Rajdhani', sans-serif;
-	font-size: 13px;
+	font-size: 10px;
+	font-family: 'Roboto Mono', monospace;
 	
 	text-shadow: 
 		0 0 8px var(--theme-color-dark), 
@@ -745,17 +745,21 @@ body {
 	opacity: 1;
 	transition: opacity 0.2s;
 }
+	.atlas-label:hover {
+		outline: 1px solid rgba(255, 255, 255, 0.5);
+		border-radius: 2px;
+	}
+
 .atlas-label[data-visible=false] {
 	opacity: 0;
 	user-select: none;
 	pointer-events: none;
 }
-.atlas-label[data-object-type="Solar System"] {
-	text-transform: uppercase;
-	font-size: 10px;
-	font-family: 'Roboto Mono', monospace;
-	color: rgba(255, 255, 255, 0.5);
-}
+.atlas-label[data-object-type="Solar System"],
+.atlas-label[data-object-type="Star"] {
+		text-transform: uppercase;
+		color: rgba(255, 255, 255, 0.5);
+	}
 .atlas-label[data-object-type="Lagrange Point"] {
 	color: rgba(255, 255, 255, 0.5);
 }

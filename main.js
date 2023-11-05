@@ -1,5 +1,5 @@
 import { ROUND, CHOSEN_TIME } from './HelperFunctions.js';
-import SolarSystem from './classes/System.js';
+import SolarSystem from './classes/SolarSystem.js';
 import CelestialBody from './classes/CelestialBody.js';
 import Location from './classes/Location.js';
 
@@ -472,7 +472,6 @@ function createCelestialBody(data) {
 			'radius-outer': parseFloat(data.ringRadiusOuter)
 		}
 	}
-
 }
 
 function createLocation(data) {
