@@ -749,6 +749,17 @@ body {
 
 
 
+#atlas-hierarchy {
+	position: fixed;
+	top: 0px;
+	left: 50%;
+	transform: translate(-50%, 0%);
+	margin-top: 10px;
+	font-family: 'Rajdhani', 'Verdana', sans-serif;
+	font-weight: bold;
+	font-size: 16px;
+	text-transform: uppercase;
+}
 
 .atlas-label {
 	padding: 1px 2px;
@@ -765,10 +776,10 @@ body {
 	opacity: 1;
 	transition: opacity 0.2s;
 }
-	.atlas-label:hover {
-		outline: 1px solid rgba(255, 255, 255, 0.5);
-		border-radius: 2px;
-	}
+.atlas-label:hover {
+	outline: 1px solid rgba(255, 255, 255, 0.5);
+	border-radius: 2px;
+}
 
 .atlas-label[data-visible=false] {
 	opacity: 0;

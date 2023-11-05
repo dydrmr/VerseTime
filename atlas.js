@@ -1,4 +1,4 @@
-import * as THREE from 'three';
+﻿import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls';
 import { TrackballControls }  from 'three/addons/controls/TrackballControls';
 import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer';
@@ -111,11 +111,36 @@ document.addEventListener('createAtlasScene', function (e) {
 	createAtlasScene();
 });
 
-function setFocus(object) {
+function setFocus(object, zoomToObject = false) {
+	setFocus_moveCamera(object, zoomToObject);
+
+	// SET GLOBALS
+	if (object instanceof SolarSystem) {
+		focusSystem = object;
+		focusBody = getBodyByName(object.NAME);
+	} else {
+		const systemName = (object.TYPE === 'Star') ? object.NAME : object.PARENT_STAR.NAME;
+		focusSystem = getSystemByName(systemName);
+		focusBody = object;
+	}
+
+	// UPDATE UI
+	const el = document.getElementById('atlas-hierarchy');
+
+	if (object instanceof SolarSystem || object.TYPE === 'Star') {
+		el.innerText = object.NAME;
+	} else if (object.TYPE === 'Planet' || object.TYPE === 'Jump Point') {
+		el.innerText = `${focusSystem.NAME} ▸ ${focusBody.NAME}`;
+	} else {
+		el.innerText = `${focusSystem.NAME} ▸ ${focusBody.PARENT.NAME} ▸ ${focusBody.NAME}`;
+	}
+}
+
+function setFocus_moveCamera(object, zoomToObject) {
 	let target = null;
-	let body = null;
 
 	if (object instanceof SolarSystem) {
+		let body = null;
 		body = getBodyByName(object.NAME);
 
 		if (!body) {
@@ -132,20 +157,22 @@ function setFocus(object) {
 		mesh.getWorldPosition(target);
 	}
 
-	controls.target.copy(target);
-	controls.update();
-	zoomControls.target.copy(target);
-	zoomControls.update();
+	if (!zoomToObject) {
+		controls.target.copy(target);
+		controls.update();
+		zoomControls.target.copy(target);
+		zoomControls.update();
 
-	if (object instanceof SolarSystem) {
-		focusSystem = object;
-		focusBody = body;
 	} else {
-		const systemName = (object.TYPE === 'Star') ? object.NAME : object.PARENT_STAR.NAME;
-		focusSystem = getSystemByName(systemName);
-		focusBody = object;
+		console.error('Parameter "zoomToObject" not implemented!\nDoing regular camera move.');
+		controls.target.copy(target);
+		controls.update();
+		zoomControls.target.copy(target);
+		zoomControls.update();
 	}
 }
+
+
 
 function createAtlasScene() {
 	if (scene.children.length !== 0) return;
