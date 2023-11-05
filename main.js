@@ -430,14 +430,22 @@ function createCelestialBody(data) {
 
 	let parentBody = (data.parentBody === '') ? null : getBodyByName(data.parentBody);
 	let parentStar = (data.parentStar === '') ? null : getBodyByName(data.parentStar);
-	let themeImage = (data.themeImage === '') ? null : String(data.themeImage);
+
+	let themeImage = null;
+	if (data.type === 'Lagrange Point') {
+		themeImage = getBodyByName(data.parentBody).THEME_IMAGE;
+	} else if (data.themeImage !== '') {
+		themeImage = String(data.themeImage);
+	}
 
 	let themeColor = {'r': 0, 'g': 0, 'b': 0};
-	if (data.themeColorR !== '') {
+	if (data.type === 'Lagrange Point') {
+		themeColor = getBodyByName(data.parentBody).THEME_COLOR;
+	} else if (data.themeColorR !== '') {
 		themeColor = {
-			'r' : parseInt(data.themeColorR),
-			'g' : parseInt(data.themeColorG),
-			'b' : parseInt(data.themeColorB)
+			'r': parseInt(data.themeColorR),
+			'g': parseInt(data.themeColorG),
+			'b': parseInt(data.themeColorB)
 		}
 	}
 

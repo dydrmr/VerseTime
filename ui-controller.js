@@ -135,6 +135,8 @@ function populateLocationList() {
 	let container = document.getElementById('available-locations-list');
 
 	for (let loc of window.LOCATIONS) {
+		if (loc.PARENT?.TYPE === 'Lagrange Point') continue;
+
 		let el = document.createElement('div');
 		el.className = 'BUTTON-set-location';
 		el.addEventListener('click', function(e) { setLocation(loc.NAME); });

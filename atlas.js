@@ -113,8 +113,19 @@ document.addEventListener('createAtlasScene', function (e) {
 
 function setFocus(object) {
 	let target = null;
+	let body = null;
+
 	if (object instanceof SolarSystem) {
-		target = new THREE.Vector3(object.COORDINATES.x, object.COORDINATES.y, object.COORDINATES.z);
+		body = getBodyByName(object.NAME);
+
+		if (!body) {
+			target = new THREE.Vector3(object.COORDINATES.x, object.COORDINATES.y, object.COORDINATES.z);
+		} else {
+			target = new THREE.Vector3();
+			const mesh = scene.getObjectByName(object.NAME);
+			mesh.getWorldPosition(target);
+		}
+
 	} else {
 		target = new THREE.Vector3();
 		const mesh = scene.getObjectByName(object.NAME);
@@ -128,7 +139,7 @@ function setFocus(object) {
 
 	if (object instanceof SolarSystem) {
 		focusSystem = object;
-		focusBody = null;
+		focusBody = body;
 	} else {
 		const systemName = (object.TYPE === 'Star') ? object.NAME : object.PARENT_STAR.NAME;
 		focusSystem = getSystemByName(systemName);
@@ -162,9 +173,7 @@ function createSolarSystem(system) {
 
 	const orbitLineGroup = new THREE.Group();
 	orbitLineGroup.name = `ORBITLINES:${system.NAME}`;
-	orbitLineGroup.position.set(system.COORDINATES.x, system.COORDINATES.y, system.COORDINATES.z);
-	orbitLineGroup.scale.setScalar(1 / mapScale);
-	scene.add(orbitLineGroup);
+	group.add(orbitLineGroup);
 
 	for (const body of bodies) {
 		createCelestialBody(body, group);
@@ -174,9 +183,12 @@ function createSolarSystem(system) {
 
 
 function createCelestialBody(body, group) {
-	const geo = new THREE.SphereGeometry(body.BODY_RADIUS, 24, 24);
+	const radius = (body.TYPE === 'Jump Point' || body.TYPE === 'Lagrange Point') ? 0.1 : body.BODY_RADIUS;
+	const materialColor = (body.TYPE === 'Star') ? `rgb(230, 200, 140)` : `rgb(${body.THEME_COLOR.r}, ${body.THEME_COLOR.g}, ${body.THEME_COLOR.b})`;
+
+	const geo = new THREE.SphereGeometry(radius, 24, 24);
 	const mat = new THREE.MeshBasicMaterial({
-		color: `rgb(70, 10, 40)`,
+		color: materialColor,
 	});
 	const object = new THREE.Mesh(geo, mat);
 	object.name = body.NAME;
@@ -305,6 +317,8 @@ function createLabel_CelestialBody(body, group) {
 	div.classList.add('atlas-label-system');
 	div.dataset.objectType = body.TYPE;
 	div.dataset.systemName = body.TYPE === 'Star' ? body.NAME : body.PARENT_STAR.NAME;
+	div.dataset.parentName = body.TYPE === 'Star' ? null : body.PARENT.NAME;
+	div.dataset.objectName = body.NAME;
 
 	div.addEventListener('pointerdown', (event) => {
 		if (event.button === 0) {
@@ -366,19 +380,23 @@ function organizeLabels() {
 function organizeLabelsVersionTwo() {
 	const distance = controls.getDistance();
 
-	const visibility = distance > 30 ? true : false;
+	const visibility = distance > 25 ? true : false;
 	scene.getObjectByName('Lollipops').visible = visibility;
 	scene.getObjectByName('Galaxy Grid').visible = visibility;
+
+	for (const sys of window.SYSTEMS) {
+		if (sys.NAME === focusSystem.NAME) continue;
+
+		const object = scene.getObjectByName(`SYSTEM:${sys.NAME}`);
+		if (object) {
+			object.visible = visibility;
+		}
+	}
 
 	const allLabels = document.querySelectorAll('.atlas-label');
 	for (const label of allLabels) {
 
-		if (label.dataset.objectType === 'Solar System') {
-			if (distance < 30) {
-				label.dataset.visible = false;
-				continue;
-			}
-		}
+		// FOCUS-BASED
 
 		if (
 			label.dataset.objectType !== 'Solar System' &&
@@ -387,12 +405,29 @@ function organizeLabelsVersionTwo() {
 			label.dataset.visible = false;
 			continue;
 		}
+		
+		if (
+			label.dataset.objectType === 'Moon' &&
+			label.dataset.systemName !== focusSystem.NAME
+		) {
+			label.dataset.visible = false;
+			continue;
+		}
+
+		// DISTANCE-BASED
+
+		if (label.dataset.objectType === 'Solar System') {
+			if (distance < 25) {
+				label.dataset.visible = false;
+				continue;
+			}
+		}
 
 		if (
 			label.dataset.objectType === 'Star' ||
 			label.dataset.objectType === 'Planet'
 		) {
-			if (distance > 30) {
+			if (distance > 25) {
 				label.dataset.visible = false;
 				continue;
 			}
@@ -402,7 +437,6 @@ function organizeLabelsVersionTwo() {
 			label.dataset.objectType === 'Lagrange Point' ||
 			label.dataset.objectType === 'Jump Point'
 		) {
-			
 			if (distance > 15) {
 				label.dataset.visible = false;
 				continue;

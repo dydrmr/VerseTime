@@ -758,7 +758,7 @@ body {
 .atlas-label[data-object-type="Solar System"],
 .atlas-label[data-object-type="Star"] {
 		text-transform: uppercase;
-		color: rgba(255, 255, 255, 0.5);
+		color: rgba(255, 255, 255, 0.65);
 	}
 .atlas-label[data-object-type="Lagrange Point"] {
 	color: rgba(255, 255, 255, 0.5);
