@@ -33,6 +33,7 @@ document.getElementById('BUTTON-close-credits').addEventListener('click', functi
 
 document.getElementById('BUTTON-toggle-map-window').addEventListener('click', function(e) { toggleMapWindow(); });
 document.getElementById('BUTTON-close-map').addEventListener('click', function (e) { toggleMapWindow(); });
+
 document.getElementById('BUTTON-toggle-atlas-window').addEventListener('click', function (e) { toggleAtlasWindow(); });
 
 document.getElementById('BUTTON-share-location').addEventListener('click', function(e) { shareLocation(); });

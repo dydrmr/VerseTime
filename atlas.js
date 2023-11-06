@@ -222,6 +222,22 @@ function populateInfobox(object) {
 	}
 
 	if (object instanceof SolarSystem) {
+		infoBox.innerText += `\nAFFILIATION: ${object.AFFILIATION}`;
+	}
+
+	if (object instanceof SolarSystem) {
+		const jps = window.WORMHOLES.filter((wh) => {
+			if (wh.SYSTEM1.NAME === object.NAME || wh.SYSTEM2.NAME === object.NAME) {
+				return true;
+			}
+		})
+
+		if (jps.length > 0) {
+			infoBox.innerText += `\nJUMP POINTS: ${jps.length}`;
+		}
+	}
+
+	if (object instanceof SolarSystem) {
 		const planets = window.BODIES.filter((body) => {
 			if (
 				body.TYPE === 'Planet' &&
@@ -268,6 +284,8 @@ function createAtlasScene() {
 	for (const system of window.SYSTEMS) {
 		createSolarSystem(system);
 	}
+
+	createWormholeLines();
 
 	createCircularGrid(300, 25);
 	createLollipops();
@@ -385,6 +403,46 @@ function createOrbitLine(body, group) {
 	group.add(circle);
 }
 
+function createWormholeLines(precise = false) {
+	const group = new THREE.Group();
+	group.name = 'Wormholes';
+	scene.add(group);
+
+	for (const wormhole of window.WORMHOLES) {
+		let p1 = null;
+		let p2 = null;
+
+		if (precise) {
+			console.error('Precise wormhole lines not implemented!');
+
+		} else {
+			p1 = wormhole.SYSTEM1.COORDINATES;
+			p2 = wormhole.SYSTEM2.COORDINATES;
+		}
+
+		let lineColor = null;
+		if (wormhole.SIZE === 'S') {
+			lineColor = `red`;
+		} else if (wormhole.SIZE === 'M') {
+			lineColor = 'yellow';
+		} else if (wormhole.SIZE === 'L') {
+			lineColor = 'green';
+		} else {
+			lineColor = 'violet';
+		}
+
+		const material = new THREE.LineBasicMaterial({
+			color: lineColor,
+			transparent: true,
+			opacity: 0.15
+		});
+
+		const line = makeLine(p1.x, p1.y, p1.z, p2.x, p2.y, p2.z, material);
+		group.add(line);
+	}
+}
+
+
 function createLabels() {
 	for (const system of window.SYSTEMS) {
 		createLabel_SolarSystem(system);
@@ -395,6 +453,12 @@ function createLabels() {
 		const group = scene.getObjectByName(`SYSTEM:${systemName}`);
 		createLabel_CelestialBody(body, group);
 	}
+
+	for (const location of window.LOCATIONS) {
+		const systemName = location.PARENT_STAR.NAME;
+		const group = scene.getObjectByName(`SYSTEM:${systemName}`);
+		createLabel_Location(location, group);
+	}
 }
 
 function createLabel_SolarSystem(system) {
@@ -402,6 +466,7 @@ function createLabel_SolarSystem(system) {
 	div.classList.add('atlas-label');
 	div.classList.add('atlas-label-system');
 	div.dataset.objectType = 'Solar System';
+	div.dataset.affiliation = system.AFFILIATION;
 
 	setLabelEvents(div, system);
 
@@ -414,12 +479,13 @@ function createLabel_SolarSystem(system) {
 	label.position.copy(new THREE.Vector3(system.COORDINATES.x, system.COORDINATES.y, system.COORDINATES.z));
 
 	scene.add(label);
+	labelsSystems.push(div);
 }
 
 function createLabel_CelestialBody(body, group) {
 	const div = document.createElement('div');
 	div.classList.add('atlas-label');
-	div.classList.add('atlas-label-system');
+	//div.classList.add('atlas-label-system');
 	div.dataset.objectType = body.TYPE;
 	div.dataset.systemName = body.TYPE === 'Star' ? body.NAME : body.PARENT_STAR.NAME;
 	div.dataset.parentName = body.TYPE === 'Star' ? null : body.PARENT.NAME;
@@ -440,6 +506,41 @@ function createLabel_CelestialBody(body, group) {
 
 	const label = new CSS2DObject(div);
 	const labelPosition = new THREE.Vector3(body.COORDINATES.x, body.COORDINATES.y,	body.COORDINATES.z);
+	label.position.copy(labelPosition);
+
+	group.add(label);
+
+	if (body.TYPE === 'Star') {
+		labelsStars.push(div);
+	} else if (body.TYPE === 'Planet') {
+		labelsPlanets.push(div);
+	} else if (body.TYPE === 'Moon') {
+		labelsMoons.push(div);
+	}
+}
+
+function createLabel_Location(location, group) {
+	const div = document.createElement('div');
+	div.classList.add('atlas-label');
+	div.classList.add('atlas-label-location');
+	div.dataset.objectType = 'Location';
+	div.dataset.systemName = location.PARENT_STAR.NAME;
+	div.dataset.parentName = location.PARENT.NAME;
+	div.dataset.objectName = location.NAME;
+
+	setLabelEvents(div, location);
+
+	const nameElement = document.createElement('p');
+	nameElement.classList.add('atlas-label-name');
+	nameElement.innerText = location.NAME;
+	div.appendChild(nameElement);
+
+	const label = new CSS2DObject(div);
+	const labelPosition = new THREE.Vector3(
+		location.COORDINATES.x + location.PARENT.COORDINATES.x,
+		location.COORDINATES.y + location.PARENT.COORDINATES.y,
+		location.COORDINATES.z + location.PARENT.COORDINATES.z
+	);
 	label.position.copy(labelPosition);
 
 	group.add(label);
@@ -503,8 +604,9 @@ function organizeLabelsVersionTwo() {
 	const distance = controls.getDistance();
 
 	const visibility = distance > 25 ? true : false;
-	scene.getObjectByName('Lollipops').visible = visibility;
-	scene.getObjectByName('Galaxy Grid').visible = visibility;
+	scene.getObjectByName('Lollipops').visible = (visibility && settingLolli.checked);
+	scene.getObjectByName('Galaxy Grid').visible = (visibility && settingGrid.checked);
+	scene.getObjectByName('Wormholes').visible = (visibility && settingWorm.checked);
 
 	for (const sys of window.SYSTEMS) {
 		if (sys.NAME === focusSystem.NAME) continue;
@@ -522,6 +624,14 @@ function organizeLabelsVersionTwo() {
 
 		if (
 			label.dataset.objectType !== 'Solar System' &&
+			label.dataset.systemName !== focusSystem.NAME
+		) {
+			label.dataset.visible = false;
+			continue;
+		}
+
+		if (
+			label.dataset.objectType === 'Planet' &&
 			label.dataset.systemName !== focusSystem.NAME
 		) {
 			label.dataset.visible = false;
@@ -567,6 +677,13 @@ function organizeLabelsVersionTwo() {
 
 		if (label.dataset.objectType === 'Moon') {
 			if (distance > 0.5) {
+				label.dataset.visible = false;
+				continue;
+			}
+		}
+
+		if (label.dataset.objectType === 'Location') {
+			if (distance > 0.0075) {
 				label.dataset.visible = false;
 				continue;
 			}
@@ -678,3 +795,44 @@ function organizeLocationLabels() {
 		label.dataset.visible = true;
 	}
 }
+
+
+
+// EVENT LISTENERS
+const settingLolli = document.getElementById('atlas-settings-show-lollipops');
+settingLolli.addEventListener('change', function () {
+	saveSetting('atlasLollipops', settingLolli.checked);
+	const mesh = scene.getObjectByName('Lollipops');
+	mesh.visible = settingLolli.checked;
+});
+
+const settingWorm = document.getElementById('atlas-settings-show-wormholes');
+settingWorm.addEventListener('change', function () {
+	saveSetting('atlasWormholes', settingWorm.checked);
+	const mesh = scene.getObjectByName('Wormholes');
+	mesh.visible = settingWorm.checked;
+});
+
+
+const settingAffil = document.getElementById('atlas-settings-show-affiliation');
+settingAffil.addEventListener('change', function () {
+	const setting = settingAffil.checked;
+	saveSetting('atlasAffiliation', setting);
+
+	const labels = document.querySelectorAll('.atlas-label-system');
+	for (const label of labels) {
+		if (setting === true) {
+			const sys = getSystemByName(label.textContent);
+			label.dataset.affiliation = sys.AFFILIATION;
+		} else {
+			label.dataset.affiliation = 'disabled';
+		}
+	}	
+});
+
+const settingGrid = document.getElementById('atlas-settings-show-grid');
+settingGrid.addEventListener('change', function () {
+	saveSetting('atlasGrid', settingGrid.checked);
+	const mesh = scene.getObjectByName('Galaxy Grid');
+	mesh.visible = settingWorm.checked;
+});

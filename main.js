@@ -2,10 +2,13 @@ import { ROUND, CHOSEN_TIME } from './HelperFunctions.js';
 import SolarSystem from './classes/SolarSystem.js';
 import CelestialBody from './classes/CelestialBody.js';
 import Location from './classes/Location.js';
+import Wormhole from './classes/Wormhole.js';
 
 window.SYSTEMS = Array();
 window.BODIES = Array();
 window.LOCATIONS = Array();
+window.WORMHOLES = Array();
+
 window.ACTIVE_LOCATION = null;
 window.SETTING_24HR = true;
 window.DEBUG_MODE = false;
@@ -347,52 +350,35 @@ function CONVERT_24H_TO_12H(hour) {
 
 
 async function loadDatabase() {
-	let systemsCSV = null;
+	const systems = await getCSV('data/systems.csv');
+	for (const sys of systems) { createSolarSystem(sys); }
+
+	const bodies = await getCSV('data/bodies.csv');
+	for (const bod of bodies) { createCelestialBody(bod); }
+
+	const locations = await getCSV('data/locations.csv');
+	for (const loc of locations) { createLocation(loc); }
+
+	const wormholes = await getCSV('data/wormholes.csv');
+	for (const wh of wormholes) { createWormhole(wh); }
+}
+
+async function getCSV(url) {
+	let csvString = null;
+
 	try {
-		const response = await fetch('data/systems.csv');
+		const response = await fetch(url);
 		if (!response.ok) {
-			throw new Error(`Error fetching solar systems: ${response.status}`);
+			throw new Error(`Error fetching CSV:\n${response.status}`);
 		}
-		systemsCSV = await response.text();
+		csvString = await response.text();
 
 	} catch (error) {
-		console.error('Error fetching solar systems:', error);
+		throw new Error(`Error fetching CSV:\n${error}`);
 	}
 
-	const systems = parseCSV(systemsCSV);
-	for (const system of systems) { createSolarSystem(system); }
-
-
-	let bodiesCSV = null;
-	try {
-		const response = await fetch('data/bodies.csv');
-		if (!response.ok) {
-			throw new Error(`Error fetching celestial bodies: ${response.status}`);
-		}
-		bodiesCSV = await response.text();
-
-	} catch (error) {
-		console.error('Error fetching celestial bodies:', error);
-	}
-
-	const bodies = parseCSV(bodiesCSV);
-	for (const body of bodies) { createCelestialBody(body); }
-
-
-	let locationsCSV = null;
-	try {
-		const response = await fetch('data/locations.csv');
-		if (!response.ok) {
-			throw new Error(`Error fetching locations: ${response.status}`);
-		}
-		locationsCSV = await response.text();
-
-	} catch (error) {
-		console.error('Error fetching locations:', error);
-	}
-
-	const locations = parseCSV(locationsCSV);
-	for (const location of locations) { createLocation(location); }
+	const data = parseCSV(csvString);
+	return data;
 }
 
 function parseCSV(csvString) {
@@ -421,7 +407,8 @@ function createSolarSystem(data) {
 		String(data.name),
 		parseFloat(data.coordinateX),
 		parseFloat(data.coordinateY),
-		parseFloat(data.coordinateZ)
+		parseFloat(data.coordinateZ),
+		String(data.affiliation)
 	)
 }
 
@@ -502,11 +489,28 @@ function createLocation(data) {
 	);
 }
 
+function createWormhole(data) {
+	let x1 = data.position1x === '' ? null : parseFloat(data.position1x);
+	let y1 = data.position1y === '' ? null : parseFloat(data.position1y);
+	let z1 = data.position1z === '' ? null : parseFloat(data.position1z);
+	let x2 = data.position1x === '' ? null : parseFloat(data.position2x);
+	let y2 = data.position1y === '' ? null : parseFloat(data.position2y);
+	let z2 = data.position1z === '' ? null : parseFloat(data.position2z);
+
+	let wormhole = new Wormhole(
+		String(data.size),
+		getSystemByName(String(data.system1)),
+		getSystemByName(String(data.system2)),
+		x1, y1, z1,
+		x2, y2, z2
+	)
+}
+
 function getSystemByName(string) {
 	const result = SYSTEMS.filter(sys => sys.NAME === string);
 
 	if (result.length === 0) {
-		console.error(`Ssytem "${string} not found."`);
+		console.error(`System "${string} not found."`);
 		return null;
 	}
 

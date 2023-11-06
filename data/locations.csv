@@ -209,23 +209,37 @@ Whistler's Crypt,Settlement,Daymar,Stanton,182.262,222.629,65.625,https://starci
 Wolf Point Aid Shelter,Emergency shelter,Daymar,Stanton,-4.42,279.067,95.733,https://starcitizen.tools/images/thumb/7/76/Wolf_Point_Aid_Shelter%2C_Daymar_%28Alpha_3.17%29.png/300px-Wolf_Point_Aid_Shelter%2C_Daymar_%28Alpha_3.17%29.png
 Yadar Valley,Racetrack,Daymar,Stanton,-171.798,157.576,181.015,https://media.starcitizen.tools/thumb/d/d2/Yadar_Valley_racetrack%2C_Daymar_-_day.jpg/300px-Yadar_Valley_racetrack%2C_Daymar_-_day.jpg
 Zephyr,Settlement,Hurston,Stanton,108.16,-133.662,986.694,
-Green Glade Station,Space station,HUR-L1,Stanton,-3998.772,-262.923,-484.614,
-Faithful Dream Station,Space station,HUR-L2,Stanton,4132.735,-1967.278,-527.794,
-Thundering Express Station,Space station,HUR-L3,Stanton,5714.049,-1553.263,1335.043,
-Melodic Fields Station,Space station,HUR-L4,Stanton,2399.289,-4056.976,666.284,
-High Course Station,Space station,HUR-L5,Stanton,495.237,461.677,-842.035,
-[TEST] Bueno Ravine,Settlement,Bloom,Pyro,-14.41111321,-129.3358336,42.94226906,https://media.starcitizen.tools/thumb/5/56/Bueno_Ravine_overview_-_Bloom%2C_Pyro_system.png/300px-Bueno_Ravine_overview_-_Bloom%2C_Pyro_system.png
-[TEST] Sunset Mesa,Scrapyard,Monox,Pyro,-164.1016965,246.9801976,192.2135091,https://media.starcitizen.tools/thumb/2/2f/Sunset_Mesa_-_Monox%2C_Pyro_system.png/400px-Sunset_Mesa_-_Monox%2C_Pyro_system.png
-[TEST] Yang's Place,Settlement,Monox,Pyro,233.3240767,72.22920145,-20.19854291,https://media.starcitizen.tools/thumb/2/2a/Yang%27s_Place_-_lower_area_-_Monox%2C_Pyro_system.png/300px-Yang%27s_Place_-_lower_area_-_Monox%2C_Pyro_system.png
-[TEST] Shadowfall,Settlement,Bloom,Pyro,39.94773642,230.6281852,-23.69699165,https://media.starcitizen.tools/thumb/4/45/Shadowfall_-_Bloom%2C_Pyro_system.png/400px-Shadowfall_-_Bloom%2C_Pyro_system.png
-[TEST] The Yard,Settlement,Bloom,Pyro,27.43064363,194.1694465,232.6627397,https://media.starcitizen.tools/thumb/0/01/The_Yard_-_Bloom%2C_Pyro_system.png/400px-The_Yard_-_Bloom%2C_Pyro_system.png
-[TEST] Orbituary,Space station,Bloom,Pyro,162.300442,118.833864,223.627821,https://media.starcitizen.tools/thumb/2/24/Pyro_-_Orbituary_space_station.png/300px-Pyro_-_Orbituary_space_station.png
-[TEST] The Golden Riviera,Settlement,Bloom,Pyro,-49.26327269,-152.3253826,36.2114837,https://media.starcitizen.tools/thumb/1/10/Golden_Riviera_exterior_overview_-_Bloom%2C_Pyro_system.png/300px-Golden_Riviera_exterior_overview_-_Bloom%2C_Pyro_system.png
-[TEST] Shepherd's Rest,Settlement,Bloom,Pyro,7.669194061,-6.187996127,184.3041248,https://media.starcitizen.tools/thumb/8/8e/Shepherd%27s_Rest%2C_morning_-_Bloom%2C_Pyro_system.png/300px-Shepherd%27s_Rest%2C_morning_-_Bloom%2C_Pyro_system.png
-[TEST] Last Ditch,Settlement,Monox,Pyro,-18.19048761,239.4258959,220.890406,https://media.starcitizen.tools/thumb/d/d7/Last_Ditch_-_Monox%2C_Pyro_system.png/400px-Last_Ditch_-_Monox%2C_Pyro_system.png
-[TEST] Jackson's Swap,Settlement,Monox,Pyro,58.66829955,175.0840787,-183.4127138,https://media.starcitizen.tools/thumb/6/69/Jackson%27s_Swap_-_Monox%2C_Pyro_system.png/400px-Jackson%27s_Swap_-_Monox%2C_Pyro_system.png
-[TEST] Rustville,Settlement,Pyro I,Pyro,181.0332143,242.7815021,-165.7917328,https://media.starcitizen.tools/thumb/e/e1/Rustville_-_Pyro_I%2C_Pyro_system.png/400px-Rustville_-_Pyro_I%2C_Pyro_system.png
-[TEST] Derelict Outpost (Pyro I),Ruins,Pyro I,Pyro,-138.9984289,-200.7197165,15.06576727,
-[TEST] Derelict Outpost (Monox),Ruins,Monox,Pyro,-116.3122366,-67.5104838,22.47673968,
-[TEST] Derelict Outpost (Bloom),Ruins,Bloom,Pyro,112.3700738,-128.3274852,176.5590748,
-[TEST] Ruin Station,Space station,Terminus,Pyro,227.8577219,-170.7294663,65.92729949,https://media.starcitizen.tools/thumb/a/ac/PYRO_STATION_EXTERIOR_WHITEBOX_04-scaled.jpg/300px-PYRO_STATION_EXTERIOR_WHITEBOX_04-scaled.jpg
+Green Glade Station,Space station,HUR-L1,Stanton,-3998.772,-262.923,-484.614,https://media.starcitizen.tools/thumb/4/49/HUR-L1-Exterior-Alpha-3.12.png/300px-HUR-L1-Exterior-Alpha-3.12.png
+Faithful Dream Station,Space station,HUR-L2,Stanton,4132.735,-1967.278,-527.794,https://media.starcitizen.tools/thumb/2/2c/HUR-L2-Exterior2-Alpha-3.12.png/300px-HUR-L2-Exterior2-Alpha-3.12.png
+Thundering Express Station,Space station,HUR-L3,Stanton,5714.049,-1553.263,1335.043,https://media.starcitizen.tools/thumb/a/a9/HUR-L3-Exterior-Alpha-3.12.png/300px-HUR-L3-Exterior-Alpha-3.12.png
+Melodic Fields Station,Space station,HUR-L4,Stanton,2399.289,-4056.976,666.284,https://media.starcitizen.tools/thumb/7/71/HUR-L4-Exterior-Alpha-3.12.png/300px-HUR-L4-Exterior-Alpha-3.12.png
+High Course Station,Space station,HUR-L5,Stanton,495.237,461.677,-842.035,https://media.starcitizen.tools/thumb/7/7e/HUR-L5-Exterior-Alpha-3.12.png/300px-HUR-L5-Exterior-Alpha-3.12.png
+Ambitious Dream Station,Space station,CRU-L1,Stanton,-2796.345,-1018.273,-20.044,https://media.starcitizen.tools/thumb/e/e9/CRU-L1-Exterior-Alpha-3.12.png/300px-CRU-L1-Exterior-Alpha-3.12.png
+Shallow Fields Station,Space station,CRU-L4,Stanton,-599.667,4147.668,-2174.784,https://media.starcitizen.tools/thumb/e/e1/CRU-L4-Exterior-Alpha-3.12.png/300px-CRU-L4-Exterior-Alpha-3.12.png
+Beautiful Glen Station,Space station,CRU-L5,Stanton,3996.779,1989.649,-2796.441,https://media.starcitizen.tools/thumb/4/4d/CRU-L5-Exterior-Alpha-3.14.jpg/300px-CRU-L5-Exterior-Alpha-3.14.jpg
+Wide Forest Station,Space station,ARC-L1,Stanton,,,,https://media.starcitizen.tools/thumb/1/13/ARC-L1-Exterior-Alpha3.12.png/300px-ARC-L1-Exterior-Alpha3.12.png
+Lively Pathway Station,Space station,ARC-L2,Stanton,,,,https://media.starcitizen.tools/thumb/8/8b/ARC-L2-Exterior-Alpha-3.17.2.jpg/300px-ARC-L2-Exterior-Alpha-3.17.2.jpg
+Modern Express Station,Space station,ARC-L3,Stanton,,,,
+Faint Glen Station,Space station,ARC-L4,Stanton,,,,
+Yellow Core Station,Space station,ARC-L5,Stanton,,,,https://media.starcitizen.tools/thumb/9/9b/ARC-L5-Exterior-Alpha-3.17.2.jpg/300px-ARC-L5-Exterior-Alpha-3.17.2.jpg
+INS Jericho,Space station,MIC-L1,Stanton,27928.773,1329.828,-17086.343,https://media.starcitizen.tools/thumb/3/30/Stanton-ins-jericho-3.12.jpg/300px-Stanton-ins-jericho-3.12.jpg
+Shallow Frontier Station,Space station,MIC-L1,Stanton,3.031,4.510,-0.943,https://media.starcitizen.tools/thumb/5/56/MIC-L1-Exterior1-Alpha-3.12.png/300px-MIC-L1-Exterior1-Alpha-3.12.png
+Long Forest Station,Space station,MIC-L2,Stanton,,,,https://media.starcitizen.tools/thumb/7/7e/MIC-L2-Exterior2-Alpha-3.17.2.jpg/300px-MIC-L2-Exterior2-Alpha-3.17.2.jpg
+Endless Odyssey Station,Space station,MIC-L3,Stanton,,,,
+Red Crossroads Station,Space station,MIC-L4,Stanton,,,,https://media.starcitizen.tools/thumb/e/e2/MIC-L4-Exterior1-Alpha-3.17.2.jpg/1024px-MIC-L4-Exterior1-Alpha-3.17.2.jpg
+Modern Icarus Station,Space station,MIC-L5,Stanton,,,,https://media.starcitizen.tools/thumb/b/b8/MIC-L5-Exterior1-Alpha-3.17.2.jpg/300px-MIC-L5-Exterior1-Alpha-3.17.2.jpg
+[TEST] Rustville,Settlement,Pyro I,Pyro,131.7323507,-118.8463242,71.49593471,https://media.starcitizen.tools/thumb/e/e1/Rustville_-_Pyro_I%2C_Pyro_system.png/400px-Rustville_-_Pyro_I%2C_Pyro_system.png
+[TEST] Derelict Outpost (Pyro I),Ruins,Pyro I,Pyro,33.48358706,166.138495,67.92081409,
+[TEST] Last Ditch,Settlement,Monox,Pyro,17.22104143,66.55503952,90.59670928,https://media.starcitizen.tools/thumb/d/d7/Last_Ditch_-_Monox%2C_Pyro_system.png/400px-Last_Ditch_-_Monox%2C_Pyro_system.png
+[TEST] Jackson's Swap,Settlement,Monox,Pyro,95.44389661,-161.0059616,-45.72738515,https://media.starcitizen.tools/thumb/6/69/Jackson%27s_Swap_-_Monox%2C_Pyro_system.png/400px-Jackson%27s_Swap_-_Monox%2C_Pyro_system.png
+[TEST] Sunset Mesa,Scrapyard,Monox,Pyro,-181.2338269,1.434034155,-109.1099295,https://media.starcitizen.tools/thumb/2/2f/Sunset_Mesa_-_Monox%2C_Pyro_system.png/400px-Sunset_Mesa_-_Monox%2C_Pyro_system.png
+[TEST] Yang's Place,Settlement,Monox,Pyro,71.4414069,-161.1717405,-137.4718945,https://media.starcitizen.tools/thumb/2/2a/Yang%27s_Place_-_lower_area_-_Monox%2C_Pyro_system.png/300px-Yang%27s_Place_-_lower_area_-_Monox%2C_Pyro_system.png
+[TEST] Derelict Outpost (Monox),Ruins,Monox,Pyro,93.1315869,-70.53077613,-131.6216308,
+[TEST] Bueno Ravine,Settlement,Bloom,Pyro,-221.4138547,132.6799385,-145.5489283,https://media.starcitizen.tools/thumb/5/56/Bueno_Ravine_overview_-_Bloom%2C_Pyro_system.png/300px-Bueno_Ravine_overview_-_Bloom%2C_Pyro_system.png
+[TEST] Shadowfall,Settlement,Bloom,Pyro,-167.0709799,192.4510673,83.27210677,https://media.starcitizen.tools/thumb/4/45/Shadowfall_-_Bloom%2C_Pyro_system.png/400px-Shadowfall_-_Bloom%2C_Pyro_system.png
+[TEST] The Yard,Settlement,Bloom,Pyro,158.1433284,155.9411494,-95.79627241,https://media.starcitizen.tools/thumb/0/01/The_Yard_-_Bloom%2C_Pyro_system.png/400px-The_Yard_-_Bloom%2C_Pyro_system.png
+[TEST] Orbituary,Space station,Bloom,Pyro,24.71483275,-218.1961048,98.60566871,https://media.starcitizen.tools/thumb/2/24/Pyro_-_Orbituary_space_station.png/300px-Pyro_-_Orbituary_space_station.png
+[TEST] The Golden Riviera,Settlement,Bloom,Pyro,113.9907157,74.607171,-102.0917454,https://media.starcitizen.tools/thumb/1/10/Golden_Riviera_exterior_overview_-_Bloom%2C_Pyro_system.png/300px-Golden_Riviera_exterior_overview_-_Bloom%2C_Pyro_system.png
+[TEST] Shepherd's Rest,Settlement,Bloom,Pyro,-234.3712823,120.1094711,142.9979435,https://media.starcitizen.tools/thumb/8/8e/Shepherd%27s_Rest%2C_morning_-_Bloom%2C_Pyro_system.png/300px-Shepherd%27s_Rest%2C_morning_-_Bloom%2C_Pyro_system.png
+[TEST] Derelict Outpost (Bloom),Ruins,Bloom,Pyro,-212.4053493,48.28422612,151.5791068,
+[TEST] Ruin Station,Space station,Terminus,Pyro,-0.5016823802,-215.4253477,-221.9675485,https://media.starcitizen.tools/thumb/a/ac/PYRO_STATION_EXTERIOR_WHITEBOX_04-scaled.jpg/300px-PYRO_STATION_EXTERIOR_WHITEBOX_04-scaled.jpg
