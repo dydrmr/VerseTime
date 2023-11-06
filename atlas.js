@@ -18,6 +18,11 @@ const mapScale = 10_000_000;
 let focusBody = null;
 let focusSystem = null;
 
+const labelsSystems = Array();
+const labelsStars = Array();
+const labelsPlanets = Array();
+const labelsMoons = Array();
+
 // TODO:
 // switch to distance-based label visibility determination first, and only ever add location labels for currently selected location
 // focus levels -> for easy scale changing. Ex: Galaxy, System, Planet, Moon (?), Location
