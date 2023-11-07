@@ -519,7 +519,7 @@ body {
 #BUTTON-toggle-map-window {
 	position: absolute;
 	left: 5px;
-	top: 5px;
+	top: 30px;
 
 	padding: 5px 10px;
 	font-family: 'Rajdhani', sans-serif;
@@ -560,7 +560,7 @@ body {
 #BUTTON-toggle-atlas-window {
 	position: absolute;
 	left: 5px;
-	top: 35px;
+	top: 5px;
 	padding: 5px 10px;
 	font-family: 'Rajdhani', sans-serif;
 	font-size: 14px;
@@ -859,6 +859,7 @@ body {
 	position: absolute;
 	top: 0px;
 	left: 0px;
+	margin: 7px;
 	color: white;
 	font-size: 12px;
 	font-family: 'Roboto Mono', monospace;

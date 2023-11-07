@@ -17,313 +17,314 @@
 
 <body>
 
-<section id="message">
-	<p id="message-title"></p>
-	<p id="message-text"></p>
-</section>
+    <section id="message">
+        <p id="message-title"></p>
+        <p id="message-text"></p>
+    </section>
 
 
-<section id="selected-location-card">
+    <section id="selected-location-card">
 
-	<div id="selected-location-container">
+        <div id="selected-location-container">
 
-		<div id="selected-location-bg-image"></div>
+            <div id="selected-location-bg-image"></div>
 
-		<p class="selected-location-time" id="local-time"></p>
+            <p class="selected-location-time" id="local-time"></p>
 
-		<div id="BUTTON-open-settings">
-			<p class="selected-location-label"><span id="location-name"></span>, <span id="location-body-type"></span> <span id="location-body-name"></span></p>
-			<p class="selected-location-sublabel">local synodic time</p>
-		</div>
-		
-		<div>
-			<p id="chosen-time"></p>
-			<p class="selected-location-sublabel" id="chosen-time-sublabel"></p>
-		</div>
+            <div id="BUTTON-open-settings">
+                <p class="selected-location-label"><span id="location-name"></span>, <span id="location-body-type"></span> <span id="location-body-name"></span></p>
+                <p class="selected-location-sublabel">local synodic time</p>
+            </div>
 
-		<div class="riseset-container" id="next-rise-container">
-			<div class="riseset-group">
-				<p class="riseset-label">Next starrise</p>
-				<p class="riseset-time-label" id="next-rise-countdown"></p>
-			</div>
-			<div class="riseset-group">
-				<p class="riseset-label">Verse time</p>
-				<p class="riseset-time-label" id="local-rise-time"></p>
-			</div>
-			<div class="riseset-group">
-				<p class="riseset-label">Real Time</p>
-				<p class="riseset-time-label"><span id="next-rise-time"></span></p>
-			</div>
-		</div>
+            <div>
+                <p id="chosen-time"></p>
+                <p class="selected-location-sublabel" id="chosen-time-sublabel"></p>
+            </div>
 
-		<div class="riseset-container" id="next-set-container">
-			<div class="riseset-group">
-				<p class="riseset-label">Next starset</p>
-				<p class="riseset-time-label" id="next-set-countdown"></p>
-			</div>
-			<div class="riseset-group">
-				<p class="riseset-label">Verse time</p>
-				<p class="riseset-time-label" id="local-set-time"></p>
-			</div>
-			<div class="riseset-group">
-				<p class="riseset-label">Real Time</p>
-				<p class="riseset-time-label"><span id="next-set-time"></span></p>
-			</div>
-		</div>
+            <div class="riseset-container" id="next-rise-container">
+                <div class="riseset-group">
+                    <p class="riseset-label">Next starrise</p>
+                    <p class="riseset-time-label" id="next-rise-countdown"></p>
+                </div>
+                <div class="riseset-group">
+                    <p class="riseset-label">Verse time</p>
+                    <p class="riseset-time-label" id="local-rise-time"></p>
+                </div>
+                <div class="riseset-group">
+                    <p class="riseset-label">Real Time</p>
+                    <p class="riseset-time-label"><span id="next-rise-time"></span></p>
+                </div>
+            </div>
 
-	</div>
-</section>
+            <div class="riseset-container" id="next-set-container">
+                <div class="riseset-group">
+                    <p class="riseset-label">Next starset</p>
+                    <p class="riseset-time-label" id="next-set-countdown"></p>
+                </div>
+                <div class="riseset-group">
+                    <p class="riseset-label">Verse time</p>
+                    <p class="riseset-time-label" id="local-set-time"></p>
+                </div>
+                <div class="riseset-group">
+                    <p class="riseset-label">Real Time</p>
+                    <p class="riseset-time-label"><span id="next-set-time"></span></p>
+                </div>
+            </div>
 
-<div id="illumination-status"></div>
+        </div>
+    </section>
 
-<div id="BUTTON-toggle-credits-window">
-	Info
-</div>
+    <div id="illumination-status"></div>
 
-<div id="BUTTON-toggle-map-window">
-	Map
-</div>
+    <div id="BUTTON-toggle-credits-window">
+        Info
+    </div>
 
-<div id="BUTTON-toggle-atlas-window">
-	Atlas
-</div>
+    <div id="BUTTON-toggle-atlas-window">
+        Astro Atlas
+    </div>
 
-<div id="BUTTON-share-location">
-	Share
-</div>
-<div id="share-location-message">
-	URL copied to clipboard
-</div>
+    <div id="BUTTON-toggle-map-window">
+        Local Map
+    </div>
 
-<section id="favorites">
-	<div id="favorites-menu">
-		<button id="BUTTON-add-location-to-favorites">+</button>
-	</div>
-	<div class="favorite-card">
-		<div class="favorite-location">
-			<p class="favorite-location-name">Area18</p>
-			<p class="favorite-location-body">ArcCorp</p>
-		</div>
-		<p class="favorite-location-time">08:35 PM</p>
-		<button class="BUTTON-remove-favorite">x</button>
-	</div>
-	<div class="favorite-card">
-		<div class="favorite-location">
-			<p class="favorite-location-name">Rayari Research Outpost</p>
-			<p class="favorite-location-body">Yela</p>
-		</div>
-		<p class="favorite-location-time">11:19 AM</p>
-		<button class="BUTTON-remove-favorite">x</button>
-	</div>
-</section>
+    <div id="BUTTON-share-location">
+        Share
+    </div>
+    <div id="share-location-message">
+        URL copied to clipboard
+    </div>
 
-<section class="modal" id="modal-settings">
-	<div id="settings-window">
-		<div id="BUTTON-close-settings"></div>
+    <section id="favorites">
+        <div id="favorites-menu">
+            <button id="BUTTON-add-location-to-favorites">+</button>
+        </div>
+        <div class="favorite-card">
+            <div class="favorite-location">
+                <p class="favorite-location-name">Area18</p>
+                <p class="favorite-location-body">ArcCorp</p>
+            </div>
+            <p class="favorite-location-time">08:35 PM</p>
+            <button class="BUTTON-remove-favorite">x</button>
+        </div>
+        <div class="favorite-card">
+            <div class="favorite-location">
+                <p class="favorite-location-name">Rayari Research Outpost</p>
+                <p class="favorite-location-body">Yela</p>
+            </div>
+            <p class="favorite-location-time">11:19 AM</p>
+            <button class="BUTTON-remove-favorite">x</button>
+        </div>
+    </section>
 
-		<div id="settings-change-time-container">
-            <p id="change-time-label">Choose custom time (optional):</p>
-			<input id="time-selection-input" type="datetime-local" name="time-selection-input">
-		</div>
+    <section class="modal" id="modal-settings">
+        <div id="settings-window">
+            <div id="BUTTON-close-settings"></div>
 
-		<div id="settings-change-location-container">			
-			<input id="location-selection-input" type="text" name="location-selection-input" placeholder="Search locations..." spellcheck="false">
-			<div id="available-locations-container">
-				<div class="fade-top"></div>
-				<div id="available-locations-list" class="hide-scroll"></div>
-				<div class="fade-bottom"></div>
-			</div>
-		</div>
-	</div>
-</section>
+            <div id="settings-change-time-container">
+                <p id="change-time-label">Choose custom time (optional):</p>
+                <input id="time-selection-input" type="datetime-local" name="time-selection-input">
+            </div>
 
-<section class="modal" id="modal-credits">
-	<div id="credits-window">
-		<div id="BUTTON-close-credits"></div>
+            <div id="settings-change-location-container">
+                <input id="location-selection-input" type="text" name="location-selection-input" placeholder="Search locations..." spellcheck="false">
+                <div id="available-locations-container">
+                    <div class="fade-top"></div>
+                    <div id="available-locations-list" class="hide-scroll"></div>
+                    <div class="fade-bottom"></div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-		<p>User guide available on the <a href="https://github.com/dydrmr/VerseTime" target="_blank" rel="noreferrer noopener">Github page</a>.</p>
-		<br><br>
-		<p>Data collected by <a href="https://robertsspaceindustries.com/orgs/MURPH" target="_blank" rel="noreferrer noopener">Murphy Exploration Group</a> <a href="https://www.deltaconsultingsc.com/murphy-exploration-group" target="_blank" rel="noreferrer noopener">[Website]</a>.</p>
-		<p><a href="https://docs.google.com/spreadsheets/d/1aGJ0_49ve1NKf0GvSteSt3-a4jSxnj2snHmTDwKTBgs" target="_blank" rel="noreferrer noopener">Detailed spreadsheet available here</a>.</p>
-		<br><br>
-		<p>Planet surface textures generated with <a href="https://bitbucket.org/Cpt_BA/scexplorer_releases/downloads/" target="_blank" rel="noreferrer noopener">SCExplorer</a></p> by Cpt_BA.
-		<br><br>
-		<p>Background images from the <a href="https://starcitizen.tools/Star_Citizen_Wiki" target="_blank" rel="noreferrer noopener">starcitizen.tools Wiki</a>.</p>
-		<br><br>
-		<p>Site built by <a href="https://www.paypal.me/dydrm" target="_blank" rel="noreferrer noopener">DYDRM</a>.<br>Thanks for visiting ❤️</p>
-	</div>
-</section>
+    <section class="modal" id="modal-credits">
+        <div id="credits-window">
+            <div id="BUTTON-close-credits"></div>
 
-<section class="modal" id="modal-map">
-	<div id="map-window">
+            <p>User guide available on the <a href="https://github.com/dydrmr/VerseTime" target="_blank" rel="noreferrer noopener">Github page</a>.</p>
+            <br><br>
+            <p>Data collected by <a href="https://robertsspaceindustries.com/orgs/MURPH" target="_blank" rel="noreferrer noopener">Murphy Exploration Group</a> <a href="https://www.deltaconsultingsc.com/murphy-exploration-group" target="_blank" rel="noreferrer noopener">[Website]</a>.</p>
+            <p><a href="https://docs.google.com/spreadsheets/d/1aGJ0_49ve1NKf0GvSteSt3-a4jSxnj2snHmTDwKTBgs" target="_blank" rel="noreferrer noopener">Detailed spreadsheet available here</a>.</p>
+            <br><br>
+            <p>Planet surface textures generated with <a href="https://bitbucket.org/Cpt_BA/scexplorer_releases/downloads/" target="_blank" rel="noreferrer noopener">SCExplorer</a></p> by Cpt_BA.
+            <br><br>
+            <p>Background images from the <a href="https://starcitizen.tools/Star_Citizen_Wiki" target="_blank" rel="noreferrer noopener">starcitizen.tools Wiki</a>.</p>
+            <br><br>
+            <p>Site built by <a href="https://www.paypal.me/dydrm" target="_blank" rel="noreferrer noopener">DYDRM</a>.<br>Thanks for visiting ❤️</p>
+        </div>
+    </section>
 
-		<div id="BUTTON-close-map"></div>
+    <section class="modal" id="modal-map">
+        <div id="map-window">
 
-		<div id="map-body-name"></div>
+            <div id="BUTTON-close-map"></div>
 
-		<div id="map-bodyinfo-window" class="map-window">
-			<div class="info-group-table">
-				<p class="info-group-label">Type</p><p class="info-group-data"><span id="map-info-type">XXXX</span></p>
-				<p class="info-group-label">System</p><p class="info-group-data"><span id="map-info-system">XXXX</span></p>
-				<p class="info-group-label">Orbits</p><p class="info-group-data"><span id="map-info-orbits">XXXX</span></p>
-				<p class="info-group-label">Orbital distance</p><p class="info-group-data"><span id="map-info-orbitdistance">X,XXX</span> km</p>
-				<p class="info-group-label">Natural satellites</p><p class="info-group-data"><span id="map-info-naturalsatellites">X</span></p>
-				<p class="info-group-label">Radius</p><p class="info-group-data"><span id="map-info-radius">X,XXX</span> km</p>
-				<p class="info-group-label">Circumference</p><p class="info-group-data"><span id="map-info-circumference">X,XXX</span> km</p>
-				<p class="info-group-label">Rotation rate</p><p class="info-group-data"><span id="map-info-rotationrate">X.X</span></p>
-				<p class="info-group-label">Length of day</p><p class="info-group-data"><span id="map-info-lengthofday">XX:XX:XX</span></p>
-			</div>
-		</div>
+            <div id="map-body-name"></div>
 
-		<div id="map-locationinfo-window" class="map-window">
-			<div class="info-group-table">
-				<p class="info-group-label">Name</p><p class="info-group-data"><span id="map-info-locationname"></span></p>
-				<p class="info-group-label">Type</p><p class="info-group-data"><span id="map-info-locationtype"></span></p>
-				<p class="info-group-label">Elevation</p><p class="info-group-data"><span id="map-info-elevation"></span> m</p>
-				<p class="info-group-label">Phase</p><p class="info-group-data"><span id="map-info-phase"></span></p>
-				<p class="info-group-label">Next starrise</p><p class="info-group-data"><span id="map-info-nextstarrise"></span></p>
-				<p class="info-group-label">Next starset</p><p class="info-group-data"><span id="map-info-nextstarset"></span></p>
-			</div>
-		</div>
+            <div id="map-bodyinfo-window" class="map-window">
+                <div class="info-group-table">
+                    <p class="info-group-label">Type</p><p class="info-group-data"><span id="map-info-type">XXXX</span></p>
+                    <p class="info-group-label">System</p><p class="info-group-data"><span id="map-info-system">XXXX</span></p>
+                    <p class="info-group-label">Orbits</p><p class="info-group-data"><span id="map-info-orbits">XXXX</span></p>
+                    <p class="info-group-label">Orbital distance</p><p class="info-group-data"><span id="map-info-orbitdistance">X,XXX</span> km</p>
+                    <p class="info-group-label">Natural satellites</p><p class="info-group-data"><span id="map-info-naturalsatellites">X</span></p>
+                    <p class="info-group-label">Radius</p><p class="info-group-data"><span id="map-info-radius">X,XXX</span> km</p>
+                    <p class="info-group-label">Circumference</p><p class="info-group-data"><span id="map-info-circumference">X,XXX</span> km</p>
+                    <p class="info-group-label">Rotation rate</p><p class="info-group-data"><span id="map-info-rotationrate">X.X</span></p>
+                    <p class="info-group-label">Length of day</p><p class="info-group-data"><span id="map-info-lengthofday">XX:XX:XX</span></p>
+                </div>
+            </div>
 
-		<div id="map-settings-window" class="map-window">
-			<h3>Map settings</h3>
-			<div id="map-settings-container">
-				<p>Opacity</p>
-				<input type="range" min="0" max="100" value="20" class="slider" style="width:80px;" id="map-settings-planet-transparency">
+            <div id="map-locationinfo-window" class="map-window">
+                <div class="info-group-table">
+                    <p class="info-group-label">Name</p><p class="info-group-data"><span id="map-info-locationname"></span></p>
+                    <p class="info-group-label">Type</p><p class="info-group-data"><span id="map-info-locationtype"></span></p>
+                    <p class="info-group-label">Elevation</p><p class="info-group-data"><span id="map-info-elevation"></span> m</p>
+                    <p class="info-group-label">Phase</p><p class="info-group-data"><span id="map-info-phase"></span></p>
+                    <p class="info-group-label">Next starrise</p><p class="info-group-data"><span id="map-info-nextstarrise"></span></p>
+                    <p class="info-group-label">Next starset</p><p class="info-group-data"><span id="map-info-nextstarset"></span></p>
+                </div>
+            </div>
 
-				<p>Times</p>
-				<input type="checkbox" id="map-settings-show-times" checked>
+            <div id="map-settings-window" class="map-window">
+                <h3>Map settings</h3>
+                <div id="map-settings-container">
+                    <p>Opacity</p>
+                    <input type="range" min="0" max="100" value="20" class="slider" style="width:80px;" id="map-settings-planet-transparency">
 
-				<p>Shadow</p>
-				<input type="checkbox" id="map-settings-show-terminator" checked>
+                    <p>Times</p>
+                    <input type="checkbox" id="map-settings-show-times" checked>
 
-				<p>OMs</p>
-				<input type="checkbox" id="map-settings-show-orbitalmarkers" checked>
+                    <p>Shadow</p>
+                    <input type="checkbox" id="map-settings-show-terminator" checked>
 
-				<p>Grid</p>
-				<input type="checkbox" id="map-settings-show-grid" checked>
+                    <p>OMs</p>
+                    <input type="checkbox" id="map-settings-show-orbitalmarkers" checked>
 
-				<p>Stars</p>
-				<input type="checkbox" id="map-settings-show-starfield" checked>
-			</div>
-		</div>
+                    <p>Grid</p>
+                    <input type="checkbox" id="map-settings-show-grid" checked>
 
-	</div>
-</section>
+                    <p>Stars</p>
+                    <input type="checkbox" id="map-settings-show-starfield" checked>
+                </div>
+            </div>
 
-<section class="modal" id="modal-atlas">
-	<div id="atlas-container">
-		<div id="atlas-debug-info">
-			<p id="atlas-zoom"></p>
-			<p id="atlas-label-render"></p>
-			<p id="atlas-focus-system"></p>
-			<p id="atlas-focus-object"></p>
-		</div>
+        </div>
+    </section>
 
-		<div id="atlas-hierarchy">
-			STANTON ▸ HURSTON ▸ ABERDEEN
-		</div>
+    <section class="modal" id="modal-atlas">
+        <div id="atlas-container">
+            <div id="atlas-debug-info">
+                <p>ASTRO ATLAS : ALPHA VERSION : DEBUG DATA</p>
+                <p id="atlas-zoom"></p>
+                <p id="atlas-label-render"></p>
+                <p id="atlas-focus-system"></p>
+                <p id="atlas-focus-object"></p>
+            </div>
 
-		<div id="atlas-hoverinfo"></div>
+            <div id="atlas-hierarchy">
+                STANTON ▸ HURSTON ▸ ABERDEEN
+            </div>
 
-		<div id="BUTTON-atlas-zoom-in">+</div>
-		<div id="BUTTON-atlas-zoom-out">-</div>
+            <div id="atlas-hoverinfo"></div>
 
-		<div id="atlas-settings-window" class="map-window">
-			<h3>Settings</h3>
-			<div id="atlas-settings-container">
-				<p>Lollipops</p>
-				<input type="checkbox" id="atlas-settings-show-lollipops" checked>
+            <div id="BUTTON-atlas-zoom-in">+</div>
+            <div id="BUTTON-atlas-zoom-out">-</div>
 
-				<p>Wormholes</p>
-				<input type="checkbox" id="atlas-settings-show-wormholes" checked>
+            <div id="atlas-settings-window" class="map-window">
+                <h3>Settings</h3>
+                <div id="atlas-settings-container">
+                    <p>Lollipops</p>
+                    <input type="checkbox" id="atlas-settings-show-lollipops" checked>
 
-				<p>Affliation</p>
-				<input type="checkbox" id="atlas-settings-show-affiliation" checked>
+                    <p>Wormholes</p>
+                    <input type="checkbox" id="atlas-settings-show-wormholes" checked>
 
-				<p>Polar Grid</p>
-				<input type="checkbox" id="atlas-settings-show-grid" checked>
-			</div>
-		</div>
+                    <p>Affliation</p>
+                    <input type="checkbox" id="atlas-settings-show-affiliation" checked>
 
-	</div>
-</section>
+                    <p>Polar Grid</p>
+                    <input type="checkbox" id="atlas-settings-show-grid" checked>
+                </div>
+            </div>
 
-<section id="detailed-info">
-	<div class="detailed-info-group">
-		<h3>GENERAL</h3>
-		<div class="info-group-table">
-			<p class="info-group-label">HASH</p><p id="db-hash" class="info-group-data"></p>
-		</div>
-	</div>
+        </div>
+    </section>
 
-	<div class="detailed-info-group">
-		<h3>TIME</h3>
-		<div class="info-group-table">
-			<p class="info-group-label">UNIX</p><p id="db-unix-time" class="info-group-data"></p>
-			<p class="info-group-label">CHOSEN</p><p id="db-chosen-time" class="info-group-data"></p>
-			<p class="info-group-label">GMT</p><p id="db-gmt-time" class="info-group-data"></p>
-			<p class="info-group-label">VERSE</p><p id="db-universe-time" class="info-group-data"></p>
-		</div>
-	</div>
+    <section id="detailed-info">
+        <div class="detailed-info-group">
+            <h3>GENERAL</h3>
+            <div class="info-group-table">
+                <p class="info-group-label">HASH</p><p id="db-hash" class="info-group-data"></p>
+            </div>
+        </div>
 
-	<div class="detailed-info-group">
-		<h3>Body: <span id="body-name">[BODY NAME]</span></h3>
-		<div class="info-group-table">
-			<p class="info-group-label">Type</p><p class="info-group-data"><span id="body-type"></span></p>
-			<p class="info-group-label">System</p><p class="info-group-data"><span id="body-system"></span></p>
-			<p class="info-group-label">Orbits</p><p class="info-group-data"><span id="body-parent-name"></span></p>
-			<p class="info-group-label">Radius</p><p class="info-group-data"><span id="body-radius"></span> km</p>
-			<p class="info-group-label">Time to spin 360&deg;</p><p class="info-group-data"><span id="day-length"></span> sec</p>
-			<p class="info-group-label">Real length of day</p><p class="info-group-data">= <span id="day-length-readable"></span></p>
-			<p class="info-group-label">Real length of 1 hour</p><p class="info-group-data">= <span id="hour-length-readable"></span></p>
-			<p class="info-group-label">Star declination</p><p class="info-group-data"><span id="declination"></span>&deg;</p>
-			<p class="info-group-label">Star meridian</p><p class="info-group-data"><span id="meridian"></span>&deg;</p>
-			<p class="info-group-label">Current cycle</p><p id="current-cycle" class="info-group-data"></p>
-			<p class="info-group-label">Hour angle</p><p class="info-group-data"><span id="hour-angle"></span>&deg;</p>
-			<p class="info-group-label">Noon longitude</p><p class="info-group-data"><span id="noon-longitude"></span>&deg;</p>
-		</div>
-	</div>
+        <div class="detailed-info-group">
+            <h3>TIME</h3>
+            <div class="info-group-table">
+                <p class="info-group-label">UNIX</p><p id="db-unix-time" class="info-group-data"></p>
+                <p class="info-group-label">CHOSEN</p><p id="db-chosen-time" class="info-group-data"></p>
+                <p class="info-group-label">GMT</p><p id="db-gmt-time" class="info-group-data"></p>
+                <p class="info-group-label">VERSE</p><p id="db-universe-time" class="info-group-data"></p>
+            </div>
+        </div>
 
-	<div class="detailed-info-group">
-		<h3>Location: <span id="db-local-name">[LOCATION NAME]</span></h3>
-		<div class="info-group-table">
-			<p class="info-group-label">Latitude</p><p class="info-group-data"><span id="latitude"></span>&deg;</p>
-			<p class="info-group-label">Longitude</p><p class="info-group-data"><span id="longitude"></span>&deg;</p>
-			<p class="info-group-label">Longitude-360</p><p class="info-group-data"><span id="longitude-360"></span>&deg;</p>
-			<p class="info-group-label">Elevation</p><p class="info-group-data"><span id="elevation"></span> meters</p>
-			<p class="info-group-label"></p><p class="info-group-data">= <span id="elevation-degrees"></span>&deg;</p>
-			<p class="info-group-label">Local time</p><p class="info-group-data"><span id="db-local-time"></span></p>
-			<p class="info-group-label">Phase</p><p class="info-group-data"><span id="db-illumination-status"></span></p>
-			<p class="info-group-label">Length of daylight</p><p class="info-group-data"><span id="length-of-daylight"></span></p>
-			<p class="info-group-label">Length of night</p><p class="info-group-data"><span id="length-of-night"></span></p>
-			<p class="info-group-label">Local starrise time</p><p class="info-group-data"><span id="starrise-time"></span></p>
-			<p class="info-group-label">Local starset time</p><p class="info-group-data"><span id="starset-time"></span></p>
-			<p class="info-group-label">Next starrise</p><p class="info-group-data"><span id="next-starrise-countdown"></span> h</p>
-			<p class="info-group-label">Next starset</p><p class="info-group-data"><span id="next-starset-countdown"></span> h</p>
-			<p class="info-group-label">Hour angle</p><p class="info-group-data"><span id="hour-angle-location"></span>&deg;</p>
-			<p class="info-group-label">Star azimuth</p><p class="info-group-data"><span id="star-azimuth"></span>&deg;</p>
-			<p class="info-group-label">Star rise/set angle</p><p class="info-group-data"><span id="sunriseset-angle"></span>&deg; from N</p>
-			<p class="info-group-label">Star altitude</p><p class="info-group-data"><span id="star-altitude"></span></p>
-			<p class="info-group-label">Star max altitude</p><p class="info-group-data"><span id="max-star-altitude"></span></p>
-		</div>
-	</div>
+        <div class="detailed-info-group">
+            <h3>Body: <span id="body-name">[BODY NAME]</span></h3>
+            <div class="info-group-table">
+                <p class="info-group-label">Type</p><p class="info-group-data"><span id="body-type"></span></p>
+                <p class="info-group-label">System</p><p class="info-group-data"><span id="body-system"></span></p>
+                <p class="info-group-label">Orbits</p><p class="info-group-data"><span id="body-parent-name"></span></p>
+                <p class="info-group-label">Radius</p><p class="info-group-data"><span id="body-radius"></span> km</p>
+                <p class="info-group-label">Time to spin 360&deg;</p><p class="info-group-data"><span id="day-length"></span> sec</p>
+                <p class="info-group-label">Real length of day</p><p class="info-group-data">= <span id="day-length-readable"></span></p>
+                <p class="info-group-label">Real length of 1 hour</p><p class="info-group-data">= <span id="hour-length-readable"></span></p>
+                <p class="info-group-label">Star declination</p><p class="info-group-data"><span id="declination"></span>&deg;</p>
+                <p class="info-group-label">Star meridian</p><p class="info-group-data"><span id="meridian"></span>&deg;</p>
+                <p class="info-group-label">Current cycle</p><p id="current-cycle" class="info-group-data"></p>
+                <p class="info-group-label">Hour angle</p><p class="info-group-data"><span id="hour-angle"></span>&deg;</p>
+                <p class="info-group-label">Noon longitude</p><p class="info-group-data"><span id="noon-longitude"></span>&deg;</p>
+            </div>
+        </div>
 
-	<div style="display:none">
-		<h3>Next Star Rise:</h3>
-		<p>Value: <span id="db-next-starrise"></span> sec (= <span id="db-next-starrise-countdown"></span>)</p>
-		<p>Date: <span id="db-next-starrise-date"></span></p>
-		<br>
-		<h3>Next Noon:</h3>
-		<p>Value: <span id="next-noon"></span> sec (= <span id="next-noon-countdown"></span>)</p>
-		<p>Date: <span id="next-noon-date"></span></p>
-		<br>
-		<h3>Next Star Set:</h3>
-		<p>Value: <span id="db-next-starset"></span> sec (= <span id="db-next-starset-countdown"></span>)</p>
-		<p>Date: <span id="db-next-starset-date"></span></p>
-	</div>
-</section>
+        <div class="detailed-info-group">
+            <h3>Location: <span id="db-local-name">[LOCATION NAME]</span></h3>
+            <div class="info-group-table">
+                <p class="info-group-label">Latitude</p><p class="info-group-data"><span id="latitude"></span>&deg;</p>
+                <p class="info-group-label">Longitude</p><p class="info-group-data"><span id="longitude"></span>&deg;</p>
+                <p class="info-group-label">Longitude-360</p><p class="info-group-data"><span id="longitude-360"></span>&deg;</p>
+                <p class="info-group-label">Elevation</p><p class="info-group-data"><span id="elevation"></span> meters</p>
+                <p class="info-group-label"></p><p class="info-group-data">= <span id="elevation-degrees"></span>&deg;</p>
+                <p class="info-group-label">Local time</p><p class="info-group-data"><span id="db-local-time"></span></p>
+                <p class="info-group-label">Phase</p><p class="info-group-data"><span id="db-illumination-status"></span></p>
+                <p class="info-group-label">Length of daylight</p><p class="info-group-data"><span id="length-of-daylight"></span></p>
+                <p class="info-group-label">Length of night</p><p class="info-group-data"><span id="length-of-night"></span></p>
+                <p class="info-group-label">Local starrise time</p><p class="info-group-data"><span id="starrise-time"></span></p>
+                <p class="info-group-label">Local starset time</p><p class="info-group-data"><span id="starset-time"></span></p>
+                <p class="info-group-label">Next starrise</p><p class="info-group-data"><span id="next-starrise-countdown"></span> h</p>
+                <p class="info-group-label">Next starset</p><p class="info-group-data"><span id="next-starset-countdown"></span> h</p>
+                <p class="info-group-label">Hour angle</p><p class="info-group-data"><span id="hour-angle-location"></span>&deg;</p>
+                <p class="info-group-label">Star azimuth</p><p class="info-group-data"><span id="star-azimuth"></span>&deg;</p>
+                <p class="info-group-label">Star rise/set angle</p><p class="info-group-data"><span id="sunriseset-angle"></span>&deg; from N</p>
+                <p class="info-group-label">Star altitude</p><p class="info-group-data"><span id="star-altitude"></span></p>
+                <p class="info-group-label">Star max altitude</p><p class="info-group-data"><span id="max-star-altitude"></span></p>
+            </div>
+        </div>
+
+        <div style="display:none">
+            <h3>Next Star Rise:</h3>
+            <p>Value: <span id="db-next-starrise"></span> sec (= <span id="db-next-starrise-countdown"></span>)</p>
+            <p>Date: <span id="db-next-starrise-date"></span></p>
+            <br>
+            <h3>Next Noon:</h3>
+            <p>Value: <span id="next-noon"></span> sec (= <span id="next-noon-countdown"></span>)</p>
+            <p>Date: <span id="next-noon-date"></span></p>
+            <br>
+            <h3>Next Star Set:</h3>
+            <p>Value: <span id="db-next-starset"></span> sec (= <span id="db-next-starset-countdown"></span>)</p>
+            <p>Date: <span id="db-next-starset-date"></span></p>
+        </div>
+    </section>
 
 </body>
 

@@ -70,7 +70,7 @@ function init() {
 	zoomControls.noRotate = true;
 	zoomControls.noPan = true;
 	zoomControls.noZoom = false;
-	zoomControls.zoomSpeed = 0.5;
+	zoomControls.zoomSpeed = 1.5;
 	zoomControls.maxDistance = 500;
 	zoomControls.minDistance = 0.0001;
 	zoomControls.zoomDampingFactor = 0.2;
