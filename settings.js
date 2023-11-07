@@ -11,7 +11,7 @@ function loadSettings() {
 
 
 	if (window.location.hash === '' && activeLocation != 'null') {
-		let result = setLocation(activeLocation);
+		let result = setMapLocation(activeLocation);
 		if (!result) setDefaultLocation();
 	
 	} else if (window.location.hash === '') {
