@@ -805,14 +805,14 @@ function organizeLocationLabels() {
 
 
 // EVENT LISTENERS
-const settingLolli = document.getElementById('atlas-settings-show-lollipops');
+const settingLolli = UI.el('atlas-settings-show-lollipops');
 settingLolli.addEventListener('change', function () {
 	saveSetting('atlasLollipops', settingLolli.checked);
 	const mesh = scene.getObjectByName('Lollipops');
 	mesh.visible = settingLolli.checked;
 });
 
-const settingWorm = document.getElementById('atlas-settings-show-wormholes');
+const settingWorm = UI.el('atlas-settings-show-wormholes');
 settingWorm.addEventListener('change', function () {
 	saveSetting('atlasWormholes', settingWorm.checked);
 	const mesh = scene.getObjectByName('Wormholes');
@@ -820,7 +820,7 @@ settingWorm.addEventListener('change', function () {
 });
 
 
-const settingAffil = document.getElementById('atlas-settings-show-affiliation');
+const settingAffil = UI.el('atlas-settings-show-affiliation');
 settingAffil.addEventListener('change', function () {
 	const setting = settingAffil.checked;
 	saveSetting('atlasAffiliation', setting);
@@ -836,7 +836,7 @@ settingAffil.addEventListener('change', function () {
 	}	
 });
 
-const settingGrid = document.getElementById('atlas-settings-show-grid');
+const settingGrid = UI.el('atlas-settings-show-grid');
 settingGrid.addEventListener('change', function () {
 	saveSetting('atlasGrid', settingGrid.checked);
 	const mesh = scene.getObjectByName('Galaxy Grid');
