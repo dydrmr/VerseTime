@@ -11,10 +11,11 @@ import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer
 import { CSS3DRenderer, CSS3DObject } from 'three/addons/renderers/CSS3DRenderer';
 
 import { DEGREES, RADIANS, MODULO, SQUARE, ROUND, JULIAN_DATE, POLAR_TO_CARTESIAN, RANDOM, GREAT_CIRCLE_DISTANCE } from './HelperFunctions.js';
+import UI from './classes/UserInterface.js';
 
 let scene, camera, renderer, labelRenderer, controls, zoomControls;
 let cameraDestination;
-let mapDiv = document.getElementById('map-window');
+let mapDiv = UI.el('map-window');
 let celestial3DEntity = null;
 const circleDetail = 72;
 const omDistance = Math.sqrt(2);
@@ -37,34 +38,36 @@ window.addEventListener('resize', () => {
 	camera.updateProjectionMatrix();
 });
 
-document.getElementById('BUTTON-toggle-map-window').addEventListener('click', function(e) { 
+document.addEventListener('createMapScene', setupMapScene);
+
+function setupMapScene() {
 	let body = window.ACTIVE_LOCATION.PARENT;
 	createNewScene(body);
 
 	// Populate infobox data
-	window.setText('map-info-type', body.TYPE);
-	window.setText('map-info-system', body.PARENT_STAR.NAME);
-	window.setText('map-info-orbits', body.PARENT.NAME);
+	UI.setText('map-info-type', body.TYPE);
+	UI.setText('map-info-system', body.PARENT_STAR.NAME);
+	UI.setText('map-info-orbits', body.PARENT.NAME);
 
 	//let orbitDist = ROUND(body.ORBITAL_RADIUS / 149598000, 3); // AU
-	window.setText('map-info-orbitdistance', ROUND(body.ORBITAL_RADIUS).toLocaleString());
+	UI.setText('map-info-orbitdistance', ROUND(body.ORBITAL_RADIUS).toLocaleString());
 
 	let radius = body.BODY_RADIUS.toLocaleString();
-	window.setText('map-info-radius', radius);
+	UI.setText('map-info-radius', radius);
 
 	let circum = body.BODY_RADIUS * Math.PI;
 	circum = ROUND(circum, 1);
-	window.setText('map-info-circumference', circum.toLocaleString());
+	UI.setText('map-info-circumference', circum.toLocaleString());
 
 	let rot = body.ROTATION_RATE * 3600;
 	rot = 360 / rot;
 	let rotationRateString = rot.toLocaleString() + '° / sec';
 	if (rot === Infinity) rotationRateString = 'Tidally locked';
-	window.setText('map-info-rotationrate', rotationRateString);
+	UI.setText('map-info-rotationrate', rotationRateString);
 
 	let dayLengthString = window.HOURS_TO_TIME_STRING(body.ROTATION_RATE);
 	if (rot === Infinity) dayLengthString = '---';
-	window.setText('map-info-lengthofday', dayLengthString);
+	UI.setText('map-info-lengthofday', dayLengthString);
 
 	let sats = window.BODIES.filter(bod => {
 		if (!bod.PARENT) return false;
@@ -75,8 +78,8 @@ document.getElementById('BUTTON-toggle-map-window').addEventListener('click', fu
 			return false;
 		}
 	});
-	window.setText('map-info-naturalsatellites', sats.length);
-});
+	UI.setText('map-info-naturalsatellites', sats.length);
+}
 
 function init() {
 	// console.debug('THREE.js revision: ' + THREE.REVISION);
@@ -129,7 +132,7 @@ function render() {
 	requestAnimationFrame(render);
 
 
-	if (!showMapWindow) return;
+	if (!UI.showMapWindow) return;
 
 	updateLabelOcclusion();
 	updateLocationLabelTimes();
@@ -143,6 +146,7 @@ function updateLabelOcclusion() {
 	let v = new THREE.Vector3();
 	let r = window.ACTIVE_LOCATION.PARENT.BODY_RADIUS;
 	let bodyMesh = scene.getObjectByName('Celestial Object');
+
 
 	//LOCATION LABELS
 	let locationLabels = document.querySelectorAll('.mapLocationLabel');
@@ -193,7 +197,7 @@ function updateLocationLabelTimes() {
 			string = location.ILLUMINATION_STATUS;
 		}
 		
-		window.setText(label, string);
+		UI.setText(label, string);
 	}
 }
 
@@ -436,7 +440,7 @@ function createLocationLabels(celestialObject) {
 		container.addEventListener('mouseleave', hideMapLocationData);
 
 		container.addEventListener('pointerdown', () => {
-			setLocation(locations[i].NAME);
+			setMapLocation(locations[i].NAME);
 			setCameraAboveActiveLocation(true);
 		});
 

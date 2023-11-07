@@ -1,7 +1,5 @@
 let showSettingsWindow = false;
 let showCreditsWindow = false;
-let showMapWindow = false;
-let showAtlasWindow = false;
 let hoverLocation = null;
 
 document.getElementById('BUTTON-open-settings').addEventListener('click', function(e) { toggleSettingsWindow(); });
@@ -31,10 +29,6 @@ function toggleSettingsWindow(forceState = null) {
 document.getElementById('BUTTON-toggle-credits-window').addEventListener('click', function(e) { toggleCreditsWindow(); });
 document.getElementById('BUTTON-close-credits').addEventListener('click', function(e) { toggleCreditsWindow(); });
 
-document.getElementById('BUTTON-toggle-map-window').addEventListener('click', function(e) { toggleMapWindow(); });
-document.getElementById('BUTTON-close-map').addEventListener('click', function (e) { toggleMapWindow(); });
-
-document.getElementById('BUTTON-toggle-atlas-window').addEventListener('click', function (e) { toggleAtlasWindow(); });
 
 document.getElementById('BUTTON-share-location').addEventListener('click', function(e) { shareLocation(); });
 
@@ -51,27 +45,6 @@ function toggleDebugWindow() {
 	document.getElementById('detailed-info').style.opacity = (window.DEBUG_MODE ? 1 : 0);
 }
 
-function toggleMapWindow() {
-	showMapWindow = !showMapWindow;
-	document.getElementById('modal-map').style.opacity = (showMapWindow ? 1 : 0);
-	document.getElementById('modal-map').style.pointerEvents = (showMapWindow ? 'auto' : 'none');
-	document.getElementById('map-window').style.transform = (showMapWindow ? 'scale(1)' : 'scale(0)');
-}
-
-function toggleAtlasWindow() {
-	showAtlasWindow = !showAtlasWindow;
-
-	if (showAtlasWindow) { 
-		document.dispatchEvent(new CustomEvent('createAtlasScene'));
-	}
-
-	const atlasModal = document.getElementById('modal-atlas');
-	const atlasContainer = document.getElementById('atlas-container');
-
-	atlasModal.style.opacity = (showAtlasWindow ? 1 : 0);
-	atlasModal.style.pointerEvents = (showAtlasWindow ? 'auto' : 'none');
-	atlasContainer.style.transform = (showAtlasWindow ? 'scale(1)' : 'scale(0)');
-}
 
 function getHashedLocation() {
 	let loc = window.ACTIVE_LOCATION.NAME;
@@ -94,7 +67,7 @@ function shareLocation() {
 
 
 
-function setLocation(locationName) {
+function setMapLocation(locationName) {
 	let result = window.LOCATIONS.filter(location => {
 		return location.NAME === locationName;
 	});
@@ -140,7 +113,7 @@ function populateLocationList() {
 
 		let el = document.createElement('div');
 		el.className = 'BUTTON-set-location';
-		el.addEventListener('click', function(e) { setLocation(loc.NAME); });
+		el.addEventListener('click', function(e) { setMapLocation(loc.NAME); });
 		el.dataset.locationName = loc.NAME;
 
 		let elName = document.createElement('p');
@@ -195,21 +168,13 @@ document.addEventListener('keydown', function(event){
 	if (event.key === 'Escape') {
 		if (showSettingsWindow) toggleSettingsWindow();
 		if (showCreditsWindow) toggleCreditsWindow();
-		if (showAtlasWindow) toggleAtlasWindow();
-		if (showMapWindow) toggleMapWindow();
 		if (window.DEBUG_MODE) toggleDebugWindow();
 	}
 
-
 	if (event.target.tagName.toLowerCase() === 'input') { return; }
 
-	if (event.keyCode === 65) { toggleAtlasWindow(); }
 
 	if (event.keyCode === 68) { toggleDebugWindow(); }
-
-	if (event.keyCode === 77) {
-		document.getElementById('BUTTON-toggle-map-window').click();
-	}
 	
 	if (event.keyCode === 84) {
 		window.SETTING_24HR = !window.SETTING_24HR;
@@ -229,17 +194,17 @@ function showMapLocationData(location, triggerElement) {
 
 	document.getElementById('map-locationinfo-window').style.opacity = 1;
 
-	setText('map-info-locationname', location.NAME);
-	setText('map-info-locationtype', location.TYPE);
-	setText('map-info-elevation', Math.round(location.ELEVATION * 1000, 1).toLocaleString());
-	setText('map-info-phase', location.ILLUMINATION_STATUS);
+	window.setText('map-info-locationname', location.NAME);
+	window.setText('map-info-locationtype', location.TYPE);
+	window.setText('map-info-elevation', Math.round(location.ELEVATION * 1000, 1).toLocaleString());
+	window.setText('map-info-phase', location.ILLUMINATION_STATUS);
 	updateHoverLocationNextRiseAndSet();
 }
 
 setInterval(updateMapLocationData, 250);
 function updateMapLocationData() {
 	if (!hoverLocation) return;
-	setText('map-info-phase', hoverLocation.ILLUMINATION_STATUS);
+	window.setText('map-info-phase', hoverLocation.ILLUMINATION_STATUS);
 	updateHoverLocationNextRiseAndSet();
 }
 
@@ -267,8 +232,8 @@ function updateHoverLocationNextRiseAndSet() {
 
 	}
 
-	setText('map-info-nextstarrise', nextRise);
-	setText('map-info-nextstarset', nextSet);
+	window.setText('map-info-nextstarrise', nextRise);
+	window.setText('map-info-nextstarset', nextSet);
 }
 
 

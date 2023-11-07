@@ -27,6 +27,7 @@ body {
 	border: 1px solid darkorange;
 	border-radius: 4px;
 	background-color: rgba(0, 0, 0, 0.6);
+	backdrop-filter: blur(7px);
 
 	position: absolute;
 	top: 0;

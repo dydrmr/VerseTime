@@ -5,14 +5,15 @@ import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer
 // import { CSS3DRenderer, CSS3DObject } from 'three/addons/renderers/CSS3DRenderer';
 
 import { RADIANS, ROUND, DISTANCE_3D, makeLine, makeCircle, getCelestialBodiesInSystem, getLocationsInSystem, readableNumber } from './HelperFunctions.js';
+import UI from './classes/UserInterface.js';
 import SolarSystem from './classes/SolarSystem.js';
 
 // NOTE: map-window CSS CLASS MIS-USED AS ID; CREATE map-container AND ADJUST CODE WHERE APPLICABLE
 
 
 let scene, camera, renderer, labelRenderer, controls, zoomControls;
-const atlasDiv = document.getElementById('atlas-container');
-const infoBox = document.getElementById('atlas-hoverinfo');
+const atlasDiv = UI.el('atlas-container');
+const infoBox = UI.el('atlas-hoverinfo');
 
 const mapScale = 10_000_000;
 let focusBody = null;
@@ -89,15 +90,15 @@ function render() {
 	labelRenderer.render(scene, camera);
 	requestAnimationFrame(render);
 
-	if (!showAtlasWindow) return;
+	if (!UI.showAtlasWindow) return;
 
 	updateDebugInfo();
 }
 
 function updateDebugInfo() {
-	setText('atlas-zoom', 'Zoom: ' + ROUND(controls.getDistance(), 4));
-	setText('atlas-focus-system', `Selected System: ${focusSystem.NAME}`);
-	setText('atlas-focus-object', `Selected Body: ${focusBody ? focusBody.NAME : 'none'}`);
+	UI.setText('atlas-zoom', 'Zoom: ' + ROUND(controls.getDistance(), 4));
+	UI.setText('atlas-focus-system', `Selected System: ${focusSystem.NAME}`);
+	UI.setText('atlas-focus-object', `Selected Body: ${focusBody ? focusBody.NAME : 'none'}`);
 
 
 	const start = window.performance.now();
@@ -109,7 +110,7 @@ function updateDebugInfo() {
 	const visibleLabels = document.querySelectorAll('.atlas-label[data-visible="true"]');
 
 	if (organized) {
-		setText('atlas-label-render', `${allLabels.length} labels / ${visibleLabels.length} visible / time: ${ROUND(end - start, 3)} ms`);
+		UI.setText('atlas-label-render', `${allLabels.length} labels / ${visibleLabels.length} visible / time: ${ROUND(end - start, 3)} ms`);
 	}
 }
 
@@ -280,7 +281,7 @@ function hideInfobox() {
 
 
 
-document.addEventListener('createAtlasScene', function (e) {
+document.addEventListener('createAtlasScene', () => {
 	createAtlasScene();
 });
 function createAtlasScene() {
