@@ -108,7 +108,7 @@ export default class CelestialBody {
 	BS(distantObject) {
 		// Convert from heliocentric coordinates to local coordinates centered on celestial object
 		// "distantObject" is the celestial object that sits at the 0,0,0 origin point (usually the system's star)
-		// returns 
+
 		let x = this.BS_INTERNAL('x', distantObject);
 		let y = this.BS_INTERNAL('y', distantObject);
 		let z = this.BS_INTERNAL('z', distantObject);

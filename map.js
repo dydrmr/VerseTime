@@ -142,10 +142,11 @@ function render() {
 function updateLabelOcclusion() {
 	if (renderer.info.render.frame % 10 !== 0) { return; }
 	
-	let raycaster = new THREE.Raycaster();
-	let v = new THREE.Vector3();
-	let r = window.ACTIVE_LOCATION.PARENT.BODY_RADIUS;
-	let bodyMesh = scene.getObjectByName('Celestial Object');
+	const raycaster = new THREE.Raycaster();
+	const v = new THREE.Vector3();
+	const r = window.ACTIVE_LOCATION.PARENT.BODY_RADIUS;
+
+	const bodyMesh = scene.getObjectByName('Textured Sphere') ?? scene.getObjectByName('Solid Sphere');
 
 
 	//LOCATION LABELS
@@ -157,7 +158,7 @@ function updateLabelOcclusion() {
 		const pos = new THREE.Vector3(coord.x, coord.z, coord.y); // Y = UP
 
 		v.copy(pos).sub(camera.position).normalize().multiply(new THREE.Vector3(-1, -1, -1));
-		raycaster.set( pos, v );
+		raycaster.set(pos, v);
 		const intersects = raycaster.intersectObject(bodyMesh, false);
 		label.dataset.occluded = (intersects.length > 0) ? true : false;
 	});
@@ -334,7 +335,7 @@ function createTexturedSphere(celestialObject, scale = 1) {
 		});
 
 		let obj = new THREE.Mesh(geo, mat);
-		obj.name = 'Celestial Object';
+		obj.name = 'Textured Sphere';
 		scene.add(obj);
 		celestial3DEntity = obj;
 	} );
@@ -347,6 +348,7 @@ function createOcclusionSphere(color, scale = 1) {
 		transparent: false,
 	});
 	let blackObj = new THREE.Mesh(blackGeo, blackMat);
+	blackObj.name = 'Solid Sphere';
 	scene.add(blackObj);
 }
 
@@ -546,7 +548,7 @@ document.getElementById('map-settings-planet-transparency').addEventListener('ch
 	saveSetting('mapPlanetTransparency', document.getElementById('map-settings-planet-transparency').value);
 
 	let opacityPercent = document.getElementById('map-settings-planet-transparency').value / 100;
-	let planetMesh = scene.getObjectByName('Celestial Object');
+	let planetMesh = scene.getObjectByName('Textured Sphere');
 	let texturePath = 'static/assets/' + window.ACTIVE_LOCATION.PARENT.NAME.toLowerCase() + '.webp';
 
 	let loader = new THREE.TextureLoader();

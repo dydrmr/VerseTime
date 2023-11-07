@@ -110,6 +110,7 @@ function populateLocationList() {
 
 	for (let loc of window.LOCATIONS) {
 		if (loc.PARENT?.TYPE === 'Lagrange Point') continue;
+		if (loc.TYPE === 'Asteroid cluster') continue;
 
 		let el = document.createElement('div');
 		el.className = 'BUTTON-set-location';
