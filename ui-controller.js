@@ -95,7 +95,6 @@ function shareLocation() {
 
 
 function setLocation(locationName) {
-
 	let result = window.LOCATIONS.filter(location => {
 		return location.NAME === locationName;
 	});

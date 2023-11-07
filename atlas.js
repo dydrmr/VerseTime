@@ -24,10 +24,10 @@ const labelsPlanets = Array();
 const labelsMoons = Array();
 
 // TODO:
-// switch to distance-based label visibility determination first, and only ever add location labels for currently selected location
 // focus levels -> for easy scale changing. Ex: Galaxy, System, Planet, Moon (?), Location
 // current location indicator with quick selections to move up along the hierarchy
 // tree view list of objects/locations in system
+// separate out stars into dedicated csv for more detailed info
 
 init();
 render();

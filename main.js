@@ -1,8 +1,10 @@
 import { ROUND, CHOSEN_TIME } from './HelperFunctions.js';
-import SolarSystem from './classes/SolarSystem.js';
-import CelestialBody from './classes/CelestialBody.js';
-import Location from './classes/Location.js';
-import Wormhole from './classes/Wormhole.js';
+import DB from './classes/Database.js';
+
+//import SolarSystem from './classes/SolarSystem.js';
+//import CelestialBody from './classes/CelestialBody.js';
+//import Location from './classes/Location.js';
+//import Wormhole from './classes/Wormhole.js';
 
 window.SYSTEMS = Array();
 window.BODIES = Array();
@@ -26,34 +28,36 @@ function checkHash() {
 
 	let hashParts = hash.replace('#', '').replaceAll('_', ' ').split('@');
 
-	let locationName = hashParts[0];
-	let location = LOCATIONS.filter(loc => loc.NAME === locationName);
+	const locationName = hashParts[0];
+	const location = getLocationByName(locationName);
 
 	if (hashParts[1] !== undefined) {
 		setChosenTime(hashParts[1], true);
 	}
 
-	if (location.length === 0) return;
 	setLocation(locationName);
 }
 
 function update() {
+
+	if (window.LOCATIONS.length === 0) return;
 
 	let location = window.ACTIVE_LOCATION;
 	let body = window.ACTIVE_LOCATION ? window.ACTIVE_LOCATION.PARENT : null;
 
 	const col = location.THEME_COLOR;
 	const colorMain = `rgb(${col.r}, ${col.g}, ${col.b})`;
-	const colorDark = `rgb(${col.r*0.2}, ${col.g*0.2}, ${col.b*0.2})`;
+	const colorDark = `rgb(${col.r * 0.2}, ${col.g * 0.2}, ${col.b * 0.2})`;
 
 	document.querySelector(':root').style.setProperty('--theme-color', colorMain);
 	document.querySelector(':root').style.setProperty('--theme-color-dark', colorDark);
+
 
 	const bg = document.getElementById('selected-location-bg-image');
 	const bgImage = `url('${location.THEME_IMAGE}')`;
 	if (bg.backgroundColor !== colorMain) bg.backgroundColor = colorMain;
 	// TODO: re-enable after testing:
-	// if (bg.style.backgroundImage !== bgImage) bg.style.backgroundImage = bgImage;
+	if (bg.style.backgroundImage !== bgImage) bg.style.backgroundImage = bgImage;
 
 
 	// MAIN LOCATION INFO
@@ -348,166 +352,8 @@ function CONVERT_24H_TO_12H(hour) {
 }
 
 
-
-async function loadDatabase() {
-	const systems = await getCSV('data/systems.csv');
-	for (const sys of systems) { createSolarSystem(sys); }
-
-	const bodies = await getCSV('data/bodies.csv');
-	for (const bod of bodies) { createCelestialBody(bod); }
-
-	const locations = await getCSV('data/locations.csv');
-	for (const loc of locations) { createLocation(loc); }
-
-	const wormholes = await getCSV('data/wormholes.csv');
-	for (const wh of wormholes) { createWormhole(wh); }
-}
-
-async function getCSV(url) {
-	let csvString = null;
-
-	try {
-		const response = await fetch(url);
-		if (!response.ok) {
-			throw new Error(`Error fetching CSV:\n${response.status}`);
-		}
-		csvString = await response.text();
-
-	} catch (error) {
-		throw new Error(`Error fetching CSV:\n${error}`);
-	}
-
-	const data = parseCSV(csvString);
-	return data;
-}
-
-function parseCSV(csvString) {
-	const lines = csvString.split("\n");
-	const headers = lines[0].split(',').map(header => header.trim());
-	const data = [];
-
-	for (let i = 1; i < lines.length; i++) {
-		const values = lines[i].split(',').map(value => value.trim());
-		const obj = {};
-
-		for (let j = 0; j < headers.length; j++) {
-			obj[headers[j]] = values[j];
-		}
-
-		data.push(obj);
-	}
-
-	return data;
-}
-
-function createSolarSystem(data) {
-	if (data.coordinateX === '') return null;
-
-	let system = new SolarSystem(
-		String(data.name),
-		parseFloat(data.coordinateX),
-		parseFloat(data.coordinateY),
-		parseFloat(data.coordinateZ),
-		String(data.affiliation)
-	)
-}
-
-function createCelestialBody(data) {
-	if (data.bodyRadius === '') return;
-
-	let parentBody = (data.parentBody === '') ? null : getBodyByName(data.parentBody);
-	let parentStar = (data.parentStar === '') ? null : getBodyByName(data.parentStar);
-
-	let themeImage = null;
-	if (data.type === 'Lagrange Point') {
-		themeImage = getBodyByName(data.parentBody).THEME_IMAGE;
-	} else if (data.themeImage !== '') {
-		themeImage = String(data.themeImage);
-	}
-
-	let themeColor = {'r': 0, 'g': 0, 'b': 0};
-	if (data.type === 'Lagrange Point') {
-		themeColor = getBodyByName(data.parentBody).THEME_COLOR;
-	} else if (data.themeColorR !== '') {
-		themeColor = {
-			'r': parseInt(data.themeColorR),
-			'g': parseInt(data.themeColorG),
-			'b': parseInt(data.themeColorB)
-		}
-	}
-
-	let body = new CelestialBody(
-		String(data.name),
-		String(data.type),
-		parentBody,
-		parentStar,
-		{
-			'x': parseFloat(data.coordinateX),
-			'y': parseFloat(data.coordinateY),
-			'z': parseFloat(data.coordinateZ)
-		},
-		{
-			'w': parseFloat(data.quaternionW),
-			'x': parseFloat(data.quaternionX),
-			'y': parseFloat(data.quaternionY),
-			'z': parseFloat(data.quaternionZ)
-		},
-		parseFloat(data.bodyRadius),
-		parseFloat(data.rotationRate),
-		parseFloat(data.rotationCorrection),
-		parseFloat(data.orbitAngle),
-		parseFloat(data.orbitRadius),
-		themeColor,
-		themeImage
-	);
-
-	if (data.ringRadiusInner !== 'null') {
-		body.RING = {
-			'radius-inner': parseFloat(data.ringRadiusInner),
-			'radius-outer': parseFloat(data.ringRadiusOuter)
-		}
-	}
-}
-
-function createLocation(data) {
-	let parentBody = (data.parentBody === 'null') ? null : getBodyByName(data.parentBody);
-	let parentStar = (data.parentStar === 'null') ? null : getBodyByName(data.parentStar);
-	let themeImage = (data.themeImage === 'null') ? null : data.themeImage;
-
-	let location = new Location(
-		String(data.name),
-		String(data.type),
-		parentBody,
-		parentStar,
-		{
-			'x': parseFloat(data.coordinateX),
-			'y': parseFloat(data.coordinateY),
-			'z': parseFloat(data.coordinateZ)
-		},
-		null,
-		String(themeImage)
-	);
-}
-
-function createWormhole(data) {
-	let x1 = data.position1x === '' ? null : parseFloat(data.position1x);
-	let y1 = data.position1y === '' ? null : parseFloat(data.position1y);
-	let z1 = data.position1z === '' ? null : parseFloat(data.position1z);
-	let x2 = data.position1x === '' ? null : parseFloat(data.position2x);
-	let y2 = data.position1y === '' ? null : parseFloat(data.position2y);
-	let z2 = data.position1z === '' ? null : parseFloat(data.position2z);
-
-	let wormhole = new Wormhole(
-		String(data.size),
-		getSystemByName(String(data.system1)),
-		getSystemByName(String(data.system2)),
-		x1, y1, z1,
-		x2, y2, z2
-	)
-}
-
 function getSystemByName(string) {
-	const result = SYSTEMS.filter(sys => sys.NAME === string);
+	const result = window.SYSTEMS.filter(sys => sys.NAME === string);
 
 	if (result.length === 0) {
 		console.error(`System "${string} not found."`);
@@ -519,7 +365,7 @@ function getSystemByName(string) {
 window.getSystemByName = getSystemByName;
 
 function getBodyByName(string) {
-	const result = BODIES.filter(bod => bod.NAME === string);
+	const result = window.BODIES.filter(bod => bod.NAME === string);
 
 	if (result.length === 0) {
 		console.error(`Body "${string}" not found.`);
@@ -531,7 +377,7 @@ function getBodyByName(string) {
 window.getBodyByName = getBodyByName;
 
 function getLocationByName(string) {
-	const result = LOCATIONS.filter(loc => loc.NAME === string);
+	const result = window.LOCATIONS.filter(loc => loc.NAME === string);
 
 	if (result.length === 0) {
 		console.error(`Location "${string}" not found.`);
@@ -547,7 +393,7 @@ window.getLocationByName = getLocationByName;
 
 // INIT
 async function startVerseTime() {
-	await loadDatabase();
+	await DB.createDatabase();
 	window.LOCATIONS.sort((a, b) => a.NAME.localeCompare(b.NAME));
 	populateLocationList();
 	checkHash();

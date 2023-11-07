@@ -1,8 +1,11 @@
+import { DISTANCE_3D } from '../HelperFunctions.js';
+
 let SIZE = null;
 let SYSTEM1 = null;
 let SYSTEM2 = null;
 let POSITION1 = null;
 let POSITION2 = null;
+let DISTANCE = null;
 
 export default class Wormhole {
 
@@ -21,6 +24,16 @@ export default class Wormhole {
 			'y': y2,
 			'z': z2
 		}
+
+		this.DISTANCE = DISTANCE_3D(
+			system1.COORDINATES.x,
+			system1.COORDINATES.y,
+			system1.COORDINATES.z,
+			system2.COORDINATES.x,
+			system2.COORDINATES.y,
+			system2.COORDINATES.z,
+			false
+		);
 
 		window.WORMHOLES.push(this);
 	}

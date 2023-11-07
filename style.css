@@ -793,9 +793,7 @@ body {
 
 	cursor: pointer;
 	opacity: 1;
-	transition: opacity 0.2s;
-	transition: font-size 0.15s ease-out;
-	transition: color 0.4s ease-out;
+	transition: opacity 0.2s, font-size 0.2s ease-out, color 0.4s ease-out;
 }
 .atlas-label:hover {
 	font-size: 12px;
