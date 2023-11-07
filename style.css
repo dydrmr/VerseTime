@@ -304,7 +304,16 @@ body {
 }
 
 
-#settings-change-location-container {
+#change-time-label {
+	font-size: 10px;
+	color: var(--theme-color);
+	text-transform: uppercase;
+	text-align: center;
+	font-weight: bold;
+	margin-bottom: -8px;
+}
+
+#settings-change-location-container, #settings-change-time-container {
 	border-radius: 10px;
 }
 
