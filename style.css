@@ -759,6 +759,16 @@ body {
 
 
 
+.atlas-ui-window {
+	outline: 1px solid rgba(0, 200, 200, 0.2);
+	padding: 4px;
+	color: white;
+	background-color: rgba(0, 0, 20, 0.75);
+	backdrop-filter: blur(7px);
+	font-family: 'Roboto Mono', monospace;
+	font-size: 12px;
+}
+
 #atlas-hierarchy {
 	position: fixed;
 	top: 0px;
@@ -775,18 +785,12 @@ body {
 	z-index: 1000;
 	position: fixed;
 	margin-left: 8px;
-	border-radius: 2px;
 	padding: 3px 6px;
 
-	background-color: rgba(0, 0, 0, 0.8);
-	backdrop-filter: blur(7px);
-
-	font-family: 'Roboto Mono', monospace;
 	font-size: 10px;
 	text-transform: uppercase;
 
 	transition: opacity 0.2s;
-	/*outline: 1px solid red;*/
 }
 
 .atlas-label {

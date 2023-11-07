@@ -195,9 +195,9 @@ function moveInfobox(event) {
 
 function populateInfobox(object) {
 	if (object instanceof SolarSystem) {
-		infoBox.innerText = 'TYPE: Solar System';
+		infoBox.innerText = 'Solar System';
 	} else {
-		infoBox.innerText = `TYPE: ${object.TYPE}`;
+		infoBox.innerText = object.TYPE;
 	}
 
 
