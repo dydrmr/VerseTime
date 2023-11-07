@@ -145,6 +145,9 @@ class Database {
     }
 
     static createLocation(data) {
+        if (data.parentbody === '' && data.parentStar === '') return;
+        if (data.coordinateX === '' && data.coordinateY === '' && data.coordinateZ === '') return;
+
         let parentBody = (data.parentBody === 'null') ? null : getBodyByName(data.parentBody);
         let parentStar = (data.parentStar === 'null') ? null : getBodyByName(data.parentStar);
         let themeImage = (data.themeImage === 'null') ? null : String(data.themeImage);
