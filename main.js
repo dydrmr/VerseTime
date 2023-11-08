@@ -14,12 +14,18 @@ window.WORMHOLES = Array();
 
 window.ACTIVE_LOCATION = null;
 window.SETTING_24HR = true;
-//window.DEBUG_MODE = false;
 window.HOURS_TO_TIME_STRING = HOURS_TO_TIME_STRING;
 window.setText = setText;
 
 window.suppressReload = false;
 window.CHOSEN_TIME = 'now';
+
+// TEMPORARY SO SETTINGS.JS CAN USE IT
+window.setMapLocation = setMapLocation;
+function setMapLocation(location) {
+	UI.setMapLocation(location);
+}
+// END TEMPORARY
 
 
 // FUNCTIONS

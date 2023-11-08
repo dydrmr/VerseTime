@@ -10,8 +10,8 @@ function loadSettings() {
 	const mapStars = window.localStorage.getItem('mapStars');
 
 
-	if (window.location.hash === '' && activeLocation != 'null') {
-		let result = setMapLocation(activeLocation);
+	if (window.location.hash === '' && activeLocation !== 'null') {
+		let result = window.setMapLocation(activeLocation);
 		if (!result) setDefaultLocation();
 	
 	} else if (window.location.hash === '') {

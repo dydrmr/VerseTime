@@ -520,7 +520,7 @@ body {
 #BUTTON-toggle-map-window {
 	position: absolute;
 	left: 5px;
-	top: 30px;
+	top: 40px;
 
 	padding: 5px 10px;
 	font-family: 'Rajdhani', sans-serif;
@@ -575,6 +575,21 @@ body {
 	cursor: pointer;
 	opacity: 1;
 	background-color: rgba(0, 0, 0, 0.3);
+}
+
+#atlas-alpha-tag {
+	position: absolute;
+	right: 0px;
+	bottom: 0px;
+	border-radius: 5px;
+	padding: 1px 2px;
+	background-color: rgba(255, 50, 0, 0.6);
+	color: white;
+	font-size: 10px;
+	font-family: 'Roboto Mono', monospace;
+	font-weight: bold;
+	letter-spacing: 0.05em;
+	transform: rotate(-15deg) translate(10px, 4px);
 }
 
 

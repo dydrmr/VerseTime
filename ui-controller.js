@@ -2,7 +2,6 @@ let hoverLocation = null;
 
 document.getElementById('BUTTON-share-location').addEventListener('click', function(e) { shareLocation(); });
 
-
 function getHashedLocation() {
 	let loc = window.ACTIVE_LOCATION.NAME;
 	return loc.replaceAll(' ', '_');
@@ -21,6 +20,18 @@ function shareLocation() {
 		msg.style.opacity = 0;
 	}, 2000)
 }
+
+
+
+// KEYBOARD INPUT
+document.addEventListener('keydown', function (event) {
+	if (event.target.tagName.toLowerCase() === 'input') { return; }
+
+	if (event.key === 't') {
+		window.SETTING_24HR = !window.SETTING_24HR;
+		saveSetting('time24', window.SETTING_24HR);
+	}
+});
 
 
 
@@ -47,26 +58,6 @@ document.getElementById('location-selection-input').addEventListener('input', (e
 		result ? element.classList.remove('hide') : element.classList.add('hide');
 	}
 });
-
-
-
-
-// KEYBOARD INPUT
-document.addEventListener('keydown', function(event) {
-	if (event.key === 'Escape') {
-		if (showCreditsWindow) toggleCreditsWindow();
-	}
-
-	if (event.target.tagName.toLowerCase() === 'input') { return; }
-
-	
-	if (event.key === 't') {
-		window.SETTING_24HR = !window.SETTING_24HR;
-		saveSetting('time24', window.SETTING_24HR);
-	}
-});
-
-
 
 function showMapLocationData(location, triggerElement) {
 	hoverLocation = location;
@@ -110,7 +101,6 @@ function updateMapLocationData() {
 	window.setText('map-info-nextstarrise', nextRise);
 	window.setText('map-info-nextstarset', nextSet);
 }
-
 
 function hideMapLocationData() {
 	document.getElementById('map-locationinfo-window').style.opacity = 0;

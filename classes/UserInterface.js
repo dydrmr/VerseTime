@@ -139,7 +139,7 @@ class UserInterface {
 			return location.NAME === locationName;
 		});
 
-		if (result) {
+		if (result.length > 0) {
 			window.ACTIVE_LOCATION = result[0];
 			saveSetting('activeLocation', window.ACTIVE_LOCATION.NAME);
 			if (UI.showSettingsWindow) UI.toggleSettingsWindow();
@@ -153,7 +153,7 @@ class UserInterface {
 			return true;
 
 		} else {
-			throw 'Invalid [locationName] parameter passed to [setLocation] function!\nValue passed: ' + locationName;
+			console.error('Invalid [locationName] parameter passed to [setLocation] function!\nValue passed: ' + locationName);
 			return false;
 		}
 	}
