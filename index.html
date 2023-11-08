@@ -12,16 +12,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/location.css">
+    <link rel="stylesheet" type="text/css" href="css/map.css">
+    <link rel="stylesheet" type="text/css" href="css/atlas.css">
 </head>
 
 <body>
-
-    <section id="message">
-        <p id="message-title"></p>
-        <p id="message-text"></p>
-    </section>
-
 
     <section id="selected-location-card">
 
@@ -76,47 +73,29 @@
 
     <div id="illumination-status"></div>
 
-    <div id="BUTTON-toggle-credits-window">
+
+
+    <div id="BUTTON-toggle-credits-window" class="button">
         Info
     </div>
 
-    <div id="BUTTON-toggle-atlas-window">
+    <div id="BUTTON-toggle-atlas-window" class="button">
         Astro Atlas
         <div id="atlas-alpha-tag">Alpha</div>
     </div>
 
-    <div id="BUTTON-toggle-map-window">
+    <div id="BUTTON-toggle-map-window" class="button">
         Local Map
     </div>
 
-    <div id="BUTTON-share-location">
+    <div id="BUTTON-share-location" class="button">
         Share
     </div>
     <div id="share-location-message">
         URL copied to clipboard
     </div>
 
-    <section id="favorites">
-        <div id="favorites-menu">
-            <button id="BUTTON-add-location-to-favorites">+</button>
-        </div>
-        <div class="favorite-card">
-            <div class="favorite-location">
-                <p class="favorite-location-name">Area18</p>
-                <p class="favorite-location-body">ArcCorp</p>
-            </div>
-            <p class="favorite-location-time">08:35 PM</p>
-            <button class="BUTTON-remove-favorite">x</button>
-        </div>
-        <div class="favorite-card">
-            <div class="favorite-location">
-                <p class="favorite-location-name">Rayari Research Outpost</p>
-                <p class="favorite-location-body">Yela</p>
-            </div>
-            <p class="favorite-location-time">11:19 AM</p>
-            <button class="BUTTON-remove-favorite">x</button>
-        </div>
-    </section>
+
 
     <section class="modal" id="modal-settings">
         <div id="settings-window">
@@ -138,9 +117,11 @@
         </div>
     </section>
 
+
+
     <section class="modal" id="modal-credits">
         <div id="credits-window">
-            <div id="BUTTON-close-credits"></div>
+            <div id="BUTTON-close-credits" class="closeButton"></div>
 
             <p>User guide available on the <a href="https://github.com/dydrmr/VerseTime" target="_blank" rel="noreferrer noopener">Github page</a>.</p>
             <br><br>
@@ -155,10 +136,12 @@
         </div>
     </section>
 
+
+
     <section class="modal" id="modal-map">
         <div id="map-window">
 
-            <div id="BUTTON-close-map"></div>
+            <div id="BUTTON-close-map" class="closeButton"></div>
 
             <div id="map-body-name"></div>
 
@@ -213,6 +196,8 @@
         </div>
     </section>
 
+
+
     <section class="modal" id="modal-atlas">
         <div id="atlas-container">
             <div id="atlas-debug-info">
@@ -251,6 +236,8 @@
 
         </div>
     </section>
+
+
 
     <section id="detailed-info">
         <div class="detailed-info-group">

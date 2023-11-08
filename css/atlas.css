@@ -1,0 +1,154 @@
+#BUTTON-toggle-atlas-window {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+}
+
+#atlas-alpha-tag {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    border-radius: 5px;
+    padding: 1px 4px;
+    background-color: rgba(255, 50, 0, 0.6);
+    color: white;
+    font-size: 10px;
+    font-family: 'Roboto Mono', monospace;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    transform: rotate(-15deg) translate(10px, 4px);
+}
+
+
+
+.atlas-ui-window {
+    outline: 1px solid rgba(0, 200, 200, 0.2);
+    padding: 4px;
+    color: white;
+    background-color: rgba(0, 0, 20, 0.75);
+    backdrop-filter: blur(7px);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 12px;
+}
+
+#atlas-hierarchy {
+    position: fixed;
+    top: 0px;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    margin-top: 10px;
+    font-family: 'Rajdhani', 'Verdana', sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+#atlas-hoverinfo {
+    z-index: 1000;
+    position: fixed;
+    margin-left: 8px;
+    padding: 3px 6px;
+    user-select: none;
+    pointer-events: none;
+    font-size: 10px;
+    text-transform: uppercase;
+    transition: opacity 0.2s;
+}
+
+.atlas-label {
+    z-index: 10;
+    padding: 1px 2px;
+    color: white;
+    font-size: 10px;
+    font-family: 'Roboto Mono', monospace;
+    text-shadow: 0 0 8px var(--theme-color-dark), 0 0 8px var(--theme-color-dark), 0 0 8px var(--theme-color-dark);
+    cursor: pointer;
+    opacity: 1;
+    transition: opacity 0.2s, font-size 0.2s ease-out, color 0.4s ease-out;
+}
+
+    .atlas-label:hover {
+        font-size: 12px;
+        border-radius: 2px;
+        background-color: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(7px);
+    }
+
+    .atlas-label[data-visible=false] {
+        opacity: 0;
+        user-select: none;
+        pointer-events: none;
+    }
+
+    .atlas-label[data-object-type="Solar System"],
+    .atlas-label[data-object-type="Star"] {
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.65);
+        font-weight: bold;
+    }
+
+    .atlas-label[data-object-type="Lagrange Point"] {
+        color: rgba(255, 255, 255, 0.4);
+    }
+
+    .atlas-label[data-object-type="Jump Point"] {
+        color: rgba(255, 255, 255, 0.4);
+    }
+
+    .atlas-label[data-object-type="Location"] {
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+
+    .atlas-label[data-affiliation="UEE"] {
+        color: deepskyblue;
+    }
+
+    .atlas-label[data-affiliation="Banu"] {
+        color: plum;
+    }
+
+    .atlas-label[data-affiliation="Xi'An"] {
+        color: greenyellow;
+    }
+
+    .atlas-label[data-affiliation="Vanduul"] {
+        color: red;
+    }
+
+    .atlas-label[data-affiliation="Developing"] {
+        color: navajowhite;
+    }
+
+
+#atlas-debug-info {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    margin: 7px;
+    color: white;
+    font-size: 12px;
+    font-family: 'Roboto Mono', monospace;
+}
+
+#BUTTON-atlas-zoom-in, #BUTTON-atlas-zoom-out {
+    z-index: 10;
+    position: absolute;
+    color: white;
+    background-color: gray;
+    right: 0px;
+    margin: 5px;
+    padding: 3px;
+    font-size: 12px;
+    line-height: 12px;
+    text-align: center;
+    cursor: pointer;
+}
+
+#BUTTON-atlas-zoom-in {
+    top: 0px;
+}
+
+#BUTTON-atlas-zoom-out {
+    top: 25px;
+}
