@@ -2,9 +2,8 @@
 import { OrbitControls } from 'three/addons/controls/OrbitControls';
 import { TrackballControls }  from 'three/addons/controls/TrackballControls';
 import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer';
-// import { CSS3DRenderer, CSS3DObject } from 'three/addons/renderers/CSS3DRenderer';
 
-import { RADIANS, ROUND, DISTANCE_3D, makeLine, makeCircle, getCelestialBodiesInSystem, getLocationsInSystem, readableNumber } from './HelperFunctions.js';
+import { RADIANS, ROUND, calculateDistance3D, makeLine, makeCircle, getCelestialBodiesInSystem, readableNumber } from './HelperFunctions.js';
 import UI from './classes/UserInterface.js';
 import SolarSystem from './classes/SolarSystem.js';
 
@@ -221,7 +220,7 @@ function populateInfobox(object) {
 			distanceUnit = 'm';
 		}
 
-		distance = DISTANCE_3D(here.x, here.y, here.z, there.x, there.y, there.z, false);
+		distance = calculateDistance3D(here.x, here.y, here.z, there.x, there.y, there.z, false);
 		distance = readableNumber(distance, distanceUnit);
 	}
 
@@ -767,8 +766,8 @@ function organizeBodyLabels() {
 			} else {
 				const camPos = camera.position;
 
-				const thisDistance = DISTANCE_3D(labels[index].dataset.x, labels[index].dataset.y, labels[index].dataset.z, camPos.x, camPos.y, camPos.z, true);
-				const otherDistance = DISTANCE_3D(labels[otherIndex].dataset.x, labels[otherIndex].dataset.y, labels[otherIndex].dataset.z, camPos.x, camPos.y, camPos.z, true);
+				const thisDistance = calculateDistance3D(labels[index].dataset.x, labels[index].dataset.y, labels[index].dataset.z, camPos.x, camPos.y, camPos.z, true);
+				const otherDistance = calculateDistance3D(labels[otherIndex].dataset.x, labels[otherIndex].dataset.y, labels[otherIndex].dataset.z, camPos.x, camPos.y, camPos.z, true);
 
 				if (thisDistance > otherDistance) {
 					labels[index].dataset.visible = false;

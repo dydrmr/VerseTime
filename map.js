@@ -8,9 +8,9 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls';
 import { TrackballControls }  from 'three/addons/controls/TrackballControls';
 import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer';
-import { CSS3DRenderer, CSS3DObject } from 'three/addons/renderers/CSS3DRenderer';
+//import { CSS3DRenderer, CSS3DObject } from 'three/addons/renderers/CSS3DRenderer';
 
-import { DEGREES, RADIANS, MODULO, SQUARE, ROUND, JULIAN_DATE, POLAR_TO_CARTESIAN, RANDOM, GREAT_CIRCLE_DISTANCE } from './HelperFunctions.js';
+import { DEGREES, RADIANS, ROUND, POLAR_TO_CARTESIAN, RANDOM, HOURS_TO_TIME_STRING } from './HelperFunctions.js';
 import UI from './classes/UserInterface.js';
 
 let scene, camera, renderer, labelRenderer, controls, zoomControls;
@@ -65,7 +65,7 @@ function setupMapScene() {
 	if (rot === Infinity) rotationRateString = 'Tidally locked';
 	UI.setText('map-info-rotationrate', rotationRateString);
 
-	let dayLengthString = window.HOURS_TO_TIME_STRING(body.ROTATION_RATE);
+	let dayLengthString = HOURS_TO_TIME_STRING(body.ROTATION_RATE);
 	if (rot === Infinity) dayLengthString = '---';
 	UI.setText('map-info-lengthofday', dayLengthString);
 
@@ -193,7 +193,7 @@ function updateLocationLabelTimes() {
 			setLocationLabelColor(label, 'day');
 		}
 
-		let string = window.HOURS_TO_TIME_STRING(location.LOCAL_TIME / 60 / 60, false);
+		let string = HOURS_TO_TIME_STRING(location.LOCAL_TIME / 60 / 60, false);
 		if (unchanging.includes(location.ILLUMINATION_STATUS)) {
 			string = location.ILLUMINATION_STATUS;
 		}
@@ -436,10 +436,10 @@ function createLocationLabels(celestialObject) {
 		container.dataset.occluded = true;
 
 		container.addEventListener('mouseenter', () => {
-			showMapLocationData(locations[i], container);
+			UI.showMapLocationData(locations[i], container);
 		});
 
-		container.addEventListener('mouseleave', hideMapLocationData);
+		container.addEventListener('mouseleave', UI.hideMapLocationData);
 
 		container.addEventListener('pointerdown', () => {
 			UI.setMapLocation(locations[i].NAME);

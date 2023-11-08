@@ -1,36 +1,6 @@
 import { DEGREES, RADIANS, MODULO, SQUARE, ROUND, JULIAN_DATE } from '../HelperFunctions.js';
 import * as THREE from 'three';
 
-let NAME = '[name not defined]';
-let TYPE = '[type not defined]';
-let PARENT = null;
-let PARENT_STAR = null;
-let COORDINATES = {
-	'x' : null,
-	'y' : null,
-	'z' : null
-};
-let COORDINATES_3DMAP = {
-	'x' : null,
-	'y' : null,
-	'z' : null
-}
-
-let THEME_COLOR = {
-	'r' : null,
-	'g' : null,
-	'b' : null
-};
-let THEME_IMAGE = null;
-
-// CALCULATED
-let LATITUDE = null;
-let LONGITUDE = null;
-let LONGITUDE_360 = null;
-let ELEVATION = null;
-let ELEVATION_IN_DEGREES = null;
-let STARRISE_AND_STARSET_ANGLE = null;
-
 export default class Location {
 	constructor(name, type, parentBody, parentStar, coordinates, themeColor = null, themeImage = null) {
 		this.NAME = name;
@@ -101,6 +71,7 @@ export default class Location {
 		let z = coordinates.z / parentBody.BODY_RADIUS;
 		const vec = new THREE.Vector3(x, y, z);
 
+		// IF ELEVATION IS NEGATIVE: PUSH COORDINATE TO SURFACE
 		if (vec.length() < 1) {
 			// console.log(`${name} on ${parentBody.NAME} is inside geometry (Elevation: ${ROUND(this.ELEVATION * 1000)} m)`);
 			vec.normalize();

@@ -1,11 +1,3 @@
-let NAME = '[NOT INITIALIZED]';
-let COORDINATES = {
-	'x': null,
-	'y': null,
-	'z': null
-};
-let AFFILIATION = '[NOT INITIALIZED]';
-
 export default class SolarSystem {
 
 	constructor(name, coordinateX, coordinateY, coordinateZ, affiliation) {

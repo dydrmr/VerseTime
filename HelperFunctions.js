@@ -42,6 +42,67 @@ export function JULIAN_DATE() {
 	return julian / 1000 / 60 / 60 / 24;
 }
 
+export function HOURS_TO_TIME_STRING(hours, includeSeconds = true, limitTo24Hours = true) {
+	if (hours < 0) return '- NEGATIVE -';
+
+	let h = hours;
+	let m = (h - Math.floor(h)) * 60;
+	let s = (m - Math.floor(m)) * 60;
+
+	s = Math.round(s);
+	if (s >= 60) {
+		s -= 60;
+		m += 1;
+	}
+
+	m = Math.floor(m);
+	if (m >= 60) {
+		m -= 60;
+		h += 1;
+	}
+
+	h = Math.floor(h);
+	if (limitTo24Hours) {
+		while (h >= 24) h -= 24;
+	}
+
+	let ampm = '';
+	if (limitTo24Hours && !window.SETTING_24HR) {
+		ampm = ' ' + GET_AM_PM(h);
+		h = CONVERT_24H_TO_12H(h);
+	}
+
+	h = (h < 10) ? '0' + h : h;
+	m = (m < 10) ? '0' + m : m;
+	s = (s < 10) ? '0' + s : s;
+
+	return h + ':' + m + (includeSeconds ? ':' + s : '') + ampm;
+}
+
+export function DATE_TO_SHORT_TIME(date) {
+	let h = date.getHours();
+	let m = date.getMinutes();
+
+	let ampm = '';
+	if (!window.SETTING_24HR) {
+		ampm = ' ' + GET_AM_PM(h);
+		h = CONVERT_24H_TO_12H(h);
+	}
+
+	h = (h < 10) ? '0' + h : h;
+	m = (m < 10) ? '0' + m : m;
+
+	return h + ':' + m + ampm;
+}
+
+export function GET_AM_PM(hour) { return (hour < 12) ? 'am' : 'pm'; }
+
+export function CONVERT_24H_TO_12H(hour) {
+	if (hour > 12) hour -= 12;
+	if (hour === 0) hour = 12;
+	return hour;
+}
+
 export function POLAR_TO_CARTESIAN(horizontalAngle, verticalAngle, radius) {
 	let radH = RADIANS(horizontalAngle);
 	let radV = RADIANS(verticalAngle);
@@ -77,13 +138,13 @@ export function RANDOM(min, max) {
 	return rand * (max - min) + min;
 }
 
-export function DISTANCE_2D(x1, y1, x2, y2) {
+export function calculateDistance2D(x1, y1, x2, y2) {
 	const a = x2 - x1;
 	const b = y2 - y1;
 	return Math.sqrt((a * a) + (b * b));
 }
 
-export function DISTANCE_3D(x1, y1, z1, x2, y2, z2, squared = false) {
+export function calculateDistance3D(x1, y1, z1, x2, y2, z2, squared = false) {
 	const x = parseFloat(x2) - parseFloat(x1);
 	const y = parseFloat(y2) - parseFloat(y1);
 	const z = parseFloat(z2) - parseFloat(z1);
@@ -92,7 +153,7 @@ export function DISTANCE_3D(x1, y1, z1, x2, y2, z2, squared = false) {
 	return squared ? sum : Math.sqrt(sum);
 }
 
-export function GREAT_CIRCLE_DISTANCE(x1, y1, z1, x2, y2, z2, radius) {
+export function calculateGreatCircleDistance(x1, y1, z1, x2, y2, z2, radius) {
 	// Convert coordinates to latitude and longitude
 	const lat1 = Math.asin(z1 / radius);
 	const lon1 = Math.atan2(y1, x1);
@@ -141,6 +202,11 @@ export function makeCircle(radius, detail, centerX, centerY, centerZ, rotationX,
 	const circle = new THREE.Line(geo, material);
 
 	return circle;
+}
+
+export function getHashedLocation() {
+	let loc = window.ACTIVE_LOCATION.NAME;
+	return loc.replaceAll(' ', '_');
 }
 
 export function getCelestialBodiesInSystem(systemName) {

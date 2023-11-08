@@ -1,36 +1,4 @@
-import { DEGREES, MODULO, SQUARE, JULIAN_DATE, DISTANCE_2D } from '../HelperFunctions.js';
-
-let NAME = '[name not defined]';
-let TYPE = '[type not defined]';
-let PARENT = null;
-let PARENT_STAR = null;
-let COORDINATES = {
-	'x' : null,
-	'y' : null,
-	'z' : null
-};
-let ROTATION_QUATERNION = {
-	'w' : null,
-	'x' : null,
-	'y' : null,
-	'z' : null
-};
-let BODY_RADIUS = null;
-let ROTATION_RATE = null;
-let ROTATION_CORRECTION = null;
-let ORBITAL_ANGLE = null;
-let ORBITAL_RADIUS = null;
-
-let THEME_COLOR = {
-	'r' : null,
-	'g' : null,
-	'b' : null
-};
-let THEME_IMAGE = '';
-
-let RING = null;
-
-let ANGULAR_ROTATION_RATE = null;
+import { DEGREES, MODULO, SQUARE, JULIAN_DATE, calculateDistance2D } from '../HelperFunctions.js';
 
 export default class CelestialBody {
 	constructor(name, type, parentBody, parentStar, coordinates, rotationQuaternion, bodyRadius, rotationRate, rotationCorrection, orbitalAngle, orbitalRadius, themeColor = null, themeImage = null) {
@@ -45,17 +13,20 @@ export default class CelestialBody {
 		this.ANGULAR_ROTATION_RATE = 6 / this.ROTATION_RATE;
 		this.ROTATION_CORRECTION = rotationCorrection;
 
+		// CURRENTLY NOT USED BY TIME CALCULATIONS:
 		// this.ORBITAL_ANGLE = orbitalAngle;
 		// this.ORBITAL_ANGLE = this.PARENT ? Math.atan( (coordinates.y - this.PARENT.COORDINATES.y) / (coordinates.x - this.PARENT.COORDINATES.x) ) : 0;
 
 		if (parseFloat(orbitalRadius) === 0) {
-			this.ORBITAL_RADIUS = this.PARENT ? DISTANCE_2D(coordinates.x, coordinates.y, this.PARENT.COORDINATES.x, this.PARENT.COORDINATES.y) : 0;
+			this.ORBITAL_RADIUS = this.PARENT ? calculateDistance2D(coordinates.x, coordinates.y, this.PARENT.COORDINATES.x, this.PARENT.COORDINATES.y) : 0;
 		} else {
 			this.ORBITAL_RADIUS = orbitalRadius;
 		}
 
 		this.THEME_COLOR = themeColor ? themeColor : {'r' : null, 'g' : null, 'b' : null};
 		this.THEME_IMAGE = themeImage;
+
+		this.RING = null;
 
 		window.BODIES.push(this);
 	}
@@ -196,6 +167,5 @@ export default class CelestialBody {
 				return subtotal;
 			}
 		}
-
 	}
 }

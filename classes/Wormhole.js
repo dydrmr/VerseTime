@@ -1,11 +1,4 @@
-import { DISTANCE_3D } from '../HelperFunctions.js';
-
-let SIZE = null;
-let SYSTEM1 = null;
-let SYSTEM2 = null;
-let POSITION1 = null;
-let POSITION2 = null;
-let DISTANCE = null;
+import { calculateDistance3D } from '../HelperFunctions.js';
 
 export default class Wormhole {
 
@@ -25,7 +18,7 @@ export default class Wormhole {
 			'z': z2
 		}
 
-		this.DISTANCE = DISTANCE_3D(
+		this.DISTANCE = calculateDistance3D(
 			system1.COORDINATES.x,
 			system1.COORDINATES.y,
 			system1.COORDINATES.z,
