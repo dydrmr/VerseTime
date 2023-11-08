@@ -11,7 +11,7 @@ import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer
 //import { CSS3DRenderer, CSS3DObject } from 'three/addons/renderers/CSS3DRenderer';
 
 import { DEGREES, RADIANS, ROUND, POLAR_TO_CARTESIAN, RANDOM, HOURS_TO_TIME_STRING } from './HelperFunctions.js';
-import UI from './classes/UserInterface.js';
+import UI from './classes/app/UserInterface.js';
 
 let scene, camera, renderer, labelRenderer, controls, zoomControls;
 let cameraDestination;

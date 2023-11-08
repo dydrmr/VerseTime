@@ -4,7 +4,8 @@ import { TrackballControls }  from 'three/addons/controls/TrackballControls';
 import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer';
 
 import { RADIANS, ROUND, calculateDistance3D, makeLine, makeCircle, getCelestialBodiesInSystem, readableNumber } from './HelperFunctions.js';
-import UI from './classes/UserInterface.js';
+import Settings from './classes/app/Preferences.js';
+import UI from './classes/app/UserInterface.js';
 import SolarSystem from './classes/SolarSystem.js';
 
 // NOTE: map-window CSS CLASS MIS-USED AS ID; CREATE map-container AND ADJUST CODE WHERE APPLICABLE
@@ -807,14 +808,14 @@ function organizeLocationLabels() {
 // EVENT LISTENERS
 const settingLolli = UI.el('atlas-settings-show-lollipops');
 settingLolli.addEventListener('change', function () {
-	saveSetting('atlasLollipops', settingLolli.checked);
+	Settings.save('atlasLollipops', settingLolli.checked);
 	const mesh = scene.getObjectByName('Lollipops');
 	mesh.visible = settingLolli.checked;
 });
 
 const settingWorm = UI.el('atlas-settings-show-wormholes');
 settingWorm.addEventListener('change', function () {
-	saveSetting('atlasWormholes', settingWorm.checked);
+	Settings.save('atlasWormholes', settingWorm.checked);
 	const mesh = scene.getObjectByName('Wormholes');
 	mesh.visible = settingWorm.checked;
 });
@@ -823,7 +824,7 @@ settingWorm.addEventListener('change', function () {
 const settingAffil = UI.el('atlas-settings-show-affiliation');
 settingAffil.addEventListener('change', function () {
 	const setting = settingAffil.checked;
-	saveSetting('atlasAffiliation', setting);
+	Settings.save('atlasAffiliation', setting);
 
 	const labels = document.querySelectorAll('.atlas-label-system');
 	for (const label of labels) {
@@ -838,7 +839,7 @@ settingAffil.addEventListener('change', function () {
 
 const settingGrid = UI.el('atlas-settings-show-grid');
 settingGrid.addEventListener('change', function () {
-	saveSetting('atlasGrid', settingGrid.checked);
+	Settings.save('atlasGrid', settingGrid.checked);
 	const mesh = scene.getObjectByName('Galaxy Grid');
 	mesh.visible = settingWorm.checked;
 });

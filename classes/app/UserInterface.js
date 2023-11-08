@@ -1,4 +1,5 @@
-import { getHashedLocation, HOURS_TO_TIME_STRING, CHOSEN_TIME, DATE_TO_SHORT_TIME } from '../HelperFunctions.js';
+import { getHashedLocation, HOURS_TO_TIME_STRING, CHOSEN_TIME, DATE_TO_SHORT_TIME } from '../../HelperFunctions.js';
+import Settings from './Preferences.js';
 
 class UserInterface {
     constructor() {
@@ -19,6 +20,7 @@ class UserInterface {
 	#setupEventListeners() {
 		// CLICKS
 		this.el('BUTTON-toggle-atlas-window').addEventListener('click', this.toggleAtlasWindow);
+		this.el('BUTTON-close-atlas').addEventListener('click', this.toggleAtlasWindow);
 
 		this.el('BUTTON-toggle-map-window').addEventListener('click', this.toggleMapWindow);
 		this.el('BUTTON-close-map').addEventListener('click', this.toggleMapWindow);
@@ -54,7 +56,7 @@ class UserInterface {
 
 			if (event.key === 't') {
 				window.SETTING_24HR = !window.SETTING_24HR;
-				saveSetting('time24', window.SETTING_24HR);
+				Settings.save('time24', window.SETTING_24HR);
 			}
 
 			if (event.key === '/') {
@@ -301,7 +303,7 @@ class UserInterface {
 
 		if (result.length > 0) {
 			window.ACTIVE_LOCATION = result[0];
-			saveSetting('activeLocation', window.ACTIVE_LOCATION.NAME);
+			Settings.save('activeLocation', window.ACTIVE_LOCATION.NAME);
 			if (UI.showSettingsWindow) UI.toggleSettingsWindow();
 
 			window.suppressReload = true;

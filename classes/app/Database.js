@@ -1,7 +1,7 @@
-import SolarSystem from './SolarSystem.js';
-import CelestialBody from './CelestialBody.js';
-import Location from './Location.js';
-import Wormhole from './Wormhole.js';
+import SolarSystem from '../SolarSystem.js';
+import CelestialBody from '../CelestialBody.js';
+import Location from '../Location.js';
+import Wormhole from '../Wormhole.js';
 
 class Database {
     constructor() {

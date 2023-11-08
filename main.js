@@ -1,6 +1,7 @@
 import { ROUND, CHOSEN_TIME, HOURS_TO_TIME_STRING } from './HelperFunctions.js';
-import DB from './classes/Database.js';
-import UI from './classes/UserInterface.js';
+import Settings from './classes/app/Preferences.js';
+import DB from './classes/app/Database.js';
+import UI from './classes/app/UserInterface.js';
 
 window.SYSTEMS = Array();
 window.BODIES = Array();
@@ -17,10 +18,10 @@ window.CHOSEN_TIME = 'now';
 
 
 // TEMPORARY SO SETTINGS.JS CAN USE IT
-window.setMapLocation = setMapLocation;
+/*window.setMapLocation = setMapLocation;
 function setMapLocation(location) {
 	UI.setMapLocation(location);
-}
+}*/
 // END TEMPORARY
 
 
@@ -212,7 +213,8 @@ async function startVerseTime() {
 	window.LOCATIONS.sort((a, b) => a.NAME.localeCompare(b.NAME));
 	UI.populateLocationList();
 	checkHash();
-	loadSettings();
+	//loadSettings();
+	Settings.load();
 	setInterval(update, 250);
 	update();
 }
