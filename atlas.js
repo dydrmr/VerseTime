@@ -194,6 +194,8 @@ function moveInfobox(event) {
 }
 
 function populateInfobox(object) {
+	infoBox.innerText = '';
+
 	if (object instanceof SolarSystem) {
 		infoBox.innerText = 'Solar System';
 	} else {
@@ -276,7 +278,6 @@ function populateInfobox(object) {
 
 function hideInfobox() {
 	infoBox.style.opacity = '0';
-	infoBox.innerText = '';
 }
 
 

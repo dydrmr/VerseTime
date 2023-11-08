@@ -442,7 +442,7 @@ function createLocationLabels(celestialObject) {
 		container.addEventListener('mouseleave', hideMapLocationData);
 
 		container.addEventListener('pointerdown', () => {
-			setMapLocation(locations[i].NAME);
+			UI.setMapLocation(locations[i].NAME);
 			setCameraAboveActiveLocation(true);
 		});
 

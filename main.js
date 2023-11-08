@@ -14,7 +14,7 @@ window.WORMHOLES = Array();
 
 window.ACTIVE_LOCATION = null;
 window.SETTING_24HR = true;
-window.DEBUG_MODE = false;
+//window.DEBUG_MODE = false;
 window.HOURS_TO_TIME_STRING = HOURS_TO_TIME_STRING;
 window.setText = setText;
 
@@ -36,7 +36,7 @@ function checkHash() {
 		setChosenTime(hashParts[1], true);
 	}
 
-	setMapLocation(locationName);
+	UI.setMapLocation(locationName);
 }
 
 function update() {
@@ -147,8 +147,8 @@ function update() {
 	UI.setText('illumination-status', location.ILLUMINATION_STATUS + '\r\n' + scDateString);
 
 
-	if (showSettingsWindow) updateSettingsLocationTimes();
-	if (window.DEBUG_MODE) updateDebugUI();
+	if (UI.showSettingsWindow) updateSettingsLocationTimes();
+	if (UI.showDebugWindow) updateDebugUI();
 }
 
 function updateDebugUI() {
@@ -267,6 +267,7 @@ function updateSettingsLocationTimes() {
 	}
 }
 
+// LEGACY IMPLEMENTATION; FIND REMAINING CALLS
 function setText(elementID, string) {
 	console.warn('Used old setText function!');
 
@@ -396,7 +397,7 @@ window.getLocationByName = getLocationByName;
 async function startVerseTime() {
 	await DB.createDatabase();
 	window.LOCATIONS.sort((a, b) => a.NAME.localeCompare(b.NAME));
-	populateLocationList();
+	UI.populateLocationList();
 	checkHash();
 	loadSettings();
 	setInterval(update, 250);

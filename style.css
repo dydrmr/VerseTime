@@ -787,6 +787,9 @@ body {
 	margin-left: 8px;
 	padding: 3px 6px;
 
+	user-select: none;
+	pointer-events: none;
+
 	font-size: 10px;
 	text-transform: uppercase;
 
@@ -811,7 +814,6 @@ body {
 }
 .atlas-label:hover {
 	font-size: 12px;
-	/*outline: 1px solid rgba(255, 255, 255, 0.25);*/
 	border-radius: 2px;
 	background-color: rgba(0, 0, 0, 0.8);
 	backdrop-filter: blur(7px);
@@ -859,6 +861,7 @@ body {
 	pointer-events: none;
 	user-select: none;
 }*/
+
 
 #atlas-debug-info {
 	position: absolute;
@@ -935,33 +938,6 @@ body {
 }
 
 
-
-
-#message {
-	display: none;
-	position: fixed;
-	top: 50px;
-	left: 50%;
-	transform: translateX(-50%);
-
-	background-color: hsla(000, 70%, 20%, 0.75);
-	border-radius: 10px;
-	box-shadow: 0px 0px 40px hsla(0, 0%, 0%, 0.5);
-	padding: 15px;
-	width: 600px;
-}
-#message-title {
-	font-size: 16px;
-	font-weight: bold;
-	text-align: center;
-	text-transform: uppercase;
-	margin-bottom: 15px;
-}
-#message-text {
-	text-align: center;
-	font-size: 12px;
-	line-height: 180%;
-}
 
 
 @media only screen and (max-width: 1400px) {

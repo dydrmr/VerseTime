@@ -1,5 +1,8 @@
 let showAtlasWindow = false;
 let showMapWindow = false;
+let showDebugWindow = false;
+let showSettingsWindow = false;
+let showCreditsWindow = false;
 
 class UserInterface {
     constructor() {
@@ -15,14 +18,23 @@ class UserInterface {
 		this.el('BUTTON-toggle-map-window').addEventListener('click', () => this.toggleMapWindow());
 		this.el('BUTTON-close-map').addEventListener('click', () => this.toggleMapWindow());
 
+		this.el('BUTTON-open-settings').addEventListener('click', this.toggleSettingsWindow);
+		this.el('BUTTON-close-settings').addEventListener('click', this.toggleSettingsWindow);
+
+		this.el('BUTTON-toggle-credits-window').addEventListener('click', this.toggleCreditsWindow);
+		this.el('BUTTON-close-credits').addEventListener('click', this.toggleCreditsWindow);
+
+
 		// KEYBOARD
-		document.addEventListener('keydown', function (event) {
+		document.addEventListener('keydown', (event) => {
 			if (event.key === 'Escape') {
-				//if (showSettingsWindow) toggleSettingsWindow();
 				//if (showCreditsWindow) toggleCreditsWindow();
 				if (UI.showAtlasWindow) UI.toggleAtlasWindow();
 				if (UI.showMapWindow) UI.toggleMapWindow();
-				//if (window.DEBUG_MODE) toggleDebugWindow();
+				if (UI.showDebugWindow) UI.toggleDebugWindow();
+				if (UI.showSettingsWindow) UI.toggleSettingsWindow();
+
+				return;
 			}
 
 			if (event.target.tagName.toLowerCase() === 'input') return;
@@ -30,18 +42,18 @@ class UserInterface {
 
 			if (event.key === 'a') { UI.toggleAtlasWindow(); }
 			if (event.key === 'm') { UI.toggleMapWindow(); }
+			if (event.key === 'd') { UI.toggleDebugWindow(); }
 
-			//if (event.keyCode === 68) { toggleDebugWindow(); }
 
-			//if (event.keyCode === 84) {
+			//if (event.key === 't') {
 			//	window.SETTING_24HR = !window.SETTING_24HR;
 			//	saveSetting('time24', window.SETTING_24HR);
 			//}
 
-			//if (event.keyCode === 191) {
-			//	toggleSettingsWindow('on');
-			//	document.getElementById('location-selection-input').blur();
-			//}
+			if (event.key === '/') {
+				UI.toggleSettingsWindow('on');
+				UI.el('location-selection-input').blur();
+			}
 		});
 	}
 
@@ -95,6 +107,86 @@ class UserInterface {
 		mapModal.style.opacity = (UI.showMapWindow ? 1 : 0);
 		mapModal.style.pointerEvents = (UI.showMapWindow ? 'auto' : 'none');
 		mapContainer.style.transform = (UI.showMapWindow ? 'scale(1)' : 'scale(0)');
+	}
+
+	toggleDebugWindow() {
+		UI.showDebugWindow = !UI.showDebugWindow;
+		UI.el('detailed-info').style.opacity = (UI.showDebugWindow ? 1 : 0);
+	}
+
+	toggleSettingsWindow() {
+		UI.showSettingsWindow = !UI.showSettingsWindow;
+
+		UI.el('modal-settings').style.opacity = (UI.showSettingsWindow ? 1 : 0);
+		UI.el('modal-settings').style.pointerEvents = (UI.showSettingsWindow ? 'auto' : 'none');
+		UI.el('settings-window').style.transform = (UI.showSettingsWindow ? 'scale(1)' : 'scale(0)');
+
+		if (showSettingsWindow) {
+			UI.el('location-selection-input').focus();
+		} else {
+			UI.el('location-selection-input').blur();
+		}
+	}
+
+	toggleCreditsWindow() {
+		UI.showCreditsWindow = !UI.showCreditsWindow;
+		UI.el('modal-credits').style.opacity = (UI.showCreditsWindow ? 1 : 0);
+		UI.el('modal-credits').style.pointerEvents = (UI.showCreditsWindow ? 'auto' : 'none');
+	}
+
+	setMapLocation(locationName) {
+		const result = window.LOCATIONS.filter(location => {
+			return location.NAME === locationName;
+		});
+
+		if (result) {
+			window.ACTIVE_LOCATION = result[0];
+			saveSetting('activeLocation', window.ACTIVE_LOCATION.NAME);
+			if (UI.showSettingsWindow) UI.toggleSettingsWindow();
+
+			window.suppressReload = true;
+			parent.location.hash = getHashedLocation();
+			setTimeout(() => {
+				window.suppressReload = false;
+			}, 1000)
+
+			return true;
+
+		} else {
+			throw 'Invalid [locationName] parameter passed to [setLocation] function!\nValue passed: ' + locationName;
+			return false;
+		}
+	}
+
+	populateLocationList() {
+		let container = document.getElementById('available-locations-list');
+
+		for (let loc of window.LOCATIONS) {
+			if (loc.PARENT?.TYPE === 'Lagrange Point') continue;
+			if (loc.TYPE === 'Asteroid cluster') continue;
+
+			let el = document.createElement('div');
+			el.className = 'BUTTON-set-location';
+			el.addEventListener('click', function (e) { UI.setMapLocation(loc.NAME); });
+			el.dataset.locationName = loc.NAME;
+
+			let elName = document.createElement('p');
+			elName.className = 'set-location-name';
+			elName.innerHTML = loc.NAME;
+
+			let elBody = document.createElement('p');
+			elBody.className = 'set-location-body';
+			elBody.innerHTML = loc.PARENT.NAME;
+
+			let elTime = document.createElement('p');
+			elTime.className = 'set-location-time';
+			elTime.innerHTML = 'XX:XX';
+
+			el.appendChild(elName);
+			el.appendChild(elBody);
+			el.appendChild(elTime);
+			container.appendChild(el);
+		}
 	}
 
 }
