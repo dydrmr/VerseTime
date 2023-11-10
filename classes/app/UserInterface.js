@@ -12,6 +12,12 @@ class UserInterface {
 		this.showSettingsWindow = false;
 		this.showCreditsWindow = false;
 
+		this.elBG = document.getElementById('selected-location-bg-image');
+		this.atlasModal = document.getElementById('modal-atlas');
+		this.atlasContainer = document.getElementById('atlas-container');
+		this.mapModal = document.getElementById('modal-map');
+		this.mapContainer = document.getElementById('map-window');
+
 		this.mapHoverLocation = null;
 
 		this.#setupEventListeners();
@@ -19,19 +25,19 @@ class UserInterface {
 
 	#setupEventListeners() {
 		// CLICKS
-		this.el('BUTTON-toggle-atlas-window').addEventListener('click', this.toggleAtlasWindow);
-		this.el('BUTTON-close-atlas').addEventListener('click', this.toggleAtlasWindow);
+		this.listen('click', 'BUTTON-toggle-atlas-window', this.toggleAtlasWindow);
+		this.listen('click', 'BUTTON-close-atlas', this.toggleAtlasWindow);
 
-		this.el('BUTTON-toggle-map-window').addEventListener('click', this.toggleMapWindow);
-		this.el('BUTTON-close-map').addEventListener('click', this.toggleMapWindow);
+		this.listen('click', 'BUTTON-toggle-map-window', this.toggleMapWindow);
+		this.listen('click', 'BUTTON-close-map', this.toggleMapWindow);
 
-		this.el('BUTTON-open-settings').addEventListener('click', this.toggleSettingsWindow);
-		this.el('BUTTON-close-settings').addEventListener('click', this.toggleSettingsWindow);
+		this.listen('click', 'BUTTON-open-settings', this.toggleSettingsWindow);
+		this.listen('click', 'BUTTON-close-settings', this.toggleSettingsWindow);
 
-		this.el('BUTTON-toggle-credits-window').addEventListener('click', this.toggleCreditsWindow);
-		this.el('BUTTON-close-credits').addEventListener('click', this.toggleCreditsWindow);
+		this.listen('click', 'BUTTON-toggle-credits-window', this.toggleCreditsWindow);
+		this.listen('click', 'BUTTON-close-credits', this.toggleCreditsWindow);
 
-		this.el('BUTTON-share-location').addEventListener('click', this.shareLocation);
+		this.listen('click', 'BUTTON-share-location', this.shareLocation);
 
 
 		// KEYBOARD
@@ -66,31 +72,31 @@ class UserInterface {
 		});
 
 
-		// LIVE LOCATION FILTERING WHEN TYPING IN SEARCH BOX
+		// LOCATION FILTER WHEN TYPING IN SEARCH BOX
 		this.el('location-selection-input').addEventListener('input', (event) => {
-			let search = this.el("location-selection-input").value.toLowerCase();
-			let searchFragments = search.split('+');
-			let buttons = document.getElementsByClassName('BUTTON-set-location');
+			const search = UI.el("location-selection-input").value.toLowerCase();
+			const searchFragments = search.split('+');
+			const buttons = document.getElementsByClassName('BUTTON-set-location');
 
-			for (let element of buttons) {
+			for (const element of buttons) {
 				if (search === '') {
 					element.classList.remove('hide');
 					continue;
 				}
 
-				let found = Array();
+				const found = Array();
 				for (let [index, fragment] of searchFragments.entries()) {
 					if (fragment === '') continue;
 					found[index] = (element.innerText.toLowerCase().includes(fragment)) ? true : false;
 				}
 
-				let result = found.every((value) => value === true);
+				const result = found.every((value) => value === true);
 				result ? element.classList.remove('hide') : element.classList.add('hide');
 			}
 		});
 	}
 
-	// MAIN UPDATE FUNCTION
+	// MAIN UPDATE FUNCTIONS
 	update(location) {
 		UI.#update_setColors(location);
 		UI.#update_setThemeImage(location);
@@ -107,14 +113,12 @@ class UserInterface {
 		document.querySelector(':root').style.setProperty('--theme-color', colorMain);
 		document.querySelector(':root').style.setProperty('--theme-color-dark', colorDark);
 
-		const bg = UI.el('selected-location-bg-image');
-		if (bg.backgroundColor !== colorMain) bg.backgroundColor = colorMain;
+		if (UI.elBG.style.backgroundColor !== colorMain) UI.elBG.style.backgroundColor = colorMain;
 	}
 
 	#update_setThemeImage(location) {
-		const bg = UI.el('selected-location-bg-image');
-		const bgImage = `url('${location.THEME_IMAGE}')`;
-		if (bg.style.backgroundImage !== bgImage) bg.style.backgroundImage = bgImage;
+		const url = `url('${location.THEME_IMAGE}')`;
+		if (UI.elBG.style.backgroundImage !== url) UI.elBG.style.backgroundImage = url;
 	}
 
 	#update_setLocationInfo(location) {
@@ -222,6 +226,26 @@ class UserInterface {
 		return el;
 	}
 
+	listen(eventType, element, callbackFunction) {
+		if (typeof element === 'string') {
+			element = document.getElementById(element);
+		}
+
+		if (!(element instanceof HTMLElement)) {
+			console.error('Element not found:', element);
+			return;
+		} else if (typeof callbackFunction !== 'function') {
+			console.error('Callback parameter is not a function:', callbackFunction);
+			return;
+		} else if (typeof eventType !== 'string') {
+			console.error('Non-string parameter passed as event type:', eventType);
+			return;
+		}
+
+		element.addEventListener(eventType, callbackFunction);
+	}
+	 
+
 	// TOGGLES
 	toggleAtlasWindow() {
 		UI.showAtlasWindow = !UI.showAtlasWindow;
@@ -230,12 +254,9 @@ class UserInterface {
 			document.dispatchEvent(new CustomEvent('createAtlasScene'));
 		}
 
-		const atlasModal = UI.el('modal-atlas');
-		const atlasContainer = UI.el('atlas-container');
-
-		atlasModal.style.opacity = UI.showAtlasWindow ? 1 : 0;
-		atlasModal.style.pointerEvents = (UI.showAtlasWindow ? 'auto' : 'none');
-		atlasContainer.style.transform = (UI.showAtlasWindow ? 'scale(1)' : 'scale(0)');
+		UI.atlasModal.style.opacity = UI.showAtlasWindow ? 1 : 0;
+		UI.atlasModal.style.pointerEvents = (UI.showAtlasWindow ? 'auto' : 'none');
+		UI.atlasContainer.style.transform = (UI.showAtlasWindow ? 'scale(1)' : 'scale(0)');
 	}
 
 	toggleMapWindow() {
@@ -245,12 +266,9 @@ class UserInterface {
 			document.dispatchEvent(new CustomEvent('createMapScene'));
 		}
 
-		const mapModal = UI.el('modal-map');
-		const mapContainer = UI.el('map-window');
-
-		mapModal.style.opacity = (UI.showMapWindow ? 1 : 0);
-		mapModal.style.pointerEvents = (UI.showMapWindow ? 'auto' : 'none');
-		mapContainer.style.transform = (UI.showMapWindow ? 'scale(1)' : 'scale(0)');
+		UI.mapModal.style.opacity = (UI.showMapWindow ? 1 : 0);
+		UI.mapModal.style.pointerEvents = (UI.showMapWindow ? 'auto' : 'none');
+		UI.mapContainer.style.transform = (UI.showMapWindow ? 'scale(1)' : 'scale(0)');
 	}
 
 	toggleDebugWindow() {
