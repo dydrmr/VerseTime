@@ -15,6 +15,13 @@ body {
 	overflow: hidden;
 }
 
+button {
+	border: none;
+	background: none;
+	box-shadow: none;
+	color: white;
+}
+
 
 .modal {
 	width: 100%;
