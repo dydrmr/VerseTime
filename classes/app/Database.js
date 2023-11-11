@@ -1,5 +1,6 @@
 import { getSystemByName, getBodyByName } from '../../HelperFunctions.js';
 import SolarSystem from '../SolarSystem.js';
+import Star from '../Star.js';
 import CelestialBody from '../CelestialBody.js';
 import Location from '../Location.js';
 import Wormhole from '../Wormhole.js';
@@ -10,6 +11,7 @@ class Database {
         Database.instance = this;
 
         this.systems = Array();
+        this.stars = Array();
         this.bodies = Array();
         this.locations = Array();
         this.wormholes = Array();
@@ -17,6 +19,7 @@ class Database {
 
     async createDatabase() {
         await Database.createSolarSystems();
+        await Database.createStars();
         await Database.createCelestialBodies();
         await Database.createLocations();
         await Database.createWormholes();
@@ -62,10 +65,10 @@ class Database {
 
     static async createSolarSystems() {
         const systems = await Database.fetchCSV('data/systems.csv');
-        for (const sys of systems) { Database.createSolarSystem(sys); }
+        for (const sys of systems) { Database.#createSolarSystem(sys); }
     }
 
-    static createSolarSystem(data) {
+    static #createSolarSystem(data) {
         if (data.coordinateX === '') return null;
 
         let system = new SolarSystem(
@@ -75,6 +78,28 @@ class Database {
             parseFloat(data.coordinateZ),
             String(data.affiliation)
         )
+    }
+
+    static async createStars() {
+        const stars = await Database.fetchCSV('data/stars.csv');
+        for (const star of stars) { Database.#createStar(star); }
+    }
+
+    static #createStar(data) {
+        if (data.system === '') return;
+
+        let parentSystem = getSystemByName(String(data.system));
+        let radius = parseFloat(data.radius);
+
+        let star = new Star(
+            String(data.name),
+            parentSystem,
+            parseFloat(data.coordinateX),
+            parseFloat(data.coordinateY),
+            parseFloat(data.coordinateZ),
+            radius
+
+        );
     }
 
     static async createCelestialBodies() {

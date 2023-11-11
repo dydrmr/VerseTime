@@ -1,9 +1,6 @@
 import DB from './Database.js';
 import UI from './UserInterface.js';
 
-// TODO
-// migrate custom time
-
 class Preferences {
     constructor() {
         if (Preferences.instance) return Preferences.instance;
