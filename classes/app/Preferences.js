@@ -1,3 +1,4 @@
+import DB from './Database.js';
 import UI from './UserInterface.js';
 
 // TODO
@@ -72,7 +73,7 @@ class Preferences {
 		let result = DB.locations.filter(location => {
 			return location.NAME === 'Orison';
 		});
-		window.ACTIVE_LOCATION = result[0];
+		Settings.activeLocation = result[0];
 	}
 
 	save(key, value) {
