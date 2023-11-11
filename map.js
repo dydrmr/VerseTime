@@ -28,7 +28,7 @@ const orbitalMarkerCoordinates = [
 	{ x:  omDistance, y:  0,  z:  0 },
 ];
 
-init();
+setup();
 render();
 
 window.addEventListener('resize', () => {
@@ -81,7 +81,7 @@ function setupMapScene() {
 	UI.setText('map-info-naturalsatellites', sats.length);
 }
 
-function init() {
+function setup() {
 	// console.debug('THREE.js revision: ' + THREE.REVISION);
 	scene = new THREE.Scene();
 
@@ -132,7 +132,7 @@ function render() {
 	requestAnimationFrame(render);
 
 
-	if (!UI.showMapWindow) return;
+	if (!UI.Map.show) return;
 
 	updateLabelOcclusion();
 	updateLocationLabelTimes();

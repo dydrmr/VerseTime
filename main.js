@@ -15,6 +15,7 @@ async function startVerseTime() {
 	await DB.createDatabase();
 	DB.locations.sort((a, b) => a.NAME.localeCompare(b.NAME));
 	UI.populateLocationList();
+	UI.setupEventListeners();
 
 	checkHash();
 	Settings.load();

@@ -31,7 +31,7 @@ const labelsMoons = Array();
 // save custom display settings
 // NOTE: map-window CSS CLASS MIS-USED AS ID; CREATE map-container AND ADJUST CODE WHERE APPLICABLE
 
-init();
+setup();
 render();
 
 window.addEventListener('resize', () => {
@@ -41,7 +41,7 @@ window.addEventListener('resize', () => {
 	camera.updateProjectionMatrix();
 });
 
-function init() {
+function setup() {
 	scene = new THREE.Scene();
 
 	renderer = new THREE.WebGLRenderer({antialias: true});
@@ -91,7 +91,7 @@ function render() {
 	labelRenderer.render(scene, camera);
 	requestAnimationFrame(render);
 
-	if (!UI.showAtlasWindow) return;
+	if (!UI.Atlas.show) return;
 
 	updateDebugInfo();
 }
@@ -101,7 +101,7 @@ function updateDebugInfo() {
 	UI.setText('atlas-focus-system', `Selected System: ${focusSystem.NAME}`);
 	UI.setText('atlas-focus-object', `Selected Body: ${focusBody ? focusBody.NAME : 'none'}`);
 
-
+	
 	const start = window.performance.now();
 	const organized = organizeLabels();
 	const end = window.performance.now();

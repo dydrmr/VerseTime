@@ -1,17 +1,12 @@
 import { round, getHashedLocation, getHashedCustomTime, getHash, HOURS_TO_TIME_STRING, CHOSEN_TIME, DATE_TO_SHORT_TIME, UNIVERSE_TIME, getLocationByName } from '../../HelperFunctions.js';
 import Settings from './Preferences.js';
 import DB from './Database.js';
+import Window from './Window.js';
 
 class UserInterface {
     constructor() {
         if (UserInterface.instance) return UserInterface.instance;
 		UserInterface.instance = this;
-
-		this.showAtlasWindow = false;
-		this.showMapWindow = false;
-		this.showDebugWindow = false;
-		this.showSettingsWindow = false;
-		this.showCreditsWindow = false;
 
 		this.bgElement = document.getElementById('selected-location-bg-image');
 		this.bgColor = this.bgElement.style.backgroundColor;
@@ -23,34 +18,38 @@ class UserInterface {
 
 		this.mapHoverLocation = null;
 
-		this.#setupEventListeners();
+		this.Atlas = new Window('modal-atlas', 'atlas-container', 'createAtlasScene');
+		this.Map = new Window('modal-map', 'map-window', 'createMapScene');
+		this.Settings = new Window('modal-settings', 'settings-window', null);
+		this.Debug = new Window('detailed-info', null, null);
+		this.Credits = new Window('modal-credits', null, null);
 	}
 
-	#setupEventListeners() {
+	setupEventListeners() {
 		// CLICKS
-		this.listen('click', 'BUTTON-toggle-atlas-window', this.toggleAtlasWindow);
-		this.listen('click', 'BUTTON-close-atlas', this.toggleAtlasWindow);
+		this.listen('click', 'BUTTON-toggle-atlas-window', () => { UI.Atlas.toggle(); });
+		this.listen('click', 'BUTTON-close-atlas', () => { UI.Atlas.toggle(); });
 
-		this.listen('click', 'BUTTON-toggle-map-window', this.toggleMapWindow);
-		this.listen('click', 'BUTTON-close-map', this.toggleMapWindow);
+		this.listen('click', 'BUTTON-toggle-map-window', () => { UI.Map.toggle(); });
+		this.listen('click', 'BUTTON-close-map', () => { UI.Map.toggle(); });
 
-		this.listen('click', 'BUTTON-open-settings', this.toggleSettingsWindow);
-		this.listen('click', 'BUTTON-close-settings', this.toggleSettingsWindow);
+		this.listen('click', 'BUTTON-open-settings', () => { UI.Settings.toggle(); });
+		this.listen('click', 'BUTTON-close-settings', () => { UI.Settings.toggle(); });
 
-		this.listen('click', 'BUTTON-toggle-credits-window', this.toggleCreditsWindow);
-		this.listen('click', 'BUTTON-close-credits', this.toggleCreditsWindow);
+		this.listen('click', 'BUTTON-toggle-credits-window', () => { UI.Credits.toggle(); });
+		this.listen('click', 'BUTTON-close-credits', () => { UI.Credits.toggle(); });
 
 		this.listen('click', 'BUTTON-share-location', this.shareLocation);
 
 
-		// KEYBOARD
+		// KEYBOARD TOGGLES
 		document.addEventListener('keydown', (event) => {
 			if (event.key === 'Escape') {
-				if (UI.showCreditsWindow) UI.toggleCreditsWindow();
-				if (UI.showAtlasWindow) UI.toggleAtlasWindow();
-				if (UI.showMapWindow) UI.toggleMapWindow();
-				if (UI.showDebugWindow) UI.toggleDebugWindow();
-				if (UI.showSettingsWindow) UI.toggleSettingsWindow();
+				if (UI.Atlas.show) UI.Atlas.toggle();
+				if (UI.Map.show) UI.Map.toggle();
+				if (UI.Settings.show) UI.Settings.toggle();
+				if (UI.Credits.show) UI.Credits.toggle();
+				if (UI.Debug.show) UI.Debug.toggle();
 
 				return;
 			}
@@ -58,26 +57,39 @@ class UserInterface {
 			if (event.target.tagName.toLowerCase() === 'input') return;
 
 
-			if (event.key === 'a') { UI.toggleAtlasWindow(); }
-			if (event.key === 'm') { UI.toggleMapWindow(); }
-			if (event.key === 'd') { UI.toggleDebugWindow(); }
+			if (event.key === 'a') { UI.Atlas.toggle(); }
+			if (event.key === 'm') { UI.Map.toggle(); }
+			if (event.key === 'd') { UI.Debug.toggle(); }
 
 
 			if (event.key === 't') {
 				Settings.use24HourTime = !Settings.use24HourTime;
 				Settings.save('time24', Settings.use24HourTime);
 			}
+		});
+
+
+		// KEYBOARD SEARCH
+		document.addEventListener('keyup', (event) => {
+			if (UI.Settings.show && event.key === 'Enter') { 
+				const buttons = document.getElementsByClassName('BUTTON-set-location');
+				const visible = [...buttons].filter((button) => !button.classList.contains('hide'));
+				if (visible.length < 1) return;
+				visible[0].click;
+			}
+
+			if (event.target.tagName.toLowerCase() === 'input') return;
 
 			if (event.key === '/') {
-				UI.toggleSettingsWindow('on');
-				UI.el('location-selection-input').blur();
+				if (!UI.Settings.show) UI.Settings.toggle();
+				UI.el('location-selection-input').focus();
 			}
-		});
+		})
 
 
 		// CUSTOM TIME SELECTION
 		this.listen('input', 'time-selection-input', () => {
-			const timeInput = UI.el("time-selection-input").value;
+			const timeInput = UI.el('time-selection-input').value;
 			UI.setCustomTime(timeInput); 
 		})
 
@@ -114,8 +126,8 @@ class UserInterface {
 		UI.#update_setRiseAndSetData();
 		UI.#update_setIlluminationStatus();
 
-		if (UI.showSettingsWindow) UI.updateSettingsLocationTimes();
-		if (UI.showDebugWindow) UI.updateDebugUI();
+		if (UI.Settings.show) UI.updateSettingsLocationTimes();
+		if (UI.Debug.show) UI.updateDebugUI();
 	}
 
 	#update_setColors() {
@@ -257,58 +269,6 @@ class UserInterface {
 		}
 
 		element.addEventListener(eventType, callbackFunction);
-	}
-	 
-
-
-	// TOGGLES
-	toggleAtlasWindow() {
-		UI.showAtlasWindow = !UI.showAtlasWindow;
-
-		if (UI.showAtlasWindow) {
-			document.dispatchEvent(new CustomEvent('createAtlasScene'));
-		}
-
-		UI.atlasModal.style.opacity = UI.showAtlasWindow ? 1 : 0;
-		UI.atlasModal.style.pointerEvents = (UI.showAtlasWindow ? 'auto' : 'none');
-		UI.atlasContainer.style.transform = (UI.showAtlasWindow ? 'scale(1)' : 'scale(0)');
-	}
-
-	toggleMapWindow() {
-		UI.showMapWindow = !UI.showMapWindow;
-
-		if (UI.showMapWindow) {
-			document.dispatchEvent(new CustomEvent('createMapScene'));
-		}
-
-		UI.mapModal.style.opacity = (UI.showMapWindow ? 1 : 0);
-		UI.mapModal.style.pointerEvents = (UI.showMapWindow ? 'auto' : 'none');
-		UI.mapContainer.style.transform = (UI.showMapWindow ? 'scale(1)' : 'scale(0)');
-	}
-
-	toggleDebugWindow() {
-		UI.showDebugWindow = !UI.showDebugWindow;
-		UI.el('detailed-info').style.opacity = (UI.showDebugWindow ? 1 : 0);
-	}
-
-	toggleSettingsWindow() {
-		UI.showSettingsWindow = !UI.showSettingsWindow;
-
-		UI.el('modal-settings').style.opacity = (UI.showSettingsWindow ? 1 : 0);
-		UI.el('modal-settings').style.pointerEvents = (UI.showSettingsWindow ? 'auto' : 'none');
-		UI.el('settings-window').style.transform = (UI.showSettingsWindow ? 'scale(1)' : 'scale(0)');
-
-		if (UI.showSettingsWindow) {
-			UI.el('location-selection-input').focus();
-		} else {
-			UI.el('location-selection-input').blur();
-		}
-	}
-
-	toggleCreditsWindow() {
-		UI.showCreditsWindow = !UI.showCreditsWindow;
-		UI.el('modal-credits').style.opacity = (UI.showCreditsWindow ? 1 : 0);
-		UI.el('modal-credits').style.pointerEvents = (UI.showCreditsWindow ? 'auto' : 'none');
 	}
 
 
@@ -477,7 +437,7 @@ class UserInterface {
 
 		Settings.activeLocation = location;
 		Settings.save('activeLocation', Settings.activeLocation.NAME);
-		if (UI.showSettingsWindow) UI.toggleSettingsWindow();
+		if (UI.Settings.show) UI.Settings.toggle();
 
 		window.suppressReload = true;
 		parent.location.hash = getHashedLocation();

@@ -259,7 +259,7 @@ export function getSystemByName(string) {
 	const result = DB.systems.filter(sys => sys.NAME === string);
 
 	if (result.length === 0) {
-		console.error(`System "${string} not found."`);
+		console.error(`System "${string}" not found.`);
 		return null;
 	}
 
