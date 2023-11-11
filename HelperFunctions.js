@@ -1,22 +1,24 @@
 import * as THREE from 'three';
+import Settings from './classes/app/Preferences.js';
+import DB from './classes/app/Database.js';
 
-export function DEGREES(rad) {
+export function degrees(rad) {
 	return (rad * 180) / Math.PI;
 }
 
-export function RADIANS(deg) {
+export function radians(deg) {
 	return deg * (Math.PI / 180);
 }
 
-export function MODULO(dividend, divisor) {
+export function modulo(dividend, divisor) {
 	return (dividend % divisor + divisor) % divisor;
 }
 
-export function SQUARE(number) {
+export function square(number) {
 	return number * number;
 }
 
-export function ROUND(n, digits) {
+export function round(n, digits) {
 	if (digits === undefined) {
 		digits = 0;
 	}
@@ -28,11 +30,16 @@ export function ROUND(n, digits) {
 }
 
 export function CHOSEN_TIME() {
-	let unix = parseInt(window.CHOSEN_TIME);
+	let unix = parseInt(Settings.customTime);
 	if(Number.isInteger(unix)) {
 		return new Date(unix * 1000);
 	}
 	return new Date();
+}
+
+export function REAL_TIME(formatAsString = false) {
+	let now = new Date();
+	return (!formatAsString) ? now.valueOf() : now.toLocaleString();
 }
 
 export function JULIAN_DATE() {
@@ -67,7 +74,7 @@ export function HOURS_TO_TIME_STRING(hours, includeSeconds = true, limitTo24Hour
 	}
 
 	let ampm = '';
-	if (limitTo24Hours && !window.SETTING_24HR) {
+	if (limitTo24Hours && !Settings.use24HourTime) {
 		ampm = ' ' + GET_AM_PM(h);
 		h = CONVERT_24H_TO_12H(h);
 	}
@@ -84,7 +91,7 @@ export function DATE_TO_SHORT_TIME(date) {
 	let m = date.getMinutes();
 
 	let ampm = '';
-	if (!window.SETTING_24HR) {
+	if (!Settings.use24HourTime) {
 		ampm = ' ' + GET_AM_PM(h);
 		h = CONVERT_24H_TO_12H(h);
 	}
@@ -103,18 +110,25 @@ export function CONVERT_24H_TO_12H(hour) {
 	return hour;
 }
 
-export function POLAR_TO_CARTESIAN(horizontalAngle, verticalAngle, radius) {
-	let radH = RADIANS(horizontalAngle);
-	let radV = RADIANS(verticalAngle);
+export function UNIVERSE_TIME(formatAsString = false) {
+	let date2020 = new Date('January 1, 2020 00:00:00Z');
+	let date2950 = new Date('January 1, 2950 00:00:00Z');
+	let universeTime = date2950.getTime() + ((CHOSEN_TIME() - date2020) * 6);
+	return (!formatAsString) ? universeTime : new Date(universeTime).toUTCString();
+}
 
-	let x = Math.cos(radH) * Math.sin(radV) * radius;
-	let y = Math.cos(radV) * radius;
-	let z = Math.sin(radH) * Math.sin(radV) * radius;
+export function POLAR_TO_CARTESIAN(horizontalAngle, verticalAngle, radius) {
+	const radH = radians(horizontalAngle);
+	const radV = radians(verticalAngle);
+
+	const x = Math.cos(radH) * Math.sin(radV) * radius;
+	const y = Math.cos(radV) * radius;
+	const z = Math.sin(radH) * Math.sin(radV) * radius;
 
 	return {x: x, y: y, z: z};
 }
 
-export function RANDOM(min, max) {
+export function random(min, max) {
 	let rand = Math.random();
 
 	if (typeof min === 'undefined') {
@@ -183,7 +197,7 @@ export function makeCircle(radius, detail, centerX, centerY, centerZ, rotationX,
 	const p = [];
 
 	for (let i = 0; i <= 360; i += 360 / detail) {
-		let rad = RADIANS(i);
+		let rad = radians(i);
 
 		let x = Math.sin(rad) * radius;
 		let y = Math.cos(rad) * radius;
@@ -205,12 +219,27 @@ export function makeCircle(radius, detail, centerX, centerY, centerZ, rotationX,
 }
 
 export function getHashedLocation() {
-	let loc = window.ACTIVE_LOCATION.NAME;
+	let loc = Settings.activeLocation?.NAME;
+	if (loc !== undefined) {
+		loc = loc.replaceAll(' ', '_');
+	}
+	return loc;
+}
+
+export function getHashedCustomTime() {
+	if (Settings.customTime != 'now') {
+		return '@' + Settings.customTime;
+	}
+	return '';
+}
+
+export function getHash() {
+	let loc = getHashedLocation() + getHashedCustomTime()
 	return loc.replaceAll(' ', '_');
 }
 
 export function getCelestialBodiesInSystem(systemName) {
-	const bodies = window.BODIES.filter(body => {
+	const bodies = DB.bodies.filter(body => {
 		if (
 			body.NAME === systemName ||
 			body.PARENT_STAR && body.PARENT_STAR.NAME === systemName
@@ -222,8 +251,41 @@ export function getCelestialBodiesInSystem(systemName) {
 }
 
 export function getLocationsInSystem(systemName) {
-	const locations = window.LOCATIONS.filter(loc => loc.PARENT_STAR.NAME === systemName);
+	const locations = DB.locations.filter(loc => loc.PARENT_STAR.NAME === systemName);
 	return locations;
+}
+
+export function getSystemByName(string) {
+	const result = DB.systems.filter(sys => sys.NAME === string);
+
+	if (result.length === 0) {
+		console.error(`System "${string} not found."`);
+		return null;
+	}
+
+	return result[0];
+}
+
+export function getBodyByName(string) {
+	const result = DB.bodies.filter(bod => bod.NAME === string);
+
+	if (result.length === 0) {
+		console.error(`Body "${string}" not found.`);
+		return null;
+	}
+
+	return result[0];
+}
+
+export function getLocationByName(string) {
+	const result = DB.locations.filter(loc => loc.NAME === string);
+
+	if (result.length === 0) {
+		console.error(`Location "${string}" not found.`);
+		return null;
+	}
+
+	return result[0];
 }
 
 export function readableNumber(number, unitString) {

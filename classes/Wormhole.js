@@ -1,4 +1,5 @@
 import { calculateDistance3D } from '../HelperFunctions.js';
+import DB from './app/Database.js';
 
 export default class Wormhole {
 
@@ -28,6 +29,6 @@ export default class Wormhole {
 			false
 		);
 
-		window.WORMHOLES.push(this);
+		DB.wormholes.push(this);
 	}
 }

@@ -1,3 +1,5 @@
+import DB from './app/Database.js';
+
 export default class SolarSystem {
 
 	constructor(name, coordinateX, coordinateY, coordinateZ, affiliation) {
@@ -9,6 +11,6 @@ export default class SolarSystem {
 		}
 		this.AFFILIATION = affiliation;
 
-		window.SYSTEMS.push(this);
+		DB.systems.push(this);
 	}
 }

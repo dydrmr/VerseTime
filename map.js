@@ -8,15 +8,15 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls';
 import { TrackballControls }  from 'three/addons/controls/TrackballControls';
 import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer';
-//import { CSS3DRenderer, CSS3DObject } from 'three/addons/renderers/CSS3DRenderer';
 
-import { DEGREES, RADIANS, ROUND, POLAR_TO_CARTESIAN, RANDOM, HOURS_TO_TIME_STRING } from './HelperFunctions.js';
+import { degrees, radians, round, POLAR_TO_CARTESIAN, random, HOURS_TO_TIME_STRING } from './HelperFunctions.js';
+import Settings from './classes/app/Preferences.js';
+import DB from './classes/app/Database.js';
 import UI from './classes/app/UserInterface.js';
 
 let scene, camera, renderer, labelRenderer, controls, zoomControls;
-let cameraDestination;
 let mapDiv = UI.el('map-window');
-let celestial3DEntity = null;
+
 const circleDetail = 72;
 const omDistance = Math.sqrt(2);
 const orbitalMarkerCoordinates = [
@@ -41,7 +41,7 @@ window.addEventListener('resize', () => {
 document.addEventListener('createMapScene', setupMapScene);
 
 function setupMapScene() {
-	let body = window.ACTIVE_LOCATION.PARENT;
+	const body = Settings.activeLocation.PARENT;
 	createNewScene(body);
 
 	// Populate infobox data
@@ -49,14 +49,14 @@ function setupMapScene() {
 	UI.setText('map-info-system', body.PARENT_STAR.NAME);
 	UI.setText('map-info-orbits', body.PARENT.NAME);
 
-	//let orbitDist = ROUND(body.ORBITAL_RADIUS / 149598000, 3); // AU
-	UI.setText('map-info-orbitdistance', ROUND(body.ORBITAL_RADIUS).toLocaleString());
+	//let orbitDist = round(body.ORBITAL_RADIUS / 149598000, 3); // AU
+	UI.setText('map-info-orbitdistance', round(body.ORBITAL_RADIUS).toLocaleString());
 
 	let radius = body.BODY_RADIUS.toLocaleString();
 	UI.setText('map-info-radius', radius);
 
 	let circum = body.BODY_RADIUS * Math.PI;
-	circum = ROUND(circum, 1);
+	circum = round(circum, 1);
 	UI.setText('map-info-circumference', circum.toLocaleString());
 
 	let rot = body.ROTATION_RATE * 3600;
@@ -69,7 +69,7 @@ function setupMapScene() {
 	if (rot === Infinity) dayLengthString = '---';
 	UI.setText('map-info-lengthofday', dayLengthString);
 
-	let sats = window.BODIES.filter(bod => {
+	let sats = DB.bodies.filter(bod => {
 		if (!bod.PARENT) return false;
 
 		if (bod.PARENT.NAME === body.NAME && bod.TYPE !== 'Lagrange Point') {
@@ -144,7 +144,7 @@ function updateLabelOcclusion() {
 	
 	const raycaster = new THREE.Raycaster();
 	const v = new THREE.Vector3();
-	const r = window.ACTIVE_LOCATION.PARENT.BODY_RADIUS;
+	const r = Settings.activeLocation.PARENT.BODY_RADIUS;
 
 	const bodyMesh = scene.getObjectByName('Textured Sphere') ?? scene.getObjectByName('Solid Sphere');
 
@@ -152,7 +152,7 @@ function updateLabelOcclusion() {
 	//LOCATION LABELS
 	let locationLabels = document.querySelectorAll('.mapLocationLabel');
 	locationLabels.forEach(label => {
-		const location = window.LOCATIONS.filter(loc => loc.NAME === label.dataset.location)[0];
+		const location = DB.locations.filter(loc => loc.NAME === label.dataset.location)[0];
 
 		const coord = location.COORDINATES_3DMAP;
 		const pos = new THREE.Vector3(coord.x, coord.z, coord.y); // Y = UP
@@ -185,7 +185,7 @@ function updateLocationLabelTimes() {
 
 	let timeLabels = document.querySelectorAll('.mapLocationTime');
 	for (let label of timeLabels) {
-		const location = window.LOCATIONS.filter(loc => loc.NAME === label.parentNode.dataset.location)[0];
+		const location = DB.locations.filter(loc => loc.NAME === label.parentNode.dataset.location)[0];
 
 		if (nightStatus.includes(location.ILLUMINATION_STATUS)) {
 			setLocationLabelColor(label, 'night');
@@ -214,8 +214,8 @@ function setLocationLabelColor(label, phase) {
 
 function updatePlanetShadow() {
 	const terminator = scene.getObjectByName('Terminator');
-	const terminatorAngle = window.ACTIVE_LOCATION.PARENT.LONGITUDE(window.ACTIVE_LOCATION.PARENT_STAR);
-	terminator.rotation.y = RADIANS(terminatorAngle);
+	const terminatorAngle = Settings.activeLocation.PARENT.LONGITUDE(Settings.activeLocation.PARENT_STAR);
+	terminator.rotation.y = radians(terminatorAngle);
 	terminator.visible = document.getElementById('map-settings-show-terminator').checked;
 }
 
@@ -290,7 +290,7 @@ function createLatLonGrid(scene, color, scale = 1) {
 function makeLongitudeCircle(angle, material, scale) {
 	const p = [];
 	for (let i = 0; i <= 360; i += 360 / circleDetail) {
-		let rad = RADIANS(i);
+		let rad = radians(i);
 		let x = 0;
 		let y = Math.sin(rad) * scale;
 		let z = Math.cos(rad) * scale;
@@ -299,17 +299,17 @@ function makeLongitudeCircle(angle, material, scale) {
 
 	const geo = new THREE.BufferGeometry().setFromPoints(p);
 	const circle = new THREE.Line(geo, material);
-	circle.rotation.y = RADIANS(angle);
+	circle.rotation.y = radians(angle);
 	return circle;
 }
 
 function makeLatitudeCircle(angle, material, scale) {
 	const p = [];
 	for (let i = 0; i <= 360; i += 360 / circleDetail) {
-		let rad = RADIANS(i);
-		let x = Math.cos(rad) * Math.sin(RADIANS(angle)) * scale;
-		let y = Math.cos(RADIANS(angle)) * scale;
-		let z = Math.sin(rad) * Math.sin(RADIANS(angle)) * scale;
+		let rad = radians(i);
+		let x = Math.cos(rad) * Math.sin(radians(angle)) * scale;
+		let y = Math.cos(radians(angle)) * scale;
+		let z = Math.sin(rad) * Math.sin(radians(angle)) * scale;
 		p.push(new THREE.Vector3(x, y, z));
 	}
 
@@ -324,7 +324,6 @@ function createTexturedSphere(celestialObject, scale = 1) {
 	var loader = new THREE.TextureLoader();
 	let file = 'static/assets/' + celestialObject.NAME.toLowerCase() + '.webp';
 	loader.load(file, function ( texture ) {
-
 		texture.colorSpace = THREE.SRGBColorSpace;
 
 		let geo = new THREE.SphereGeometry(scale, circleDetail, circleDetail, 0, Math.PI * 2);
@@ -337,7 +336,6 @@ function createTexturedSphere(celestialObject, scale = 1) {
 		let obj = new THREE.Mesh(geo, mat);
 		obj.name = 'Textured Sphere';
 		scene.add(obj);
-		celestial3DEntity = obj;
 	} );
 }
 
@@ -372,13 +370,13 @@ function createShadow(celestialObject, scale) {
 	}); 
 	const shadow = new THREE.Mesh( shadowGeo, shadowMat );
 	shadow.name = 'Shadow';
-	shadow.rotation.z = RADIANS(-declination);
+	shadow.rotation.z = radians(-declination);
 	shadow.renderOrder = 1;
 	group.add(shadow);
 }
 
 function createRing(celestialObject) {
-	if (!celestialObject.RING) return;
+	if (celestialObject.RING === null) return;
 
 	const inner = celestialObject.RING['radius-inner'] / celestialObject.BODY_RADIUS;
 	const outer = celestialObject.RING['radius-outer'] / celestialObject.BODY_RADIUS;
@@ -392,7 +390,7 @@ function createRing(celestialObject) {
 		side: THREE.DoubleSide
 	});
 	const mesh = new THREE.Mesh( geometry, material );
-	mesh.rotation.x = RADIANS(90);
+	mesh.rotation.x = radians(90);
 	scene.add( mesh );
 }
 
@@ -400,10 +398,10 @@ function createStarfield(amount = 300) {
 	let vertices = [];
 
 	for (let i = 0; i < amount; i++) {
-		let theta = RANDOM() * 2.0 * Math.PI;
-		let phi = Math.acos(2.0 * RANDOM() - 1.0);
-		let r = Math.cbrt(RANDOM()) * 1500;
-		let c = POLAR_TO_CARTESIAN(DEGREES(theta), DEGREES(phi), r);
+		let theta = random() * 2.0 * Math.PI;
+		let phi = Math.acos(2.0 * random() - 1.0);
+		let r = Math.cbrt(random()) * 1500;
+		let c = POLAR_TO_CARTESIAN(degrees(theta), degrees(phi), r);
 		vertices.push(c.x, c.z, c.y);
 	}
 
@@ -426,7 +424,7 @@ function createStarfield(amount = 300) {
 
 function createLocationLabels(celestialObject) {
 	let r = celestialObject.BODY_RADIUS;
-	let locations = window.LOCATIONS.filter(loc => loc.PARENT === celestialObject);
+	let locations = DB.locations.filter(loc => loc.PARENT === celestialObject);
 
 	for (let i = 0; i < locations.length; i++) {
 
@@ -532,7 +530,7 @@ function createOrbitalMarkerLabels() {
 
 
 function setCameraAboveActiveLocation(customScalar = false) {
-	let coord = window.ACTIVE_LOCATION.COORDINATES_3DMAP;
+	const coord = Settings.activeLocation.COORDINATES_3DMAP;
 	let camVector = new THREE.Vector3(coord.x, coord.z, coord.y);
 	camVector.normalize();
 
@@ -545,12 +543,12 @@ function setCameraAboveActiveLocation(customScalar = false) {
 
 // MAP SETTINGS
 document.getElementById('map-settings-planet-transparency').addEventListener('change', function() {
-	saveSetting('mapPlanetTransparency', document.getElementById('map-settings-planet-transparency').value);
+	Settings.save('mapPlanetTransparency', document.getElementById('map-settings-planet-transparency').value);
 
 	let opacityPercent = document.getElementById('map-settings-planet-transparency').value / 100;
 	let planetMesh = scene.getObjectByName('Textured Sphere');
-	let texturePath = 'static/assets/' + window.ACTIVE_LOCATION.PARENT.NAME.toLowerCase() + '.webp';
-
+	const texturePath = 'static/assets/' + Settings.activeLocation.PARENT.NAME.toLowerCase() + '.webp';
+	
 	let loader = new THREE.TextureLoader();
 	let newPlanetMaterial;
 	loader.load(texturePath, function ( texture ) {

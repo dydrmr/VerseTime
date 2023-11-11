@@ -1,3 +1,4 @@
+import { getSystemByName, getBodyByName } from '../../HelperFunctions.js';
 import SolarSystem from '../SolarSystem.js';
 import CelestialBody from '../CelestialBody.js';
 import Location from '../Location.js';
@@ -5,14 +6,13 @@ import Wormhole from '../Wormhole.js';
 
 class Database {
     constructor() {
-        if (Database.instance) {
-            return Database.instance;
-        }
-
-        //this.data = null;
-        //this.isLoading = false;
-
+        if (Database.instance) return Database.instance;
         Database.instance = this;
+
+        this.systems = Array();
+        this.bodies = Array();
+        this.locations = Array();
+        this.wormholes = Array();
     }
 
     async createDatabase() {
@@ -36,12 +36,12 @@ class Database {
             throw new Error(`Error fetching CSV:\n${error}`);
         }
 
-        const data = Database.parseCSV(csvString);
+        const data = Database.#parseCSV(csvString);
         return data;
 
     }
 
-    static parseCSV(csvString) {
+    static #parseCSV(csvString) {
         const lines = csvString.split("\n");
         const headers = lines[0].split(',').map(header => header.trim());
         const data = [];
@@ -131,7 +131,7 @@ class Database {
             themeImage
         );
 
-        if (data.ringRadiusInner !== 'null') {
+        if (data.ringRadiusInner !== '') {
             body.RING = {
                 'radius-inner': parseFloat(data.ringRadiusInner),
                 'radius-outer': parseFloat(data.ringRadiusOuter)

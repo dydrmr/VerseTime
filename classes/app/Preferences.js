@@ -1,16 +1,20 @@
 import UI from './UserInterface.js';
 
+// TODO
+// migrate custom time
+
 class Preferences {
     constructor() {
         if (Preferences.instance) return Preferences.instance;
-
 		Preferences.instance = this;
 
 		this.use24HourTime = true;
+		this.activeLocation = null;
+		this.customTime = 'now';
     }
 
     load() {
-		const activeLocation = String(window.localStorage.getItem('activeLocation'));
+		const savedActiveLocation = String(window.localStorage.getItem('activeLocation'));
 		const time24 = window.localStorage.getItem('time24');
 
 		const mapPlanetTransparency = window.localStorage.getItem('mapPlanetTransparency');
@@ -21,8 +25,8 @@ class Preferences {
 		const mapStars = window.localStorage.getItem('mapStars');
 
 
-		if (window.location.hash === '' && activeLocation !== 'null') {
-			const result = UI.setMapLocation(activeLocation);
+		if (window.location.hash === '' && savedActiveLocation !== 'null') {
+			const result = UI.setMapLocation(savedActiveLocation);
 			if (!result) Settings.#setDefaultLocation();
 
 		} else if (window.location.hash === '') {
@@ -35,6 +39,7 @@ class Preferences {
 			Settings.use24HourTime = true;
 		}
 
+		// LOCAL MAP
 		if (mapPlanetTransparency) {
 			UI.el('map-settings-planet-transparency').value = parseInt(mapPlanetTransparency);
 		}
@@ -58,10 +63,13 @@ class Preferences {
 		if (mapStars) {
 			UI.el('map-settings-show-starfield').checked = (mapStars === 'false') ? false : true;
 		}
+
+		// ATLAS
+		// TODO...
 	}
 
 	#setDefaultLocation() {
-		let result = window.LOCATIONS.filter(location => {
+		let result = DB.locations.filter(location => {
 			return location.NAME === 'Orison';
 		});
 		window.ACTIVE_LOCATION = result[0];

@@ -3,12 +3,11 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls';
 import { TrackballControls }  from 'three/addons/controls/TrackballControls';
 import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer';
 
-import { RADIANS, ROUND, calculateDistance3D, makeLine, makeCircle, getCelestialBodiesInSystem, readableNumber } from './HelperFunctions.js';
+import { round, calculateDistance3D, makeLine, makeCircle, getCelestialBodiesInSystem, getSystemByName, getBodyByName, readableNumber } from './HelperFunctions.js';
 import Settings from './classes/app/Preferences.js';
+import DB from './classes/app/Database.js';
 import UI from './classes/app/UserInterface.js';
 import SolarSystem from './classes/SolarSystem.js';
-
-// NOTE: map-window CSS CLASS MIS-USED AS ID; CREATE map-container AND ADJUST CODE WHERE APPLICABLE
 
 
 let scene, camera, renderer, labelRenderer, controls, zoomControls;
@@ -26,9 +25,11 @@ const labelsMoons = Array();
 
 // TODO:
 // focus levels -> for easy scale changing. Ex: Galaxy, System, Planet, Moon (?), Location
-// current location indicator with quick selections to move up along the hierarchy
+// current location indicator: quick selections to move up along the hierarchy
 // tree view list of objects/locations in system
 // separate out stars into dedicated csv for more detailed info
+// save custom display settings
+// NOTE: map-window CSS CLASS MIS-USED AS ID; CREATE map-container AND ADJUST CODE WHERE APPLICABLE
 
 init();
 render();
@@ -96,7 +97,7 @@ function render() {
 }
 
 function updateDebugInfo() {
-	UI.setText('atlas-zoom', 'Zoom: ' + ROUND(controls.getDistance(), 4));
+	UI.setText('atlas-zoom', 'Zoom: ' + round(controls.getDistance(), 4));
 	UI.setText('atlas-focus-system', `Selected System: ${focusSystem.NAME}`);
 	UI.setText('atlas-focus-object', `Selected Body: ${focusBody ? focusBody.NAME : 'none'}`);
 
@@ -110,15 +111,15 @@ function updateDebugInfo() {
 	const visibleLabels = document.querySelectorAll('.atlas-label[data-visible="true"]');
 
 	if (organized) {
-		UI.setText('atlas-label-render', `${allLabels.length} labels / ${visibleLabels.length} visible / time: ${ROUND(end - start, 3)} ms`);
+		UI.setText('atlas-label-render', `${allLabels.length} labels / ${visibleLabels.length} visible / time: ${round(end - start, 3)} ms`);
 	}
 }
 
 
 
 
-function setFocus(object, zoomToObject = false) {
-	setFocus_moveCamera(object, zoomToObject);
+function setFocus(object) {
+	setFocus_moveCamera(object);
 
 	// SET GLOBALS
 	if (object instanceof SolarSystem) {
@@ -131,7 +132,7 @@ function setFocus(object, zoomToObject = false) {
 	}
 
 	// UPDATE UI
-	const el = document.getElementById('atlas-hierarchy');
+	const el = UI.el('atlas-hierarchy');
 
 	if (object instanceof SolarSystem || object.TYPE === 'Star') {
 		el.innerText = object.NAME;
@@ -142,7 +143,7 @@ function setFocus(object, zoomToObject = false) {
 	}
 }
 
-function setFocus_moveCamera(object, zoomToObject) {
+function setFocus_moveCamera(object) {
 	let target = null;
 
 	if (object instanceof SolarSystem) {
@@ -163,19 +164,10 @@ function setFocus_moveCamera(object, zoomToObject) {
 		mesh.getWorldPosition(target);
 	}
 
-	if (!zoomToObject) {
-		controls.target.copy(target);
-		controls.update();
-		zoomControls.target.copy(target);
-		zoomControls.update();
-
-	} else {
-		console.error('Parameter "zoomToObject" not implemented!\nDoing regular camera move.');
-		controls.target.copy(target);
-		controls.update();
-		zoomControls.target.copy(target);
-		zoomControls.update();
-	}
+	controls.target.copy(target);
+	controls.update();
+	zoomControls.target.copy(target);
+	zoomControls.update();
 }
 
 
@@ -234,7 +226,7 @@ function populateInfobox(object) {
 	}
 
 	if (object instanceof SolarSystem) {
-		const jps = window.WORMHOLES.filter((wh) => {
+		const jps = DB.wormholes.filter((wh) => {
 			if (wh.SYSTEM1.NAME === object.NAME || wh.SYSTEM2.NAME === object.NAME) {
 				return true;
 			}
@@ -246,7 +238,7 @@ function populateInfobox(object) {
 	}
 
 	if (object instanceof SolarSystem) {
-		const planets = window.BODIES.filter((body) => {
+		const planets = DB.bodies.filter((body) => {
 			if (
 				body.TYPE === 'Planet' &&
 				body.PARENT_STAR.NAME === object.NAME
@@ -261,7 +253,7 @@ function populateInfobox(object) {
 	}
 
 	if (object.TYPE === 'Planet') {
-		const moons = window.BODIES.filter((body) => {
+		const moons = DB.bodies.filter((body) => {
 			if (
 				body.TYPE === 'Moon' &&
 				body.PARENT.NAME === object.NAME
@@ -288,7 +280,7 @@ document.addEventListener('createAtlasScene', () => {
 function createAtlasScene() {
 	if (scene.children.length !== 0) return;
 
-	for (const system of window.SYSTEMS) {
+	for (const system of DB.systems) {
 		createSolarSystem(system);
 	}
 
@@ -374,7 +366,7 @@ function createLollipops(size = 0.5) {
 		opacity: 0.05
 	});
 
-	for (const system of window.SYSTEMS) {
+	for (const system of DB.systems) {
 		if (system.NAME === 'Sol') continue;
 
 		// Stalk
@@ -415,7 +407,7 @@ function createWormholeLines(precise = false) {
 	group.name = 'Wormholes';
 	scene.add(group);
 
-	for (const wormhole of window.WORMHOLES) {
+	for (const wormhole of DB.wormholes) {
 		let p1 = null;
 		let p2 = null;
 
@@ -451,17 +443,17 @@ function createWormholeLines(precise = false) {
 
 
 function createLabels() {
-	for (const system of window.SYSTEMS) {
+	for (const system of DB.systems) {
 		createLabel_SolarSystem(system);
 	}
 
-	for (const body of window.BODIES) {
+	for (const body of DB.bodies) {
 		const systemName = (body.TYPE === 'Star') ? body.NAME : body.PARENT_STAR.NAME;
 		const group = scene.getObjectByName(`SYSTEM:${systemName}`);
 		createLabel_CelestialBody(body, group);
 	}
 
-	for (const location of window.LOCATIONS) {
+	for (const location of DB.locations) {
 		const systemName = location.PARENT_STAR.NAME;
 		const group = scene.getObjectByName(`SYSTEM:${systemName}`);
 		createLabel_Location(location, group);
@@ -615,7 +607,7 @@ function organizeLabelsVersionTwo() {
 	scene.getObjectByName('Galaxy Grid').visible = (visibility && settingGrid.checked);
 	scene.getObjectByName('Wormholes').visible = (visibility && settingWorm.checked);
 
-	for (const sys of window.SYSTEMS) {
+	for (const sys of DB.systems) {
 		if (sys.NAME === focusSystem.NAME) continue;
 
 		const object = scene.getObjectByName(`SYSTEM:${sys.NAME}`);

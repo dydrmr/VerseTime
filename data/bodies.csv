@@ -39,7 +39,7 @@ MIC-L5,,Lagrange Point,microTech,Stanton,43435204.288,-851406.956,0.000,1.000000
 Stanton-Magnus JP,,Jump Point,Stanton,Stanton,-62284273.861,23467618.051,20198396.608,0.30793616,-0.14839508,-0.02725901,0.93936741,0.000,,,,,,,,,,
 Stanton-Pyro JP,,Jump Point,Stanton,Stanton,3310491.640,-27979408.221,-2676285.679,-0.10573804,0.13918006,-0.22767709,0.95792043,0.000,,,,,,,,,,
 Stanton-Terra JP,,Jump Point,Stanton,Stanton,51118221.617,-5269981.303,-4339551.619,0.84275234,-0.15849306,-0.09150603,-0.50623620,0.000,,,,,,,,,,
-Pyro,0,Star,,,0.000,0.000,0.000,1.000,0.000,0.000,0.000,696000.000,0.000,0.000,0.000,0.000,,,,,,
+Pyro,0,Star,,,0.000,0.000,0.000,1.000,0.000,0.000,0.000,570720.000,0.000,0.000,0.000,0.000,,,,,,
 Pyro I,1,Planet,Pyro,Pyro,-7920920.711,-2386976.743,0.000,1.000,0.000,0.000,0.000,411.700,2.420,0.000,0.000,8272765.129,,,54.000,80.000,106.000,https://media.starcitizen.tools/thumb/6/6b/Pyro_I_from_orbit.png/300px-Pyro_I_from_orbit.png
 Monox,2,Planet,Pyro,Pyro,6057267.437,-8724930.838,0.000,1.000,0.000,0.000,0.000,529.500,3.110,0.000,0.000,0.000,,,157.000,77.000,72.000,https://media.starcitizen.tools/thumb/e/ed/Pyro_-_Monox_from_orbit.png/300px-Pyro_-_Monox_from_orbit.png
 Bloom,3,Planet,Pyro,Pyro,-16103894.737,7587938.168,0.000,1.000,0.000,0.000,0.000,413.900,5.030,0.000,0.000,0.000,,,210.000,190.000,89.000,https://media.starcitizen.tools/thumb/0/08/Pyro_-_Bloom_from_orbit.png/300px-Pyro_-_Bloom_from_orbit.png

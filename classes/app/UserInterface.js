@@ -1,5 +1,6 @@
-import { getHashedLocation, HOURS_TO_TIME_STRING, CHOSEN_TIME, DATE_TO_SHORT_TIME } from '../../HelperFunctions.js';
+import { round, getHashedLocation, getHashedCustomTime, getHash, HOURS_TO_TIME_STRING, CHOSEN_TIME, DATE_TO_SHORT_TIME, UNIVERSE_TIME, getLocationByName } from '../../HelperFunctions.js';
 import Settings from './Preferences.js';
+import DB from './Database.js';
 
 class UserInterface {
     constructor() {
@@ -12,7 +13,9 @@ class UserInterface {
 		this.showSettingsWindow = false;
 		this.showCreditsWindow = false;
 
-		this.elBG = document.getElementById('selected-location-bg-image');
+		this.bgElement = document.getElementById('selected-location-bg-image');
+		this.bgColor = this.bgElement.style.backgroundColor;
+
 		this.atlasModal = document.getElementById('modal-atlas');
 		this.atlasContainer = document.getElementById('atlas-container');
 		this.mapModal = document.getElementById('modal-map');
@@ -61,8 +64,8 @@ class UserInterface {
 
 
 			if (event.key === 't') {
-				window.SETTING_24HR = !window.SETTING_24HR;
-				Settings.save('time24', window.SETTING_24HR);
+				Settings.use24HourTime = !Settings.use24HourTime;
+				Settings.save('time24', Settings.use24HourTime);
 			}
 
 			if (event.key === '/') {
@@ -72,7 +75,14 @@ class UserInterface {
 		});
 
 
-		// LOCATION FILTER WHEN TYPING IN SEARCH BOX
+		// CUSTOM TIME SELECTION
+		this.listen('input', 'time-selection-input', () => {
+			const timeInput = UI.el("time-selection-input").value;
+			UI.setCustomTime(timeInput); 
+		})
+
+
+		// TYPING IN LOCATION SEARCH BOX
 		this.el('location-selection-input').addEventListener('input', (event) => {
 			const search = UI.el("location-selection-input").value.toLowerCase();
 			const searchFragments = search.split('+');
@@ -97,68 +107,71 @@ class UserInterface {
 	}
 
 	// MAIN UPDATE FUNCTIONS
-	update(location) {
-		UI.#update_setColors(location);
-		UI.#update_setThemeImage(location);
-		UI.#update_setLocationInfo(location);
-		UI.#update_setRiseAndSetData(location);
-		UI.#update_setIlluminationStatus(location);
+	update() {
+		UI.#update_setColors();
+		UI.#update_setThemeImage();
+		UI.#update_setLocationInfo();
+		UI.#update_setRiseAndSetData();
+		UI.#update_setIlluminationStatus();
+
+		if (UI.showSettingsWindow) UI.updateSettingsLocationTimes();
+		if (UI.showDebugWindow) UI.updateDebugUI();
 	}
 
-	#update_setColors(location) {
-		const col = location.THEME_COLOR;
+	#update_setColors() {
+		const col = Settings.activeLocation.THEME_COLOR;
 		const colorMain = `rgb(${col.r}, ${col.g}, ${col.b})`;
 		const colorDark = `rgb(${col.r * 0.2}, ${col.g * 0.2}, ${col.b * 0.2})`;
 
 		document.querySelector(':root').style.setProperty('--theme-color', colorMain);
 		document.querySelector(':root').style.setProperty('--theme-color-dark', colorDark);
 
-		if (UI.elBG.style.backgroundColor !== colorMain) UI.elBG.style.backgroundColor = colorMain;
+		if (UI.bgColor !== colorMain) UI.bgColor = colorMain;
 	}
 
-	#update_setThemeImage(location) {
-		const url = `url('${location.THEME_IMAGE}')`;
-		if (UI.elBG.style.backgroundImage !== url) UI.elBG.style.backgroundImage = url;
+	#update_setThemeImage() {
+		const url = `url('${Settings.activeLocation.THEME_IMAGE}')`;
+		if (UI.bgElement.style.backgroundImage !== url) UI.bgElement.style.backgroundImage = url;
 	}
 
-	#update_setLocationInfo(location) {
+	#update_setLocationInfo() {
 		if (
-			location.ILLUMINATION_STATUS === 'Polar Day' ||
-			location.ILLUMINATION_STATUS === 'Polar Night' ||
-			location.LOCAL_TIME.toString() === 'NaN'
+			Settings.activeLocation.ILLUMINATION_STATUS === 'Polar Day' ||
+			Settings.activeLocation.ILLUMINATION_STATUS === 'Polar Night' ||
+			Settings.activeLocation.LOCAL_TIME.toString() === 'NaN'
 		) {
-			UI.setText('local-time', location.ILLUMINATION_STATUS);
+			UI.setText('local-time', Settings.activeLocation.ILLUMINATION_STATUS);
 		} else {
-			UI.setText('local-time', HOURS_TO_TIME_STRING(location.LOCAL_TIME / 60 / 60, false));
+			UI.setText('local-time', HOURS_TO_TIME_STRING(Settings.activeLocation.LOCAL_TIME / 60 / 60, false));
 		}
-		if (window.CHOSEN_TIME != 'now') {
+		if (Settings.customTime !== 'now') {
 			UI.setText('chosen-time', CHOSEN_TIME().toLocaleString());
 			UI.setText('chosen-time-sublabel', 'local selected time');
 		} else {
 			UI.setText('chosen-time', '');
 			UI.setText('chosen-time-sublabel', '');
 		}
-		UI.setText('location-name', location.NAME);
-		UI.setText('location-body-name', location.PARENT.NAME);
+		UI.setText('location-name', Settings.activeLocation.NAME);
+		UI.setText('location-body-name', Settings.activeLocation.PARENT.NAME);
 	}
 
-	#update_setRiseAndSetData(location) {
+	#update_setRiseAndSetData() {
 		// COUNTDOWNS
-		let nextRise = location.NEXT_STAR_RISE;
+		let nextRise = Settings.activeLocation.NEXT_STAR_RISE;
 		if (!nextRise) {
 			UI.setText('next-rise-countdown', '---');
 
 		} else {
-			nextRise = location.IS_STAR_RISING_NOW ? '- NOW -' : HOURS_TO_TIME_STRING(nextRise * 24, true, false);
+			nextRise = Settings.activeLocation.IS_STAR_RISING_NOW ? '- NOW -' : HOURS_TO_TIME_STRING(nextRise * 24, true, false);
 			UI.setText('next-rise-countdown', nextRise);
 		}
 
-		let nextSet = location.NEXT_STAR_SET;
+		let nextSet = Settings.activeLocation.NEXT_STAR_SET;
 		if (!nextSet) {
 			UI.setText('next-set-countdown', '---');
 
 		} else {
-			nextSet = location.IS_STAR_SETTING_NOW ? '- NOW -' : HOURS_TO_TIME_STRING(nextSet * 24, true, false);
+			nextSet = Settings.activeLocation.IS_STAR_SETTING_NOW ? '- NOW -' : HOURS_TO_TIME_STRING(nextSet * 24, true, false);
 			UI.setText('next-set-countdown', nextSet);
 		}
 
@@ -167,13 +180,13 @@ class UserInterface {
 		if (!nextRise) {
 			UI.setText('local-rise-time', '---');
 		} else {
-			UI.setText('local-rise-time', HOURS_TO_TIME_STRING(location.LOCAL_STAR_RISE_TIME * 24, false, true));
+			UI.setText('local-rise-time', HOURS_TO_TIME_STRING(Settings.activeLocation.LOCAL_STAR_RISE_TIME * 24, false, true));
 		}
 
 		if (!nextSet) {
 			UI.setText('local-set-time', '---');
 		} else {
-			UI.setText('local-set-time', HOURS_TO_TIME_STRING(location.LOCAL_STAR_SET_TIME * 24, false, true));
+			UI.setText('local-set-time', HOURS_TO_TIME_STRING(Settings.activeLocation.LOCAL_STAR_SET_TIME * 24, false, true));
 		}
 
 
@@ -182,7 +195,7 @@ class UserInterface {
 		if (!nextRise) {
 			UI.setText('next-rise-time', '---');
 		} else {
-			const rise = now.setSeconds(now.getSeconds() + (location.NEXT_STAR_RISE * 86400));
+			const rise = now.setSeconds(now.getSeconds() + (Settings.activeLocation.NEXT_STAR_RISE * 86400));
 			UI.setText('next-rise-time', DATE_TO_SHORT_TIME(new Date(rise)));
 		}
 
@@ -190,17 +203,18 @@ class UserInterface {
 		if (!nextSet) {
 			UI.setText('next-set-time', '---');
 		} else {
-			const set = now.setSeconds(now.getSeconds() + (location.NEXT_STAR_SET * 86400));
+			const set = now.setSeconds(now.getSeconds() + (Settings.activeLocation.NEXT_STAR_SET * 86400));
 			UI.setText('next-set-time', DATE_TO_SHORT_TIME(new Date(set)));
 		}
 	}
 
-	#update_setIlluminationStatus(location) {
+	#update_setIlluminationStatus() {
 		let scDate = CHOSEN_TIME();
 		scDate.setFullYear(scDate.getFullYear() + 930);
 		let scDateString = scDate.toLocaleString('default', { year: 'numeric', month: 'long', day: 'numeric' });
-		UI.setText('illumination-status', location.ILLUMINATION_STATUS + '\r\n' + scDateString);
+		UI.setText('illumination-status', Settings.activeLocation.ILLUMINATION_STATUS + '\r\n' + scDateString);
 	}
+
 
 
 	// GLOBAL FUNCTIONS
@@ -245,6 +259,7 @@ class UserInterface {
 		element.addEventListener(eventType, callbackFunction);
 	}
 	 
+
 
 	// TOGGLES
 	toggleAtlasWindow() {
@@ -299,7 +314,7 @@ class UserInterface {
 
 	// SHARE LOCATION
 	shareLocation() {
-		const url = location.protocol + '//' + location.host + location.pathname + '#' + getHashedLocation();
+		const url = location.protocol + '//' + location.host + location.pathname + '#' + getHash();
 		navigator.clipboard.writeText(url);
 
 		const msg = UI.el('share-location-message');
@@ -313,35 +328,170 @@ class UserInterface {
 	}
 
 
+	// FUNCTIONS FOR LOCATION SELECTION WINDOW
+	setCustomTime(inputTime, isUnix = false) {
+		let newCustomTime = 'now';
+		if (isUnix) {
+			newCustomTime = Number.parseInt(inputTime);
+		} else {
+			let inputDate = new Date(inputTime);
+			newCustomTime = inputDate.valueOf() / 1000;
+		}
+
+		if (Number.isNaN(newCustomTime) || !Number.isFinite(newCustomTime)) {
+			newCustomTime = 'now';
+		}
+
+		Settings.customTime = newCustomTime;
+		// saveSetting('customTime', Settings.customTime);
+
+		window.suppressReload = true;
+		parent.location.hash = getHash();
+		setTimeout(() => {
+			window.suppressReload = false;
+		}, 1000);
+	}
+
+	updateSettingsLocationTimes() {
+		let buttons = document.getElementsByClassName('BUTTON-set-location');
+
+		for (let element of buttons) {
+			const location = getLocationByName(element.dataset.locationName);
+
+			let string = '';
+			if (String(location.LOCAL_TIME) === 'NaN') {
+				string = location.ILLUMINATION_STATUS;
+			} else {
+				string = HOURS_TO_TIME_STRING(location.LOCAL_TIME / 60 / 60, false, true) + '\r\n' + location.ILLUMINATION_STATUS;
+			}
+
+			const timeElement = element.querySelector('.set-location-time');
+			UI.setText(timeElement, string);
+		}
+	}
+
+	updateDebugUI() {
+		let loc = Settings.activeLocation;
+		let bod = Settings.activeLocation ? Settings.activeLocation.PARENT : null;
+
+		UI.setText('db-hash', window.location.hash);
+
+		// CLOCKS
+		let unix = Math.floor(CHOSEN_TIME().valueOf() / 1000);
+		UI.setText('db-unix-time', unix.toLocaleString());
+		UI.setText('db-chosen-time', CHOSEN_TIME().toUTCString());
+		UI.setText('db-gmt-time', new Date().toUTCString());
+		UI.setText('db-universe-time', UNIVERSE_TIME(true).replace('GMT', 'SET'));
+
+		//CELESTIAL BODY
+		if (bod) {
+			UI.setText('body-name', bod.NAME);
+			UI.setText('body-type', bod.TYPE);
+			UI.setText('body-system', bod.PARENT_STAR.NAME);
+			UI.setText('body-parent-name', bod.PARENT.NAME);
+			UI.setText('body-radius', bod.BODY_RADIUS.toLocaleString());
+			UI.setText('day-length', (bod.ROTATION_RATE * 60 * 60).toLocaleString());
+			UI.setText('day-length-readable', HOURS_TO_TIME_STRING(bod.ROTATION_RATE));
+			UI.setText('hour-length-readable', HOURS_TO_TIME_STRING(bod.ROTATION_RATE / 24));
+			UI.setText('current-cycle', round(bod.CURRENT_CYCLE(), 3).toLocaleString());
+			UI.setText('hour-angle', bod.HOUR_ANGLE().toFixed(3));
+			UI.setText('declination', bod.DECLINATION(bod.PARENT_STAR).toFixed(3));
+			UI.setText('meridian', bod.MERIDIAN().toFixed(3));
+			UI.setText('noon-longitude', bod.LONGITUDE().toFixed(3));
+		}
+
+		//LOCATION
+		UI.setText('db-local-name', loc.NAME);
+		UI.setText('db-local-time', HOURS_TO_TIME_STRING(loc.LOCAL_TIME / 60 / 60));
+
+		let latitude = loc.LATITUDE.toFixed(3);
+		if (parseFloat(latitude) < 0) {
+			latitude = 'S ' + (parseFloat(latitude) * -1).toFixed(3);
+		} else {
+			latitude = 'N ' + latitude;
+		}
+		UI.setText('latitude', latitude);
+
+		let longitude = loc.LONGITUDE.toFixed(3);
+		if (parseFloat(longitude) < 0) {
+			longitude = 'W ' + (parseFloat(longitude) * -1).toFixed(3);
+		} else {
+			longitude = 'E ' + longitude;
+		}
+		UI.setText('longitude', longitude);
+
+		UI.setText('longitude-360', round(loc.LONGITUDE_360, 3));
+		UI.setText('elevation', round(loc.ELEVATION * 1000, 1).toLocaleString());
+		UI.setText('elevation-degrees', loc.ELEVATION_IN_DEGREES.toFixed(3));
+		UI.setText('sunriseset-angle', loc.STARRISE_AND_STARSET_ANGLE.toFixed(3));
+		UI.setText('length-of-daylight', HOURS_TO_TIME_STRING(loc.LENGTH_OF_DAYLIGHT * 24, true, false));
+		UI.setText('length-of-night', HOURS_TO_TIME_STRING((bod.ROTATION_RATE) - (loc.LENGTH_OF_DAYLIGHT * 24), true, false));
+		UI.setText('starrise-time', HOURS_TO_TIME_STRING(loc.LOCAL_STAR_RISE_TIME * 24));
+		UI.setText('starset-time', HOURS_TO_TIME_STRING(loc.LOCAL_STAR_SET_TIME * 24));
+		UI.setText('next-starrise-countdown', round(parseFloat(loc.NEXT_STAR_RISE), 6).toFixed(6));
+		UI.setText('next-starset-countdown', round(parseFloat(loc.NEXT_STAR_SET), 6).toFixed(6));
+		UI.setText('db-illumination-status', loc.ILLUMINATION_STATUS);
+		UI.setText('hour-angle-location', loc.HOUR_ANGLE().toFixed(3));
+		UI.setText('star-azimuth', loc.STAR_AZIMUTH().toFixed(3));
+		UI.setText('star-altitude', loc.STAR_ALTITUDE().toFixed(3));
+		UI.setText('max-star-altitude', loc.STAR_MAX_ALTITUDE().toFixed(3));
+
+		let now = CHOSEN_TIME();
+		now.setMilliseconds(0);
+		let next = now.setSeconds(now.getSeconds() + (loc.NEXT_STAR_RISE * 24 * 60 * 60));
+		next = new Date(next).toLocaleString();
+		let remain = HOURS_TO_TIME_STRING(loc.NEXT_STAR_RISE * 24, true, false);
+		UI.setText('db-next-starrise', (loc.NEXT_STAR_RISE * 24 * 60 * 60).toFixed(0));
+		UI.setText('db-next-starrise-countdown', remain);
+		UI.setText('db-next-starrise-date', next);
+
+		now = CHOSEN_TIME();
+		now.setMilliseconds(0);
+		next = now.setSeconds(now.getSeconds() + (loc.NEXT_NOON * 24 * 60 * 60));
+		next = new Date(next).toLocaleString();
+		remain = HOURS_TO_TIME_STRING(loc.NEXT_NOON * 24, true, false);
+		UI.setText('next-noon', (loc.NEXT_NOON * 24 * 60 * 60).toFixed(0));
+		UI.setText('next-noon-countdown', remain);
+		UI.setText('next-noon-date', next);
+
+		now = CHOSEN_TIME();
+		now.setMilliseconds(0);
+		next = now.setSeconds(now.getSeconds() + (loc.NEXT_STAR_SET * 24 * 60 * 60));
+		next = new Date(next).toLocaleString();
+		remain = HOURS_TO_TIME_STRING(loc.NEXT_STAR_SET * 24, true, false);
+		UI.setText('db-next-starset', (loc.NEXT_STAR_SET * 24 * 60 * 60).toFixed(0));
+		UI.setText('db-next-starset-countdown', remain);
+		UI.setText('db-next-starset-date', next);
+	}
+
+
+
 	// FUNCTIONS FOR LOCAL MAP WINDOW
 	setMapLocation(locationName) {
-		const result = window.LOCATIONS.filter(location => {
-			return location.NAME === locationName;
-		});
+		const location = getLocationByName(locationName);
 
-		if (result.length > 0) {
-			window.ACTIVE_LOCATION = result[0];
-			Settings.save('activeLocation', window.ACTIVE_LOCATION.NAME);
-			if (UI.showSettingsWindow) UI.toggleSettingsWindow();
-
-			window.suppressReload = true;
-			parent.location.hash = getHashedLocation();
-			setTimeout(() => {
-				window.suppressReload = false;
-			}, 1000)
-
-			return true;
-
-		} else {
+		if (!location) {
 			console.error('Invalid [locationName] parameter passed to [setLocation] function!\nValue passed: ' + locationName);
 			return false;
 		}
+
+		Settings.activeLocation = location;
+		Settings.save('activeLocation', Settings.activeLocation.NAME);
+		if (UI.showSettingsWindow) UI.toggleSettingsWindow();
+
+		window.suppressReload = true;
+		parent.location.hash = getHashedLocation();
+		setTimeout(() => {
+			window.suppressReload = false;
+		}, 1000)
+
+		return true;
 	}
 
 	populateLocationList() {
 		let container = document.getElementById('available-locations-list');
 
-		for (let loc of window.LOCATIONS) {
+		for (let loc of DB.locations) {
 			if (loc.PARENT?.TYPE === 'Lagrange Point') continue;
 			if (loc.TYPE === 'Asteroid cluster') continue;
 

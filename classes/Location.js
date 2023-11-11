@@ -1,5 +1,6 @@
-import { DEGREES, RADIANS, MODULO, SQUARE, ROUND, JULIAN_DATE } from '../HelperFunctions.js';
+import { degrees, radians, modulo, square, round, JULIAN_DATE } from '../HelperFunctions.js';
 import * as THREE from 'three';
+import DB from './app/Database.js';
 
 export default class Location {
 	constructor(name, type, parentBody, parentStar, coordinates, themeColor = null, themeImage = null) {
@@ -14,9 +15,9 @@ export default class Location {
 
 		// CALCULATED PROPERTIES
 		// LATITUDE
-		let lat2 = Math.sqrt( SQUARE(this.COORDINATES.x) + SQUARE(this.COORDINATES.y) );
+		let lat2 = Math.sqrt( square(this.COORDINATES.x) + square(this.COORDINATES.y) );
 		let lat1 = Math.atan2( this.COORDINATES.z, lat2 );
-		this.LATITUDE = DEGREES(lat1);
+		this.LATITUDE = degrees(lat1);
 
 		// LONGITUDE
 		if (Math.abs(latitude) === 90) { 
@@ -24,7 +25,7 @@ export default class Location {
 		
 		} else {
 			const atan2 = Math.atan2( this.COORDINATES.y, this.COORDINATES.x );
-			const condition = DEGREES(MODULO(atan2, 2 * Math.PI));
+			const condition = degrees(modulo(atan2, 2 * Math.PI));
 
 			if( condition > 180 ) {
 				this.LONGITUDE = -( 360 - condition );
@@ -42,13 +43,13 @@ export default class Location {
 			const y = this.COORDINATES.y;
 
 			const p2 = Math.atan2(y, x);
-			const p1 = MODULO(p2, 2 * Math.PI);
+			const p1 = modulo(p2, 2 * Math.PI);
 
-			this.LONGITUDE_360 = DEGREES(p1);
+			this.LONGITUDE_360 = degrees(p1);
 		}
 
 		// ELEVATION
-		this.ELEVATION = Math.sqrt(SQUARE(this.COORDINATES.x) + SQUARE(this.COORDINATES.y) + SQUARE(this.COORDINATES.z)) - this.PARENT.BODY_RADIUS;
+		this.ELEVATION = Math.sqrt(square(this.COORDINATES.x) + square(this.COORDINATES.y) + square(this.COORDINATES.z)) - this.PARENT.BODY_RADIUS;
 
 		// ELEVATION IN DEGREES
 		let radius = this.PARENT.BODY_RADIUS;
@@ -56,14 +57,14 @@ export default class Location {
 		let p3 = height < 0 ? 0 : height;
 		let p2 = radius + p3;
 		let p1 = Math.acos( radius / p2 );
-		this.ELEVATION_IN_DEGREES = DEGREES(p1);
+		this.ELEVATION_IN_DEGREES = degrees(p1);
 
 		// STAR RISE/SET ANGLE
-		let p4 = Math.tan( RADIANS(this.PARENT.DECLINATION(this.PARENT_STAR)) );
-		p3 = Math.tan( RADIANS(this.LATITUDE) );
+		let p4 = Math.tan( radians(this.PARENT.DECLINATION(this.PARENT_STAR)) );
+		p3 = Math.tan( radians(this.LATITUDE) );
 		p2 = -p3 * p4;
 		p1 = Math.acos(p2); 
-		this.STARRISE_AND_STARSET_ANGLE = DEGREES(p1) + this.PARENT.APPARENT_RADIUS(this.PARENT_STAR) + this.ELEVATION_IN_DEGREES;
+		this.STARRISE_AND_STARSET_ANGLE = degrees(p1) + this.PARENT.APPARENT_RADIUS(this.PARENT_STAR) + this.ELEVATION_IN_DEGREES;
 
 		// NORMALIZED COORDINATES FOR 3D MAP
 		let x = -coordinates.x / parentBody.BODY_RADIUS; // -x adjusts for rotation direction in 3D map
@@ -87,7 +88,8 @@ export default class Location {
 		}
 
 		// FINALIZATION
-		window.LOCATIONS.push(this);
+		DB.locations.push(this);
+
 	}
 
 	HOUR_ANGLE() {
@@ -95,7 +97,7 @@ export default class Location {
 		let longitude360 = this.LONGITUDE_360;
 		let sMeridian = this.PARENT.MERIDIAN();
 
-		let result = MODULO(cycleHourAngle - MODULO(longitude360 - sMeridian, 360), 360);
+		let result = modulo(cycleHourAngle - modulo(longitude360 - sMeridian, 360), 360);
 		return (result > 180) ? result - 360 : result;
 	}
 
@@ -103,19 +105,19 @@ export default class Location {
 		let coords = this.COORDINATES;
 		let bs = this.PARENT.BS(this.PARENT_STAR);
 
-		let rootCoord = Math.sqrt(SQUARE(coords.x) + SQUARE(coords.y) + SQUARE(coords.z));
-		let rootBS = Math.sqrt(SQUARE(bs.x) + SQUARE(bs.y) + SQUARE(bs.z));
+		let rootCoord = Math.sqrt(square(coords.x) + square(coords.y) + square(coords.z));
+		let rootBS = Math.sqrt(square(bs.x) + square(bs.y) + square(bs.z));
 		
-		let p5 = Math.sqrt(SQUARE(rootCoord) + SQUARE(rootBS) - (2 * rootCoord * rootBS * Math.cos(RADIANS(Math.abs(this.PARENT.DECLINATION(this.PARENT_STAR) - this.LATITUDE)))));
+		let p5 = Math.sqrt(square(rootCoord) + square(rootBS) - (2 * rootCoord * rootBS * Math.cos(radians(Math.abs(this.PARENT.DECLINATION(this.PARENT_STAR) - this.LATITUDE)))));
 		let p4 = 2 * rootCoord * p5;
-		let p3 = SQUARE(rootCoord) + SQUARE(p5) - SQUARE(rootBS);
+		let p3 = square(rootCoord) + square(p5) - square(rootBS);
 		let p2 = p3 / p4;
 		let p1 = Math.acos(p2);
-		return DEGREES(p1) - 90;
+		return degrees(p1) - 90;
 	}
 
 	STAR_ALTITUDE() {
-		let p1 = RADIANS( Math.abs( this.HOUR_ANGLE() ) );
+		let p1 = radians( Math.abs( this.HOUR_ANGLE() ) );
 		return this.STAR_MAX_ALTITUDE() * Math.cos(p1);
 	}
 
@@ -125,12 +127,12 @@ export default class Location {
 		let sDeclination = this.PARENT.DECLINATION();
 		let sLongitude = this.PARENT.LONGITUDE();
 
-		let p4 = Math.sin(RADIANS(sLongitude - lon)) * Math.cos(RADIANS(sDeclination));
-		let p3 = Math.cos(RADIANS(lat)) * Math.sin(RADIANS(sDeclination)) - Math.sin(RADIANS(lat)) * Math.cos(RADIANS(sDeclination)) * Math.cos(RADIANS(sLongitude - lon));
+		let p4 = Math.sin(radians(sLongitude - lon)) * Math.cos(radians(sDeclination));
+		let p3 = Math.cos(radians(lat)) * Math.sin(radians(sDeclination)) - Math.sin(radians(lat)) * Math.cos(radians(sDeclination)) * Math.cos(radians(sLongitude - lon));
 
 		let p2 = Math.atan2(p4, p3);
-		let p1 = DEGREES(p2);
-		return MODULO(p1 + 360, 360);
+		let p1 = degrees(p2);
+		return modulo(p1 + 360, 360);
 	}
 
 	get LENGTH_OF_DAYLIGHT() {

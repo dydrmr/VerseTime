@@ -1,4 +1,5 @@
-import { DEGREES, MODULO, SQUARE, JULIAN_DATE, calculateDistance2D } from '../HelperFunctions.js';
+import { degrees, modulo, square, JULIAN_DATE, calculateDistance2D } from '../HelperFunctions.js';
+import DB from './app/Database.js';
 
 export default class CelestialBody {
 	constructor(name, type, parentBody, parentStar, coordinates, rotationQuaternion, bodyRadius, rotationRate, rotationCorrection, orbitalAngle, orbitalRadius, themeColor = null, themeImage = null) {
@@ -28,7 +29,7 @@ export default class CelestialBody {
 
 		this.RING = null;
 
-		window.BODIES.push(this);
+		DB.bodies.push(this);
 	}
 
 	BS_INTERNAL(direction, distantObject) {
@@ -57,19 +58,19 @@ export default class CelestialBody {
 		let part1, part2, part3;
 
 		if (direction === 'x') {
-			part1 = ((1-(2*SQUARE(qy))-(2*SQUARE(qz)))*(sx-bx));
-			part2 = (((2*qx*qy)-(2*qz*qw))*(sy-by));
-			part3 = (((2*qx*qz)+(2*qy*qw))*(sz-bz));
+            part1 = ((1 - (2 * square(qy)) - (2 * square(qz))) * (sx - bx));
+            part2 = (((2 * qx * qy) - (2 * qz * qw)) * (sy - by));
+            part3 = (((2 * qx * qz) + (2 * qy * qw)) * (sz - bz));
 		
 		} else if (direction === 'y') {
-			part1 = ( (2 * qx * qy) + (2 * qz * qw) ) * (sx - bx);
-			part2 = (1 - (2 * SQUARE(qx)) - (2 * SQUARE(qz))) * (sy - by);
-			part3 = ( (2 * qy * qz) - (2 * qx * qw) ) * (sz - bz);
+            part1 = ((2 * qx * qy) + (2 * qz * qw)) * (sx - bx);
+            part2 = (1 - (2 * square(qx)) - (2 * square(qz))) * (sy - by);
+            part3 = ((2 * qy * qz) - (2 * qx * qw)) * (sz - bz);
 
 		} else if (direction === 'z') {
-			part1 = (((2*qx*qz)-(2*qy*qw))*(sx-bx));
-			part2 = (((2*qy*qz)+(2*qx*qw))*(sy-by));
-			part3 = ((1-(2*SQUARE(qx))-(2*SQUARE(qy)))*(sz-bz));
+            part1 = (((2 * qx * qz) - (2 * qy * qw)) * (sx - bx));
+            part2 = (((2 * qy * qz) + (2 * qx * qw)) * (sy - by));
+            part3 = ((1 - (2 * square(qx)) - (2 * square(qy))) * (sz - bz));
 		}
 
 		let result = part1 + part2 + part3;
@@ -79,7 +80,6 @@ export default class CelestialBody {
 	BS(distantObject) {
 		// Convert from heliocentric coordinates to local coordinates centered on celestial object
 		// "distantObject" is the celestial object that sits at the 0,0,0 origin point (usually the system's star)
-
 		let x = this.BS_INTERNAL('x', distantObject);
 		let y = this.BS_INTERNAL('y', distantObject);
 		let z = this.BS_INTERNAL('z', distantObject);
@@ -91,32 +91,32 @@ export default class CelestialBody {
 	DECLINATION(distantObject = this.PARENT_STAR) {
 		let bs = this.BS(distantObject);
 
-		let chunk1 = Math.sqrt( SQUARE(bs.x) + SQUARE(bs.y) + SQUARE(bs.z) );
+		let chunk1 = Math.sqrt( square(bs.x) + square(bs.y) + square(bs.z) );
 		chunk1 = Math.pow(chunk1, 2);
 
-		let chunk2 = Math.sqrt( SQUARE(bs.x) + SQUARE(bs.y) );
+		let chunk2 = Math.sqrt( square(bs.x) + square(bs.y) );
 		chunk2 = Math.pow(chunk2, 2);
 
-		let part1 = chunk1 + chunk2 - SQUARE(bs.z);
+		let part1 = chunk1 + chunk2 - square(bs.z);
 
-		let chunk3 = Math.sqrt( SQUARE(bs.x) + SQUARE(bs.y) + SQUARE(bs.z) );
-		let chunk4 = Math.sqrt( SQUARE(bs.x) + SQUARE(bs.y) );
+		let chunk3 = Math.sqrt( square(bs.x) + square(bs.y) + square(bs.z) );
+		let chunk4 = Math.sqrt( square(bs.x) + square(bs.y) );
 
 		let part2 = 2 * chunk3 * chunk4;
 
 		let result = Math.acos(part1 / part2);
-		return Math.abs(DEGREES(result));
+		return Math.abs(degrees(result));
 	}
 
 	APPARENT_RADIUS(distantObject) {
 		let radius = distantObject.BODY_RADIUS;
 		let bs = this.BS(distantObject);
 
-		let p4 = SQUARE(bs.x) + SQUARE(bs.y) + SQUARE(bs.z);
+		let p4 = square(bs.x) + square(bs.y) + square(bs.z);
 		let p3 = Math.sqrt(p4);
 		let p2 = radius / p3;
 		let p1 = Math.asin(p2);
-		return DEGREES(p1);
+		return degrees(p1);
 	}
 
 	LENGTH_OF_DAY() {
@@ -135,8 +135,8 @@ export default class CelestialBody {
 		let cycle = this.CURRENT_CYCLE();
 		if (cycle === Infinity) cycle = 0;
 
-		let correction = this.ROTATION_CORRECTION;
-		let result = MODULO((360 - MODULO(cycle, 1) * 360 - correction), 360)
+		const correction = this.ROTATION_CORRECTION;
+		const result = modulo((360 - modulo(cycle, 1) * 360 - correction), 360)
 		return result;
 	}
 
@@ -145,12 +145,12 @@ export default class CelestialBody {
 		let bs = this.BS(distantObject);
 
 		let p2 = Math.atan2(bs.y, bs.x) - (Math.PI / 2);
-		let p1 = MODULO(p2, 2 * Math.PI);
-		return DEGREES(p1);
+		let p1 = modulo(p2, 2 * Math.PI);
+		return degrees(p1);
 	}
 
 	LONGITUDE(distantObject = this.PARENT_STAR) {
-		const meridModulo = MODULO(0 - this.MERIDIAN(distantObject), 360);
+		const meridModulo = modulo(0 - this.MERIDIAN(distantObject), 360);
 		const cycleHourAngle = this.HOUR_ANGLE();
 
 		let condition = cycleHourAngle - meridModulo;
