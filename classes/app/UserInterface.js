@@ -74,8 +74,10 @@ class UserInterface {
 			if (UI.Settings.show && event.key === 'Enter') { 
 				const buttons = document.getElementsByClassName('BUTTON-set-location');
 				const visible = [...buttons].filter((button) => !button.classList.contains('hide'));
+				
 				if (visible.length < 1) return;
 				visible[0].click;
+				UI.setMapLocation(visible[0].dataset.locationName);
 			}
 
 			if (event.target.tagName.toLowerCase() === 'input') return;
@@ -437,7 +439,10 @@ class UserInterface {
 
 		Settings.activeLocation = location;
 		Settings.save('activeLocation', Settings.activeLocation.NAME);
-		if (UI.Settings.show) UI.Settings.toggle();
+		if (UI.Settings.show) {
+			UI.Settings.toggle();
+			UI.el('location-selection-input').blur();
+		}
 
 		window.suppressReload = true;
 		parent.location.hash = getHashedLocation();
