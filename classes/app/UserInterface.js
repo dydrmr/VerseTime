@@ -33,7 +33,7 @@ class UserInterface {
 		this.listen('click', 'BUTTON-toggle-map-window', () => { UI.Map.toggle(); });
 		this.listen('click', 'BUTTON-close-map', () => { UI.Map.toggle(); });
 
-		this.listen('click', 'BUTTON-open-settings', () => { UI.Settings.toggle(); });
+		this.listen('click', 'BUTTON-open-settings', () => { UI.Settings.toggle(); UI.el('location-selection-input').focus(); });
 		this.listen('click', 'BUTTON-close-settings', () => { UI.Settings.toggle(); });
 
 		this.listen('click', 'BUTTON-toggle-credits-window', () => { UI.Credits.toggle(); });
