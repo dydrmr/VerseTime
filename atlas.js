@@ -355,7 +355,7 @@ function createStars() {
 
 		const geo = new THREE.SphereGeometry(radius / mapScale, 24, 24);
 		const mat = new THREE.MeshBasicMaterial({
-			color: `rgb(230, 200, 140)`,
+			color: `rgb(240, 220, 180)`,
 		});
 
 		const object = new THREE.Mesh(geo, mat);
@@ -679,12 +679,10 @@ function organizeLabels() {
 function organizeLabelsVersionTwo() {
 	const distance = controls.getDistance();
 
-	const visibility = distance > 12 ? true : false;
-
-	const visibility2 = distance > 25 ? true : false;
-	scene.getObjectByName('Lollipops').visible = (visibility2 && settingLolli.checked);
-	scene.getObjectByName('Wormholes').visible = (visibility2 && settingWorm.checked);
-	scene.getObjectByName('Galaxy Grid').visible = (visibility2 && settingGrid.checked);
+	const visibility = distance > 25 ? true : false;
+	scene.getObjectByName('Lollipops').visible = (visibility && settingLolli.checked);
+	scene.getObjectByName('Wormholes').visible = (visibility && settingWorm.checked);
+	scene.getObjectByName('Galaxy Grid').visible = (visibility && settingGrid.checked);
 
 	for (const sys of DB.systems) {
 		if (sys.NAME === focusSystem.NAME) continue;
@@ -727,7 +725,7 @@ function organizeLabelsVersionTwo() {
 		// DISTANCE-BASED
 
 		if (label.dataset.objectType === 'Solar System') {
-			if (distance < 12) {
+			if (distance < 25) {
 				label.dataset.visible = false;
 				continue;
 			}
