@@ -602,10 +602,12 @@ function organizeLabels() {
 function organizeLabelsVersionTwo() {
 	const distance = controls.getDistance();
 
-	const visibility = distance > 25 ? true : false;
-	scene.getObjectByName('Lollipops').visible = (visibility && settingLolli.checked);
-	scene.getObjectByName('Galaxy Grid').visible = (visibility && settingGrid.checked);
-	scene.getObjectByName('Wormholes').visible = (visibility && settingWorm.checked);
+	const visibility = distance > 12 ? true : false;
+
+	const visibility2 = distance > 25 ? true : false;
+	scene.getObjectByName('Lollipops').visible = (visibility2 && settingLolli.checked);
+	scene.getObjectByName('Wormholes').visible = (visibility2 && settingWorm.checked);
+	scene.getObjectByName('Galaxy Grid').visible = (visibility2 && settingGrid.checked);
 
 	for (const sys of DB.systems) {
 		if (sys.NAME === focusSystem.NAME) continue;
@@ -648,7 +650,7 @@ function organizeLabelsVersionTwo() {
 		// DISTANCE-BASED
 
 		if (label.dataset.objectType === 'Solar System') {
-			if (distance < 25) {
+			if (distance < 12) {
 				label.dataset.visible = false;
 				continue;
 			}
