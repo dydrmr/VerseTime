@@ -9,7 +9,7 @@ Your selected options are saved when you change them.
 * Toggle the 3D map with <kbd>M</kbd>.
 * Toggle the Astro Atlas with <kbd>A</kbd>.
 * Toggle debug information with <kbd>D</kbd>.
-* To close any open window, press <kbd>Esc</kbd>.
+* Close any open windows with <kbd>Esc</kbd>.
 
 ## Search functionality
 Access search by clicking on the location name at the center of the screen or by pressing <kbd>/</kbd>.
