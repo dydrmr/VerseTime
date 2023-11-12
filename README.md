@@ -5,8 +5,9 @@ Visit [this link](https://dydrmr.github.io/VerseTime/) to check it out.
 ## Interface
 Your selected options are saved when you change them.
 * To change your location, either click on the location name in the center of the window, or press <kbd>/</kbd> (slash) to open the window.
-* Toggle 24-hour time notation off with <kbd>T</kbd>.
-* Open the 3D map with <kbd>M</kbd>.
+* Toggle between 12 and 24-hour time with <kbd>T</kbd>.
+* Toggle the 3D map with <kbd>M</kbd>.
+* Toggle the Astro Atlas with <kbd>A</kbd>.
 * Toggle debug information with <kbd>D</kbd>.
 * To close any open window, press <kbd>Esc</kbd>.
 
