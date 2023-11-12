@@ -21,6 +21,12 @@ button {
 	box-shadow: none;
 	color: white;
 }
+button img {
+	width: 20px;
+	height: 15px;
+	padding-right: 5px;
+	transform: translateY(3px);
+}
 
 
 .modal {
