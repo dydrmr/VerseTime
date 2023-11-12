@@ -4,18 +4,22 @@ Visit [this link](https://dydrmr.github.io/VerseTime/) to check it out.
 
 ## Interface
 Your selected options are saved when you change them.
-* To change your location, click on the location name in the center of the window.
+* To change your location, either click on the location name in the center of the window, or press <kbd>/</kbd> (slash) to open the window.
 * Toggle 24-hour time notation off with <kbd>T</kbd>.
 * Open the 3D map with <kbd>M</kbd>.
 * Toggle debug information with <kbd>D</kbd>.
 
 ## Search functionality
+Access search by clicking on the location name at the center of the screen or by pressing <kbd>/</kbd>.
+
 You can filter locations in the search interface in a variety of ways:
 * by location name: e.g. "Lorville".
 * by celestial body: e.g. "Daymar".
 * by current precise time: e.g. "12:00".
 * by current day phase: valid queries are: "Night", "Twilight", "Starrise", "Morning", "Noon", "Afternoon", "Evening", "Starset", "Polar day", "Polar Night", "Permanent Day", and "Permanent Night".
 * Combine queries using the **[ + ]** symbol: e.g. "Daymar+Afternoon" will return all locations on Daymar where the local time is in the afternoon.
+
+Pressing <kbd>Enter</kbd> will switch to the top location in the filtered list.
 
 ## Sharing
 Click the "Share" button at the top center of the window. A URL pointing to your currently displayed location will be copied to your clipboard. You can share this URL with others or use it to bookmark your favorite locations for quick access.
