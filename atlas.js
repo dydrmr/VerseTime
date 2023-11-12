@@ -385,7 +385,7 @@ function createSolarSystem(system) {
 }
 
 
-function createCelestialBody(body, group) {
+async function createCelestialBody(body, group) {
 	let radius;
 	if (body.TYPE === 'Jump Point' || body.TYPE === 'Lagrange Point' || body.TYPE === 'Star') {
 		radius = 0.1;
@@ -393,14 +393,46 @@ function createCelestialBody(body, group) {
 		radius = body.BODY_RADIUS
 	}
 
-	const materialColor = (body.TYPE === 'Star') ? `rgb(230, 200, 140)` : `rgb(${body.THEME_COLOR.r}, ${body.THEME_COLOR.g}, ${body.THEME_COLOR.b})`;
 
-	const geo = new THREE.SphereGeometry(radius, 24, 24);
-	const mat = new THREE.MeshBasicMaterial({
-		color: materialColor,
-	});
+	let geo = new THREE.SphereGeometry(radius, 24, 24);
+	let mat;
+
+	// OOF, this needs to be prettier
+	if (body.TYPE === 'Planet' || body.TYPE === 'Moon') {
+		const loader = new THREE.TextureLoader();
+		const file = 'static/assets/' + body.NAME.toLowerCase() + '.webp';
+		let texture;
+
+		try {
+			texture = await loader.loadAsync(file);
+			texture.colorSpace = THREE.SRGBColorSpace;
+
+			mat = new THREE.MeshBasicMaterial({
+				map: texture
+			})
+
+		} catch (e) {
+			const materialColor = (body.TYPE === 'Star') ? `rgb(230, 200, 140)` : `rgb(${body.THEME_COLOR.r}, ${body.THEME_COLOR.g}, ${body.THEME_COLOR.b})`;
+			mat = new THREE.MeshBasicMaterial({
+				color: materialColor,
+			});
+		}
+
+	} else {
+		const materialColor = (body.TYPE === 'Star') ? `rgb(230, 200, 140)` : `rgb(${body.THEME_COLOR.r}, ${body.THEME_COLOR.g}, ${body.THEME_COLOR.b})`;
+		mat = new THREE.MeshBasicMaterial({
+			color: materialColor,
+		});
+	}
+
 	const object = new THREE.Mesh(geo, mat);
 	object.name = body.NAME;
+
+	if (body.TYPE === 'Planet' || body.TYPE === 'Moon') {
+		// compensate for z = up coordinate system in THREE.js
+		object.rotateX(Math.PI / 2);
+		object.rotateY(Math.PI);
+	}
 
 	object.position.set(body.COORDINATES.x, body.COORDINATES.y, body.COORDINATES.z);
 	group.add(object);
@@ -603,6 +635,7 @@ function createLabel_Location(location, group) {
 	div.dataset.systemName = location.PARENT_STAR.NAME;
 	div.dataset.parentName = location.PARENT.NAME;
 	div.dataset.objectName = location.NAME;
+	div.dataset.visible = false;
 
 	setLabelEvents(div, location);
 
