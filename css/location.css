@@ -151,7 +151,7 @@
 
     #next-rise-container:before {
         content: ' ';
-        background-image: url(../img/ui-arrow-up.png);
+        background-image: url(../img/ui/arrow-up.png);
         background-repeat: no-repeat;
         background-position: 50% 50%;
         backdrop-filter: invert(100%);
@@ -166,7 +166,7 @@
 
     #next-set-container:before {
         content: ' ';
-        background-image: url(../img/ui-arrow-down.png);
+        background-image: url(../img/ui/arrow-down.png);
         background-repeat: no-repeat;
         background-position: 50% 50%;
         backdrop-filter: invert(100%);

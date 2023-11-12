@@ -91,46 +91,15 @@ button img {
 		transform: scale(1.05);
 	}
 
-
-
-
-
-#BUTTON-toggle-credits-window {
-	position: absolute;
-	right: 5px;
-	top: 5px;
-}
-
-#credits-window {
-	width: 700px;
-	max-width: 90%;
-	margin: auto;
-
-	position: relative;
-	overflow: hidden;
-	/*opacity: 0;*/
-	padding: 140px 40px;
+kbd {
+	border-radius: 3px;
+	border: 1px solid black;
+	box-shadow: rgba(0, 0, 0, 0.4) 1px 1px;
+	width: 50px;
+	padding: 2px;
+	background-color: var(--theme-color);
 	text-align: center;
-
-	background-color: var(--theme-color-dark);
-	border-radius: 20px;
-	box-shadow: 0px 0px 90px hsla(0, 0%, 0%, 0.8);
 }
-
-#credits-window a {
-	color: var(--theme-color);
-	text-decoration: none;
-	transition: 0.2s ease-out;
-	border-bottom: 1px dashed var(--theme-color);
-}
-#credits-window a:hover {
-	color: white;
-	border: none;
-}
-
-
-
-
 
 #BUTTON-share-location {
 	position: absolute;
