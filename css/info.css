@@ -10,7 +10,7 @@
     margin: auto;
     position: relative;
     overflow: hidden;
-    padding: 30px;
+    padding: 30px 30px 10px;
     text-align: center;
     background-color: var(--theme-color-dark);
     border-radius: 20px;
