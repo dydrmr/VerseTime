@@ -3,7 +3,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls';
 import { TrackballControls }  from 'three/addons/controls/TrackballControls';
 import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer';
 
-import { round, calculateDistance3D, makeLine, makeCircle, getCelestialBodiesInSystem, getSystemByName, getBodyByName, readableNumber } from './HelperFunctions.js';
+import { round, calculateDistance3D, makeLine, makeCircle, getCelestialBodiesInSystem, getSystemByName, getBodyByName, readableNumber, random, POLAR_TO_CARTESIAN, degrees } from './HelperFunctions.js';
 import Settings from './classes/app/Preferences.js';
 import DB from './classes/app/Database.js';
 import UI from './classes/app/UserInterface.js';
@@ -54,7 +54,7 @@ function setup() {
 	labelRenderer.domElement.style.top = '0px';
 	atlasDiv.appendChild( labelRenderer.domElement );
 
-	camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.000001, 1000);
+	camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.000001, 1500);
 	camera.up.set(0, 0, 1);
 	camera.position.set(0, -100, 50);
 	camera.lookAt(0, 0, 0);
@@ -280,6 +280,9 @@ document.addEventListener('createAtlasScene', () => {
 function createAtlasScene() {
 	if (scene.children.length !== 0) return;
 
+	createStarfield();
+	createStars();
+
 	for (const system of DB.systems) {
 		createSolarSystem(system);
 	}
@@ -291,6 +294,74 @@ function createAtlasScene() {
 	createLabels();
 
 	setFocus(getBodyByName('Stanton'));
+}
+
+function createStarfield() {
+	const group = new THREE.Group();
+	group.name = 'Starfield';
+	scene.add(group);
+
+	let vertices = [];
+
+	for (let i = 0; i < 300; i++) {
+		let theta = random() * 2.0 * Math.PI;
+		let phi = Math.acos(2.0 * random() - 1.0);
+		let r = Math.cbrt(random()) * 1500;
+		let c = POLAR_TO_CARTESIAN(degrees(theta), degrees(phi), r);
+		vertices.push(c.x, c.z, c.y);
+	}
+
+	let stars = new THREE.BufferGeometry();
+	stars.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+
+	let mat = new THREE.PointsMaterial({
+		color: `rgb(255, 255, 255)`,
+		size: 0.02,
+		sizeAttenuation: true,
+		transparent: true,
+		opacity: 0.6
+	});
+
+	let mesh = new THREE.Points(stars, mat);
+	group.add(mesh);
+	//group.visible = document.getElementById('atlas-settings-show-starfield').checked;
+}
+
+function createStars() {
+	const group = new THREE.Group();
+	group.name = 'STARS';
+	scene.add(group);
+
+	for (const star of DB.stars) {
+		if (!star.PARENT_SYSTEM) continue;
+
+		let pos;
+		if (isNaN(star.COORDINATES.x)) {
+			pos = { 'x': 0, 'y': 0, 'z': 0 }
+		} else {
+			pos = { 'x': star.COORDINATES.x / mapScale, 'y': star.COORDINATES.y / mapScale, 'z': star.COORDINATES.z / mapScale };
+		}
+
+		let radius;
+		if (isNaN(star.BODY_RADIUS)) {
+			radius = 10000;
+		} else if (star.BODY_RADIUS > 10_000_000) {
+			radius = 10_000_000;
+		} else {
+			radius = star.BODY_RADIUS;
+		}
+
+		const system = star.PARENT_SYSTEM;
+
+		const geo = new THREE.SphereGeometry(radius / mapScale, 24, 24);
+		const mat = new THREE.MeshBasicMaterial({
+			color: `rgb(230, 200, 140)`,
+		});
+
+		const object = new THREE.Mesh(geo, mat);
+		object.position.set(pos.x + system.COORDINATES.x, pos.y + system.COORDINATES.y, pos.z + system.COORDINATES.z);
+		group.add(object);
+	}
 }
 
 function createSolarSystem(system) {
@@ -315,7 +386,13 @@ function createSolarSystem(system) {
 
 
 function createCelestialBody(body, group) {
-	const radius = (body.TYPE === 'Jump Point' || body.TYPE === 'Lagrange Point') ? 0.1 : body.BODY_RADIUS;
+	let radius;
+	if (body.TYPE === 'Jump Point' || body.TYPE === 'Lagrange Point' || body.TYPE === 'Star') {
+		radius = 0.1;
+	} else {
+		radius = body.BODY_RADIUS
+	}
+
 	const materialColor = (body.TYPE === 'Star') ? `rgb(230, 200, 140)` : `rgb(${body.THEME_COLOR.r}, ${body.THEME_COLOR.g}, ${body.THEME_COLOR.b})`;
 
 	const geo = new THREE.SphereGeometry(radius, 24, 24);
@@ -836,4 +913,11 @@ settingGrid.addEventListener('change', function () {
 	Settings.save('atlasGrid', settingGrid.checked);
 	const mesh = scene.getObjectByName('Galaxy Grid');
 	mesh.visible = settingWorm.checked;
+});
+
+const settingStarfield = UI.el('atlas-settings-show-starfield');
+settingStarfield.addEventListener('change', function () {
+	Settings.save('atlasStarfield', settingStarfield.checked);
+	const mesh = scene.getObjectByName('Starfield');
+	mesh.visible = settingStarfield.checked;
 });
