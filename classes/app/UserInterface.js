@@ -305,7 +305,6 @@ class UserInterface {
 		}
 
 		Settings.customTime = newCustomTime;
-		// saveSetting('customTime', Settings.customTime);
 
 		window.suppressReload = true;
 		parent.location.hash = getHash();

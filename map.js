@@ -566,18 +566,18 @@ document.getElementById('map-settings-planet-transparency').addEventListener('ch
 });
 
 document.getElementById('map-settings-show-grid').addEventListener('change', function() {
-	saveSetting('mapGrid', document.getElementById('map-settings-show-grid').checked);
+	Settings.save('mapGrid', document.getElementById('map-settings-show-grid').checked);
 
 	let object = scene.getObjectByName('Grid');
 	object.visible = document.getElementById('map-settings-show-grid').checked;
 });
 
 document.getElementById('map-settings-show-terminator').addEventListener('change', function() {
-	saveSetting('mapTerminator', document.getElementById('map-settings-show-terminator').checked);
+	Settings.save('mapTerminator', document.getElementById('map-settings-show-terminator').checked);
 });
 
 document.getElementById('map-settings-show-orbitalmarkers').addEventListener('change', function() {
-	saveSetting('mapOMs', document.getElementById('map-settings-show-orbitalmarkers').checked);
+	Settings.save('mapOMs', document.getElementById('map-settings-show-orbitalmarkers').checked);
 
 	let markers = document.querySelectorAll('.mapOrbitalMarker');
 	markers.forEach(element => {
@@ -586,7 +586,7 @@ document.getElementById('map-settings-show-orbitalmarkers').addEventListener('ch
 });
 
 document.getElementById('map-settings-show-times').addEventListener('change', function() {
-	saveSetting('mapTimes', document.getElementById('map-settings-show-times').checked);
+	Settings.save('mapTimes', document.getElementById('map-settings-show-times').checked);
 
 	let labels = document.querySelectorAll('.mapLocationTime');
 	labels.forEach(element => {
@@ -595,7 +595,7 @@ document.getElementById('map-settings-show-times').addEventListener('change', fu
 });
 
 document.getElementById('map-settings-show-starfield').addEventListener('change', function() {
-	saveSetting('mapStars', document.getElementById('map-settings-show-starfield').checked);
+	Settings.save('mapStars', document.getElementById('map-settings-show-starfield').checked);
 
 	let object = scene.getObjectByName('Starfield');
 	object.visible = document.getElementById('map-settings-show-starfield').checked;

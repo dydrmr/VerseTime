@@ -15,14 +15,6 @@ class Preferences {
 		const savedActiveLocation = String(window.localStorage.getItem('activeLocation'));
 		const time24 = window.localStorage.getItem('time24');
 
-		const mapPlanetTransparency = window.localStorage.getItem('mapPlanetTransparency');
-		const mapGrid = window.localStorage.getItem('mapGrid');
-		const mapTerminator = window.localStorage.getItem('mapTerminator');
-		const mapOMs = window.localStorage.getItem('mapOMs');
-		const mapTimes = window.localStorage.getItem('mapTimes');
-		const mapStars = window.localStorage.getItem('mapStars');
-
-
 		if (window.location.hash === '' && savedActiveLocation !== 'null') {
 			const result = UI.setMapLocation(savedActiveLocation);
 			if (!result) Settings.#setDefaultLocation();
@@ -38,6 +30,13 @@ class Preferences {
 		}
 
 		// LOCAL MAP
+		const mapPlanetTransparency = window.localStorage.getItem('mapPlanetTransparency');
+		const mapGrid = window.localStorage.getItem('mapGrid');
+		const mapTerminator = window.localStorage.getItem('mapTerminator');
+		const mapOMs = window.localStorage.getItem('mapOMs');
+		const mapTimes = window.localStorage.getItem('mapTimes');
+		const mapStars = window.localStorage.getItem('mapStars');
+
 		if (mapPlanetTransparency) {
 			UI.el('map-settings-planet-transparency').value = parseInt(mapPlanetTransparency);
 		}
@@ -63,7 +62,26 @@ class Preferences {
 		}
 
 		// ATLAS
-		// TODO...
+		const atlasLolli = window.localStorage.getItem('atlasLollipops');
+		const atlasWorm = window.localStorage.getItem('atlasWormholes');
+		const atlasAffil = window.localStorage.getItem('atlasAffiliation');
+		const atlasGrid = window.localStorage.getItem('atlasGrid');
+
+		if (atlasLolli) {
+			UI.el('atlas-settings-show-lollipops').checked = (atlasLolli === 'false') ? false : true;
+		}
+
+		if (atlasWorm) {
+			UI.el('atlas-settings-show-wormholes').checked = (atlasWorm === 'false') ? false : true;
+		}
+
+		if (atlasAffil) {
+			UI.el('atlas-settings-show-affiliation').checked = (atlasAffil === 'false') ? false : true;
+		}
+
+		if (atlasGrid) {
+			UI.el('atlas-settings-show-grid').checked = (atlasGrid === 'false') ? false : true;
+		}
 	}
 
 	#setDefaultLocation() {

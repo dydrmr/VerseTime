@@ -104,11 +104,11 @@ function updateDebugInfo() {
 	
 	const start = window.performance.now();
 	const organized = organizeLabels();
-	const end = window.performance.now();
 	
 	let allLabels = document.querySelectorAll('.atlas-label');
 	allLabels = [...allLabels];
 	const visibleLabels = document.querySelectorAll('.atlas-label[data-visible="true"]');
+	const end = window.performance.now();
 
 	if (organized) {
 		UI.setText('atlas-label-render', `${allLabels.length} labels / ${visibleLabels.length} visible / time: ${round(end - start, 3)} ms`);
