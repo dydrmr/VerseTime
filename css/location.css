@@ -150,8 +150,15 @@
 }
 
     #next-rise-container:before {
-        content: '🠅';
-        font-size: 30px;
+        /*content: '🠅';*/
+        /*font-size: 30px;*/
+        content: ' ';
+        background-image: url(../img/arrow-up.png);
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        backdrop-filter: invert(100%);
+        background-size: 30px 30px;
+        height: 30px;
         padding-bottom: 10px;
     }
 
@@ -160,8 +167,15 @@
 }
 
     #next-set-container:before {
-        content: '🠇';
-        font-size: 30px;
+        /*content: '🠇';
+        font-size: 30px;*/
+        content: ' ';
+        background-image: url(../img/arrow-down.png);
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        backdrop-filter: invert(100%);
+        background-size: 30px 30px;
+        height: 30px;
         padding-bottom: 10px;
     }
 
