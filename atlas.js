@@ -3,7 +3,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls';
 import { TrackballControls }  from 'three/addons/controls/TrackballControls';
 import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer';
 
-import { round, calculateDistance3D, makeLine, makeCircle, getCelestialBodiesInSystem, getSystemByName, getBodyByName, readableNumber, random, POLAR_TO_CARTESIAN, degrees } from './HelperFunctions.js';
+import { round, calculateDistance3D, makeLine, makeCircle, getCelestialBodiesInSystem, getSystemByName, getBodyByName, readableNumber, random, POLAR_TO_CARTESIAN, degrees, radians } from './HelperFunctions.js';
 import Settings from './classes/app/Preferences.js';
 import DB from './classes/app/Database.js';
 import UI from './classes/app/UserInterface.js';
@@ -17,6 +17,8 @@ const infoBox = UI.el('atlas-hoverinfo');
 const mapScale = 10_000_000;
 let focusBody = null;
 let focusSystem = null;
+
+const planetObjects = Array();
 
 const labelsSystems = Array();
 const labelsStars = Array();
@@ -94,9 +96,12 @@ function render() {
 	if (!UI.Atlas.show) return;
 
 	updateDebugInfo();
+	updateBodies();
 }
 
 function updateDebugInfo() {
+	if (!focusSystem) return;
+
 	UI.setText('atlas-zoom', 'Zoom: ' + round(controls.getDistance(), 4));
 	UI.setText('atlas-focus-system', `Selected System: ${focusSystem.NAME}`);
 	UI.setText('atlas-focus-object', `Selected Body: ${focusBody ? focusBody.NAME : 'none'}`);
@@ -115,11 +120,21 @@ function updateDebugInfo() {
 	}
 }
 
+function updateBodies() {
+	return;
+
+	// unsure if correct
+	for (const object of planetObjects) {
+		const body = getBodyByName(object.name);
+		const rotation = body.LONGITUDE(body.PARENT_STAR);
+		object.rotation.y = radians(-rotation);
+	}
+}
+
 
 
 
 function setFocus(object) {
-	setFocus_moveCamera(object);
 
 	// SET GLOBALS
 	if (object instanceof SolarSystem) {
@@ -129,6 +144,7 @@ function setFocus(object) {
 		const systemName = (object.TYPE === 'Star') ? object.NAME : object.PARENT_STAR.NAME;
 		focusSystem = getSystemByName(systemName);
 		focusBody = object;
+		//console.log(focusSystem, focusBody);
 	}
 
 	// UPDATE UI
@@ -141,6 +157,8 @@ function setFocus(object) {
 	} else {
 		el.innerText = `${focusSystem.NAME} ▸ ${focusBody.PARENT.NAME} ▸ ${focusBody.NAME}`;
 	}
+
+	setFocus_moveCamera(object);
 }
 
 function setFocus_moveCamera(object) {
@@ -277,14 +295,14 @@ function hideInfobox() {
 document.addEventListener('createAtlasScene', () => {
 	createAtlasScene();
 });
-function createAtlasScene() {
+async function createAtlasScene() {
 	if (scene.children.length !== 0) return;
 
 	createStarfield();
 	createStars();
 
 	for (const system of DB.systems) {
-		createSolarSystem(system);
+		await createSolarSystem(system);
 	}
 
 	createWormholeLines();
@@ -293,7 +311,10 @@ function createAtlasScene() {
 	createLollipops();
 	createLabels();
 
-	setFocus(getBodyByName('Stanton'));
+	setTimeout(() => {
+		setFocus(getBodyByName('Hurston'));
+	}, '250');
+	//setFocus(getBodyByName('Hurston'));
 }
 
 function createStarfield() {
@@ -388,16 +409,37 @@ function createSolarSystem(system) {
 async function createCelestialBody(body, group) {
 	let radius;
 	if (body.TYPE === 'Jump Point' || body.TYPE === 'Lagrange Point' || body.TYPE === 'Star') {
-		radius = 0.1;
+		radius = 0.01;
 	} else {
 		radius = body.BODY_RADIUS
 	}
 
+	/*const bodyContainer = new THREE.Group();
+	bodyContainer.name = `BODYCONTAINER:${body.NAME}`;
+	bodyContainer.position.set(body.COORDINATES.x, body.COORDINATES.y, body.COORDINATES.z);
+	scene.add(bodyContainer);*/
 
-	let geo = new THREE.SphereGeometry(radius, 24, 24);
-	let mat;
+	const geo = new THREE.SphereGeometry(radius, 36, 36);
+	const mat = await createCelestialObjectMaterial(body);
 
-	// OOF, this needs to be prettier
+	const bodyMesh = new THREE.Mesh(geo, mat);
+	bodyMesh.name = body.NAME;
+	//bodyContainer.add(bodyMesh);
+
+	if (body.TYPE === 'Planet' || body.TYPE === 'Moon') {
+		// compensate for z = up coordinate system in THREE.js
+		bodyMesh.rotateX(Math.PI / 2);
+		bodyMesh.rotateY(Math.PI);
+		planetObjects.push(bodyMesh);
+	}
+
+	bodyMesh.position.set(body.COORDINATES.x, body.COORDINATES.y, body.COORDINATES.z);
+	group.add(bodyMesh);
+}
+
+async function createCelestialObjectMaterial(body) {
+	let material;
+
 	if (body.TYPE === 'Planet' || body.TYPE === 'Moon') {
 		const loader = new THREE.TextureLoader();
 		const file = 'static/assets/' + body.NAME.toLowerCase() + '.webp';
@@ -406,36 +448,27 @@ async function createCelestialBody(body, group) {
 		try {
 			texture = await loader.loadAsync(file);
 			texture.colorSpace = THREE.SRGBColorSpace;
-
-			mat = new THREE.MeshBasicMaterial({
+			material = new THREE.MeshBasicMaterial({
 				map: texture
 			})
 
 		} catch (e) {
 			const materialColor = (body.TYPE === 'Star') ? `rgb(230, 200, 140)` : `rgb(${body.THEME_COLOR.r}, ${body.THEME_COLOR.g}, ${body.THEME_COLOR.b})`;
-			mat = new THREE.MeshBasicMaterial({
+			material = new THREE.MeshBasicMaterial({
 				color: materialColor,
 			});
+
+			return material;
 		}
 
 	} else {
 		const materialColor = (body.TYPE === 'Star') ? `rgb(230, 200, 140)` : `rgb(${body.THEME_COLOR.r}, ${body.THEME_COLOR.g}, ${body.THEME_COLOR.b})`;
-		mat = new THREE.MeshBasicMaterial({
+		material = new THREE.MeshBasicMaterial({
 			color: materialColor,
 		});
 	}
 
-	const object = new THREE.Mesh(geo, mat);
-	object.name = body.NAME;
-
-	if (body.TYPE === 'Planet' || body.TYPE === 'Moon') {
-		// compensate for z = up coordinate system in THREE.js
-		object.rotateX(Math.PI / 2);
-		object.rotateY(Math.PI);
-	}
-
-	object.position.set(body.COORDINATES.x, body.COORDINATES.y, body.COORDINATES.z);
-	group.add(object);
+	return material;
 }
 
 function createCircularGrid(size, spacing) {
