@@ -69,7 +69,7 @@ class Database {
     }
 
     static #createSolarSystem(data) {
-        if (data.coordinateX === '') return null;
+        if (data.coordinateX === '') return;
 
         let system = new SolarSystem(
             String(data.name),
@@ -104,10 +104,10 @@ class Database {
 
     static async createCelestialBodies() {
         const bodies = await Database.fetchCSV('data/bodies.csv');
-        for (const body of bodies) { Database.createCelestialBody(body); }
+        for (const body of bodies) { Database.#createCelestialBody(body); }
     }
 
-    static createCelestialBody(data) {
+    static #createCelestialBody(data) {
         if (data.bodyRadius === '') return;
 
         let parentBody = (data.parentBody === '') ? null : getBodyByName(data.parentBody);
@@ -130,7 +130,7 @@ class Database {
                 'b': parseInt(data.themeColorB)
             }
         }
-
+        
         let body = new CelestialBody(
             String(data.name),
             String(data.type),

@@ -19,7 +19,7 @@ export default class CelestialBody {
 		// this.ORBITAL_ANGLE = this.PARENT ? Math.atan( (coordinates.y - this.PARENT.COORDINATES.y) / (coordinates.x - this.PARENT.COORDINATES.x) ) : 0;
 
 		if (parseFloat(orbitalRadius) === 0) {
-			this.ORBITAL_RADIUS = this.PARENT ? calculateDistance2D(coordinates.x, coordinates.y, this.PARENT.COORDINATES.x, this.PARENT.COORDINATES.y) : 0;
+			this.ORBITAL_RADIUS = (this.PARENT && this.PARENT.COORDINATES) ? this.CALCULATE_ORBITAL_RADIUS() : 0;
 		} else {
 			this.ORBITAL_RADIUS = orbitalRadius;
 		}
@@ -167,5 +167,9 @@ export default class CelestialBody {
 				return subtotal;
 			}
 		}
+	}
+
+	CALCULATE_ORBITAL_RADIUS() {
+		return calculateDistance2D(this.COORDINATES.x, this.COORDINATES.y, this.PARENT.COORDINATES.x, this.PARENT.COORDINATES.y);
 	}
 }
