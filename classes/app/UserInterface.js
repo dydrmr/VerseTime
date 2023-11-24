@@ -1,4 +1,4 @@
-import { round, getHashedLocation, getHashedCustomTime, getHash, HOURS_TO_TIME_STRING, CHOSEN_TIME, DATE_TO_SHORT_TIME, UNIVERSE_TIME, getLocationByName } from '../../HelperFunctions.js';
+import { round, getHashedLocation, getHash, HOURS_TO_TIME_STRING, CHOSEN_TIME, DATE_TO_SHORT_TIME, UNIVERSE_TIME, getLocationByName } from '../../HelperFunctions.js';
 import Settings from './Preferences.js';
 import DB from './Database.js';
 import Window from './Window.js';
@@ -449,7 +449,7 @@ class UserInterface {
 		parent.location.hash = getHashedLocation();
 		setTimeout(() => {
 			window.suppressReload = false;
-		}, 1000)
+		}, 1000);
 
 		return true;
 	}
