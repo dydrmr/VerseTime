@@ -106,7 +106,7 @@ class Database {
         const bodies = await Database.fetchCSV('data/bodies.csv');
         for (const body of bodies) { Database.#createCelestialBody(body); }
 
-        // COUNT SATELLITES
+        // NATURAL SATELLITES
         for (const body of DB.bodies) {
             const children = DB.bodies.filter((otherBody) => {
                 if (!otherBody.PARENT) return false;
@@ -120,8 +120,6 @@ class Database {
             });
             body.NATURAL_SATELLITES = children;
         }
-
-        console.log(DB.bodies);
     }
 
     static #createCelestialBody(data) {
