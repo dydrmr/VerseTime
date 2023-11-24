@@ -66,7 +66,7 @@ function setupMapScene() {
 	const dayLengthString = (rotation === Infinity) ? '---' : HOURS_TO_TIME_STRING(body.ROTATION_RATE);
 	UI.setText('map-info-lengthofday', dayLengthString);
 
-	UI.setText('map-info-naturalsatellites', bod.NATURAL_SATELLITES);
+	UI.setText('map-info-naturalsatellites', body.NATURAL_SATELLITES);
 }
 
 function setup() {
@@ -133,7 +133,7 @@ function updateLabelOcclusion() {
 	const raycaster = new THREE.Raycaster();
 	const v = new THREE.Vector3();
 	const r = Settings.activeLocation.PARENT.BODY_RADIUS;
-
+	
 	const bodyMesh = scene.getObjectByName('Textured Sphere') ?? scene.getObjectByName('Solid Sphere');
 
 
