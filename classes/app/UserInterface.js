@@ -102,12 +102,14 @@ class UserInterface {
 			const searchFragments = search.split('+');
 			const buttons = document.getElementsByClassName('BUTTON-set-location');
 
-			for (const element of buttons) {
-				if (search === '') {
+			if (search === '') {
+				for (const element of buttons) {
 					element.classList.remove('hide');
-					continue;
 				}
-
+				return;
+			}
+			
+			for (const element of buttons) {
 				const found = Array();
 				for (let [index, fragment] of searchFragments.entries()) {
 					if (fragment === '') continue;
