@@ -105,6 +105,23 @@ class Database {
     static async createCelestialBodies() {
         const bodies = await Database.fetchCSV('data/bodies.csv');
         for (const body of bodies) { Database.#createCelestialBody(body); }
+
+        // COUNT SATELLITES
+        for (const body of DB.bodies) {
+            const children = DB.bodies.filter((otherBody) => {
+                if (!otherBody.PARENT) return false;
+
+                if (
+                    otherBody.PARENT.NAME === body.NAME &&
+                    (otherBody.TYPE === 'Planet' || otherBody.TYPE === 'Moon')
+                ) {
+                    return true;
+                }
+            });
+            body.NATURAL_SATELLITES = children;
+        }
+
+        console.log(DB.bodies);
     }
 
     static #createCelestialBody(data) {
