@@ -69,16 +69,7 @@ function setupMapScene() {
 	if (rot === Infinity) dayLengthString = '---';
 	UI.setText('map-info-lengthofday', dayLengthString);
 
-	let sats = DB.bodies.filter(bod => {
-		if (!bod.PARENT) return false;
-
-		if (bod.PARENT.NAME === body.NAME && bod.TYPE !== 'Lagrange Point') {
-			return true;
-		} else {
-			return false;
-		}
-	});
-	UI.setText('map-info-naturalsatellites', sats.length);
+	UI.setText('map-info-naturalsatellites', bod.NATURAL_SATELLITES);
 }
 
 function setup() {
