@@ -288,30 +288,29 @@ export function getLocationByName(string) {
 	return result[0];
 }
 
-export function readableNumber(number, unitString) {
-	let unitScalar = null;
-	let newNumber = null;
+export function readableNumber(number, unitString, decimals = 2) {
+	const prefixes = ["", "k", "M", "G", "T", "P", "E", "Z", "Y"];
 
-	if (number > 1000000000000) {
-		newNumber = number / 1000000000000;
-		unitScalar = 'T';
-
-	} else if (number > 1000000000) {
-		newNumber = number / 1000000000;
-		unitScalar = 'G';
-
-	} else if (number > 1000000) {
-		newNumber = number / 1000000;
-		unitScalar = 'M';
-
-	} else if (number > 1000) {
-		newNumber = number / 1000;
-		unitScalar = 'k';
-
-	} else {
-		newNumber = number;
-		unitScalar = '';
+	let i = 0;
+	while (number >= 1000 && i < prefixes.length - 1) {
+		number /= 1000;
+		i++;
 	}
 
-	return `${newNumber.toFixed(2)} ${unitScalar}${unitString}`;
+	return `${number.toFixed(decimals)} ${prefixes[i]}${unitString}`;
+}
+
+export function convertKilometersToLightSeconds(kilometers) {
+	return kilometers / 299_792;
+}
+
+export function convertKilometersToAstronomicalUnits(kilometers) {
+	return kilometers / 149_600_000;
+}
+
+export function measurePerformance(callback) {
+	const start = performance.now();
+	callback();
+	const end = performance.now();
+	console.log(`Function "${callback}" execution time: ${end - start} ms`);
 }
