@@ -48,8 +48,7 @@ function setupMapScene() {
 	UI.setText('map-info-type', body.TYPE);
 	UI.setText('map-info-system', body.PARENT_STAR.NAME);
 	UI.setText('map-info-orbits', body.PARENT.NAME);
-
-	//let orbitDist = round(body.ORBITAL_RADIUS / 149598000, 3); // AU
+	
 	UI.setText('map-info-orbitdistance', round(body.ORBITAL_RADIUS).toLocaleString());
 
 	let radius = body.BODY_RADIUS.toLocaleString();
@@ -59,14 +58,12 @@ function setupMapScene() {
 	circum = round(circum, 1);
 	UI.setText('map-info-circumference', circum.toLocaleString());
 
-	let rot = body.ROTATION_RATE * 3600;
-	rot = 360 / rot;
-	let rotationRateString = rot.toLocaleString() + '° / sec';
-	if (rot === Infinity) rotationRateString = 'Tidally locked';
-	UI.setText('map-info-rotationrate', rotationRateString);
+	const rotation = 360 / (body.ROTATION_RATE * 3600);
 
-	let dayLengthString = HOURS_TO_TIME_STRING(body.ROTATION_RATE);
-	if (rot === Infinity) dayLengthString = '---';
+	const rotationRateString = (rotation === Infinity) ? 'Tidally locked' : rotation.toLocaleString() + '° / sec';
+	UI.setText('map-info-rotationrate', rotationRateString);
+	
+	const dayLengthString = (rotation === Infinity) ? '---' : HOURS_TO_TIME_STRING(body.ROTATION_RATE);
 	UI.setText('map-info-lengthofday', dayLengthString);
 
 	UI.setText('map-info-naturalsatellites', bod.NATURAL_SATELLITES);
