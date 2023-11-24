@@ -16,6 +16,7 @@ import UI from './classes/app/UserInterface.js';
 
 let scene, camera, renderer, labelRenderer, controls, zoomControls;
 let mapDiv = UI.el('map-window');
+let bodyMesh = null;
 
 const circleDetail = 72;
 const omDistance = Math.sqrt(2);
@@ -43,6 +44,8 @@ document.addEventListener('createMapScene', setupMapScene);
 function setupMapScene() {
 	const body = Settings.activeLocation.PARENT;
 	createNewScene(body);
+
+	bodyMesh = scene.getObjectByName('Textured Sphere') ?? scene.getObjectByName('Solid Sphere');
 
 	// Populate infobox data
 	UI.setText('map-info-type', body.TYPE);
@@ -134,9 +137,6 @@ function updateLabelOcclusion() {
 	const v = new THREE.Vector3();
 	const r = Settings.activeLocation.PARENT.BODY_RADIUS;
 	
-	const bodyMesh = scene.getObjectByName('Textured Sphere') ?? scene.getObjectByName('Solid Sphere');
-
-
 	//LOCATION LABELS
 	let locationLabels = document.querySelectorAll('.mapLocationLabel');
 	locationLabels.forEach(label => {
