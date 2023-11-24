@@ -122,7 +122,6 @@ function render() {
 	labelRenderer.render(scene, camera);
 	requestAnimationFrame(render);
 
-
 	if (!UI.Map.show) return;
 
 	updateLabelOcclusion();
@@ -235,16 +234,6 @@ function createNewScene(celestialObject) {
 }
 
 
-
-
-/*function makeLine(x1, y1, z1, x2, y2, z2, mat) {
-	const p = [];
-	p.push(new THREE.Vector3(x1, y1, z1));
-	p.push(new THREE.Vector3(x2, y2, z2));
-	const geo = new THREE.BufferGeometry().setFromPoints(p);
-	const line = new THREE.Line(geo, mat);
-	return line;
-}*/
 
 function createLatLonGrid(scene, color, scale = 1) {
 
