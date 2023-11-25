@@ -9,6 +9,8 @@ export default class Location {
 		this.PARENT = parentBody;
 		this.PARENT_STAR = parentStar;
 		this.COORDINATES = coordinates;
+		this.TERRAIN_RISE = 0;
+		this.TERRAIN_SET = 0;
 
 		this.THEME_COLOR = themeColor ? themeColor : this.PARENT.THEME_COLOR;
 		this.THEME_IMAGE = (themeImage === '' || themeImage === null) ? this.PARENT.THEME_IMAGE : themeImage;
@@ -27,7 +29,7 @@ export default class Location {
 			const atan2 = Math.atan2( this.COORDINATES.y, this.COORDINATES.x );
 			const condition = degrees(modulo(atan2, 2 * Math.PI));
 
-			if( condition > 180 ) {
+			if ( condition > 180 ) {
 				this.LONGITUDE = -( 360 - condition );
 			} else {
 				this.LONGITUDE = condition;
@@ -135,10 +137,7 @@ export default class Location {
 	}
 
 	get LENGTH_OF_DAYLIGHT() {
-		let terrainRise = 0; // TODO: NOT IMPLEMENTED, PUT INTO CONSTRUCTOR
-		let terrainSet = 0; // TODO: NOT IMPLEMENTED, PUT INTO CONSTRUCTOR
-
-		let p1 = 2 * this.STARRISE_AND_STARSET_ANGLE - terrainRise - terrainSet;
+		let p1 = 2 * this.STARRISE_AND_STARSET_ANGLE - this.TERRAIN_RISE - this.TERRAIN_SET;
 		return (p1 / this.PARENT.ANGULAR_ROTATION_RATE) * 3 / 4300;
 	}
 
@@ -213,15 +212,14 @@ export default class Location {
 	}
 
 	get NEXT_STAR_RISE() {
-		let riseSet = this.STARRISE_AND_STARSET_ANGLE;
-		let rotation = this.PARENT.ANGULAR_ROTATION_RATE;
-		let terrainRise = 0; // TODO: NOT IMPLEMENTED, PUT INTO CONSTRUCTOR
+		const riseSet = this.STARRISE_AND_STARSET_ANGLE;
+		const rotation = this.PARENT.ANGULAR_ROTATION_RATE;
 
-		let partialResult = this.NEXT_NOON - ((riseSet - terrainRise) / rotation * 3 / 4300);
+		const partialResult = this.NEXT_NOON - ((riseSet - this.TERRAIN_RISE) / rotation * 3 / 4300);
 
 		if (isNaN(partialResult)) return null;
 
-		if (this.HOUR_ANGLE() > (riseSet - terrainRise)) {
+		if (this.HOUR_ANGLE() > (riseSet - this.TERRAIN_RISE)) {
 			return partialResult;
 
 		} else {
@@ -237,7 +235,7 @@ export default class Location {
 	}
 
 	get IS_STAR_RISING_NOW() {
-		let padding = 90;
+		const padding = 90;
 
 		if (
 			this.NEXT_STAR_RISE * 86400 < padding ||
@@ -250,15 +248,14 @@ export default class Location {
 	}
 
 	get NEXT_STAR_SET() {
-		let riseSet = this.STARRISE_AND_STARSET_ANGLE;
-		let rotation = this.PARENT.ANGULAR_ROTATION_RATE;
-		let terrainSet = 0; // TODO: NOT IMPLEMENTED, PUT INTO CONSTRUCTOR
+		const riseSet = this.STARRISE_AND_STARSET_ANGLE;
+		const rotation = this.PARENT.ANGULAR_ROTATION_RATE;
 
-		let partialResult = this.NEXT_NOON + ((riseSet - terrainSet) / rotation * 3 / 4300);
+		const partialResult = this.NEXT_NOON + ((riseSet - this.TERRAIN_SET) / rotation * 3 / 4300);
 
 		if (isNaN(partialResult)) return null;
 		
-		if (this.HOUR_ANGLE() > -(riseSet - terrainSet)) {
+		if (this.HOUR_ANGLE() > -(riseSet - this.TERRAIN_SET)) {
 
 			if (this.HOUR_ANGLE() > 0) {
 				return partialResult;
@@ -273,7 +270,7 @@ export default class Location {
 	}
 
 	get IS_STAR_SETTING_NOW() {
-		let padding = 90;
+		const padding = 90;
 
 		if (
 			this.NEXT_STAR_SET * 86400 < padding ||
