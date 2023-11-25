@@ -3,7 +3,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls';
 import { TrackballControls }  from 'three/addons/controls/TrackballControls';
 import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer';
 
-import { round, calculateDistance3D, makeLine, makeCircle, getCelestialBodiesInSystem, getSystemByName, getBodyByName, readableNumber, random, POLAR_TO_CARTESIAN, degrees, radians } from './HelperFunctions.js';
+import { round, calculateDistance3D, makeLine, makeCircle, getCelestialBodiesInSystem, getSystemByName, getBodyByName, readableNumber, random, convertPolarToCartesian, degrees, radians } from './HelperFunctions.js';
 import Settings from './classes/app/Preferences.js';
 import DB from './classes/app/Database.js';
 import UI from './classes/app/UserInterface.js';
@@ -328,7 +328,7 @@ function createStarfield() {
 		let theta = random() * 2.0 * Math.PI;
 		let phi = Math.acos(2.0 * random() - 1.0);
 		let r = Math.cbrt(random()) * 1500;
-		let c = POLAR_TO_CARTESIAN(degrees(theta), degrees(phi), r);
+		let c = convertPolarToCartesian(degrees(theta), degrees(phi), r);
 		vertices.push(c.x, c.z, c.y);
 	}
 

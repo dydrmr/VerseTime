@@ -69,7 +69,7 @@ function setupMapScene() {
 	const dayLengthString = (rotation === Infinity) ? '---' : convertHoursToTimeString(body.ROTATION_RATE);
 	UI.setText('map-info-lengthofday', dayLengthString);
 
-	UI.setText('map-info-naturalsatellites', body.NATURAL_SATELLITES);
+	UI.setText('map-info-naturalsatellites', body.NATURAL_SATELLITES.length);
 }
 
 function setup() {
