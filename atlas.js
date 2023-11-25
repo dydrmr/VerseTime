@@ -28,9 +28,7 @@ const labelsMoons = Array();
 // TODO:
 // focus levels -> for easy scale changing. Ex: Galaxy, System, Planet, Moon (?), Location
 // current location indicator: quick selections to move up along the hierarchy
-// tree view list of objects/locations in system
-// separate out stars into dedicated csv for more detailed info
-// save custom display settings
+// tree list of objects/locations in system
 // NOTE: map-window CSS CLASS MIS-USED AS ID; CREATE map-container AND ADJUST CODE WHERE APPLICABLE
 
 setup();
@@ -96,7 +94,7 @@ function render() {
 	if (!UI.Atlas.show) return;
 
 	updateDebugInfo();
-	updateBodies();
+	updateBodyRotation();
 }
 
 function updateDebugInfo() {
@@ -120,14 +118,15 @@ function updateDebugInfo() {
 	}
 }
 
-function updateBodies() {
-	return;
-
-	// unsure if correct
-	for (const object of planetObjects) {
-		const body = getBodyByName(object.name);
+function updateBodyRotation() {
+	for (const container of planetObjects) {
+		const body = container.userData.celestialBody;
 		const rotation = body.LONGITUDE(body.PARENT_STAR);
-		object.rotation.y = radians(-rotation);
+		container.rotation.z = radians(-rotation);
+
+		/*if (body.NAME === 'Hurston') {
+			console.log(`${body.NAME} : ${rotation}`);
+		}*/
 	}
 }
 
@@ -304,9 +303,8 @@ async function createAtlasScene() {
 	for (const system of DB.systems) {
 		await createSolarSystem(system);
 	}
-
+	
 	createWormholeLines();
-
 	createCircularGrid(300, 25);
 	createLollipops();
 	createLabels();
@@ -314,7 +312,6 @@ async function createAtlasScene() {
 	setTimeout(() => {
 		setFocus(getBodyByName('Hurston'));
 	}, '250');
-	//setFocus(getBodyByName('Hurston'));
 }
 
 function createStarfield() {
@@ -360,7 +357,11 @@ function createStars() {
 		if (isNaN(star.COORDINATES.x)) {
 			pos = { 'x': 0, 'y': 0, 'z': 0 }
 		} else {
-			pos = { 'x': star.COORDINATES.x / mapScale, 'y': star.COORDINATES.y / mapScale, 'z': star.COORDINATES.z / mapScale };
+			pos = {
+				'x': star.COORDINATES.x / mapScale,
+				'y': star.COORDINATES.y / mapScale,
+				'z': star.COORDINATES.z / mapScale
+			};
 		}
 
 		let radius;
@@ -372,7 +373,7 @@ function createStars() {
 			radius = star.BODY_RADIUS;
 		}
 
-		const system = star.PARENT_SYSTEM;
+		const sysPos = star.PARENT_SYSTEM.COORDINATES;
 
 		const geo = new THREE.SphereGeometry(radius / mapScale, 24, 24);
 		const mat = new THREE.MeshBasicMaterial({
@@ -380,7 +381,7 @@ function createStars() {
 		});
 
 		const object = new THREE.Mesh(geo, mat);
-		object.position.set(pos.x + system.COORDINATES.x, pos.y + system.COORDINATES.y, pos.z + system.COORDINATES.z);
+		object.position.set(pos.x + sysPos.x, pos.y + sysPos.y, pos.z + sysPos.z);
 		group.add(object);
 	}
 }
@@ -400,7 +401,8 @@ function createSolarSystem(system) {
 	group.add(orbitLineGroup);
 
 	for (const body of bodies) {
-		createCelestialBody(body, group);
+		//createCelestialBody(body, group);
+		createCelestialBodyWithContainer(body, group);
 		createOrbitLine(body, orbitLineGroup);
 	}
 }
@@ -414,17 +416,11 @@ async function createCelestialBody(body, group) {
 		radius = body.BODY_RADIUS
 	}
 
-	/*const bodyContainer = new THREE.Group();
-	bodyContainer.name = `BODYCONTAINER:${body.NAME}`;
-	bodyContainer.position.set(body.COORDINATES.x, body.COORDINATES.y, body.COORDINATES.z);
-	scene.add(bodyContainer);*/
-
 	const geo = new THREE.SphereGeometry(radius, 36, 36);
 	const mat = await createCelestialObjectMaterial(body);
 
 	const bodyMesh = new THREE.Mesh(geo, mat);
 	bodyMesh.name = body.NAME;
-	//bodyContainer.add(bodyMesh);
 
 	if (body.TYPE === 'Planet' || body.TYPE === 'Moon') {
 		// compensate for z = up coordinate system in THREE.js
@@ -435,6 +431,35 @@ async function createCelestialBody(body, group) {
 
 	bodyMesh.position.set(body.COORDINATES.x, body.COORDINATES.y, body.COORDINATES.z);
 	group.add(bodyMesh);
+}
+
+async function createCelestialBodyWithContainer(body, group) {
+	let radius;
+	if (body.TYPE === 'Jump Point' || body.TYPE === 'Lagrange Point' || body.TYPE === 'Star') {
+		radius = 0.01;
+	} else {
+		radius = body.BODY_RADIUS
+	}
+
+	const bodyContainer = new THREE.Group();
+	bodyContainer.name = `BODYCONTAINER:${body.NAME}`;
+	bodyContainer.position.set(body.COORDINATES.x, body.COORDINATES.y, body.COORDINATES.z);
+	group.add(bodyContainer);
+
+	const geo = new THREE.SphereGeometry(radius, 36, 36);
+	const mat = await createCelestialObjectMaterial(body);
+
+	const bodyMesh = new THREE.Mesh(geo, mat);
+	bodyMesh.name = body.NAME;
+	bodyContainer.add(bodyMesh);
+	bodyContainer.userData.celestialBody = body;
+
+	if (body.TYPE === 'Planet' || body.TYPE === 'Moon') {
+		// compensate for z = up coordinate system in THREE.js
+		bodyMesh.rotateX(Math.PI / 2);
+		bodyMesh.rotateY(Math.PI);
+		planetObjects.push(bodyContainer);
+	}
 }
 
 async function createCelestialObjectMaterial(body) {
@@ -685,6 +710,12 @@ function createLabel_Location(location, group) {
 	);
 	label.position.copy(labelPosition);
 
+	/*if (location.PARENT.TYPE === 'Planet' || location.PARENT.TYPE === 'Moon') {
+		const container = scene.getObjectByName(`BODYCONTAINER:${location.PARENT.NAME}`);
+		container.add(label);
+	} else {
+		group.add(label);
+	}*/
 	group.add(label);
 }
 
