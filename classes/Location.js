@@ -88,9 +88,9 @@ export default class Location {
 
 	#calculate3dMapCoordinates() {
 		// NORMALIZED COORDINATES FOR 3D MAP
-		const x = -this.COORDINATES.x / this.PARENT.BODY_RADIUS; // -x adjusts for rotation direction in local 3D map
-		const y = this.COORDINATES.y / this.PARENT.BODY_RADIUS;
-		const z = this.COORDINATES.z / this.PARENT.BODY_RADIUS;
+		let x = -this.COORDINATES.x / this.PARENT.BODY_RADIUS; // -x adjusts for rotation direction in local 3D map
+		let y = this.COORDINATES.y / this.PARENT.BODY_RADIUS;
+		let z = this.COORDINATES.z / this.PARENT.BODY_RADIUS;
 		const vec = new THREE.Vector3(x, y, z);
 
 		// IF ELEVATION IS NEGATIVE: PUSH COORDINATE TO SURFACE
