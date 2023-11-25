@@ -13,7 +13,7 @@ export default class Location {
 		this.TERRAIN_RISE = 0;
 		this.TERRAIN_SET = 0;
 
-		this.THEME_COLOR = themeColor ? themeColor : this.PARENT.THEME_COLOR;
+		this.THEME_COLOR = themeColor ?? this.PARENT.THEME_COLOR;
 		this.THEME_IMAGE = (themeImage === '' || themeImage === null) ? this.PARENT.THEME_IMAGE : themeImage;
 
 		// CALCULATED PROPERTIES
