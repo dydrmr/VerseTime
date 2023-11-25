@@ -9,6 +9,7 @@ export default class Location {
 		this.PARENT = parentBody;
 		this.PARENT_STAR = parentStar;
 		this.COORDINATES = coordinates;
+
 		this.TERRAIN_RISE = 0;
 		this.TERRAIN_SET = 0;
 
@@ -16,27 +17,39 @@ export default class Location {
 		this.THEME_IMAGE = (themeImage === '' || themeImage === null) ? this.PARENT.THEME_IMAGE : themeImage;
 
 		// CALCULATED PROPERTIES
+		this.#calculateLatitudeAndLongitude();
+		this.#calculateLongitude360();
+		this.#calculateElevation();
+		this.#calculateRiseSetAngle();
+		this.#calculate3dMapCoordinates();
+
+		// FINALIZATION
+		DB.locations.push(this);
+	}
+
+	#calculateLatitudeAndLongitude() {
 		// LATITUDE
-		let lat2 = Math.sqrt( square(this.COORDINATES.x) + square(this.COORDINATES.y) );
-		let lat1 = Math.atan2( this.COORDINATES.z, lat2 );
+		const lat2 = Math.sqrt(square(this.COORDINATES.x) + square(this.COORDINATES.y));
+		const lat1 = Math.atan2(this.COORDINATES.z, lat2);
 		this.LATITUDE = degrees(lat1);
 
 		// LONGITUDE
-		if (Math.abs(latitude) === 90) { 
+		if (Math.abs(this.LATITUDE) === 90) {
 			this.LONGITUDE = 0;
-		
+
 		} else {
-			const atan2 = Math.atan2( this.COORDINATES.y, this.COORDINATES.x );
+			const atan2 = Math.atan2(this.COORDINATES.y, this.COORDINATES.x);
 			const condition = degrees(modulo(atan2, 2 * Math.PI));
 
-			if ( condition > 180 ) {
-				this.LONGITUDE = -( 360 - condition );
+			if (condition > 180) {
+				this.LONGITUDE = -(360 - condition);
 			} else {
 				this.LONGITUDE = condition;
 			}
 		}
+	}
 
-		// LONGITUDE 360
+	#calculateLongitude360() {
 		if (Math.abs(this.LATITUDE) === 90) {
 			this.LONGITUDE_360 = 0;
 
@@ -49,29 +62,35 @@ export default class Location {
 
 			this.LONGITUDE_360 = degrees(p1);
 		}
+	}
 
+	#calculateElevation() {
 		// ELEVATION
-		this.ELEVATION = Math.sqrt(square(this.COORDINATES.x) + square(this.COORDINATES.y) + square(this.COORDINATES.z)) - this.PARENT.BODY_RADIUS;
+		const x = square(this.COORDINATES.x);
+		const y = square(this.COORDINATES.y);
+		const z = square(this.COORDINATES.z);
+		this.ELEVATION = Math.sqrt(x + y + z) - this.PARENT.BODY_RADIUS;
 
 		// ELEVATION IN DEGREES
-		let radius = this.PARENT.BODY_RADIUS;
-		let height = this.ELEVATION;
-		let p3 = height < 0 ? 0 : height;
-		let p2 = radius + p3;
-		let p1 = Math.acos( radius / p2 );
+		const p3 = this.ELEVATION < 0 ? 0 : this.ELEVATION;
+		const p2 = this.PARENT.BODY_RADIUS + p3;
+		const p1 = Math.acos(this.PARENT.BODY_RADIUS / p2);
 		this.ELEVATION_IN_DEGREES = degrees(p1);
+	}
 
-		// STAR RISE/SET ANGLE
-		let p4 = Math.tan( radians(this.PARENT.DECLINATION(this.PARENT_STAR)) );
-		p3 = Math.tan( radians(this.LATITUDE) );
-		p2 = -p3 * p4;
-		p1 = Math.acos(p2); 
+	#calculateRiseSetAngle() {
+		const p4 = Math.tan(radians(this.PARENT.DECLINATION(this.PARENT_STAR)));
+		const p3 = Math.tan(radians(this.LATITUDE));
+		const p2 = -p3 * p4;
+		const p1 = Math.acos(p2);
 		this.STARRISE_AND_STARSET_ANGLE = degrees(p1) + this.PARENT.APPARENT_RADIUS(this.PARENT_STAR) + this.ELEVATION_IN_DEGREES;
+	}
 
+	#calculate3dMapCoordinates() {
 		// NORMALIZED COORDINATES FOR 3D MAP
-		let x = -coordinates.x / parentBody.BODY_RADIUS; // -x adjusts for rotation direction in 3D map
-		let y = coordinates.y / parentBody.BODY_RADIUS;
-		let z = coordinates.z / parentBody.BODY_RADIUS;
+		const x = -this.COORDINATES.x / this.PARENT.BODY_RADIUS; // -x adjusts for rotation direction in local 3D map
+		const y = this.COORDINATES.y / this.PARENT.BODY_RADIUS;
+		const z = this.COORDINATES.z / this.PARENT.BODY_RADIUS;
 		const vec = new THREE.Vector3(x, y, z);
 
 		// IF ELEVATION IS NEGATIVE: PUSH COORDINATE TO SURFACE
@@ -87,10 +106,6 @@ export default class Location {
 			'y': y,
 			'z': z
 		}
-
-		// FINALIZATION
-		DB.locations.push(this);
-
 	}
 
 	HOUR_ANGLE() {
