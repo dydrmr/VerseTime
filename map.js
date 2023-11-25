@@ -1,9 +1,3 @@
-// import * as THREE from 'https://cdn.skypack.dev/three@0.134.0/build/three.module.js';
-// import { OrbitControls } from 'https://cdn.skypack.dev/three@0.134.0/examples/jsm/controls/OrbitControls.js';
-// import { TrackballControls }  from 'https://cdn.skypack.dev/three@0.134.0/examples/jsm/controls/TrackballControls.js';
-// import { CSS2DRenderer, CSS2DObject } from 'https://cdn.skypack.dev/three@0.134.0/examples/jsm/renderers/CSS2DRenderer.js';
-// import { CSS3DRenderer, CSS3DObject } from 'https://cdn.skypack.dev/three@0.134.0/examples/jsm/renderers/CSS3DRenderer.js';
-
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls';
 import { TrackballControls }  from 'three/addons/controls/TrackballControls';
