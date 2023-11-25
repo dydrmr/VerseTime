@@ -38,28 +38,27 @@ document.addEventListener('createMapScene', setupMapScene);
 function setupMapScene() {
 	const body = Settings.activeLocation.PARENT;
 	createNewScene(body);
-
 	bodyMesh = scene.getObjectByName('Textured Sphere') ?? scene.getObjectByName('Solid Sphere');
+	setupInfoboxData();
+}
 
-	// Populate infobox data
+function setupInfoboxData() {
+	const body = Settings.activeLocation.PARENT;
+
 	UI.setText('map-info-type', body.TYPE);
 	UI.setText('map-info-system', body.PARENT_STAR.NAME);
 	UI.setText('map-info-orbits', body.PARENT.NAME);
-	
 	UI.setText('map-info-orbitdistance', round(body.ORBITAL_RADIUS).toLocaleString());
-
-	let radius = body.BODY_RADIUS.toLocaleString();
-	UI.setText('map-info-radius', radius);
-
-	let circum = body.BODY_RADIUS * Math.PI;
-	circum = round(circum, 1);
+	UI.setText('map-info-radius', body.BODY_RADIUS.toLocaleString());
+	
+	const circum = round(body.BODY_RADIUS * Math.PI, 1);
 	UI.setText('map-info-circumference', circum.toLocaleString());
 
 	const rotation = 360 / (body.ROTATION_RATE * 3600);
 
 	const rotationRateString = (rotation === Infinity) ? 'Tidally locked' : rotation.toLocaleString() + '° / sec';
 	UI.setText('map-info-rotationrate', rotationRateString);
-	
+
 	const dayLengthString = (rotation === Infinity) ? '---' : convertHoursToTimeString(body.ROTATION_RATE);
 	UI.setText('map-info-lengthofday', dayLengthString);
 
@@ -206,23 +205,22 @@ function updatePlanetShadow() {
 
 function createNewScene(celestialObject) {
 	scene.clear();
+
+	document.getElementById('map-body-name').textContent = celestialObject.NAME;
 	let oldLabels = document.querySelectorAll( '.mapLocationLabel, .mapLocationName, .mapLocationTime, .mapLocationIcon, .mapOrbitalMarker' );
 	oldLabels.forEach(l => {l.remove()});
 
-	let c = celestialObject.THEME_COLOR;
-	document.getElementById('map-body-name').textContent = celestialObject.NAME;
-
 	createStarfield();
 
+	const c = celestialObject.THEME_COLOR;
 	createOcclusionSphere(c, 0.997);
 	createLatLonGrid(scene, c, 0.998);
 	createTexturedSphere(celestialObject, 0.9995);
 	createShadow(celestialObject, 1);
+	createRing(celestialObject);
 
 	createLocationLabels(celestialObject);
 	createOrbitalMarkerLabels();
-
-	createRing(celestialObject);
 
 	setCameraAboveActiveLocation();
 }
@@ -230,7 +228,6 @@ function createNewScene(celestialObject) {
 
 
 function createLatLonGrid(scene, color, scale = 1) {
-
 	let r = parseInt(color.r / 3);
 	let g = parseInt(color.g / 3);
 	let b = parseInt(color.b / 3);
