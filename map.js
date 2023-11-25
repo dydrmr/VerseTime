@@ -9,7 +9,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls';
 import { TrackballControls }  from 'three/addons/controls/TrackballControls';
 import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer';
 
-import { degrees, radians, round, POLAR_TO_CARTESIAN, random, HOURS_TO_TIME_STRING } from './HelperFunctions.js';
+import { degrees, radians, round, convertPolarToCartesian, random, convertHoursToTimeString } from './HelperFunctions.js';
 import Settings from './classes/app/Preferences.js';
 import DB from './classes/app/Database.js';
 import UI from './classes/app/UserInterface.js';
@@ -66,7 +66,7 @@ function setupMapScene() {
 	const rotationRateString = (rotation === Infinity) ? 'Tidally locked' : rotation.toLocaleString() + '° / sec';
 	UI.setText('map-info-rotationrate', rotationRateString);
 	
-	const dayLengthString = (rotation === Infinity) ? '---' : HOURS_TO_TIME_STRING(body.ROTATION_RATE);
+	const dayLengthString = (rotation === Infinity) ? '---' : convertHoursToTimeString(body.ROTATION_RATE);
 	UI.setText('map-info-lengthofday', dayLengthString);
 
 	UI.setText('map-info-naturalsatellites', body.NATURAL_SATELLITES);
@@ -180,7 +180,7 @@ function updateLocationLabelTimes() {
 			setLocationLabelColor(label, 'day');
 		}
 
-		let string = HOURS_TO_TIME_STRING(location.LOCAL_TIME / 60 / 60, false);
+		let string = convertHoursToTimeString(location.LOCAL_TIME / 60 / 60, false);
 		if (unchanging.includes(location.ILLUMINATION_STATUS)) {
 			string = location.ILLUMINATION_STATUS;
 		}
@@ -378,7 +378,7 @@ function createStarfield(amount = 300) {
 		let theta = random() * 2.0 * Math.PI;
 		let phi = Math.acos(2.0 * random() - 1.0);
 		let r = Math.cbrt(random()) * 1500;
-		let c = POLAR_TO_CARTESIAN(degrees(theta), degrees(phi), r);
+		let c = convertPolarToCartesian(degrees(theta), degrees(phi), r);
 		vertices.push(c.x, c.z, c.y);
 	}
 

@@ -1,4 +1,4 @@
-import { degrees, modulo, square, JULIAN_DATE, calculateDistance2D } from '../HelperFunctions.js';
+import { degrees, modulo, square, getJulianDate, calculateDistance2D } from '../HelperFunctions.js';
 import DB from './app/Database.js';
 
 export default class CelestialBody {
@@ -125,7 +125,7 @@ export default class CelestialBody {
 
 	CURRENT_CYCLE() {
 		// How many times the object has rotated since the 2020 reference date
-		let julian = JULIAN_DATE();
+		let julian = getJulianDate();
 		let dayLength = this.LENGTH_OF_DAY();
 		return julian / dayLength;
 	}

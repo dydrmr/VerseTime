@@ -18,18 +18,14 @@ export function square(number) {
 	return number * number;
 }
 
-export function round(n, digits) {
-	if (digits === undefined) {
-		digits = 0;
-	}
-
-	let multiplicator = Math.pow(10, digits);
+export function round(n, digits = 0) {
+	const multiplicator = Math.pow(10, digits);
 	n = parseFloat((n * multiplicator).toFixed(11));
 	let test = (Math.round(n) / multiplicator);
 	return +(test.toFixed(digits));
 }
 
-export function CHOSEN_TIME() {
+export function getCustomTime() {
 	let unix = parseInt(Settings.customTime);
 	if(Number.isInteger(unix)) {
 		return new Date(unix * 1000);
@@ -37,19 +33,19 @@ export function CHOSEN_TIME() {
 	return new Date();
 }
 
-export function REAL_TIME(formatAsString = false) {
+export function getRealTime(formatAsString = false) {
 	let now = new Date();
 	return (!formatAsString) ? now.valueOf() : now.toLocaleString();
 }
 
-export function JULIAN_DATE() {
+export function getJulianDate() {
 	let date2020 = new Date('2020-01-01T00:00:00.000Z');
-	let now = CHOSEN_TIME();
+	let now = getCustomTime();
 	let julian = now - date2020;
 	return julian / 1000 / 60 / 60 / 24;
 }
 
-export function HOURS_TO_TIME_STRING(hours, includeSeconds = true, limitTo24Hours = true) {
+export function convertHoursToTimeString(hours, includeSeconds = true, limitTo24Hours = true) {
 	if (hours < 0) return '- NEGATIVE -';
 
 	let h = hours;
@@ -75,8 +71,8 @@ export function HOURS_TO_TIME_STRING(hours, includeSeconds = true, limitTo24Hour
 
 	let ampm = '';
 	if (limitTo24Hours && !Settings.use24HourTime) {
-		ampm = ' ' + GET_AM_PM(h);
-		h = CONVERT_24H_TO_12H(h);
+		ampm = ' ' + getAmPm(h);
+		h = convert24hourTo12hour(h);
 	}
 
 	h = (h < 10) ? '0' + h : h;
@@ -86,14 +82,14 @@ export function HOURS_TO_TIME_STRING(hours, includeSeconds = true, limitTo24Hour
 	return h + ':' + m + (includeSeconds ? ':' + s : '') + ampm;
 }
 
-export function DATE_TO_SHORT_TIME(date) {
+export function convertDateToShortTime(date) {
 	let h = date.getHours();
 	let m = date.getMinutes();
 
 	let ampm = '';
 	if (!Settings.use24HourTime) {
-		ampm = ' ' + GET_AM_PM(h);
-		h = CONVERT_24H_TO_12H(h);
+		ampm = ' ' + getAmPm(h);
+		h = convert24hourTo12hour(h);
 	}
 
 	h = (h < 10) ? '0' + h : h;
@@ -102,22 +98,22 @@ export function DATE_TO_SHORT_TIME(date) {
 	return h + ':' + m + ampm;
 }
 
-export function GET_AM_PM(hour) { return (hour < 12) ? 'am' : 'pm'; }
+export function getAmPm(hour) { return (hour < 12) ? 'am' : 'pm'; }
 
-export function CONVERT_24H_TO_12H(hour) {
+export function convert24hourTo12hour(hour) {
 	if (hour > 12) hour -= 12;
 	if (hour === 0) hour = 12;
 	return hour;
 }
 
-export function UNIVERSE_TIME(formatAsString = false) {
+export function getUniverseTime(formatAsString = false) {
 	let date2020 = new Date('January 1, 2020 00:00:00Z');
 	let date2950 = new Date('January 1, 2950 00:00:00Z');
-	let universeTime = date2950.getTime() + ((CHOSEN_TIME() - date2020) * 6);
+	let universeTime = date2950.getTime() + ((getCustomTime() - date2020) * 6);
 	return (!formatAsString) ? universeTime : new Date(universeTime).toUTCString();
 }
 
-export function POLAR_TO_CARTESIAN(horizontalAngle, verticalAngle, radius) {
+export function convertPolarToCartesian(horizontalAngle, verticalAngle, radius) {
 	const radH = radians(horizontalAngle);
 	const radV = radians(verticalAngle);
 

@@ -1,4 +1,4 @@
-import { degrees, radians, modulo, square, round, JULIAN_DATE } from '../HelperFunctions.js';
+import { degrees, radians, modulo, square } from '../HelperFunctions.js';
 import * as THREE from 'three';
 import DB from './app/Database.js';
 
@@ -74,7 +74,6 @@ export default class Location {
 
 		// IF ELEVATION IS NEGATIVE: PUSH COORDINATE TO SURFACE
 		if (vec.length() < 1) {
-			// console.log(`${name} on ${parentBody.NAME} is inside geometry (Elevation: ${ROUND(this.ELEVATION * 1000)} m)`);
 			vec.normalize();
 			x = vec.x;
 			y = vec.y;
