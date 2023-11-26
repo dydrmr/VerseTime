@@ -141,7 +141,7 @@ export default class Location {
 		let lat = this.LATITUDE;
 		let lon = this.LONGITUDE;
 		let sDeclination = this.PARENT.DECLINATION();
-		let sLongitude = this.PARENT.LONGITUDE();
+		let sLongitude = this.PARENT.NOON_LONGITUDE();
 
 		let p4 = Math.sin(radians(sLongitude - lon)) * Math.cos(radians(sDeclination));
 		let p3 = Math.cos(radians(lat)) * Math.sin(radians(sDeclination)) - Math.sin(radians(lat)) * Math.cos(radians(sDeclination)) * Math.cos(radians(sLongitude - lon));

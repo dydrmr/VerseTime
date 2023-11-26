@@ -360,7 +360,7 @@ class UserInterface {
 			UI.setText('hour-angle', bod.HOUR_ANGLE().toFixed(3));
 			UI.setText('declination', bod.DECLINATION(bod.PARENT_STAR).toFixed(3));
 			UI.setText('meridian', bod.MERIDIAN().toFixed(3));
-			UI.setText('noon-longitude', bod.LONGITUDE().toFixed(3));
+			UI.setText('noon-longitude', bod.NOON_LONGITUDE().toFixed(3));
 		}
 
 		//LOCATION

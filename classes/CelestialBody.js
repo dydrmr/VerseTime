@@ -143,7 +143,6 @@ export default class CelestialBody {
 
 	HOUR_ANGLE() {
 		const cycle = this.CURRENT_CYCLE();
-
 		const correction = this.ROTATION_CORRECTION;
 		const result = modulo((360 - modulo(cycle, 1) * 360 - correction), 360)
 		return result;
@@ -167,7 +166,7 @@ export default class CelestialBody {
 	 * @param   {CelestialBody} distantObject  The celestial body being measured against, usually a star
 	 * @returns {number} Longitude (in degrees) of distantObject over this celestial body 
 	 */
-	LONGITUDE(distantObject = this.PARENT_STAR) {
+	NOON_LONGITUDE(distantObject = this.PARENT_STAR) {
 		const meridModulo = modulo(0 - this.MERIDIAN(distantObject), 360);
 		const cycleHourAngle = this.HOUR_ANGLE();
 
