@@ -26,22 +26,22 @@ export function round(n, digits = 0) {
 }
 
 export function getCustomTime() {
-	let unix = parseInt(Settings.customTime);
-	if(Number.isInteger(unix)) {
+	const unix = parseInt(Settings.customTime);
+	if (Number.isInteger(unix)) {
 		return new Date(unix * 1000);
 	}
 	return new Date();
 }
 
 export function getRealTime(formatAsString = false) {
-	let now = new Date();
-	return (!formatAsString) ? now.valueOf() : now.toLocaleString();
+	const now = new Date();
+	return formatAsString ? now.toLocaleString() : now.valueOf();
 }
 
 export function getJulianDate() {
-	let date2020 = new Date('2020-01-01T00:00:00.000Z');
-	let now = getCustomTime();
-	let julian = now - date2020;
+	const date2020 = new Date('2020-01-01T00:00:00.000Z');
+	const now = getCustomTime();
+	const julian = now - date2020;
 	return julian / 1000 / 60 / 60 / 24;
 }
 
