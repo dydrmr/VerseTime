@@ -215,13 +215,13 @@ export default class Location {
 	}
 
 	get LOCAL_STAR_RISE_TIME() {
-		const percent = 1 - (this.LENGTH_OF_DAYLIGHT / this.PARENT.LENGTH_OF_DAY());
+		const percent = 1 - (this.LENGTH_OF_DAYLIGHT / this.PARENT.LENGTH_OF_DAY);
 		const half = percent / 2;
 		return half;
 	}
 
 	get LOCAL_STAR_SET_TIME() {
-		const percent = 1 - (this.LENGTH_OF_DAYLIGHT / this.PARENT.LENGTH_OF_DAY());
+		const percent = 1 - (this.LENGTH_OF_DAYLIGHT / this.PARENT.LENGTH_OF_DAY);
 		const half = percent / 2;
 		return 1 - half;
 	}
@@ -240,7 +240,7 @@ export default class Location {
 		} else {
 
 			if (this.HOUR_ANGLE() > 0) {
-				return partialResult + this.PARENT.LENGTH_OF_DAY();
+				return partialResult + this.PARENT.LENGTH_OF_DAY;
 
 			} else {
 				return partialResult;
@@ -254,7 +254,7 @@ export default class Location {
 
 		if (
 			this.NEXT_STAR_RISE * 86400 < padding ||
-			this.NEXT_STAR_RISE * 86400 > (this.PARENT.LENGTH_OF_DAY() * 86400) - padding
+			this.NEXT_STAR_RISE * 86400 > (this.PARENT.LENGTH_OF_DAY * 86400) - padding
 		) {
 			return true;
 		} else {
@@ -276,7 +276,7 @@ export default class Location {
 				return partialResult;
 
 			} else {
-				return partialResult - this.PARENT.LENGTH_OF_DAY();
+				return partialResult - this.PARENT.LENGTH_OF_DAY;
 			}
 			
 		} else {
@@ -289,7 +289,7 @@ export default class Location {
 
 		if (
 			this.NEXT_STAR_SET * 86400 < padding ||
-			this.NEXT_STAR_SET * 86400 > (this.PARENT.LENGTH_OF_DAY() * 86400) - padding
+			this.NEXT_STAR_SET * 86400 > (this.PARENT.LENGTH_OF_DAY * 86400) - padding
 		) {
 			return true;
 		} else {
