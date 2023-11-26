@@ -33,7 +33,7 @@ export default class CelestialBody {
 		DB.bodies.push(this);
 	}
 
-	BS_INTERNAL(direction, distantObject) {
+	#BS_INTERNAL(direction, distantObject) {
 		if (
 			direction !== 'x' &&
 			direction !== 'y' &&
@@ -77,17 +77,22 @@ export default class CelestialBody {
 		return part1 + part2 + part3;
 	}
 
+	/**
+	 * Recenters the coordinate system on the current celestial body.
+	 *
+	 * @param   {CelestialBody} distantObject  The origin point before the transformation.
+	 * @returns {Object} Transformed x, y, z coordinates. 
+	 */
 	BS(distantObject) {
 		// Recenter coorinate system on the current celestial body
 		// distantObject is the origin point before the transformation
-		const x = this.BS_INTERNAL('x', distantObject);
-		const y = this.BS_INTERNAL('y', distantObject);
-		const z = this.BS_INTERNAL('z', distantObject);
+		const x = this.#BS_INTERNAL('x', distantObject);
+		const y = this.#BS_INTERNAL('y', distantObject);
+		const z = this.#BS_INTERNAL('z', distantObject);
 
 		return {'x': x, 'y': y, 'z': z};
 	}
 	
-
 	DECLINATION(distantObject = this.PARENT_STAR) {
 		const bs = this.BS(distantObject);
 
@@ -124,8 +129,11 @@ export default class CelestialBody {
 		return degrees(p1);
 	}
 
+	/**
+	 * How many times the celestial object has rotated since the 2020 reference date.
+	 * @returns {number} Number of rotations
+	 */
 	CURRENT_CYCLE() {
-		// How many times the object has rotated since the 2020 reference date
 		if (this.LENGTH_OF_DAY === 0) {
 			return 0;
 		} else {
@@ -134,7 +142,6 @@ export default class CelestialBody {
 	}
 
 	HOUR_ANGLE() {
-		// Current Rotation
 		const cycle = this.CURRENT_CYCLE();
 
 		const correction = this.ROTATION_CORRECTION;
@@ -142,8 +149,12 @@ export default class CelestialBody {
 		return result;
 	}
 
+	/**
+	 * Longitudinal position of distantObject if this celestial object didn't rotate.
+	 * @param   {CelestialBody} distantObject  The celestial body being measured against.
+	 * @returns {number} Longitude (in degrees) of distantObject over the celestial body 
+	 */
 	MERIDIAN(distantObject = this.PARENT_STAR) {
-		// Position of distantObject if this celestial object didn't rotate
 		const bs = this.BS(distantObject);
 
 		const p2 = Math.atan2(bs.y, bs.x) - (Math.PI / 2);
@@ -151,6 +162,11 @@ export default class CelestialBody {
 		return degrees(p1);
 	}
 
+	/**
+	 * Longitudinal position of distantObject, taking this celestial body's rotation into account.
+	 * @param   {CelestialBody} distantObject  The celestial body being measured against, usually a star
+	 * @returns {number} Longitude (in degrees) of distantObject over this celestial body 
+	 */
 	LONGITUDE(distantObject = this.PARENT_STAR) {
 		const meridModulo = modulo(0 - this.MERIDIAN(distantObject), 360);
 		const cycleHourAngle = this.HOUR_ANGLE();
