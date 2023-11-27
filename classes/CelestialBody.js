@@ -79,20 +79,22 @@ export default class CelestialBody {
 
 	/**
 	 * Recenters the coordinate system on the current celestial body.
-	 *
 	 * @param   {CelestialBody} distantObject  The origin point before the transformation.
 	 * @returns {Object} Transformed x, y, z coordinates. 
 	 */
 	BS(distantObject) {
-		// Recenter coorinate system on the current celestial body
-		// distantObject is the origin point before the transformation
 		const x = this.#BS_INTERNAL('x', distantObject);
 		const y = this.#BS_INTERNAL('y', distantObject);
 		const z = this.#BS_INTERNAL('z', distantObject);
 
 		return {'x': x, 'y': y, 'z': z};
 	}
-	
+
+	/**
+	 * Declination of distantObject relative to this celestial body
+	 * @param   {CelestialBody} distantObject  The celestial body being looked at
+	 * @returns {number} Declination of distantObject in degrees
+	 */
 	DECLINATION(distantObject = this.PARENT_STAR) {
 		const bs = this.BS(distantObject);
 
@@ -103,22 +105,18 @@ export default class CelestialBody {
 		const sumXYZ = squareX + squareY + squareZ;
 		const sumXY = squareX + squareY;
 
-		//let chunk1 = Math.sqrt( sumXYZ );
-		//chunk1 = Math.pow(chunk1, 2);
-		//let chunk2 = Math.sqrt( square(bs.x) + square(bs.y) );
-		//chunk2 = Math.pow(chunk2, 2);
-		//const part1 = chunk1 + chunk2 - squareZ;
-
 		const part1 = sumXYZ + sumXY - squareZ;
-
-		const chunk3 = Math.sqrt( sumXYZ );
-		const chunk4 = Math.sqrt( sumXY );
-		const part2 = 2 * chunk3 * chunk4;
+		const part2 = 2 * Math.sqrt(sumXYZ) * Math.sqrt(sumXY);
 
 		const result = Math.acos(part1 / part2);
 		return Math.abs(degrees(result));
 	}
 
+	/**
+	 * Apparent radius of distantObject as seen from this celestial body
+	 * @param   {CelestialBody} distantObject  The celestial body being looked at
+	 * @returns {number} Apparent radius of distantObject in degrees
+	 */
 	APPARENT_RADIUS(distantObject) {
 		const bs = this.BS(distantObject);
 
@@ -130,7 +128,7 @@ export default class CelestialBody {
 	}
 
 	/**
-	 * How many times the celestial object has rotated since the 2020 reference date.
+	 * How many times the celestial object has rotated since the 2020 reference date
 	 * @returns {number} Number of rotations
 	 */
 	CURRENT_CYCLE() {
@@ -141,10 +139,13 @@ export default class CelestialBody {
 		}
 	}
 
+	/**
+	 * Current rotation of the celestial body
+	 * @returns {number} Fraction of rotation
+	 */
 	HOUR_ANGLE() {
 		const cycle = this.CURRENT_CYCLE();
-		const correction = this.ROTATION_CORRECTION;
-		const result = modulo((360 - modulo(cycle, 1) * 360 - correction), 360)
+		const result = modulo((360 - modulo(cycle, 1) * 360 - this.ROTATION_CORRECTION), 360)
 		return result;
 	}
 
@@ -166,7 +167,7 @@ export default class CelestialBody {
 	 * @param   {CelestialBody} distantObject  The celestial body being measured against, usually a star
 	 * @returns {number} Longitude (in degrees) of distantObject over this celestial body 
 	 */
-	NOON_LONGITUDE(distantObject = this.PARENT_STAR) {
+	ZENITH_LONGITUDE(distantObject = this.PARENT_STAR) {
 		const meridModulo = modulo(0 - this.MERIDIAN(distantObject), 360);
 		const cycleHourAngle = this.HOUR_ANGLE();
 
