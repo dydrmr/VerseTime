@@ -194,7 +194,7 @@ function setLocationLabelColor(label, phase) {
 
 function updatePlanetShadow() {
 	const terminator = scene.getObjectByName('Terminator');
-	const terminatorAngle = Settings.activeLocation.PARENT.LONGITUDE(Settings.activeLocation.PARENT_STAR);
+	const terminatorAngle = Settings.activeLocation.PARENT.ZENITH_LONGITUDE(Settings.activeLocation.PARENT_STAR);
 	terminator.rotation.y = radians(terminatorAngle);
 	terminator.visible = document.getElementById('map-settings-show-terminator').checked;
 }
@@ -322,7 +322,7 @@ function createShadow(celestialObject, scale) {
 	let textureOpacity = document.getElementById('map-settings-planet-transparency').value / 100;
 	textureOpacity = THREE.MathUtils.mapLinear(textureOpacity, 0, 1, 0.15, 0.5);
 
-	const angle = celestialObject.LONGITUDE(celestialObject.PARENT_STAR);
+	const angle = celestialObject.ZENITH_LONGITUDE(celestialObject.PARENT_STAR);
 	const declination = celestialObject.DECLINATION(celestialObject.PARENT_STAR);
 
 	let group = new THREE.Group();
