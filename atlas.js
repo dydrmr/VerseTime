@@ -121,7 +121,7 @@ function updateDebugInfo() {
 function updateBodyRotation() {
 	for (const container of planetObjects) {
 		const body = container.userData.celestialBody;
-		const rotation = body.LONGITUDE(body.PARENT_STAR);
+		const rotation = body.ZENITH_LONGITUDE(body.PARENT_STAR);
 		container.rotation.z = radians(-rotation);
 
 		/*if (body.NAME === 'Hurston') {
