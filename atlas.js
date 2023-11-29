@@ -121,7 +121,7 @@ function updateDebugInfo() {
 function updateBodyRotation() {
 	for (const container of planetObjects) {
 		const body = container.userData.celestialBody;
-		const rotation = body.ZENITH_LONGITUDE(body.PARENT_STAR);
+		const rotation = body.ROTATING_MERIDIAN(body.PARENT_STAR);
 		container.rotation.z = radians(-rotation);
 
 		/*if (body.NAME === 'Hurston') {
@@ -619,12 +619,6 @@ function createLabels() {
 		const group = scene.getObjectByName(`SYSTEM:${systemName}`);
 		createLabel_CelestialBody(body, group);
 	}
-
-	for (const location of DB.locations) {
-		const systemName = location.PARENT_STAR.NAME;
-		const group = scene.getObjectByName(`SYSTEM:${systemName}`);
-		createLabel_Location(location, group);
-	}
 }
 
 function createLabel_SolarSystem(system) {
@@ -685,39 +679,6 @@ function createLabel_CelestialBody(body, group) {
 	}
 }
 
-function createLabel_Location(location, group) {
-	const div = document.createElement('div');
-	div.classList.add('atlas-label');
-	div.classList.add('atlas-label-location');
-	div.dataset.objectType = 'Location';
-	div.dataset.systemName = location.PARENT_STAR.NAME;
-	div.dataset.parentName = location.PARENT.NAME;
-	div.dataset.objectName = location.NAME;
-	div.dataset.visible = false;
-
-	setLabelEvents(div, location);
-
-	const nameElement = document.createElement('p');
-	nameElement.classList.add('atlas-label-name');
-	nameElement.innerText = location.NAME;
-	div.appendChild(nameElement);
-
-	const label = new CSS2DObject(div);
-	const labelPosition = new THREE.Vector3(
-		location.COORDINATES.x + location.PARENT.COORDINATES.x,
-		location.COORDINATES.y + location.PARENT.COORDINATES.y,
-		location.COORDINATES.z + location.PARENT.COORDINATES.z
-	);
-	label.position.copy(labelPosition);
-
-	/*if (location.PARENT.TYPE === 'Planet' || location.PARENT.TYPE === 'Moon') {
-		const container = scene.getObjectByName(`BODYCONTAINER:${location.PARENT.NAME}`);
-		container.add(label);
-	} else {
-		group.add(label);
-	}*/
-	group.add(label);
-}
 
 function setLabelEvents(domElement, targetObject) {
 	domElement.addEventListener('pointerdown', (event) => {
@@ -763,17 +724,14 @@ function setBodyIcon(type, element) {
 
 
 function organizeLabels() {
-	if (renderer.info.render.frame % 5 !== 0) { return false; }
+	//if (renderer.info.render.frame % 5 !== 0) { return false; }
 
-	// organizeLocationLabels();
-	// organizeBodyLabels();
-
-	organizeLabelsVersionTwo();
+	organizeLabels_TEST();
 
 	return true;
 }
 
-function organizeLabelsVersionTwo() {
+function organizeLabels_TEST() {
 	const distance = controls.getDistance();
 
 	const visibility = distance > 25 ? true : false;
@@ -868,104 +826,6 @@ function organizeLabelsVersionTwo() {
 	const visibleLables = document.querySelectorAll('.atlas-label[data-visible="true"]');
 	for (const label of visibleLables) {
 		// do overlap checking & prioritization here
-	}
-}
-
-function organizeBodyLabels() {
-	const ranks = ['Star', 'Planet', 'Jump Point', 'Lagrange Point', 'Moon', 'Location'];
-	// const bodyLabels = document.querySelectorAll('.atlas-label-body');
-
-	// for (let label of bodyLabels) {
-	// 	label.dataset.visible = true;
-	// }
-
-	// const allLabels = document.querySelectorAll(".atlas-label");
-	// const labels = []; //visible labels
-
-	// for (let label of allLabels) {
-	// 	if (label.dataset.visible === 'true') {
-	// 		labels.push(label);
-	// 	}
-	// }
-
-	const labels = document.querySelectorAll('.atlas-label-body');
-	for (let label of labels) {
-		label.dataset.visible = true;
-		if (controls.getDistance() > 110 && label.dataset.objectType === 'Lagrange Point') {
-			label.dataset.visible = false;
-		}
-	}
-
-	for (let index = 0; index < labels.length - 1; index++) {
-
-		if (labels[index].dataset.visible === false) {
-			continue;
-		}
-
-		for (let otherIndex = index + 1; otherIndex < labels.length; otherIndex++) {
-
-			if (labels[otherIndex].dataset.visible === false) {
-				continue;
-			}
-
-
-			const thisPos = labels[index].getBoundingClientRect();
-			const otherPos = labels[otherIndex].getBoundingClientRect();
-
-			const notOverlapping = (thisPos.right < otherPos.left ||
-				thisPos.left > otherPos.right ||
-				thisPos.bottom < otherPos.top ||
-				thisPos.top > otherPos.bottom);
-
-			if (notOverlapping) { continue; }
-
-
-
-			const thisRank = ranks.find((rank) => rank === labels[index].dataset.objectType);
-			const otherRank = ranks.find((rank) => rank === labels[otherIndex].dataset.objectType);
-
-			if (thisRank > otherRank) {
-				labels[otherIndex].dataset.visible = false;
-
-			} else if (thisRank < otherRank) {
-				labels[index].dataset.visible = false;
-
-			} else {
-				const camPos = camera.position;
-
-				const thisDistance = calculateDistance3D(labels[index].dataset.x, labels[index].dataset.y, labels[index].dataset.z, camPos.x, camPos.y, camPos.z, true);
-				const otherDistance = calculateDistance3D(labels[otherIndex].dataset.x, labels[otherIndex].dataset.y, labels[otherIndex].dataset.z, camPos.x, camPos.y, camPos.z, true);
-
-				if (thisDistance > otherDistance) {
-					labels[index].dataset.visible = false;
-				} else {
-					labels[otherIndex].dataset.visible = false;
-				}
-
-			}
-
-		}
-
-	}
-}
-
-function organizeLocationLabels() {
-	const labels = document.querySelectorAll('.atlas-label-location');
-
-	if (controls.getDistance() > 1) {
-		for (let label of labels) {
-			label.dataset.visible = false;
-		}
-		return;
-	}
-
-	for (let label of labels) {
-		if (focusedBody !== label.dataset.bodyName) {
-			label.dataset.visible = false;
-			continue;
-		}
-
-		label.dataset.visible = true;
 	}
 }
 

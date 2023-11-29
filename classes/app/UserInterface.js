@@ -359,8 +359,8 @@ class UserInterface {
 			UI.setText('current-cycle', round(bod.CURRENT_CYCLE(), 3).toLocaleString());
 			UI.setText('hour-angle', bod.HOUR_ANGLE().toFixed(3));
 			UI.setText('declination', bod.DECLINATION(bod.PARENT_STAR).toFixed(3));
-			UI.setText('meridian', bod.MERIDIAN().toFixed(3));
-			UI.setText('noon-longitude', bod.ZENITH_LONGITUDE().toFixed(3));
+			UI.setText('meridian', bod.STATIC_MERIDIAN().toFixed(3));
+			UI.setText('noon-longitude', bod.ROTATING_MERIDIAN().toFixed(3));
 		}
 
 		//LOCATION

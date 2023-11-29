@@ -154,7 +154,7 @@ export default class CelestialBody {
 	 * @param   {CelestialBody} distantObject  The celestial body being measured against.
 	 * @returns {number} Longitude (in degrees) of distantObject over the celestial body 
 	 */
-	MERIDIAN(distantObject = this.PARENT_STAR) {
+	STATIC_MERIDIAN(distantObject = this.PARENT_STAR) {
 		const bs = this.BS(distantObject);
 
 		const p2 = Math.atan2(bs.y, bs.x) - (Math.PI / 2);
@@ -167,8 +167,8 @@ export default class CelestialBody {
 	 * @param   {CelestialBody} distantObject  The celestial body being measured against, usually a star
 	 * @returns {number} Longitude (in degrees) of distantObject over this celestial body 
 	 */
-	ZENITH_LONGITUDE(distantObject = this.PARENT_STAR) {
-		const meridModulo = modulo(0 - this.MERIDIAN(distantObject), 360);
+	ROTATING_MERIDIAN(distantObject = this.PARENT_STAR) {
+		const meridModulo = modulo(0 - this.STATIC_MERIDIAN(distantObject), 360);
 		const cycleHourAngle = this.HOUR_ANGLE();
 
 		let condition = cycleHourAngle - meridModulo;

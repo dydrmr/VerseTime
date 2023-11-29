@@ -109,7 +109,7 @@ export default class Location {
 	}
 
 	HOUR_ANGLE() {
-		const subResult = modulo(this.LONGITUDE_360 - this.PARENT.MERIDIAN(), 360);
+		const subResult = modulo(this.LONGITUDE_360 - this.PARENT.STATIC_MERIDIAN(), 360);
 		const result = modulo(this.PARENT.HOUR_ANGLE() - subResult, 360);
 		return (result > 180) ? result - 360 : result;
 	}
@@ -138,7 +138,7 @@ export default class Location {
 		let lat = this.LATITUDE;
 		let lon = this.LONGITUDE;
 		let sDeclination = this.PARENT.DECLINATION();
-		let sLongitude = this.PARENT.ZENITH_LONGITUDE();
+		let sLongitude = this.PARENT.ROTATING_MERIDIAN();
 
 		let p4 = Math.sin(radians(sLongitude - lon)) * Math.cos(radians(sDeclination));
 		let p3 = Math.cos(radians(lat)) * Math.sin(radians(sDeclination)) - Math.sin(radians(lat)) * Math.cos(radians(sDeclination)) * Math.cos(radians(sLongitude - lon));
