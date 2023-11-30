@@ -26,6 +26,7 @@ const labelsPlanets = Array();
 const labelsMoons = Array();
 
 // TODO:
+// Use THREE.js locally to eliminate map/atlas breaking when CDN loading times are high
 // focus levels -> for easy scale changing. Ex: Galaxy, System, Planet, Moon (?), Location
 // current location indicator: quick selections to move up along the hierarchy
 // tree list of objects/locations in system
@@ -119,14 +120,17 @@ function updateDebugInfo() {
 }
 
 function updateBodyRotation() {
+	if (renderer.info.render.frame % 10 !== 0)  return;
+
+	// OLD METHOD
 	for (const container of planetObjects) {
 		const body = container.userData.celestialBody;
-		const rotation = body.ROTATING_MERIDIAN(body.PARENT_STAR);
-		container.rotation.z = radians(-rotation);
+		const rotation = body.ROTATING_MERIDIAN(body.PARENT_STAR) * -1;
+		container.rotation.z = radians(rotation);
 
-		/*if (body.NAME === 'Hurston') {
-			console.log(`${body.NAME} : ${rotation}`);
-		}*/
+		if (body.NAME === 'Hurston') {
+			console.log(`${body.NAME} : ${round(rotation, 2)}`);
+		}
 	}
 }
 
@@ -307,6 +311,7 @@ async function createAtlasScene() {
 	createWormholeLines();
 	createCircularGrid(300, 25);
 	createLollipops();
+	createDebugLines();
 	createLabels();
 
 	setTimeout(() => {
@@ -457,7 +462,6 @@ async function createCelestialBodyWithContainer(body, group) {
 	if (body.TYPE === 'Planet' || body.TYPE === 'Moon') {
 		// compensate for z = up coordinate system in THREE.js
 		bodyMesh.rotateX(Math.PI / 2);
-		bodyMesh.rotateY(Math.PI);
 		planetObjects.push(bodyContainer);
 	}
 }
@@ -605,6 +609,59 @@ function createWormholeLines(precise = false) {
 
 		const line = makeLine(p1.x, p1.y, p1.z, p2.x, p2.y, p2.z, material);
 		group.add(line);
+	}
+}
+
+function createDebugLines() {
+	for (const body of DB.bodies) {
+		if (body.TYPE !== 'Planet') continue;
+
+		// LINE FROM STAR TO PLANET
+		// THIS IS THE ROTATING_MERIDIAN WE ARE AIMING FOR
+		const groupName = `SYSTEM:${body.PARENT_STAR.NAME}`;
+		const groupObject = scene.getObjectByName(groupName);
+
+		const starMaterial = new THREE.LineBasicMaterial({
+			color: 'magenta',
+			transparent: true,
+			opacity: 0.4
+		});
+		const line = makeLine(0, 0, 0, body.COORDINATES.x, body.COORDINATES.y, body.COORDINATES.z, starMaterial);
+		groupObject.add(line);
+
+
+		// XYZ REFERENCE LINES
+		const bodyContainerName = `BODYCONTAINER:${body.NAME}`;
+		const containerObject = scene.getObjectByName(bodyContainerName);
+
+		const xMaterial = new THREE.LineBasicMaterial({
+			color: 'red',
+			transparent: true,
+			opacity: 0.4
+		});
+		const yMaterial = new THREE.LineBasicMaterial({
+			color: 'green',
+			transparent: true,
+			opacity: 0.4
+		});
+		const zMaterial = new THREE.LineBasicMaterial({
+			color: 'blue',
+			transparent: true,
+			opacity: 0.4
+		});
+
+		const length = body.BODY_RADIUS * 3;
+		const lineX = makeLine(0, 0, 0, length, 0, 0, xMaterial);
+		const lineY = makeLine(0, 0, 0, 0, length, 0, yMaterial);
+		const lineZ = makeLine(0, 0, 0, 0, 0, length, zMaterial);
+
+		containerObject.add(lineX);
+		containerObject.add(lineY);
+		containerObject.add(lineZ);
+
+
+		// CALCULATED STAR MERIDIAN LINE
+		const rotation = body.ROTATING_MERIDIAN(body.PARENT_STAR);
 	}
 }
 
