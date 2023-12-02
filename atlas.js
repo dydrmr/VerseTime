@@ -28,6 +28,7 @@ const labelsMoons = Array();
 // TODO:
 // Use THREE.js locally to eliminate map/atlas breaking when CDN loading times are high
 // Loading screen
+// Orbit lines are too far out (due to star not being at 0, 0, 0)
 // focus levels -> for easy scale changing. Ex: Galaxy, System, Planet, Moon (?), Location
 // current location indicator: quick selections to move up along the hierarchy
 // tree list of objects/locations in system
@@ -66,8 +67,8 @@ function setup() {
 	controls.enableDamping = true;
 	controls.dampingFactor = 0.08;
 	controls.rotateSpeed = 0.5;
-	controls.maxPolarAngle = Math.PI * 0.95;
-	controls.minPolarAngle = Math.PI * 0.05;
+	controls.maxPolarAngle = Math.PI * 0.99;
+	controls.minPolarAngle = Math.PI * 0.01;
 	controls.enableZoom = false;
 
 	zoomControls = new TrackballControls(camera, labelRenderer.domElement);
@@ -120,21 +121,34 @@ function updateDebugInfo() {
 	}
 }
 
-function updateBodyRotation() {
+ function updateBodyRotation() {
 	if (renderer.info.render.frame % 5 !== 0) return;
 
 	for (const container of planetObjects) {
 		const body = container.userData.celestialBody;
 		
-		const starDirection = body.PARENT_STAR_DIRECTION;
 		const meridian = body.ROTATING_MERIDIAN(body.PARENT_STAR);
 		const zAxis = new THREE.Vector3(0, 0, 1);
-
 		const meridianDirection = new THREE.Vector3(1, 0, 0);
 		meridianDirection.applyAxisAngle(zAxis, radians(meridian));
+		meridianDirection.normalize();
 
-		const angle = meridianDirection.angleTo(starDirection);
-		container.rotation.z = angle;
+		const starDirection = body.PARENT_STAR_DIRECTION;
+		starDirection.normalize();
+
+		const quaternion = new THREE.Quaternion();
+		quaternion.setFromUnitVectors(meridianDirection, starDirection);
+
+		const euler = new THREE.Euler();
+		euler.setFromQuaternion(quaternion);
+
+		const angleDifference = euler.toArray()[2] + Math.PI;
+		container.rotation.z = angleDifference;
+
+		/*if (body.NAME === focusBody.NAME) {
+			console.log('\n\n' + body.NAME);
+			console.log('Angle difference', round(degrees(angleDifference), 3)); 
+		}*/
 	}
 }
 
@@ -307,6 +321,9 @@ document.addEventListener('createAtlasScene', () => {
 });
 async function createAtlasScene() {
 	if (scene.children.length !== 0) return;
+	
+	const ambientLight = new THREE.AmbientLight(0x535353);
+	scene.add(ambientLight);
 
 	createStarfield();
 	createStars();
@@ -323,7 +340,7 @@ async function createAtlasScene() {
 
 	setTimeout(() => {
 		setFocus(getBodyByName('Hurston'));
-	}, '250');
+	}, '330');
 }
 
 function createStarfield() {
@@ -395,6 +412,11 @@ function createStars() {
 		const object = new THREE.Mesh(geo, mat);
 		object.position.set(pos.x + sysPos.x, pos.y + sysPos.y, pos.z + sysPos.z);
 		group.add(object);
+
+		// LIGHT
+		const light = new THREE.PointLight('white', 1.2, 10, 0);
+		light.position.set(pos.x + sysPos.x, pos.y + sysPos.y, pos.z + sysPos.z);
+		group.add(light);
 	}
 }
 
@@ -484,13 +506,14 @@ async function createCelestialObjectMaterial(body) {
 		try {
 			texture = await loader.loadAsync(file);
 			texture.colorSpace = THREE.SRGBColorSpace;
-			material = new THREE.MeshBasicMaterial({
+			material = new THREE.MeshStandardMaterial({
 				map: texture
 			})
+			material.roughness = 1.0;
 
 		} catch (e) {
 			const materialColor = (body.TYPE === 'Star') ? `rgb(230, 200, 140)` : `rgb(${body.THEME_COLOR.r}, ${body.THEME_COLOR.g}, ${body.THEME_COLOR.b})`;
-			material = new THREE.MeshBasicMaterial({
+			material = new THREE.MeshStandardMaterial({
 				color: materialColor,
 			});
 
@@ -499,7 +522,7 @@ async function createCelestialObjectMaterial(body) {
 
 	} else {
 		const materialColor = (body.TYPE === 'Star') ? `rgb(230, 200, 140)` : `rgb(${body.THEME_COLOR.r}, ${body.THEME_COLOR.g}, ${body.THEME_COLOR.b})`;
-		material = new THREE.MeshBasicMaterial({
+		material = new THREE.MeshStandardMaterial({
 			color: materialColor,
 		});
 	}
@@ -621,7 +644,7 @@ function createWormholeLines(precise = false) {
 
 function createDebugLines() {
 	for (const body of DB.bodies) {
-		if (body.TYPE !== 'Planet') continue;
+		if (body.TYPE !== 'Planet' && body.TYPE !== 'Moon') continue;
 
 		// LINE FROM 0,0,0 TO PLANET
 		const groupName = `SYSTEM:${body.PARENT_STAR.NAME}`;
@@ -698,7 +721,7 @@ function createDebugLines() {
 			opacity: 0.5
 		});
 		const meridianLine = makeLine(0, 0, 0, length * 3, 0, 0, meridianMaterial);
-		meridianLine.rotateZ(radians(meridian + 180));
+		meridianLine.rotateZ(radians(meridian));
 		containerObject.add(meridianLine);
 	}
 }

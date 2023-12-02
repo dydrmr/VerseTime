@@ -203,7 +203,7 @@ export default class CelestialBody {
 		const starDirection = new THREE.Vector3();
 		const v1 = new THREE.Vector3(this.COORDINATES.x, this.COORDINATES.y, this.COORDINATES.z);
 		const v2 = new THREE.Vector3(this.PARENT_STAR.COORDINATES.x, this.PARENT_STAR.COORDINATES.y, this.PARENT_STAR.COORDINATES.z);
-		starDirection.subVectors(v1, v2).normalize();
+		starDirection.subVectors(v2, v1).normalize();
 
 		this.PARENT_STAR_DIRECTION = starDirection;
 	}
