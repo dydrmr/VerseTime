@@ -27,6 +27,7 @@ const labelsMoons = Array();
 
 // TODO:
 // Use THREE.js locally to eliminate map/atlas breaking when CDN loading times are high
+// Loading screen
 // focus levels -> for easy scale changing. Ex: Galaxy, System, Planet, Moon (?), Location
 // current location indicator: quick selections to move up along the hierarchy
 // tree list of objects/locations in system
@@ -120,17 +121,20 @@ function updateDebugInfo() {
 }
 
 function updateBodyRotation() {
-	if (renderer.info.render.frame % 10 !== 0)  return;
+	if (renderer.info.render.frame % 5 !== 0) return;
 
-	// OLD METHOD
 	for (const container of planetObjects) {
 		const body = container.userData.celestialBody;
-		const rotation = body.ROTATING_MERIDIAN(body.PARENT_STAR) * -1;
-		container.rotation.z = radians(rotation);
+		
+		const starDirection = body.PARENT_STAR_DIRECTION;
+		const meridian = body.ROTATING_MERIDIAN(body.PARENT_STAR);
+		const zAxis = new THREE.Vector3(0, 0, 1);
 
-		if (body.NAME === 'Hurston') {
-			console.log(`${body.NAME} : ${round(rotation, 2)}`);
-		}
+		const meridianDirection = new THREE.Vector3(1, 0, 0);
+		meridianDirection.applyAxisAngle(zAxis, radians(meridian));
+
+		const angle = meridianDirection.angleTo(starDirection);
+		container.rotation.z = angle;
 	}
 }
 
@@ -147,19 +151,22 @@ function setFocus(object) {
 		const systemName = (object.TYPE === 'Star') ? object.NAME : object.PARENT_STAR.NAME;
 		focusSystem = getSystemByName(systemName);
 		focusBody = object;
-		//console.log(focusSystem, focusBody);
 	}
 
 	// UPDATE UI
 	const el = UI.el('atlas-hierarchy');
 
+	let textString = '';
+
 	if (object instanceof SolarSystem || object.TYPE === 'Star') {
-		el.innerText = object.NAME;
+		textString = object.NAME;
 	} else if (object.TYPE === 'Planet' || object.TYPE === 'Jump Point') {
-		el.innerText = `${focusSystem.NAME} ▸ ${focusBody.NAME}`;
+		textString = `${focusSystem.NAME} ▸ ${focusBody.NAME}`;
 	} else {
-		el.innerText = `${focusSystem.NAME} ▸ ${focusBody.PARENT.NAME} ▸ ${focusBody.NAME}`;
+		textString = `${focusSystem.NAME} ▸ ${focusBody.PARENT.NAME} ▸ ${focusBody.NAME}`;
 	}
+
+	UI.setText('atlas-hierarchy', textString);
 
 	setFocus_moveCamera(object);
 }
@@ -311,7 +318,7 @@ async function createAtlasScene() {
 	createWormholeLines();
 	createCircularGrid(300, 25);
 	createLollipops();
-	createDebugLines();
+	//createDebugLines();
 	createLabels();
 
 	setTimeout(() => {
@@ -616,18 +623,17 @@ function createDebugLines() {
 	for (const body of DB.bodies) {
 		if (body.TYPE !== 'Planet') continue;
 
-		// LINE FROM STAR TO PLANET
-		// THIS IS THE ROTATING_MERIDIAN WE ARE AIMING FOR
+		// LINE FROM 0,0,0 TO PLANET
 		const groupName = `SYSTEM:${body.PARENT_STAR.NAME}`;
 		const groupObject = scene.getObjectByName(groupName);
 
-		const starMaterial = new THREE.LineBasicMaterial({
+		/*const starMaterial = new THREE.LineBasicMaterial({
 			color: 'magenta',
 			transparent: true,
 			opacity: 0.4
 		});
 		const line = makeLine(0, 0, 0, body.COORDINATES.x, body.COORDINATES.y, body.COORDINATES.z, starMaterial);
-		groupObject.add(line);
+		groupObject.add(line);*/
 
 
 		// XYZ REFERENCE LINES
@@ -660,8 +666,40 @@ function createDebugLines() {
 		containerObject.add(lineZ);
 
 
+		// DIRECTION TOWARDS STAR
+		const direction = new THREE.Vector3();
+		const v1 = new THREE.Vector3(body.COORDINATES.x, body.COORDINATES.y, body.COORDINATES.z);
+		const v2 = new THREE.Vector3(body.PARENT_STAR.COORDINATES.x, body.PARENT_STAR.COORDINATES.y, body.PARENT_STAR.COORDINATES.z);
+		direction.subVectors(v2, v1).normalize().multiplyScalar(length * 3);
+
+		const sunMaterial = new THREE.LineBasicMaterial({
+			color: 'yellow',
+			transparent: true,
+			opacity: 0.5
+		});
+		const sunLine = makeLine(
+			body.COORDINATES.x,
+			body.COORDINATES.y,
+			body.COORDINATES.z,
+			body.COORDINATES.x + direction.x,
+			body.COORDINATES.y + direction.y,
+			body.COORDINATES.z + direction.z,
+			sunMaterial
+		);
+		groupObject.add(sunLine);
+
+
 		// CALCULATED STAR MERIDIAN LINE
-		const rotation = body.ROTATING_MERIDIAN(body.PARENT_STAR);
+		const meridian = body.ROTATING_MERIDIAN(body.PARENT_STAR);
+
+		const meridianMaterial = new THREE.LineBasicMaterial({
+			color: 'darkorange',
+			transparent: true,
+			opacity: 0.5
+		});
+		const meridianLine = makeLine(0, 0, 0, length * 3, 0, 0, meridianMaterial);
+		meridianLine.rotateZ(radians(meridian + 180));
+		containerObject.add(meridianLine);
 	}
 }
 

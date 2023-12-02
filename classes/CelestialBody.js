@@ -1,5 +1,6 @@
 import { degrees, modulo, square, getJulianDate, calculateDistance2D } from '../HelperFunctions.js';
 import DB from './app/Database.js';
+import * as THREE from 'three';
 
 export default class CelestialBody {
 	constructor(name, type, parentBody, parentStar, coordinates, rotationQuaternion, bodyRadius, rotationRate, rotationCorrection, orbitalAngle, orbitalRadius, themeColor = null, themeImage = null) {
@@ -19,16 +20,18 @@ export default class CelestialBody {
 		// this.ORBITAL_ANGLE = orbitalAngle;
 		// this.ORBITAL_ANGLE = this.PARENT ? Math.atan( (coordinates.y - this.PARENT.COORDINATES.y) / (coordinates.x - this.PARENT.COORDINATES.x) ) : 0;
 
-		if (parseFloat(orbitalRadius) === 0) {
+		if (isNaN(orbitalRadius) || parseFloat(orbitalRadius) === 0) {
 			this.ORBITAL_RADIUS = (this.PARENT && this.PARENT.COORDINATES) ? this.#calculateOrbitalRadius() : 0;
 		} else {
 			this.ORBITAL_RADIUS = orbitalRadius;
 		}
 
-		this.THEME_COLOR = themeColor ? themeColor : {'r' : null, 'g' : null, 'b' : null};
+		this.THEME_COLOR = themeColor ? themeColor : { 'r': null, 'g': null, 'b': null };
 		this.THEME_IMAGE = themeImage;
 
 		this.RING = null;
+
+		this.#calculateVectorToStar();
 
 		DB.bodies.push(this);
 	}
@@ -59,19 +62,19 @@ export default class CelestialBody {
 		let part1, part2, part3;
 
 		if (direction === 'x') {
-            part1 = ((1 - (2 * square(qy)) - (2 * square(qz))) * (sx - bx));
-            part2 = (((2 * qx * qy) - (2 * qz * qw)) * (sy - by));
-            part3 = (((2 * qx * qz) + (2 * qy * qw)) * (sz - bz));
-		
+			part1 = ((1 - (2 * square(qy)) - (2 * square(qz))) * (sx - bx));
+			part2 = (((2 * qx * qy) - (2 * qz * qw)) * (sy - by));
+			part3 = (((2 * qx * qz) + (2 * qy * qw)) * (sz - bz));
+
 		} else if (direction === 'y') {
-            part1 = ((2 * qx * qy) + (2 * qz * qw)) * (sx - bx);
-            part2 = (1 - (2 * square(qx)) - (2 * square(qz))) * (sy - by);
-            part3 = ((2 * qy * qz) - (2 * qx * qw)) * (sz - bz);
+			part1 = ((2 * qx * qy) + (2 * qz * qw)) * (sx - bx);
+			part2 = (1 - (2 * square(qx)) - (2 * square(qz))) * (sy - by);
+			part3 = ((2 * qy * qz) - (2 * qx * qw)) * (sz - bz);
 
 		} else if (direction === 'z') {
-            part1 = (((2 * qx * qz) - (2 * qy * qw)) * (sx - bx));
-            part2 = (((2 * qy * qz) + (2 * qx * qw)) * (sy - by));
-            part3 = ((1 - (2 * square(qx)) - (2 * square(qy))) * (sz - bz));
+			part1 = (((2 * qx * qz) - (2 * qy * qw)) * (sx - bx));
+			part2 = (((2 * qy * qz) + (2 * qx * qw)) * (sy - by));
+			part3 = ((1 - (2 * square(qx)) - (2 * square(qy))) * (sz - bz));
 		}
 
 		return part1 + part2 + part3;
@@ -87,7 +90,7 @@ export default class CelestialBody {
 		const y = this.#BS_INTERNAL('y', distantObject);
 		const z = this.#BS_INTERNAL('z', distantObject);
 
-		return {'x': x, 'y': y, 'z': z};
+		return { 'x': x, 'y': y, 'z': z };
 	}
 
 	/**
@@ -145,7 +148,7 @@ export default class CelestialBody {
 	 */
 	HOUR_ANGLE() {
 		const cycle = this.CURRENT_CYCLE();
-		const result = modulo((360 - modulo(cycle, 1) * 360 - this.ROTATION_CORRECTION), 360)
+		const result = modulo((360 - modulo(cycle, 1) * 360 - this.ROTATION_CORRECTION), 360);
 		return result;
 	}
 
@@ -189,5 +192,19 @@ export default class CelestialBody {
 
 	#calculateOrbitalRadius() {
 		return calculateDistance2D(this.COORDINATES.x, this.COORDINATES.y, this.PARENT.COORDINATES.x, this.PARENT.COORDINATES.y);
+	}
+
+	#calculateVectorToStar() {
+		if (this.PARENT_STAR === null) {
+			this.PARENT_STAR_DIRECTION = null;
+			return;
+		}
+
+		const starDirection = new THREE.Vector3();
+		const v1 = new THREE.Vector3(this.COORDINATES.x, this.COORDINATES.y, this.COORDINATES.z);
+		const v2 = new THREE.Vector3(this.PARENT_STAR.COORDINATES.x, this.PARENT_STAR.COORDINATES.y, this.PARENT_STAR.COORDINATES.z);
+		starDirection.subVectors(v1, v2).normalize();
+
+		this.PARENT_STAR_DIRECTION = starDirection;
 	}
 }
