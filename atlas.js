@@ -666,14 +666,6 @@ function createDebugLines() {
 		const groupName = `SYSTEM:${body.PARENT_STAR.NAME}`;
 		const groupObject = scene.getObjectByName(groupName);
 
-		/*const starMaterial = new THREE.LineBasicMaterial({
-			color: 'magenta',
-			transparent: true,
-			opacity: 0.4
-		});
-		const line = makeLine(0, 0, 0, body.COORDINATES.x, body.COORDINATES.y, body.COORDINATES.z, starMaterial);
-		groupObject.add(line);*/
-
 
 		// XYZ REFERENCE LINES
 		const bodyContainerName = `BODYCONTAINER:${body.NAME}`;
@@ -778,6 +770,8 @@ async function createLabel_SolarSystem(system) {
 
 	scene.add(label);
 	labelsSystems.push(div);
+
+	css2dlabels.push(label);
 }
 
 async function createLabel_CelestialBody(body, group) {
@@ -815,6 +809,8 @@ async function createLabel_CelestialBody(body, group) {
 	} else if (body.TYPE === 'Moon') {
 		labelsMoons.push(div);
 	}
+
+	css2dlabels.push(label);
 }
 
 async function createLabel_Location(location) {
@@ -847,9 +843,7 @@ async function createLabel_Location(location) {
 		system.add(label);
 	}
 
-
 	css2dlabels.push(label);
-	
 }
 
 
@@ -902,31 +896,41 @@ function organizeLabels() {
 	scene.getObjectByName('Lollipops').visible = (visibility && settingLolli.checked);
 	scene.getObjectByName('Wormholes').visible = (visibility && settingWorm.checked);
 	scene.getObjectByName('Galaxy Grid').visible = (visibility && settingGrid.checked);
+
+	// organizeLabels_resetAll();
+	// organizeLabels_byDistance();
+	// organizeLabels_byFocus();
+	organizeLabels_hideOccluded();
 	
 	return true;
+}
 
+function organizeLabels_hideOccluded() {
 	const objectMesh = scene.getObjectByName(focusBody.NAME);
 	const raycaster = new THREE.Raycaster();
 
-	for (const label of css2dlabels) {
-		const pos = new THREE.Vector3().copy(label.position);
-		const dir = new THREE.Vector3().copy(pos).sub(camera.position).normalize().negate();
-		raycaster.set(pos, dir);
+	// TODO: create new array of css2dlabels that is filtered to only include ones that are visible
+	// TODO: filter out obviously unneeded labels in preceding function
 
+	for (const label of css2dlabels) {
+		const pos = new THREE.Vector3()
+		label.getWorldPosition(pos);
+
+		const dir = new THREE.Vector3().copy(pos).sub(camera.position).normalize().negate();
+
+		raycaster.set(pos, dir);
 		const intersects = raycaster.intersectObject(objectMesh, false);
 
 		if (intersects.length > 0) {
 			label.element.dataset.occluded = true;
-			console.log(label.element.textContent, intersects);
+			//console.log(label.element.textContent, intersects);
 		} else {
 			label.element.dataset.occluded = false;
 		}
 	}
-
-	return true;
 }
 
-function organizeLabels_TEST() {
+function organizeLabels_TEST_ONE() {
 	//if (renderer.info.render.frame % 5 !== 0) { return false; }
 
 	for (const sys of DB.systems) {
