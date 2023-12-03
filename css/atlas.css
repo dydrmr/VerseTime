@@ -103,7 +103,10 @@
     }
 
     .atlas-label[data-object-type="Location"] {
-        color: rgba(255, 255, 255, 0.5);
+        color: rgba(255, 255, 255, 0.25);
+        font-size: 8px;
+        user-select: none;
+        pointer-events: none;
     }
 
 

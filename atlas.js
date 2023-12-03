@@ -9,6 +9,7 @@ import Settings from './classes/app/Preferences.js';
 import DB from './classes/app/Database.js';
 import UI from './classes/app/UserInterface.js';
 import SolarSystem from './classes/SolarSystem.js';
+import Location from './classes/Location.js';
 
 
 let scene, camera, renderer, labelRenderer, controls, zoomControls;
@@ -68,7 +69,7 @@ function setup() {
 	controls = new OrbitControls(camera, labelRenderer.domElement);
 	controls.enablePan = false;
 	controls.enableDamping = true;
-	controls.dampingFactor = 0.08;
+	controls.dampingFactor = 0.1;
 	controls.rotateSpeed = 0.5;
 	controls.maxPolarAngle = Math.PI * 0.99;
 	controls.minPolarAngle = Math.PI * 0.01;
@@ -159,6 +160,9 @@ function updateDebugInfo() {
 
 
 function setFocus(object) {
+	if (object instanceof Location) {
+		object = object.PARENT;
+	}
 
 	// SET GLOBALS
 	if (object instanceof SolarSystem) {
@@ -174,7 +178,6 @@ function setFocus(object) {
 	const el = UI.el('atlas-hierarchy');
 
 	let textString = '';
-
 	if (object instanceof SolarSystem || object.TYPE === 'Star') {
 		textString = object.NAME;
 	} else if (object.TYPE === 'Planet' || object.TYPE === 'Jump Point') {
@@ -818,6 +821,9 @@ async function createLabel_Location(location) {
 	//console.log(location);
 	const div = document.createElement('div');
 	div.classList.add('atlas-label');
+	div.dataset.objectType = 'Location';
+
+	setLabelEvents(div, location);
 
 	const nameElement = document.createElement('p');
 	nameElement.classList.add('atlas-label-name');
