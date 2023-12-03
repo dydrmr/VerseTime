@@ -81,6 +81,12 @@
         pointer-events: none;
     }
 
+    .atlas-label[data-occluded=true] {
+        opacity: 0;
+        user-select: none;
+        pointer-events: none;
+    }
+
     .atlas-label[data-object-type="Solar System"],
     .atlas-label[data-object-type="Star"] {
         text-transform: uppercase;

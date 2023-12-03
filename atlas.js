@@ -2,6 +2,7 @@
 import { OrbitControls } from 'three/addons/controls/OrbitControls';
 import { TrackballControls }  from 'three/addons/controls/TrackballControls';
 import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer';
+import { CSS3DRenderer, CSS3DObject } from 'three/addons/renderers/CSS3DRenderer';
 
 import { round, calculateDistance3D, makeLine, makeCircle, getCelestialBodiesInSystem, getSystemByName, getBodyByName, readableNumber, random, convertPolarToCartesian, degrees, radians } from './HelperFunctions.js';
 import Settings from './classes/app/Preferences.js';
@@ -19,6 +20,8 @@ let focusBody = null;
 let focusSystem = null;
 
 const planetObjects = Array();
+
+const css2dlabels = Array();
 
 const labelsSystems = Array();
 const labelsStars = Array();
@@ -55,7 +58,7 @@ function setup() {
 	labelRenderer.setSize( window.innerWidth, window.innerHeight );
 	labelRenderer.domElement.style.position = 'absolute';
 	labelRenderer.domElement.style.top = '0px';
-	atlasDiv.appendChild( labelRenderer.domElement );
+	atlasDiv.appendChild(labelRenderer.domElement);
 
 	camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.000001, 1500);
 	camera.up.set(0, 0, 1);
@@ -200,6 +203,13 @@ function setFocus_moveCamera(object) {
 			mesh.getWorldPosition(target);
 		}
 
+	} else if (object.TYPE === 'Planet' || object.TYPE === 'Moon') {
+		// because textures take time to load, use container object instead
+		target = new THREE.Vector3();
+		const objectName = `BODYCONTAINER:${object.NAME}`;
+		const mesh = scene.getObjectByName(objectName);
+		mesh.getWorldPosition(target);
+
 	} else {
 		target = new THREE.Vector3();
 		const mesh = scene.getObjectByName(object.NAME);
@@ -325,25 +335,28 @@ async function createAtlasScene() {
 	const ambientLight = new THREE.AmbientLight(0x535353);
 	scene.add(ambientLight);
 
-	createStarfield();
-	createStars();
+	await createStarfield();
+	await createStars();
 
 	for (const system of DB.systems) {
 		await createSolarSystem(system);
 	}
 	
-	createWormholeLines();
+	await createWormholeLines();
 	createCircularGrid(300, 25);
 	createLollipops();
 	//createDebugLines();
-	createLabels();
+	await createLabels();
 
-	setTimeout(() => {
-		setFocus(getBodyByName('Hurston'));
-	}, '330');
+	document.dispatchEvent(new CustomEvent('atlasSceneReady'));
 }
 
-function createStarfield() {
+document.addEventListener('atlasSceneReady', () => {
+	const body = getBodyByName('Hurston');
+	setFocus(body);
+})
+
+async function createStarfield() {
 	const group = new THREE.Group();
 	group.name = 'Starfield';
 	scene.add(group);
@@ -374,7 +387,7 @@ function createStarfield() {
 	//group.visible = document.getElementById('atlas-settings-show-starfield').checked;
 }
 
-function createStars() {
+async function createStars() {
 	const group = new THREE.Group();
 	group.name = 'STARS';
 	scene.add(group);
@@ -603,7 +616,7 @@ function createOrbitLine(body, group) {
 	group.add(circle);
 }
 
-function createWormholeLines(precise = false) {
+async function createWormholeLines(precise = false) {
 	const group = new THREE.Group();
 	group.name = 'Wormholes';
 	scene.add(group);
@@ -727,19 +740,23 @@ function createDebugLines() {
 }
 
 
-function createLabels() {
+async function createLabels() {
 	for (const system of DB.systems) {
-		createLabel_SolarSystem(system);
+		await createLabel_SolarSystem(system);
 	}
 
 	for (const body of DB.bodies) {
 		const systemName = (body.TYPE === 'Star') ? body.NAME : body.PARENT_STAR.NAME;
 		const group = scene.getObjectByName(`SYSTEM:${systemName}`);
-		createLabel_CelestialBody(body, group);
+		await createLabel_CelestialBody(body, group);
+	}
+
+	for (const location of DB.locations) {
+		await createLabel_Location(location);
 	}
 }
 
-function createLabel_SolarSystem(system) {
+async function createLabel_SolarSystem(system) {
 	const div = document.createElement('div');
 	div.classList.add('atlas-label');
 	div.classList.add('atlas-label-system');
@@ -760,7 +777,7 @@ function createLabel_SolarSystem(system) {
 	labelsSystems.push(div);
 }
 
-function createLabel_CelestialBody(body, group) {
+async function createLabel_CelestialBody(body, group) {
 	const div = document.createElement('div');
 	div.classList.add('atlas-label');
 	//div.classList.add('atlas-label-system');
@@ -795,6 +812,38 @@ function createLabel_CelestialBody(body, group) {
 	} else if (body.TYPE === 'Moon') {
 		labelsMoons.push(div);
 	}
+}
+
+async function createLabel_Location(location) {
+	//console.log(location);
+	const div = document.createElement('div');
+	div.classList.add('atlas-label');
+
+	const nameElement = document.createElement('p');
+	nameElement.classList.add('atlas-label-name');
+	nameElement.innerText = location.NAME;
+	div.appendChild(nameElement);
+
+	const label = new CSS2DObject(div);
+
+	//const pos = new THREE.Vector3(location.COORDINATES_3DMAP.x, location.COORDINATES_3DMAP.y, location.COORDINATES_3DMAP.z);
+	//pos.multiplyScalar(location.PARENT.BODY_RADIUS);
+	const pos = new THREE.Vector3(location.COORDINATES.x, location.COORDINATES.y, location.COORDINATES.z);
+	const labelPosition = new THREE.Vector3().copy(pos);
+	labelPosition.applyAxisAngle(new THREE.Vector3(0, 0, 1), Math.PI);
+	label.position.copy(labelPosition);
+
+	if (location.PARENT.TYPE === 'Planet' || location.PARENT.TYPE === 'Moon') {
+		const containerObject = scene.getObjectByName(`BODYCONTAINER:${location.PARENT.NAME}`);
+		containerObject.add(label);
+	} else {
+		const system = scene.getObjectByName(`SYSTEM:${location.PARENT_STAR.NAME}`);
+		system.add(label);
+	}
+
+
+	css2dlabels.push(label);
+	
 }
 
 
@@ -842,20 +891,37 @@ function setBodyIcon(type, element) {
 
 
 function organizeLabels() {
-	//if (renderer.info.render.frame % 5 !== 0) { return false; }
+	const distance = controls.getDistance();
+	const visibility = distance > 25 ? true : false;
+	scene.getObjectByName('Lollipops').visible = (visibility && settingLolli.checked);
+	scene.getObjectByName('Wormholes').visible = (visibility && settingWorm.checked);
+	scene.getObjectByName('Galaxy Grid').visible = (visibility && settingGrid.checked);
+	
+	return true;
 
-	organizeLabels_TEST();
+	const objectMesh = scene.getObjectByName(focusBody.NAME);
+	const raycaster = new THREE.Raycaster();
+
+	for (const label of css2dlabels) {
+		const pos = new THREE.Vector3().copy(label.position);
+		const dir = new THREE.Vector3().copy(pos).sub(camera.position).normalize().negate();
+		raycaster.set(pos, dir);
+
+		const intersects = raycaster.intersectObject(objectMesh, false);
+
+		if (intersects.length > 0) {
+			label.element.dataset.occluded = true;
+			console.log(label.element.textContent, intersects);
+		} else {
+			label.element.dataset.occluded = false;
+		}
+	}
 
 	return true;
 }
 
 function organizeLabels_TEST() {
-	const distance = controls.getDistance();
-
-	const visibility = distance > 25 ? true : false;
-	scene.getObjectByName('Lollipops').visible = (visibility && settingLolli.checked);
-	scene.getObjectByName('Wormholes').visible = (visibility && settingWorm.checked);
-	scene.getObjectByName('Galaxy Grid').visible = (visibility && settingGrid.checked);
+	//if (renderer.info.render.frame % 5 !== 0) { return false; }
 
 	for (const sys of DB.systems) {
 		if (sys.NAME === focusSystem.NAME) continue;
