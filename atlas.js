@@ -2,12 +2,13 @@
 import { OrbitControls } from 'three/addons/controls/OrbitControls';
 import { TrackballControls }  from 'three/addons/controls/TrackballControls';
 import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer';
-import { CSS3DRenderer, CSS3DObject } from 'three/addons/renderers/CSS3DRenderer';
 
 import { round, calculateDistance3D, makeLine, makeCircle, getCelestialBodiesInSystem, getSystemByName, getBodyByName, readableNumber, random, convertPolarToCartesian, degrees, radians } from './HelperFunctions.js';
 import Settings from './classes/app/Preferences.js';
 import DB from './classes/app/Database.js';
 import UI from './classes/app/UserInterface.js';
+import LabelManager from './classes/app/AtlasLabelManager.js';
+
 import SolarSystem from './classes/SolarSystem.js';
 import Location from './classes/Location.js';
 
@@ -85,7 +86,9 @@ function setup() {
 	zoomControls.zoomDampingFactor = 0.2;
 	zoomControls.smoothZoomSpeed = 5.0;
 
-	atlasDiv.appendChild( renderer.domElement );
+	atlasDiv.appendChild(renderer.domElement);
+
+	LabelManager.scene = scene;
 }
 
 function render() {
@@ -100,8 +103,29 @@ function render() {
 
 	if (!UI.Atlas.show) return;
 
-	updateDebugInfo();
+
+	const distance = controls.getDistance();
+	const visibility = distance > 25 ? true : false;
+	scene.getObjectByName('Lollipops').visible = (visibility && settingLolli.checked);
+	scene.getObjectByName('Wormholes').visible = (visibility && settingWorm.checked);
+	scene.getObjectByName('Galaxy Grid').visible = (visibility && settingGrid.checked);
+
+	updateSolarSystemVisibility(visibility);
 	updateBodyRotation();
+	LabelManager.organize(distance, visibility, camera, focusBody);
+
+	updateDebugInfo();
+}
+
+function updateSolarSystemVisibility(visibility) {
+	for (const sys of DB.systems) {
+		if (sys.NAME === focusSystem.NAME) continue;
+
+		const object = scene.getObjectByName(`SYSTEM:${sys.NAME}`);
+		if (object) {
+			object.visible = visibility;
+		}
+	}
 }
 
 function updateDebugInfo() {
@@ -110,19 +134,6 @@ function updateDebugInfo() {
 	UI.setText('atlas-zoom', 'Zoom: ' + round(controls.getDistance(), 4));
 	UI.setText('atlas-focus-system', `Selected System: ${focusSystem.NAME}`);
 	UI.setText('atlas-focus-object', `Selected Body: ${focusBody ? focusBody.NAME : 'none'}`);
-
-	
-	const start = window.performance.now();
-	const organized = organizeLabels();
-	
-	let allLabels = document.querySelectorAll('.atlas-label');
-	allLabels = [...allLabels];
-	const visibleLabels = document.querySelectorAll('.atlas-label[data-visible="true"]');
-	const end = window.performance.now();
-
-	if (organized) {
-		UI.setText('atlas-label-render', `${allLabels.length} labels / ${visibleLabels.length} visible / time: ${round(end - start, 3)} ms`);
-	}
 }
 
  function updateBodyRotation() {
@@ -148,11 +159,6 @@ function updateDebugInfo() {
 
 		const angleDifference = euler.toArray()[2] + Math.PI;
 		container.rotation.z = angleDifference;
-
-		/*if (body.NAME === focusBody.NAME) {
-			console.log('\n\n' + body.NAME);
-			console.log('Angle difference', round(degrees(angleDifference), 3)); 
-		}*/
 	}
 }
 
@@ -349,7 +355,7 @@ async function createAtlasScene() {
 	createCircularGrid(300, 25);
 	createLollipops();
 	//createDebugLines();
-	await createLabels();
+	createLabels();
 
 	document.dispatchEvent(new CustomEvent('atlasSceneReady'));
 }
@@ -735,119 +741,26 @@ function createDebugLines() {
 }
 
 
-async function createLabels() {
+function createLabels() {
+	console.time('Create labels');
 	for (const system of DB.systems) {
-		await createLabel_SolarSystem(system);
+		LabelManager.createLabel(system);
 	}
 
 	for (const body of DB.bodies) {
 		const systemName = (body.TYPE === 'Star') ? body.NAME : body.PARENT_STAR.NAME;
 		const group = scene.getObjectByName(`SYSTEM:${systemName}`);
-		await createLabel_CelestialBody(body, group);
+		LabelManager.createLabel(body, group);
 	}
 
 	for (const location of DB.locations) {
-		await createLabel_Location(location);
+		LabelManager.createLabel(location);
 	}
-}
-
-async function createLabel_SolarSystem(system) {
-	const div = document.createElement('div');
-	div.classList.add('atlas-label');
-	div.classList.add('atlas-label-system');
-	div.dataset.objectType = 'Solar System';
-	div.dataset.affiliation = system.AFFILIATION;
-
-	setLabelEvents(div, system);
-
-	const nameElement = document.createElement('p');
-	nameElement.classList.add('atlas-label-name');
-	nameElement.innerText = system.NAME;
-	div.appendChild(nameElement);
-
-	const label = new CSS2DObject(div);
-	label.position.copy(new THREE.Vector3(system.COORDINATES.x, system.COORDINATES.y, system.COORDINATES.z));
-
-	scene.add(label);
-	labelsSystems.push(div);
-
-	css2dlabels.push(label);
-}
-
-async function createLabel_CelestialBody(body, group) {
-	const div = document.createElement('div');
-	div.classList.add('atlas-label');
-	//div.classList.add('atlas-label-system');
-	div.dataset.objectType = body.TYPE;
-	div.dataset.systemName = body.TYPE === 'Star' ? body.NAME : body.PARENT_STAR.NAME;
-	div.dataset.parentName = body.TYPE === 'Star' ? null : body.PARENT.NAME;
-	div.dataset.objectName = body.NAME;
-
-	setLabelEvents(div, body);
-
-	/*const iconElement = document.createElement('div');
-	iconElement.classList.add('mapLocationIcon');
-	setBodyIcon(body.TYPE, iconElement);
-	iconElement.style.marginTop = '15px';
-	div.appendChild(iconElement);*/
-
-	const nameElement = document.createElement('p');
-	nameElement.classList.add('atlas-label-name');
-	nameElement.innerText = body.NAME;
-	div.appendChild(nameElement);
-
-	const label = new CSS2DObject(div);
-	const labelPosition = new THREE.Vector3(body.COORDINATES.x, body.COORDINATES.y,	body.COORDINATES.z);
-	label.position.copy(labelPosition);
-
-	group.add(label);
-
-	if (body.TYPE === 'Star') {
-		labelsStars.push(div);
-	} else if (body.TYPE === 'Planet') {
-		labelsPlanets.push(div);
-	} else if (body.TYPE === 'Moon') {
-		labelsMoons.push(div);
-	}
-
-	css2dlabels.push(label);
-}
-
-async function createLabel_Location(location) {
-	//console.log(location);
-	const div = document.createElement('div');
-	div.classList.add('atlas-label');
-	div.dataset.objectType = 'Location';
-
-	setLabelEvents(div, location);
-
-	const nameElement = document.createElement('p');
-	nameElement.classList.add('atlas-label-name');
-	nameElement.innerText = location.NAME;
-	div.appendChild(nameElement);
-
-	const label = new CSS2DObject(div);
-
-	//const pos = new THREE.Vector3(location.COORDINATES_3DMAP.x, location.COORDINATES_3DMAP.y, location.COORDINATES_3DMAP.z);
-	//pos.multiplyScalar(location.PARENT.BODY_RADIUS);
-	const pos = new THREE.Vector3(location.COORDINATES.x, location.COORDINATES.y, location.COORDINATES.z);
-	const labelPosition = new THREE.Vector3().copy(pos);
-	labelPosition.applyAxisAngle(new THREE.Vector3(0, 0, 1), Math.PI);
-	label.position.copy(labelPosition);
-
-	if (location.PARENT.TYPE === 'Planet' || location.PARENT.TYPE === 'Moon') {
-		const containerObject = scene.getObjectByName(`BODYCONTAINER:${location.PARENT.NAME}`);
-		containerObject.add(label);
-	} else {
-		const system = scene.getObjectByName(`SYSTEM:${location.PARENT_STAR.NAME}`);
-		system.add(label);
-	}
-
-	css2dlabels.push(label);
+	console.timeEnd('Create labels');
 }
 
 
-function setLabelEvents(domElement, targetObject) {
+/*function setLabelEvents(domElement, targetObject) {
 	domElement.addEventListener('pointerdown', (event) => {
 		if (event.button === 0) {
 			setFocus(targetObject);
@@ -865,7 +778,7 @@ function setLabelEvents(domElement, targetObject) {
 	domElement.addEventListener('mouseleave', (event) => {
 		hideInfobox(targetObject);
 	});
-}
+}*/
 
 function setBodyIcon(type, element) {
 	element.style.width = '10px';
@@ -882,65 +795,36 @@ function setBodyIcon(type, element) {
 	} else if (type === 'Jump Point') {
 		element.classList.add('icon-wormhole');
 
+/*	} else if (
+		type === 'Underground bunker' ||
+		type === 'Emergency shelter' ||
+		type === 'Outpost' ||
+		type === 'Prison' ||
+		type === 'Shipwreck' ||
+		type === 'Scrapyard' ||
+		type === 'Settlement'
+	) {
+		element.classList.add('icon-outpost');
+
+	} else if (
+		type === 'Space station' ||
+		type === 'Asteroid base'
+	) {
+		element.classList.add('icon-spacestation');
+
+	} else if (type === 'Landing zone') {
+		element.classList.add('icon-landingzone');*/
+
 	} else {
-		element.style.display = 'none';
+		element.classList.add('icon-space');
 	}
 }
 
 
-
-
-function organizeLabels() {
-	const distance = controls.getDistance();
-	const visibility = distance > 25 ? true : false;
-	scene.getObjectByName('Lollipops').visible = (visibility && settingLolli.checked);
-	scene.getObjectByName('Wormholes').visible = (visibility && settingWorm.checked);
-	scene.getObjectByName('Galaxy Grid').visible = (visibility && settingGrid.checked);
-
-	// organizeLabels_resetAll();
-	// organizeLabels_byDistance();
-	// organizeLabels_byFocus();
-	organizeLabels_hideOccluded();
-	
-	return true;
-}
-
-function organizeLabels_hideOccluded() {
-	const objectMesh = scene.getObjectByName(focusBody.NAME);
-	const raycaster = new THREE.Raycaster();
-
-	// TODO: create new array of css2dlabels that is filtered to only include ones that are visible
-	// TODO: filter out obviously unneeded labels in preceding function
-
-	for (const label of css2dlabels) {
-		const pos = new THREE.Vector3()
-		label.getWorldPosition(pos);
-
-		const dir = new THREE.Vector3().copy(pos).sub(camera.position).normalize().negate();
-
-		raycaster.set(pos, dir);
-		const intersects = raycaster.intersectObject(objectMesh, false);
-
-		if (intersects.length > 0) {
-			label.element.dataset.occluded = true;
-			//console.log(label.element.textContent, intersects);
-		} else {
-			label.element.dataset.occluded = false;
-		}
-	}
-}
 
 function organizeLabels_TEST_ONE() {
 	//if (renderer.info.render.frame % 5 !== 0) { return false; }
 
-	for (const sys of DB.systems) {
-		if (sys.NAME === focusSystem.NAME) continue;
-
-		const object = scene.getObjectByName(`SYSTEM:${sys.NAME}`);
-		if (object) {
-			object.visible = visibility;
-		}
-	}
 
 	const allLabels = document.querySelectorAll('.atlas-label');
 	for (const label of allLabels) {
