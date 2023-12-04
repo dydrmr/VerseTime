@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer';
 
-import { getLocationByName } from '../../HelperFunctions.js';
+import { getLocationByName, getSystemByName } from '../../HelperFunctions.js';
 import DB from './Database.js';
 import SolarSystem from '../SolarSystem.js';
 import Star from '../Star.js';
@@ -59,6 +59,7 @@ class AtlasLabelManager {
         div.dataset.systemName = body.TYPE === 'Star' ? body.NAME : body.PARENT_STAR.NAME;
         div.dataset.parentName = body.TYPE === 'Star' ? null : body.PARENT.NAME;
         div.dataset.objectName = body.NAME;
+        div.dataset.visible = false;
 
         this.#setLabelEvents(div, body);
 
@@ -95,14 +96,17 @@ class AtlasLabelManager {
         div.classList.add('atlas-label');
         div.dataset.objectType = 'Location';
         div.dataset.objectName = location.NAME;
+        div.dataset.systemName = location.PARENT_STAR.NAME;
+        div.dataset.bodyName = location.PARENT.NAME;
+        div.dataset.visible = false;
 
        this.#setLabelEvents(div, location);
 
-        const iconElement = document.createElement('div');
-        iconElement.classList.add('mapLocationIcon');
+        //const iconElement = document.createElement('div');
+        //iconElement.classList.add('mapLocationIcon');
         //setBodyIcon(location.TYPE, iconElement);
-        iconElement.style.marginTop = '15px';
-        div.appendChild(iconElement);
+       // iconElement.style.marginTop = '15px';
+        //div.appendChild(iconElement);
 
         const nameElement = document.createElement('p');
         nameElement.classList.add('atlas-label-name');
@@ -153,10 +157,9 @@ class AtlasLabelManager {
     }
 
     organize(distance, visibility, camera, focusBody) {
-        //console.log(focusBody);
         this.#organizeLabels_resetAll();
-        this.#organizeLabels_byDistance(distance, visibility);
         this.#organizeLabels_byFocus(focusBody);
+        this.#organizeLabels_byDistance(distance, visibility);
         this.#organizeLabels_hideOccluded(camera, focusBody);
     }
 
@@ -169,32 +172,59 @@ class AtlasLabelManager {
 
     #organizeLabels_byDistance(distance, visibility) {
         for (const label of this.allLabels) {
-            if (label.element.dataset.objectType === 'Solar System') {
+            if (label.element.dataset.visible === 'false') continue; 
+
+            const type = label.element.dataset.objectType;
+            
+            if (type === 'Solar System') {
                 label.element.dataset.visible = visibility;
 
-            } else if (label.element.dataset.objectType === 'Location') {
-                label.element.dataset.visible = (distance < 0.003) ? true : false;
+            } else if (
+                type === 'Star' ||
+                type === 'Planet' ||
+                type === 'Moon' ||
+                type === 'Lagrange Point' ||
+                type === 'Jump Point'
+            ) {
+                if (visibility) {
+                    label.element.dataset.visible = false;
+                }
+
+            } else if (type === 'Location') {
+                if (distance > 0.003) {
+                    label.element.dataset.visible = false;
+                }
             }
         }
     }
 
     #organizeLabels_byFocus(focusBody) {
+        const focusSystemName = focusBody.PARENT_STAR.NAME;
+
         for (const label of this.allLabels) {
-            if (label.element.datset.objectName === 'Hurston') {
-                console.log(label.element.dataset.visible);
-            }
-            if (label.element.dataset.visible === false) continue; 
+            if (label.element.dataset.visible === 'false') continue; 
 
-            if (label.element.dataset.objectType === 'Location') {
-                const location = getLocationByName(label.element.dataset.objectName);
-                const body = location.PARENT;
+            const type = label.element.dataset.objectType;
+            const systemName = label.element.dataset.systemName;
 
-                //console.log(location.NAME, body.NAME, (body === focusBody));
-                /*if (body.NAME === 'Hurston') {
-                    console.log(body, focusBody);
-                }*/
+            if (type === 'Solar System') {
+                continue;
 
-                label.element.dataset.visible = (body === focusBody) ? true : false;
+            } else if (type === 'Location') {
+
+                if (focusSystemName !== systemName) {
+                    label.element.dataset.visible = false;
+                    continue;
+                }
+
+                if (label.element.dataset.bodyName !== focusBody.NAME) {
+                    label.element.dataset.visible = false;
+                }
+
+            } else {
+                if (focusSystemName !== systemName) {
+                    label.element.dataset.visible = false;
+                }
             }
         }
     }
@@ -204,7 +234,7 @@ class AtlasLabelManager {
         const raycaster = new THREE.Raycaster();
 
         for (const label of this.allLabels) {
-            if (label.element.dataset.visible === false) continue;
+            if (label.element.dataset.visible === 'false') continue;
 
             const pos = new THREE.Vector3()
             label.getWorldPosition(pos);

@@ -112,7 +112,10 @@ function render() {
 
 	updateSolarSystemVisibility(visibility);
 	updateBodyRotation();
-	LabelManager.organize(distance, visibility, camera, focusBody);
+
+	if (renderer.info.render.frame % 5 === 0) {
+		LabelManager.organize(distance, visibility, camera, focusBody);
+	}
 
 	updateDebugInfo();
 }
@@ -340,7 +343,9 @@ document.addEventListener('createAtlasScene', () => {
 });
 async function createAtlasScene() {
 	if (scene.children.length !== 0) return;
-	
+
+	console.time('Create scene');
+
 	const ambientLight = new THREE.AmbientLight(0x535353);
 	scene.add(ambientLight);
 
@@ -358,6 +363,8 @@ async function createAtlasScene() {
 	createLabels();
 
 	document.dispatchEvent(new CustomEvent('atlasSceneReady'));
+
+	console.timeEnd('Create scene');
 }
 
 document.addEventListener('atlasSceneReady', () => {
