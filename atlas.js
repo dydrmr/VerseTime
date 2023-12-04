@@ -21,14 +21,7 @@ const mapScale = 10_000_000;
 let focusBody = null;
 let focusSystem = null;
 
-const planetObjects = Array();
-
-const css2dlabels = Array();
-
-const labelsSystems = Array();
-const labelsStars = Array();
-const labelsPlanets = Array();
-const labelsMoons = Array();
+const rotatingObjects = Array();
 
 // TODO:
 // Use THREE.js locally to eliminate map/atlas breaking when CDN loading times are high
@@ -128,6 +121,11 @@ function updateSolarSystemVisibility(visibility) {
 		if (object) {
 			object.visible = visibility;
 		}
+
+		const orbitLines = scene.getObjectByName(`ORBITLINES:${sys.NAME}`);
+		if (orbitLines) {
+			orbitLines.visible = visibility;
+		}
 	}
 }
 
@@ -142,7 +140,7 @@ function updateDebugInfo() {
  function updateBodyRotation() {
 	if (renderer.info.render.frame % 5 !== 0) return;
 
-	for (const container of planetObjects) {
+	for (const container of rotatingObjects) {
 		const body = container.userData.celestialBody;
 		
 		const meridian = body.ROTATING_MERIDIAN(body.PARENT_STAR);
@@ -168,7 +166,7 @@ function updateDebugInfo() {
 
 
 
-function setFocus(object) {
+export function setFocus(object) {
 	if (object instanceof Location) {
 		object = object.PARENT;
 	}
@@ -368,7 +366,7 @@ async function createAtlasScene() {
 }
 
 document.addEventListener('atlasSceneReady', () => {
-	const body = getBodyByName('Hurston');
+	const body = getBodyByName('Daymar');
 	setFocus(body);
 })
 
@@ -425,8 +423,8 @@ async function createStars() {
 		let radius;
 		if (isNaN(star.BODY_RADIUS)) {
 			radius = 10000;
-		} else if (star.BODY_RADIUS > 10_000_000) {
-			radius = 10_000_000;
+		} else if (star.BODY_RADIUS > 5_000_000) {
+			radius = 5_000_000;
 		} else {
 			radius = star.BODY_RADIUS;
 		}
@@ -464,14 +462,13 @@ function createSolarSystem(system) {
 	group.add(orbitLineGroup);
 
 	for (const body of bodies) {
-		//createCelestialBody(body, group);
 		createCelestialBodyWithContainer(body, group);
 		createOrbitLine(body, orbitLineGroup);
 	}
 }
 
 
-async function createCelestialBody(body, group) {
+/*async function createCelestialBody(body, group) {
 	let radius;
 	if (body.TYPE === 'Jump Point' || body.TYPE === 'Lagrange Point' || body.TYPE === 'Star') {
 		radius = 0.01;
@@ -494,7 +491,7 @@ async function createCelestialBody(body, group) {
 
 	bodyMesh.position.set(body.COORDINATES.x, body.COORDINATES.y, body.COORDINATES.z);
 	group.add(bodyMesh);
-}
+}*/
 
 async function createCelestialBodyWithContainer(body, group) {
 	let radius;
@@ -520,7 +517,7 @@ async function createCelestialBodyWithContainer(body, group) {
 	if (body.TYPE === 'Planet' || body.TYPE === 'Moon') {
 		// compensate for z = up coordinate system in THREE.js
 		bodyMesh.rotateX(Math.PI / 2);
-		planetObjects.push(bodyContainer);
+		rotatingObjects.push(bodyContainer);
 	}
 }
 

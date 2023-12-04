@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer';
 
 import { getLocationByName, getSystemByName } from '../../HelperFunctions.js';
+import { setFocus } from '../../atlas.js';
 import DB from './Database.js';
 import SolarSystem from '../SolarSystem.js';
 import Star from '../Star.js';
@@ -134,14 +135,14 @@ class AtlasLabelManager {
 
 
     #setLabelEvents(domElement, targetObject) {
-        console.error('TODO: label events not set')
-        return; 
-
         domElement.addEventListener('pointerdown', (event) => {
             if (event.button === 0) {
                 setFocus(targetObject);
             }
         });
+
+        console.warn('TODO: label infobox events not set');
+        return; 
 
         domElement.addEventListener('mouseenter', (event) => {
             showInfobox(targetObject, event);
@@ -181,12 +182,23 @@ class AtlasLabelManager {
 
             } else if (
                 type === 'Star' ||
-                type === 'Planet' ||
-                type === 'Moon' ||
-                type === 'Lagrange Point' ||
-                type === 'Jump Point'
+                type === 'Planet'
             ) {
                 if (visibility) {
+                    label.element.dataset.visible = false;
+                }
+
+                if (distance < 0.003) {
+                    label.element.dataset.visible = false;
+                }
+
+            } else if (type === 'Lagrange Point' || type === 'Jump Point') {
+                if (distance > 10) {
+                    label.element.dataset.visible = false;
+                }
+
+            } else if (type === 'Moon') {
+                if (distance > 0.25 || distance < 0.003) {
                     label.element.dataset.visible = false;
                 }
 
@@ -199,7 +211,12 @@ class AtlasLabelManager {
     }
 
     #organizeLabels_byFocus(focusBody) {
-        const focusSystemName = focusBody.PARENT_STAR.NAME;
+        let focusSystemName;
+        if (focusBody.TYPE === 'Star') {
+            focusSystemName = focusBody.NAME;
+        } else {
+            focusSystemName = focusBody.PARENT_STAR.NAME;
+        }
 
         for (const label of this.allLabels) {
             if (label.element.dataset.visible === 'false') continue; 
