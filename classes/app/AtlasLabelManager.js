@@ -95,7 +95,6 @@ class AtlasLabelManager {
        this.#setLabelEvents(div, location);
 
         const iconElement = document.createElement('div');
-        iconElement.classList.add('mapLocationIcon');
         this.#setBodyIcon(location.TYPE, iconElement);
         iconElement.style.marginTop = '15px';
         div.appendChild(iconElement);
@@ -126,10 +125,8 @@ class AtlasLabelManager {
     }
 
     #setBodyIcon(type, element) {
-        element.style.width = '10px';
-        element.style.height = '10px';
-        element.style.marginBottom = '2px';
-        element.style.opacity = '0.7 !important';
+        element.classList.add('mapLocationIcon');
+        element.classList.add('atlas-label-icon');
 
         if (type === 'Star') {
             element.classList.add('icon-star');
