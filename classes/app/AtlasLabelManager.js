@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer';
 
-import { getLocationByName, getSystemByName } from '../../HelperFunctions.js';
+import { getLocationByName, getBodyByName, getSystemByName } from '../../HelperFunctions.js';
 import { setFocus } from '../../atlas.js';
 import DB from './Database.js';
 import SolarSystem from '../SolarSystem.js';
@@ -80,15 +80,6 @@ class AtlasLabelManager {
         label.position.copy(labelPosition);
 
         group.add(label);
-
-        /*if (body.TYPE === 'Star') {
-            labelsStars.push(div);
-        } else if (body.TYPE === 'Planet') {
-            labelsPlanets.push(div);
-        } else if (body.TYPE === 'Moon') {
-            labelsMoons.push(div);
-        }*/
-
         this.allLabels.push(label);
     }
 
@@ -103,11 +94,11 @@ class AtlasLabelManager {
 
        this.#setLabelEvents(div, location);
 
-        //const iconElement = document.createElement('div');
-        //iconElement.classList.add('mapLocationIcon');
-        //setBodyIcon(location.TYPE, iconElement);
-       // iconElement.style.marginTop = '15px';
-        //div.appendChild(iconElement);
+        const iconElement = document.createElement('div');
+        iconElement.classList.add('mapLocationIcon');
+        this.#setBodyIcon(location.TYPE, iconElement);
+        iconElement.style.marginTop = '15px';
+        div.appendChild(iconElement);
 
         const nameElement = document.createElement('p');
         nameElement.classList.add('atlas-label-name');
@@ -115,9 +106,11 @@ class AtlasLabelManager {
         div.appendChild(nameElement);
 
         const label = new CSS2DObject(div);
-
-        const pos = new THREE.Vector3(location.COORDINATES.x, location.COORDINATES.y, location.COORDINATES.z);
-        const labelPosition = new THREE.Vector3().copy(pos);
+        const labelPosition = new THREE.Vector3(
+            location.COORDINATES_3DMAP.x * -1 * location.PARENT.BODY_RADIUS,
+            location.COORDINATES_3DMAP.y * location.PARENT.BODY_RADIUS,
+            location.COORDINATES_3DMAP.z * location.PARENT.BODY_RADIUS
+        );
         labelPosition.applyAxisAngle(new THREE.Vector3(0, 0, 1), Math.PI);
         label.position.copy(labelPosition);
 
@@ -132,7 +125,45 @@ class AtlasLabelManager {
         this.allLabels.push(label);
     }
 
+    #setBodyIcon(type, element) {
+        element.style.width = '10px';
+        element.style.height = '10px';
+        element.style.marginBottom = '2px';
+        element.style.opacity = '0.7 !important';
 
+        if (type === 'Star') {
+            element.classList.add('icon-star');
+
+        } else if (type === 'Planet' || type === 'Moon') {
+            element.classList.add('icon-planet');
+
+        } else if (type === 'Jump Point') {
+            element.classList.add('icon-wormhole');
+
+            /*	} else if (
+                    type === 'Underground bunker' ||
+                    type === 'Emergency shelter' ||
+                    type === 'Outpost' ||
+                    type === 'Prison' ||
+                    type === 'Shipwreck' ||
+                    type === 'Scrapyard' ||
+                    type === 'Settlement'
+                ) {
+                    element.classList.add('icon-outpost');
+            
+                } else if (
+                    type === 'Space station' ||
+                    type === 'Asteroid base'
+                ) {
+                    element.classList.add('icon-spacestation');
+            
+                } else if (type === 'Landing zone') {
+                    element.classList.add('icon-landingzone');*/
+
+        } else {
+            element.classList.add('icon-space');
+        }
+    }
 
     #setLabelEvents(domElement, targetObject) {
         domElement.addEventListener('pointerdown', (event) => {
@@ -193,7 +224,7 @@ class AtlasLabelManager {
                 }
 
             } else if (type === 'Lagrange Point' || type === 'Jump Point') {
-                if (distance > 10) {
+                if (distance > 8 || distance < 0.025) {
                     label.element.dataset.visible = false;
                 }
 
@@ -219,13 +250,25 @@ class AtlasLabelManager {
         }
 
         for (const label of this.allLabels) {
-            if (label.element.dataset.visible === 'false') continue; 
+            if (label.element.dataset.visible === 'false') continue;
 
             const type = label.element.dataset.objectType;
             const systemName = label.element.dataset.systemName;
 
             if (type === 'Solar System') {
                 continue;
+
+            } else if (type === 'Moon') {
+                const body = getBodyByName(label.element.textContent);
+                const parent = body.PARENT;
+
+                if (
+                    focusBody.NAME !== body.NAME &&
+                    focusBody.NAME !== parent.NAME &&
+                    focusBody.PARENT.NAME !== parent.NAME
+                ) {
+                    label.element.dataset.visible = false;
+                }
 
             } else if (type === 'Location') {
 

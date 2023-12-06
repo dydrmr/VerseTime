@@ -167,6 +167,7 @@
 #map-settings-window, #atlas-settings-window {
     bottom: 10px;
     left: 10px;
+    z-index: 800;
 }
 
     #map-settings-window h3, #atlas-settings-window h3 {

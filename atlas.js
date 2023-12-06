@@ -14,6 +14,9 @@ import Location from './classes/Location.js';
 
 
 let scene, camera, renderer, labelRenderer, controls, zoomControls;
+const loadingManager = new THREE.LoadingManager();
+const textureLoader = new THREE.TextureLoader(loadingManager);
+
 const atlasDiv = UI.el('atlas-container');
 const infoBox = UI.el('atlas-hoverinfo');
 
@@ -26,7 +29,10 @@ const rotatingObjects = Array();
 // TODO:
 // Use THREE.js locally to eliminate map/atlas breaking when CDN loading times are high
 // Loading screen
-// Orbit lines are too far out (due to star not being at 0, 0, 0)
+// make location labels visible based on radius of focusBody
+// make shadows toggleable
+// convert Lagrange points and jump points to group objects instead of object3ds
+// Some orbit lines are too far out (due to star not being at 0, 0, 0)
 // focus levels -> for easy scale changing. Ex: Galaxy, System, Planet, Moon (?), Location
 // current location indicator: quick selections to move up along the hierarchy
 // tree list of objects/locations in system
@@ -74,14 +80,31 @@ function setup() {
 	zoomControls.noPan = true;
 	zoomControls.noZoom = false;
 	zoomControls.zoomSpeed = 1.5;
-	zoomControls.maxDistance = 500;
-	zoomControls.minDistance = 0.0001;
+	zoomControls.maxDistance = 200;
+	zoomControls.minDistance = 0.00005;
 	zoomControls.zoomDampingFactor = 0.2;
 	zoomControls.smoothZoomSpeed = 5.0;
 
 	atlasDiv.appendChild(renderer.domElement);
 
 	LabelManager.scene = scene;
+}
+
+loadingManager.onStart = function (url, item, total) {
+	//console.log(`Loading assets`);
+	UI.el('atlas-loading-bar').value = 0;
+}
+loadingManager.onProgress = function (url, loaded, total) {
+	//console.log(`Loading ${loaded} of ${total}: ${url}`);
+	const percent = Math.round((loaded / total) * 100);
+	UI.el('atlas-loading-bar').value = percent;
+}
+loadingManager.onLoad = function () {
+	//console.log(`Loading complete`);
+	UI.el('atlas-loading-screen').style.opacity = 0;
+}
+loadingManager.onError = function (url) {
+	//console.log(`Error loading ${url}`);
 }
 
 function render() {
@@ -132,7 +155,7 @@ function updateSolarSystemVisibility(visibility) {
 function updateDebugInfo() {
 	if (!focusSystem) return;
 
-	UI.setText('atlas-zoom', 'Zoom: ' + round(controls.getDistance(), 4));
+	UI.setText('atlas-zoom', 'Zoom: ' + round(controls.getDistance(), 5));
 	UI.setText('atlas-focus-system', `Selected System: ${focusSystem.NAME}`);
 	UI.setText('atlas-focus-object', `Selected Body: ${focusBody ? focusBody.NAME : 'none'}`);
 }
@@ -337,24 +360,28 @@ function hideInfobox() {
 
 
 document.addEventListener('createAtlasScene', () => {
-	createAtlasScene();
+	setTimeout(() => {
+		createAtlasScene();
+	}, 50);
 });
 async function createAtlasScene() {
 	if (scene.children.length !== 0) return;
 
 	console.time('Create scene');
 
-	const ambientLight = new THREE.AmbientLight(0x535353);
+	const ambientLight = new THREE.AmbientLight(0x555555);
 	scene.add(ambientLight);
 
-	await createStarfield();
-	await createStars();
+	createStarfield();
+	createStars();
 
+	console.time('Create systems');
 	for (const system of DB.systems) {
 		await createSolarSystem(system);
 	}
-	
-	await createWormholeLines();
+	console.timeEnd('Create systems');
+
+	createWormholeLines();
 	createCircularGrid(300, 25);
 	createLollipops();
 	//createDebugLines();
@@ -441,7 +468,7 @@ async function createStars() {
 		group.add(object);
 
 		// LIGHT
-		const light = new THREE.PointLight('white', 1.2, 10, 0);
+		const light = new THREE.PointLight('white', 3, 10, 0);
 		light.position.set(pos.x + sysPos.x, pos.y + sysPos.y, pos.z + sysPos.z);
 		group.add(light);
 	}
@@ -506,7 +533,7 @@ async function createCelestialBodyWithContainer(body, group) {
 	bodyContainer.position.set(body.COORDINATES.x, body.COORDINATES.y, body.COORDINATES.z);
 	group.add(bodyContainer);
 
-	const geo = new THREE.SphereGeometry(radius, 36, 36);
+	const geo = new THREE.SphereGeometry(radius, 48, 48);
 	const mat = await createCelestialObjectMaterial(body);
 
 	const bodyMesh = new THREE.Mesh(geo, mat);
@@ -525,12 +552,12 @@ async function createCelestialObjectMaterial(body) {
 	let material;
 
 	if (body.TYPE === 'Planet' || body.TYPE === 'Moon') {
-		const loader = new THREE.TextureLoader();
+		//const loader = new THREE.TextureLoader();
 		const file = 'static/assets/' + body.NAME.toLowerCase() + '.webp';
 		let texture;
 
 		try {
-			texture = await loader.loadAsync(file);
+			texture = await textureLoader.loadAsync(file);
 			texture.colorSpace = THREE.SRGBColorSpace;
 			material = new THREE.MeshStandardMaterial({
 				map: texture
@@ -545,6 +572,13 @@ async function createCelestialObjectMaterial(body) {
 
 			return material;
 		}
+
+	} else if (body.TYPE === 'Lagrange Point' || body.TYPE === 'Jump Point') {
+		console.warn('TODO: use group object instead of sphere');
+		const materialColor = (body.TYPE === 'Star') ? `rgb(230, 200, 140)` : `rgb(${body.THEME_COLOR.r}, ${body.THEME_COLOR.g}, ${body.THEME_COLOR.b})`;
+		material = new THREE.MeshStandardMaterial({
+			color: materialColor,
+		});
 
 	} else {
 		const materialColor = (body.TYPE === 'Star') ? `rgb(230, 200, 140)` : `rgb(${body.THEME_COLOR.r}, ${body.THEME_COLOR.g}, ${body.THEME_COLOR.b})`;
@@ -783,46 +817,6 @@ function createLabels() {
 		hideInfobox(targetObject);
 	});
 }*/
-
-function setBodyIcon(type, element) {
-	element.style.width = '10px';
-	element.style.height = '10px';
-	element.style.marginBottom = '2px';
-	element.style.opacity = '0.7 !important';
-
-	if (type === 'Star') {
-		element.classList.add('icon-star');
-
-	} else if (type === 'Planet' || type === 'Moon') {
-		element.classList.add('icon-planet');
-
-	} else if (type === 'Jump Point') {
-		element.classList.add('icon-wormhole');
-
-/*	} else if (
-		type === 'Underground bunker' ||
-		type === 'Emergency shelter' ||
-		type === 'Outpost' ||
-		type === 'Prison' ||
-		type === 'Shipwreck' ||
-		type === 'Scrapyard' ||
-		type === 'Settlement'
-	) {
-		element.classList.add('icon-outpost');
-
-	} else if (
-		type === 'Space station' ||
-		type === 'Asteroid base'
-	) {
-		element.classList.add('icon-spacestation');
-
-	} else if (type === 'Landing zone') {
-		element.classList.add('icon-landingzone');*/
-
-	} else {
-		element.classList.add('icon-space');
-	}
-}
 
 
 
