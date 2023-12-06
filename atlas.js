@@ -3,7 +3,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls';
 import { TrackballControls }  from 'three/addons/controls/TrackballControls';
 import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer';
 
-import { round, calculateDistance3D, makeLine, makeCircle, getCelestialBodiesInSystem, getSystemByName, getBodyByName, readableNumber, random, convertPolarToCartesian, degrees, radians } from './HelperFunctions.js';
+import { round, calculateDistance2D, calculateDistance3D, makeLine, makeCircle, getCelestialBodiesInSystem, getSystemByName, getBodyByName, readableNumber, random, convertPolarToCartesian, degrees, radians } from './HelperFunctions.js';
 import Settings from './classes/app/Preferences.js';
 import DB from './classes/app/Database.js';
 import UI from './classes/app/UserInterface.js';
@@ -12,10 +12,24 @@ import LabelManager from './classes/app/AtlasLabelManager.js';
 import SolarSystem from './classes/SolarSystem.js';
 import Location from './classes/Location.js';
 
+let ready = false;
 
 let scene, camera, renderer, labelRenderer, controls, zoomControls;
 const loadingManager = new THREE.LoadingManager();
 const textureLoader = new THREE.TextureLoader(loadingManager);
+
+
+const orbitLineMaterial = new THREE.LineBasicMaterial({
+	color: `rgb(255, 255, 255)`,
+	transparent: true,
+	opacity: 0.05
+});
+
+const lollipopMaterial = new THREE.LineBasicMaterial({
+	color: `rgb(255, 255, 255)`,
+	transparent: true,
+	opacity: 0.05
+});
 
 const atlasDiv = UI.el('atlas-container');
 const infoBox = UI.el('atlas-hoverinfo');
@@ -28,7 +42,6 @@ const rotatingObjects = Array();
 
 // TODO:
 // Use THREE.js locally to eliminate map/atlas breaking when CDN loading times are high
-// Loading screen
 // make location labels visible based on radius of focusBody
 // make shadows toggleable
 // convert Lagrange points and jump points to group objects instead of object3ds
@@ -102,12 +115,14 @@ loadingManager.onProgress = function (url, loaded, total) {
 loadingManager.onLoad = function () {
 	//console.log(`Loading complete`);
 	UI.el('atlas-loading-screen').style.opacity = 0;
+	ready = true;
 }
 loadingManager.onError = function (url) {
 	//console.log(`Error loading ${url}`);
 }
 
 function render() {
+
 	const target = controls.target;
 	controls.update();
 	zoomControls.target.set(target.x, target.y, target.z);
@@ -117,6 +132,8 @@ function render() {
 	labelRenderer.render(scene, camera);
 	requestAnimationFrame(render);
 
+
+	if (!ready) return;
 	if (!UI.Atlas.show) return;
 
 
@@ -595,22 +612,22 @@ function createCircularGrid(size, spacing) {
 	group.name = 'Galaxy Grid';
 	scene.add(group);
 
-	const material = new THREE.LineBasicMaterial({
+	/*const material = new THREE.LineBasicMaterial({
 		color: `rgb(255, 255, 255)`,
 		transparent: true,
 		opacity: 0.075
-	});
+	});*/
 
 	const halfSize = size / 2;
 
-	const xAxis = makeLine(-halfSize, 0, 0, halfSize, 0, 0, material);
+	const xAxis = makeLine(-halfSize, 0, 0, halfSize, 0, 0, orbitLineMaterial);
 	group.add(xAxis);
 
-	const yAxis = makeLine(0, -halfSize, 0, 0, halfSize, 0, material);
+	const yAxis = makeLine(0, -halfSize, 0, 0, halfSize, 0, orbitLineMaterial);
 	group.add(yAxis);
 
 	for (let radius = spacing; radius <= halfSize; radius += spacing) {
-		const circle = makeCircle(radius, 120, 0, 0, 0, 0, 0, 0, material);
+		const circle = makeCircle(radius, 120, 0, 0, 0, 0, 0, 0, orbitLineMaterial);
 		group.add(circle);
 	}
 
@@ -621,23 +638,17 @@ function createLollipops(size = 0.5) {
 	group.name = 'Lollipops';
 	scene.add(group);
 
-	const material = new THREE.LineBasicMaterial({
-		color: `rgb(255, 255, 255)`,
-		transparent: true,
-		opacity: 0.05
-	});
-
 	for (const system of DB.systems) {
 		if (system.NAME === 'Sol') continue;
 
 		// Stalk
-		const line = makeLine(system.COORDINATES.x, system.COORDINATES.y, system.COORDINATES.z, system.COORDINATES.x, system.COORDINATES.y, 0, material);
+		const line = makeLine(system.COORDINATES.x, system.COORDINATES.y, system.COORDINATES.z, system.COORDINATES.x, system.COORDINATES.y, 0, lollipopMaterial);
 		group.add(line);
 
 		// Cross
-		const cross1 = makeLine(system.COORDINATES.x, system.COORDINATES.y - size, 0, system.COORDINATES.x, system.COORDINATES.y + size, 0, material);
+		const cross1 = makeLine(system.COORDINATES.x, system.COORDINATES.y - size, 0, system.COORDINATES.x, system.COORDINATES.y + size, 0, lollipopMaterial);
 		group.add(cross1);
-		const cross2 = makeLine(system.COORDINATES.x - size, system.COORDINATES.y, 0, system.COORDINATES.x + size, system.COORDINATES.y, 0, material);
+		const cross2 = makeLine(system.COORDINATES.x - size, system.COORDINATES.y, 0, system.COORDINATES.x + size, system.COORDINATES.y, 0, lollipopMaterial);
 		group.add(cross2);
 	}
 }
@@ -651,15 +662,15 @@ function createOrbitLine(body, group) {
 		return;
 	}
 
-	const material = new THREE.LineBasicMaterial({
-		color: `rgb(255, 255, 255)`,
-		transparent: true,
-		opacity: 0.05
-	});
+	const center = body.PARENT.TYPE === 'Star' ? { 'x': body.PARENT.COORDINATES.x, 'y': body.PARENT.COORDINATES.y, 'z': 0 } : body.PARENT.COORDINATES;
+	//const radius = body.ORBITAL_RADIUS;
 
-	const center = body.PARENT.TYPE === 'Star' ? { 'x': 0, 'y': 0, 'z': 0 } : body.PARENT.COORDINATES;
-	const radius = body.ORBITAL_RADIUS;
-	const circle = makeCircle(radius, 240, center.x, center.y, center.z, 0, 0, 0, material);
+	let radius = body.ORBITAL_RADIUS;
+	if (body.PARENT.TYPE === 'Star') {
+		radius = calculateDistance2D(body.COORDINATES.x, body.COORDINATES.y, body.PARENT.COORDINATES.x, body.PARENT.COORDINATES.y);
+	}
+
+	const circle = makeCircle(radius, 2400, center.x, center.y, center.z, 0, 0, 0, orbitLineMaterial);
 	group.add(circle);
 }
 
@@ -703,6 +714,32 @@ async function createWormholeLines(precise = false) {
 }
 
 function createDebugLines() {
+	const xMaterial = new THREE.LineBasicMaterial({
+		color: 'red',
+		transparent: true,
+		opacity: 0.4
+	});
+	const yMaterial = new THREE.LineBasicMaterial({
+		color: 'green',
+		transparent: true,
+		opacity: 0.4
+	});
+	const zMaterial = new THREE.LineBasicMaterial({
+		color: 'blue',
+		transparent: true,
+		opacity: 0.4
+	});
+	const sunMaterial = new THREE.LineBasicMaterial({
+		color: 'yellow',
+		transparent: true,
+		opacity: 0.5
+	});
+	const meridianMaterial = new THREE.LineBasicMaterial({
+		color: 'darkorange',
+		transparent: true,
+		opacity: 0.5
+	});
+
 	for (const body of DB.bodies) {
 		if (body.TYPE !== 'Planet' && body.TYPE !== 'Moon') continue;
 
@@ -714,22 +751,6 @@ function createDebugLines() {
 		// XYZ REFERENCE LINES
 		const bodyContainerName = `BODYCONTAINER:${body.NAME}`;
 		const containerObject = scene.getObjectByName(bodyContainerName);
-
-		const xMaterial = new THREE.LineBasicMaterial({
-			color: 'red',
-			transparent: true,
-			opacity: 0.4
-		});
-		const yMaterial = new THREE.LineBasicMaterial({
-			color: 'green',
-			transparent: true,
-			opacity: 0.4
-		});
-		const zMaterial = new THREE.LineBasicMaterial({
-			color: 'blue',
-			transparent: true,
-			opacity: 0.4
-		});
 
 		const length = body.BODY_RADIUS * 3;
 		const lineX = makeLine(0, 0, 0, length, 0, 0, xMaterial);
@@ -747,11 +768,6 @@ function createDebugLines() {
 		const v2 = new THREE.Vector3(body.PARENT_STAR.COORDINATES.x, body.PARENT_STAR.COORDINATES.y, body.PARENT_STAR.COORDINATES.z);
 		direction.subVectors(v2, v1).normalize().multiplyScalar(length * 3);
 
-		const sunMaterial = new THREE.LineBasicMaterial({
-			color: 'yellow',
-			transparent: true,
-			opacity: 0.5
-		});
 		const sunLine = makeLine(
 			body.COORDINATES.x,
 			body.COORDINATES.y,
@@ -766,12 +782,6 @@ function createDebugLines() {
 
 		// CALCULATED STAR MERIDIAN LINE
 		const meridian = body.ROTATING_MERIDIAN(body.PARENT_STAR);
-
-		const meridianMaterial = new THREE.LineBasicMaterial({
-			color: 'darkorange',
-			transparent: true,
-			opacity: 0.5
-		});
 		const meridianLine = makeLine(0, 0, 0, length * 3, 0, 0, meridianMaterial);
 		meridianLine.rotateZ(radians(meridian));
 		containerObject.add(meridianLine);
