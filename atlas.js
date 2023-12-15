@@ -174,6 +174,7 @@ function updateDebugInfo() {
 	UI.setText('atlas-zoom', 'Zoom: ' + round(controls.getDistance(), 5));
 	UI.setText('atlas-focus-system', `Selected System: ${focusSystem.NAME}`);
 	UI.setText('atlas-focus-object', `Selected Body: ${focusBody ? focusBody.NAME : 'none'}`);
+	UI.setText('atlas-focus-object-class', `Class: ${focusBody.constructor.name}`);
 }
 
  function updateBodyRotation() {
