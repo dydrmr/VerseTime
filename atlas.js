@@ -175,7 +175,7 @@ function updateDebugInfo() {
 	UI.setText('atlas-debug-x', round(camera.position.x, 6));
 	UI.setText('atlas-debug-y', round(camera.position.y, 6));
 	UI.setText('atlas-debug-z', round(camera.position.z, 6));
-	UI.setText('atlas-focus-system',focusSystem.NAME);
+	UI.setText('atlas-focus-system', focusSystem.NAME);
 	UI.setText('atlas-focus-object', focusBody ? focusBody.NAME : 'none');
 	UI.setText('atlas-focus-object-class', focusBody.constructor.name);
 }

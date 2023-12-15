@@ -606,7 +606,7 @@ class UserInterface {
 
 		let indentationString = '';
         for (let i = 0; i < indentation; i++) {
-			indentationString += '-';
+			indentationString += '--';
         }
 
 		element.textContent = `${indentationString} ${object.NAME}`;
