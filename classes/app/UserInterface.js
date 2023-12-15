@@ -3,6 +3,7 @@ import Settings from './Preferences.js';
 import DB from './Database.js';
 import Window from './Window.js';
 
+
 class UserInterface {
     constructor() {
         if (UserInterface.instance) return UserInterface.instance;
@@ -428,8 +429,10 @@ class UserInterface {
 	}
 
 
+	// ===============
+	// LOCAL MAP
+	// ===============
 
-	// FUNCTIONS FOR LOCAL MAP WINDOW
 	setMapLocation(locationName) {
 		const location = getLocationByName(locationName);
 
@@ -532,6 +535,93 @@ class UserInterface {
 		UI.el('map-locationinfo-window').style.opacity = 0;
 		UI.mapHoverLocation = null;
 		clearInterval(UI.#updateMapLocationData);
+	}
+
+
+	// ===============
+	// ATLAS
+	// ===============
+
+	populateAtlasSidebar(system) {
+		const e = UI.el('atlas-sidebar');
+		e.innerHTML = '<h2>System Overview</h2>';
+
+
+		// STARS
+		const stars = DB.stars.filter((s) => {
+			return s.PARENT_SYSTEM === system;
+		});
+
+		for (const star of stars) {
+			this.#createAtlasSidebarSelector(star, 0);
+		}
+
+
+		// CHILDREN
+		const parentStar = stars[0];
+
+		const children = DB.bodies.filter((b) => {
+			if (
+				b.PARENT &&
+				b.PARENT.NAME === parentStar.NAME
+			) {
+				return true;
+			}
+		});
+
+		children.sort((a, b) => {
+			return (a.ORDINAL < b.ORDINAL) ? -1 : (a.ORDINAL > b.ORDINAL) ? 1 : 0;
+		});
+
+		for (const body of children) {
+			this.#createAtlasSidebarSelector(body, 1);
+
+			const grandChildren = DB.bodies.filter((b) => {
+				if (
+					b.PARENT &&
+					b.PARENT.NAME === body.NAME
+				) {
+					return true;
+				}
+			});
+
+			grandChildren.sort((a, b) => {
+				return (a.ORDINAL < b.ORDINAL) ? -1 : (a.ORDINAL > b.ORDINAL) ? 1 : 0;
+			});
+
+			if (grandChildren.length > 0) {
+				for (const bodyTwo of grandChildren) {
+					this.#createAtlasSidebarSelector(bodyTwo, 2);
+				}
+			}
+
+		}
+
+
+	}
+
+	#createAtlasSidebarSelector(object, indentation) {
+		const element = document.createElement('p');
+		element.classList.add('atlas-sidebar-object-selector');
+
+		let indentationString = '';
+        for (let i = 0; i < indentation; i++) {
+			indentationString += '-';
+        }
+
+		element.textContent = `${indentationString} ${object.NAME}`;
+
+		element.addEventListener('click', () => {
+			let event = new CustomEvent('changeAtlasFocus', {
+				'detail': {
+					newObject: object
+				}
+			});
+			document.dispatchEvent(event);
+		});
+
+
+		UI.el('atlas-sidebar').appendChild(element);
 	}
 }
 

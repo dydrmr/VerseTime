@@ -104,17 +104,15 @@ function setup() {
 }
 
 loadingManager.onStart = function (url, item, total) {
-	//console.log(`Loading assets`);
 	UI.el('atlas-loading-bar').value = 0;
 }
 loadingManager.onProgress = function (url, loaded, total) {
-	//console.log(`Loading ${loaded} of ${total}: ${url}`);
 	const percent = Math.round((loaded / total) * 100);
 	UI.el('atlas-loading-bar').value = percent;
 }
 loadingManager.onLoad = function () {
-	//console.log(`Loading complete`);
 	UI.el('atlas-loading-screen').style.opacity = 0;
+	UI.populateAtlasSidebar(focusSystem);
 	ready = true;
 }
 loadingManager.onError = function (url) {
@@ -205,8 +203,14 @@ function updateDebugInfo() {
 
 
 
+document.addEventListener('changeAtlasFocus', (e) => {
+	setFocus(e.detail.newObject);
+});
 
 export function setFocus(object) {
+	let oldFocusSystem = focusSystem;
+	let oldFocusBody = focusBody;
+
 	if (object instanceof Location) {
 		object = object.PARENT;
 	}
@@ -234,11 +238,18 @@ export function setFocus(object) {
 	}
 
 	UI.setText('atlas-hierarchy', textString);
+	UI.populateAtlasSidebar(focusSystem);
 
-	setFocus_moveCamera(object);
+	setFocus_moveCamera(object, oldFocusBody);
 }
 
-function setFocus_moveCamera(object) {
+function setFocus_moveCamera(object, oldFocusBody) {
+	// DETERMINE NEW CAMERA POSITION
+	let relativeVector = new THREE.Vector3();
+	console.log('Old Focus Body:', oldFocusBody);
+
+
+	// DETERMINE NEW TARGET POSITION
 	let target = null;
 
 	if (object instanceof SolarSystem) {
@@ -266,6 +277,7 @@ function setFocus_moveCamera(object) {
 		mesh.getWorldPosition(target);
 	}
 
+	// SET NEW TARGET
 	controls.target.copy(target);
 	controls.update();
 	zoomControls.target.copy(target);

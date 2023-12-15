@@ -266,56 +266,66 @@
 
 
 
-	<section class="modal" id="modal-atlas">
-		<div id="atlas-container">
-			<div id="atlas-loading-screen">
-				<div>
-					<p>Loading</p>
-					<progress id="atlas-loading-bar" value="0" max="100"> </progress>
+    <section class="modal" id="modal-atlas">
+        <div id="atlas-loading-screen">
+            <div>
+                <p>Loading</p>
+				<div class="la-ball-newton-cradle">
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
 				</div>
-			</div>
+                <progress id="atlas-loading-bar" value="0" max="100"> </progress>
+            </div>
+        </div>
 
-			<button id="BUTTON-close-atlas" class="closeButton"></button>
+        <button id="BUTTON-close-atlas" class="closeButton"></button>
 
-			<div id="atlas-debug-info">
-				<p>ASTRO ATLAS : ALPHA VERSION : DEBUG DATA</p>
-				<p id="atlas-zoom"></p>
-				<p id="atlas-label-render"></p>
-				<p id="atlas-focus-system"></p>
-				<p id="atlas-focus-object"></p>
-			</div>
+
+        <div id="atlas-container">
+
+            <div id="atlas-debug-info">
+                <p>ASTRO ATLAS : ALPHA VERSION : DEBUG DATA</p>
+                <p id="atlas-zoom"></p>
+                <p id="atlas-label-render"></p>
+                <p id="atlas-focus-system"></p>
+                <p id="atlas-focus-object"></p>
+            </div>
+
+            <div id="atlas-sidebar" class="map-window">
+                <h2>System Overview</h2>
+                <p>-- Not Initialized --</p>
+            </div>
 
 			<div id="atlas-hierarchy">
-				STANTON ▸ HURSTON ▸ ABERDEEN
+				SYSTEM ▸ BODY ▸ CHILDBODY ▸ LOCATION
 			</div>
 
-			<div id="atlas-hoverinfo" class="atlas-ui-window"></div>
+            <div id="atlas-hoverinfo" class="atlas-ui-window"></div>
 
-			<div id="BUTTON-atlas-zoom-in">+</div>
-			<div id="BUTTON-atlas-zoom-out">-</div>
+            <div id="atlas-settings-window" class="map-window">
+                <h3>Settings</h3>
+                <div id="atlas-settings-container">
+                    <p>Lollipops</p>
+                    <input type="checkbox" id="atlas-settings-show-lollipops" checked>
 
-			<div id="atlas-settings-window" class="map-window">
-				<h3>Settings</h3>
-				<div id="atlas-settings-container">
-					<p>Lollipops</p>
-					<input type="checkbox" id="atlas-settings-show-lollipops" checked>
+                    <p>Wormholes</p>
+                    <input type="checkbox" id="atlas-settings-show-wormholes" checked>
 
-					<p>Wormholes</p>
-					<input type="checkbox" id="atlas-settings-show-wormholes" checked>
+                    <p>Affliation</p>
+                    <input type="checkbox" id="atlas-settings-show-affiliation" checked>
 
-					<p>Affliation</p>
-					<input type="checkbox" id="atlas-settings-show-affiliation" checked>
+                    <p>Polar Grid</p>
+                    <input type="checkbox" id="atlas-settings-show-grid" checked>
 
-					<p>Polar Grid</p>
-					<input type="checkbox" id="atlas-settings-show-grid" checked>
+                    <p>Starfield</p>
+                    <input type="checkbox" id="atlas-settings-show-starfield" checked>
+                </div>
+            </div>
 
-					<p>Starfield</p>
-					<input type="checkbox" id="atlas-settings-show-starfield" checked>
-				</div>
-			</div>
-
-		</div>
-	</section>
+        </div>
+    </section>
 
 
 
