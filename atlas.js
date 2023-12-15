@@ -171,10 +171,13 @@ function updateSolarSystemVisibility(visibility) {
 function updateDebugInfo() {
 	if (!focusSystem) return;
 
-	UI.setText('atlas-zoom', 'Zoom: ' + round(controls.getDistance(), 5));
-	UI.setText('atlas-focus-system', `Selected System: ${focusSystem.NAME}`);
-	UI.setText('atlas-focus-object', `Selected Body: ${focusBody ? focusBody.NAME : 'none'}`);
-	UI.setText('atlas-focus-object-class', `Class: ${focusBody.constructor.name}`);
+	UI.setText('atlas-zoom', round(controls.getDistance(), 5));
+	UI.setText('atlas-debug-x', round(camera.position.x, 6));
+	UI.setText('atlas-debug-y', round(camera.position.y, 6));
+	UI.setText('atlas-debug-z', round(camera.position.z, 6));
+	UI.setText('atlas-focus-system',focusSystem.NAME);
+	UI.setText('atlas-focus-object', focusBody ? focusBody.NAME : 'none');
+	UI.setText('atlas-focus-object-class', focusBody.constructor.name);
 }
 
  function updateBodyRotation() {
@@ -260,11 +263,6 @@ export function setFocus(object) {
 }
 
 function setFocus_moveCamera(object, oldFocusBody) {
-	// DETERMINE NEW CAMERA POSITION
-	let relativeVector = new THREE.Vector3();
-	console.log('Old Focus Body:', oldFocusBody);
-
-
 	// DETERMINE NEW TARGET POSITION
 	let target = null;
 
@@ -298,6 +296,20 @@ function setFocus_moveCamera(object, oldFocusBody) {
 	controls.update();
 	zoomControls.target.copy(target);
 	zoomControls.update();
+
+	// MOVE CAMERA
+	if (oldFocusBody) {
+		const oldMesh = scene.getObjectByName(oldFocusBody.NAME);
+		const oldMeshPosition = new THREE.Vector3();
+		oldMesh.getWorldPosition(oldMeshPosition);
+
+		const relativeVector = new THREE.Vector3();
+		relativeVector.subVectors(camera.position, oldMeshPosition);
+
+		const newVector = new THREE.Vector3();
+		newVector.addVectors(target, relativeVector);
+		camera.position.copy(newVector);
+	}
 }
 
 

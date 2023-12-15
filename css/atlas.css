@@ -143,11 +143,23 @@
 #atlas-debug-info {
     position: absolute;
     top: 0px;
-    left: 200px;
-    margin: 7px;
-    color: white;
-    font-size: 12px;
+    left: 160px;
+    margin: 10px;
+    padding: 10px;
+    z-index: 999;
+
+    color: yellow;
+    background-color: rgba(255, 255, 0, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 5px;
+
+    font-size: 10px;
     font-family: 'Roboto Mono', monospace;
+}
+
+.atlas-debug-header {
+    margin-bottom: 4px;
+    text-transform: uppercase;
 }
 
 #atlas-settings-window {
