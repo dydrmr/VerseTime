@@ -262,6 +262,17 @@ export function getSystemByName(string) {
 	return result[0];
 }
 
+export function getStarByName(string) {
+	const result = DB.stars.filter(star => star.NAME === string);
+
+	if (result.length === 0) {
+		console.error(`Star "${string}" not found.`);
+		return null;
+	}
+
+	return result[0];
+}
+
 export function getBodyByName(string) {
 	const result = DB.bodies.filter(bod => bod.NAME === string);
 
