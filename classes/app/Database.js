@@ -177,6 +177,14 @@ class Database {
                 'radius-outer': parseFloat(data.ringRadiusOuter)
             }
         }
+
+        if (data.ordinal !== '') {
+            body.ORDINAL = data.ordinal;
+        } else if (data.type = 'Lagrange Point') {
+            body.ORDINAL = '99';
+        } else {
+            body.ORDINAL = '0';
+        }
     }
 
     static async createLocations() {
