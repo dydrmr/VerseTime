@@ -240,7 +240,7 @@ class AtlasLabelManager {
 
     #organizeLabels_byFocus(focusBody) {
         let focusSystemName;
-        if (focusBody.TYPE === 'Star') {
+        if (focusBody instanceof Star) {
             focusSystemName = focusBody.NAME;
         } else {
             focusSystemName = focusBody.PARENT_STAR.NAME;
@@ -262,7 +262,7 @@ class AtlasLabelManager {
                 if (
                     focusBody.NAME !== body.NAME &&
                     focusBody.NAME !== parent.NAME &&
-                    focusBody.PARENT.NAME !== parent.NAME
+                    focusBody.PARENT?.NAME !== parent.NAME
                 ) {
                     label.element.dataset.visible = false;
                 }

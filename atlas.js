@@ -3,13 +3,14 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls';
 import { TrackballControls }  from 'three/addons/controls/TrackballControls';
 import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer';
 
-import { round, calculateDistance2D, calculateDistance3D, makeLine, makeCircle, getCelestialBodiesInSystem, getSystemByName, getBodyByName, readableNumber, random, convertPolarToCartesian, degrees, radians } from './HelperFunctions.js';
+import { round, calculateDistance2D, calculateDistance3D, makeLine, makeCircle, getCelestialBodiesInSystem, getSystemByName, getBodyByName, getStarByName, readableNumber, random, convertPolarToCartesian, degrees, radians } from './HelperFunctions.js';
 import Settings from './classes/app/Preferences.js';
 import DB from './classes/app/Database.js';
 import UI from './classes/app/UserInterface.js';
 import LabelManager from './classes/app/AtlasLabelManager.js';
 
 import SolarSystem from './classes/SolarSystem.js';
+import Star from './classes/Star.js';
 import Location from './classes/Location.js';
 
 let ready = false;
@@ -218,7 +219,21 @@ export function setFocus(object) {
 	// SET GLOBALS
 	if (object instanceof SolarSystem) {
 		focusSystem = object;
-		focusBody = getBodyByName(object.NAME);
+
+		const stars = DB.stars.filter((s) => {
+			if (s.PARENT_SYSTEM === focusSystem) {
+				return true;
+			}
+		})
+
+		if (!stars) {
+			console.error('Star not found!');
+			focusBody = null;
+		} else {
+			focusBody = getStarByName(stars[0].NAME);
+			object = focusBody;
+		}
+		
 	} else {
 		const systemName = (object.TYPE === 'Star') ? object.NAME : object.PARENT_STAR.NAME;
 		focusSystem = getSystemByName(systemName);
@@ -229,7 +244,7 @@ export function setFocus(object) {
 	const el = UI.el('atlas-hierarchy');
 
 	let textString = '';
-	if (object instanceof SolarSystem || object.TYPE === 'Star') {
+	if (object instanceof SolarSystem || object instanceof Star) {
 		textString = object.NAME;
 	} else if (object.TYPE === 'Planet' || object.TYPE === 'Jump Point') {
 		textString = `${focusSystem.NAME} ▸ ${focusBody.NAME}`;
@@ -494,6 +509,7 @@ async function createStars() {
 
 		const object = new THREE.Mesh(geo, mat);
 		object.position.set(pos.x + sysPos.x, pos.y + sysPos.y, pos.z + sysPos.z);
+		object.name = star.NAME;
 		group.add(object);
 
 		// LIGHT
