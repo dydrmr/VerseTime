@@ -216,7 +216,8 @@ export function setFocus(object) {
 	let oldFocusBody = focusBody;
 
 	if (object instanceof Location) {
-		object = object.PARENT;
+		focusBody = object.PARENT;
+		focusSystem = object.getSystemByName(focusBody.PARENT_STAR.NAME);
 	}
 
 	// SET GLOBALS
@@ -224,30 +225,18 @@ export function setFocus(object) {
 		const stars = DB.getStarsInSystem(object);
 		focusBody = getStarByName(stars[0].NAME);
 		focusSystem = object;
-		object = focusBody;
 		
 	} else {
 		const systemName = (object.TYPE === 'Star') ? object.NAME : object.PARENT_STAR.NAME;
 		focusSystem = getSystemByName(systemName);
 		focusBody = object;
 	}
+	
+	setFocus_moveCamera(focusBody, oldFocusBody);
 
-	// UPDATE UI
-	const el = UI.el('atlas-hierarchy');
-
-	let textString = '';
-	if (object instanceof SolarSystem || object instanceof Star) {
-		textString = object.NAME;
-	} else if (object.TYPE === 'Planet' || object.TYPE === 'Jump Point') {
-		textString = `${focusSystem.NAME} ▸ ${focusBody.NAME}`;
-	} else {
-		textString = `${focusSystem.NAME} ▸ ${focusBody.PARENT.NAME} ▸ ${focusBody.NAME}`;
-	}
-
-	UI.setText('atlas-hierarchy', textString);
+	UI.updateAtlasHierarchy(focusBody, focusSystem);
 	UI.populateAtlasSidebar(focusSystem);
 
-	setFocus_moveCamera(object, oldFocusBody);
 }
 
 function setFocus_moveCamera(object, oldFocusBody) {
