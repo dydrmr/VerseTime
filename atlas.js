@@ -213,7 +213,6 @@ document.addEventListener('changeAtlasFocus', (e) => {
 });
 
 export function setFocus(object) {
-	let oldFocusSystem = focusSystem;
 	let oldFocusBody = focusBody;
 
 	if (object instanceof Location) {
@@ -222,21 +221,10 @@ export function setFocus(object) {
 
 	// SET GLOBALS
 	if (object instanceof SolarSystem) {
+		const stars = DB.getStarsInSystem(object);
+		focusBody = getStarByName(stars[0].NAME);
 		focusSystem = object;
-
-		const stars = DB.stars.filter((s) => {
-			if (s.PARENT_SYSTEM === focusSystem) {
-				return true;
-			}
-		})
-
-		if (!stars) {
-			console.error('Star not found!');
-			focusBody = null;
-		} else {
-			focusBody = getStarByName(stars[0].NAME);
-			object = focusBody;
-		}
+		object = focusBody;
 		
 	} else {
 		const systemName = (object.TYPE === 'Star') ? object.NAME : object.PARENT_STAR.NAME;
@@ -264,37 +252,32 @@ export function setFocus(object) {
 
 function setFocus_moveCamera(object, oldFocusBody) {
 	// DETERMINE NEW TARGET POSITION
-	let target = null;
+	const newCameraTarget = new THREE.Vector3();
+	let objectMesh = null;
 
 	if (object instanceof SolarSystem) {
-		let body = null;
-		body = getBodyByName(object.NAME);
+		const stars = DB.getStarsInSystem(focusSystem);
 
-		if (!body) {
-			target = new THREE.Vector3(object.COORDINATES.x, object.COORDINATES.y, object.COORDINATES.z);
+		if (!stars) {
+			console.error('Star not found!');
 		} else {
-			target = new THREE.Vector3();
-			const mesh = scene.getObjectByName(object.NAME);
-			mesh.getWorldPosition(target);
+			objectMesh = scene.getObjectByName(stars[0].NAME);
 		}
 
 	} else if (object.TYPE === 'Planet' || object.TYPE === 'Moon') {
-		// because textures take time to load, use container object instead
-		target = new THREE.Vector3();
 		const objectName = `BODYCONTAINER:${object.NAME}`;
-		const mesh = scene.getObjectByName(objectName);
-		mesh.getWorldPosition(target);
+		objectMesh = scene.getObjectByName(objectName);
 
 	} else {
-		target = new THREE.Vector3();
-		const mesh = scene.getObjectByName(object.NAME);
-		mesh.getWorldPosition(target);
+		objectMesh = scene.getObjectByName(object.NAME);
 	}
 
+	objectMesh.getWorldPosition(newCameraTarget);
+
 	// SET NEW TARGET
-	controls.target.copy(target);
+	controls.target.copy(newCameraTarget);
 	controls.update();
-	zoomControls.target.copy(target);
+	zoomControls.target.copy(newCameraTarget);
 	zoomControls.update();
 
 	// MOVE CAMERA
@@ -307,7 +290,7 @@ function setFocus_moveCamera(object, oldFocusBody) {
 		relativeVector.subVectors(camera.position, oldMeshPosition);
 
 		const newVector = new THREE.Vector3();
-		newVector.addVectors(target, relativeVector);
+		newVector.addVectors(newCameraTarget, relativeVector);
 		camera.position.copy(newVector);
 	}
 }
