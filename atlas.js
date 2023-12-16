@@ -43,13 +43,10 @@ const rotatingObjects = Array();
 
 // TODO:
 // Use THREE.js locally to eliminate map/atlas breaking when CDN loading times are high
+// BUG: when switching from atlas to local map and back to atlas, all atlas location labels lose their icons
 // make location labels visible based on radius of focusBody
 // make shadows toggleable
 // convert Lagrange points and jump points to group objects instead of object3ds
-// Some orbit lines are too far out (due to star not being at 0, 0, 0)
-// focus levels -> for easy scale changing. Ex: Galaxy, System, Planet, Moon (?), Location
-// current location indicator: quick selections to move up along the hierarchy
-// tree list of objects/locations in system
 // NOTE: map-window CSS CLASS MIS-USED AS ID; CREATE map-container AND ADJUST CODE WHERE APPLICABLE
 
 setup();
@@ -263,19 +260,25 @@ function setFocus_moveCamera(object, oldFocusBody) {
 	zoomControls.target.copy(newCameraTarget);
 	zoomControls.update();
 
+	if (!oldFocusBody) return;
+
 	// MOVE CAMERA
-	if (oldFocusBody) {
-		const oldMesh = scene.getObjectByName(oldFocusBody.NAME);
-		const oldMeshPosition = new THREE.Vector3();
-		oldMesh.getWorldPosition(oldMeshPosition);
+	const oldMesh = scene.getObjectByName(oldFocusBody.NAME);
+	const oldMeshPosition = new THREE.Vector3();
+	oldMesh.getWorldPosition(oldMeshPosition);
 
-		const relativeVector = new THREE.Vector3();
-		relativeVector.subVectors(camera.position, oldMeshPosition);
+	const relativeVector = new THREE.Vector3();
+	relativeVector.subVectors(camera.position, oldMeshPosition);
 
-		const newCameraPosition = new THREE.Vector3();
-		newCameraPosition.addVectors(newCameraTarget, relativeVector);
-		camera.position.copy(newCameraPosition);
+	//if (object.TYPE === 'Star' || object.TYPE === 'Planet' || object.TYPE === 'Moon') {
+	if (object.BODY_RADIUS) {
+		const min = (object.BODY_RADIUS * 1.5) / mapScale;
+		relativeVector.clampLength(min, 500);
 	}
+
+	const newCameraPosition = new THREE.Vector3();
+	newCameraPosition.addVectors(newCameraTarget, relativeVector);
+	camera.position.copy(newCameraPosition);
 }
 
 
