@@ -19,6 +19,7 @@ class UserInterface {
 		this.atlasContainer = document.getElementById('atlas-container');
 		this.mapModal = document.getElementById('modal-map');
 		this.mapContainer = document.getElementById('map-window');
+		this.atlasInfobox = document.getElementById('atlas-hoverinfo');
 
 		this.mapHoverLocation = null;
 
@@ -601,23 +602,6 @@ class UserInterface {
 		}
 	}
 
-	updateAtlasHierarchy(focusBody, focusSystem) {
-		//const el = UI.el('atlas-hierarchy');
-
-		let textString = '';
-		if (focusBody instanceof SolarSystem || focusBody instanceof Star) {
-			textString = focusBody.NAME;
-
-		} else if (focusBody.TYPE === 'Planet' || focusBody.TYPE === 'Jump Point') {
-			textString = `${focusSystem.NAME} ▸ ${focusBody.NAME}`;
-
-		} else {
-			textString = `${focusSystem.NAME} ▸ ${focusBody.PARENT.NAME} ▸ ${focusBody.NAME}`;
-		}
-
-		UI.setText('atlas-hierarchy', textString);
-	}
-
 	#createAtlasSidebarSelector(object, indentation) {
 		const element = document.createElement('p');
 		element.classList.add('atlas-sidebar-object-selector');
@@ -640,6 +624,35 @@ class UserInterface {
 
 
 		UI.el('atlas-sidebar').appendChild(element);
+	}
+
+	updateAtlasHierarchy(focusBody, focusSystem) {
+		let textString = '';
+		if (focusBody instanceof SolarSystem || focusBody instanceof Star) {
+			textString = focusBody.NAME;
+
+		} else if (focusBody.TYPE === 'Planet' || focusBody.TYPE === 'Jump Point') {
+			textString = `${focusSystem.NAME} ▸ ${focusBody.NAME}`;
+
+		} else {
+			textString = `${focusSystem.NAME} ▸ ${focusBody.PARENT.NAME} ▸ ${focusBody.NAME}`;
+		}
+
+		UI.setText('atlas-hierarchy', textString);
+	}
+
+	showAtlasInfobox(object, event) {
+		this.#moveInfobox(event);
+		this.#populateInfobox(object);
+		atlasInfobox.style.opacity = '1';
+	}
+
+	#moveInfobox(event) {
+		console.warn('moveInfobox not implemented');
+	}
+
+	#populateInfobox(object) {
+		console.warn('populateInfobox not implemented');
 	}
 }
 
