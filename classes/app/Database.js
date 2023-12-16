@@ -102,6 +102,20 @@ class Database {
         );
     }
 
+    getStarsInSystem(solarSystemObject) {
+        if (!(solarSystemObject instanceof SolarSystem)) {
+            console.error('Parameter is not SolarSystem class');
+            return null;
+        }
+
+        const array = DB.stars.filter((s) => {
+            if (s.PARENT_SYSTEM === solarSystemObject) {
+                return true;
+            }
+        });
+        return array;
+    }
+
     static async createCelestialBodies() {
         const bodies = await Database.fetchCSV('data/bodies.csv');
         for (const body of bodies) { Database.#createCelestialBody(body); }
