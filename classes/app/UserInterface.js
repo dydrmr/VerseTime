@@ -1,7 +1,10 @@
-import { round, getHashedLocation, getHash, convertHoursToTimeString, getCustomTime, convertDateToShortTime, getUniverseTime, getLocationByName } from '../../HelperFunctions.js';
+﻿import { round, getHashedLocation, getHash, convertHoursToTimeString, getCustomTime, convertDateToShortTime, getUniverseTime, getLocationByName } from '../../HelperFunctions.js';
 import Settings from './Preferences.js';
 import DB from './Database.js';
 import Window from './Window.js';
+
+import SolarSystem from '../SolarSystem.js';
+import Star from '../Star.js';
 
 
 class UserInterface {
@@ -596,8 +599,23 @@ class UserInterface {
 			}
 
 		}
+	}
 
+	updateAtlasHierarchy(focusBody, focusSystem) {
+		//const el = UI.el('atlas-hierarchy');
 
+		let textString = '';
+		if (focusBody instanceof SolarSystem || focusBody instanceof Star) {
+			textString = focusBody.NAME;
+
+		} else if (focusBody.TYPE === 'Planet' || focusBody.TYPE === 'Jump Point') {
+			textString = `${focusSystem.NAME} ▸ ${focusBody.NAME}`;
+
+		} else {
+			textString = `${focusSystem.NAME} ▸ ${focusBody.PARENT.NAME} ▸ ${focusBody.NAME}`;
+		}
+
+		UI.setText('atlas-hierarchy', textString);
 	}
 
 	#createAtlasSidebarSelector(object, indentation) {
