@@ -246,16 +246,10 @@ function setFocus_moveCamera(object, oldFocusBody) {
 
 	if (object instanceof SolarSystem) {
 		const stars = DB.getStarsInSystem(focusSystem);
-
-		if (!stars) {
-			console.error('Star not found!');
-		} else {
-			objectMesh = scene.getObjectByName(stars[0].NAME);
-		}
+		objectMesh = scene.getObjectByName(stars[0].NAME);
 
 	} else if (object.TYPE === 'Planet' || object.TYPE === 'Moon') {
-		const objectName = `BODYCONTAINER:${object.NAME}`;
-		objectMesh = scene.getObjectByName(objectName);
+		objectMesh = scene.getObjectByName(`BODYCONTAINER:${object.NAME}`);
 
 	} else {
 		objectMesh = scene.getObjectByName(object.NAME);
@@ -278,9 +272,9 @@ function setFocus_moveCamera(object, oldFocusBody) {
 		const relativeVector = new THREE.Vector3();
 		relativeVector.subVectors(camera.position, oldMeshPosition);
 
-		const newVector = new THREE.Vector3();
-		newVector.addVectors(newCameraTarget, relativeVector);
-		camera.position.copy(newVector);
+		const newCameraPosition = new THREE.Vector3();
+		newCameraPosition.addVectors(newCameraTarget, relativeVector);
+		camera.position.copy(newCameraPosition);
 	}
 }
 
