@@ -580,6 +580,15 @@ class UserInterface {
 		for (const body of children) {
 			this.#createAtlasSidebarSelector(body, 1);
 
+			/*const locations = DB.getLocationsOnBody(body);
+			if (locations.length > 0) {
+				for (const loc of locations) {
+					this.#createAtlasSidebarSelector(loc, 2);
+				}
+			}*/
+
+			// ORBITING BODIES
+
 			const grandChildren = DB.bodies.filter((b) => {
 				if (
 					b.PARENT &&
@@ -596,7 +605,16 @@ class UserInterface {
 			if (grandChildren.length > 0) {
 				for (const bodyTwo of grandChildren) {
 					this.#createAtlasSidebarSelector(bodyTwo, 2);
+
+					// LOCATIONS
+					/*const locations2 = DB.getLocationsOnBody(bodyTwo);
+					if (locations2.length > 0) {
+						for (const loc of locations2) {
+							this.#createAtlasSidebarSelector(loc, 3);
+						}
+					}*/
 				}
+
 			}
 
 		}
