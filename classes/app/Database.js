@@ -63,6 +63,9 @@ class Database {
         return data;
     }
 
+
+
+
     static async createSolarSystems() {
         const systems = await Database.fetchCSV('data/systems.csv');
         for (const sys of systems) { Database.#createSolarSystem(sys); }
@@ -79,6 +82,9 @@ class Database {
             String(data.affiliation)
         )
     }
+
+
+
 
     static async createStars() {
         const stars = await Database.fetchCSV('data/stars.csv');
@@ -115,6 +121,9 @@ class Database {
         });
         return array;
     }
+
+
+
 
     static async createCelestialBodies() {
         const bodies = await Database.fetchCSV('data/bodies.csv');
@@ -201,6 +210,9 @@ class Database {
         }
     }
 
+
+
+
     static async createLocations() {
         const locations = await Database.fetchCSV('data/locations.csv');
         for (const loc of locations) { Database.createLocation(loc); }
@@ -228,6 +240,23 @@ class Database {
             themeImage
         );
     }
+
+    getLocationsOnBody(body) {
+        if (!(body instanceof CelestialBody)) {
+            console.error('Parameter is not CelestialBody class');
+            return null;
+        }
+
+        const array = DB.locations.filter((loc) => {
+            if (loc.PARENT === body) {
+                return true;
+            }
+        });
+        return array;
+    }
+
+
+
 
     static async createWormholes() {
         const wormholes = await Database.fetchCSV('data/wormholes.csv');
