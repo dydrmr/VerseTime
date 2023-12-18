@@ -1,4 +1,4 @@
-#BUTTON-toggle-atlas-window {
+﻿#BUTTON-toggle-atlas-window {
     position: absolute;
     left: 5px;
     top: 5px;
@@ -227,13 +227,78 @@
     margin-bottom: 8px;
 }
 
+
+
+
+ul.treelist, ul.treelist ul {
+    list-style: none;
+}
+ul.treelist > li::before {
+    content: "";
+}
+
+    ul.treelist > li > ul > li::before {
+        content: "├──\00a0";
+        color: rgb(150, 150, 170);
+    }
+    ul.treelist > li > ul > li:last-child::before {
+        content: "└──\00a0";
+        color: rgb(150, 150, 170);
+    }
+    ul.treelist > li > ul > li:last-child {
+        margin-bottom: 5px;
+    }
+
+ul.treelist > li > ul > li > ul > li::before {
+    content: "│\00a0\00a0\00a0├──\00a0";
+        color: rgb(150, 150, 170);
+}
+    ul.treelist > li > ul > li > ul > li:last-child::before {
+        content: "│\00a0\00a0\00a0└──\00a0";
+        color: rgb(150, 150, 170);
+    }
+    ul.treelist > li > ul > li:last-child > ul > li::before {
+        content: "\00a0\00a0\00a0\00a0├──\00a0";
+        color: rgb(150, 150, 170);
+    }
+    ul.treelist > li > ul > li:last-child > ul > li:last-child::before {
+        content: "\00a0\00a0\00a0\00a0└──\00a0";
+        color: rgb(150, 150, 170);
+    }
+
+ul.treelist > li > ul > li > ul > li > ul > li::before {
+    content: "│\00a0\00a0\00a0│\00a0\00a0\00a0├──\00a0";
+}
+ul.treelist > li > ul > li > ul > li > ul > li:last-child::before {
+    content: "│\00a0\00a0\00a0│\00a0\00a0\00a0└──\00a0";
+}
+ul.treelist > li > ul > li > ul > li:last-child > ul > li::before {
+    content: "│\00a0\00a0\00a0\00a0\00a0\00a0\00a0├──\00a0";
+}
+ul.treelist > li > ul > li > ul > li:last-child > ul > li:last-child::before {
+    content: "│\00a0\00a0\00a0\00a0\00a0\00a0\00a0└──\00a0";
+}
+ul.treelist > li > ul > li:last-child > ul > li > ul > li::before {
+    content: "\00a0\00a0\00a0\00a0│\00a0\00a0\00a0├──\00a0";
+}
+ul.treelist > li > ul > li:last-child > ul > li > ul > li:last-child::before {
+    content: "\00a0\00a0\00a0\00a0│\00a0\00a0\00a0└──\00a0";
+}
+ul.treelist > li > ul > li:last-child > ul > li:last-child > ul > li::before {
+    content: "\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0├──\00a0";
+}
+ul.treelist > li > ul > li:last-child > ul > li:last-child > ul > li:last-child::before {
+    content: "\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0└──\00a0";
+}
+
+
 .atlas-sidebar-object-selector {
     cursor: pointer;
     transition: 0.2s ease-out;
 }
 .atlas-sidebar-object-selector:hover {
-    background-color: white;
-    color: black;
+    /*background-color: white;
+    color: black;*/
 }
 
 

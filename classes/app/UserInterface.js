@@ -547,8 +547,8 @@ class UserInterface {
 	// ===============
 
 	populateAtlasSidebar(system) {
-		const e = UI.el('atlas-sidebar');
-		e.innerHTML = '<h2>System Overview</h2>';
+		const e = UI.el('atlas-treelist');
+		e.innerHTML = '';
 
 
 		// STARS
@@ -556,82 +556,75 @@ class UserInterface {
 			return s.PARENT_SYSTEM === system;
 		});
 
-		for (const star of stars) {
-			this.#createAtlasSidebarSelector(star, 0);
+		if (stars.length < 1) {
+			const level1 = document.createElement('li');
+			level1.innerText = 'System data unavailable';
+			e.appendChild(level1);
+			return;
 		}
 
+		for (const star of stars) {
+			const li1 = document.createElement('li');
+			li1.innerText = star.NAME;
+			e.appendChild(li1);
 
-		// CHILDREN
-		const parentStar = stars[0];
-
-		const children = DB.bodies.filter((b) => {
-			if (
-				b.PARENT &&
-				b.PARENT.NAME === parentStar.NAME
-			) {
-				return true;
-			}
-		});
-
-		children.sort((a, b) => {
-			return (a.ORDINAL < b.ORDINAL) ? -1 : (a.ORDINAL > b.ORDINAL) ? 1 : 0;
-		});
-
-		for (const body of children) {
-			this.#createAtlasSidebarSelector(body, 1);
-
-			/*const locations = DB.getLocationsOnBody(body);
-			if (locations.length > 0) {
-				for (const loc of locations) {
-					this.#createAtlasSidebarSelector(loc, 2);
-				}
-			}*/
-
-			// ORBITING BODIES
-
-			const grandChildren = DB.bodies.filter((b) => {
+			// PLANETS
+			const planets = DB.bodies.filter((planet) => {
 				if (
-					b.PARENT &&
-					b.PARENT.NAME === body.NAME
+					planet.PARENT &&
+					planet.PARENT.NAME === star.NAME
 				) {
 					return true;
 				}
 			});
 
-			grandChildren.sort((a, b) => {
+			planets.sort((a, b) => {
 				return (a.ORDINAL < b.ORDINAL) ? -1 : (a.ORDINAL > b.ORDINAL) ? 1 : 0;
 			});
 
-			if (grandChildren.length > 0) {
-				for (const bodyTwo of grandChildren) {
-					this.#createAtlasSidebarSelector(bodyTwo, 2);
-
-					// LOCATIONS
-					/*const locations2 = DB.getLocationsOnBody(bodyTwo);
-					if (locations2.length > 0) {
-						for (const loc of locations2) {
-							this.#createAtlasSidebarSelector(loc, 3);
-						}
-					}*/
-				}
-
+			
+			const ul2 = document.createElement('ul');
+			if (planets.length > 0) {
+				li1.appendChild(ul2);
 			}
 
+			for (const planet of planets) {
+				const li2 = this.#createAtlasSidebarSelector(ul2, planet);
+
+				// MOONS
+				const moons = DB.bodies.filter((moon) => {
+					if (
+						moon.PARENT &&
+						moon.PARENT.NAME === planet.NAME
+					) {
+						return true;
+					}
+				});
+
+				moons.sort((a, b) => {
+					return (a.ORDINAL < b.ORDINAL) ? -1 : (a.ORDINAL > b.ORDINAL) ? 1 : 0;
+				});
+
+				const ul3 = document.createElement('ul');
+				if (moons.length > 0) {
+					li2.appendChild(ul3);
+				}
+
+				for (const moon of moons) {
+					this.#createAtlasSidebarSelector(ul3, moon);
+				}
+			}
 		}
 	}
 
-	#createAtlasSidebarSelector(object, indentation) {
-		const element = document.createElement('p');
+	#createAtlasSidebarSelector(parentElement, object) {
+		const element = document.createElement('li');
+		parentElement.appendChild(element);
+		element.innerText = object.NAME;
+
 		element.classList.add('atlas-sidebar-object-selector');
-
-		let indentationString = '';
-        for (let i = 0; i < indentation; i++) {
-			indentationString += '--';
-        }
-
-		element.textContent = `${indentationString} ${object.NAME}`;
-
-		element.addEventListener('click', () => {
+		element.addEventListener('click', (e) => {
+			e.stopPropagation();
 			let event = new CustomEvent('changeAtlasFocus', {
 				'detail': {
 					newObject: object
@@ -640,9 +633,9 @@ class UserInterface {
 			document.dispatchEvent(event);
 		});
 
-
-		UI.el('atlas-sidebar').appendChild(element);
+		return element;
 	}
+
 
 	updateAtlasHierarchy(focusBody, focusSystem) {
 		let textString = '';
