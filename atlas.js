@@ -18,6 +18,7 @@ let ready = false;
 let scene, camera, renderer, labelRenderer, controls, zoomControls;
 const loadingManager = new THREE.LoadingManager();
 const textureLoader = new THREE.TextureLoader(loadingManager);
+const sphereDetail = 48;
 
 
 const orbitLineMaterial = new THREE.LineBasicMaterial({
@@ -560,7 +561,7 @@ async function createCelestialBodyWithContainer(body, group) {
 	bodyContainer.position.set(body.COORDINATES.x, body.COORDINATES.y, body.COORDINATES.z);
 	group.add(bodyContainer);
 
-	const geo = new THREE.SphereGeometry(radius, 48, 48);
+	const geo = new THREE.SphereGeometry(radius, sphereDetail, sphereDetail);
 	const mat = await createCelestialObjectMaterial(body);
 
 	const bodyMesh = new THREE.Mesh(geo, mat);
