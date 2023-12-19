@@ -93,11 +93,11 @@ button img {
 
 kbd {
 	border-radius: 3px;
-	border: 1px solid black;
+	border: 1px solid var(--theme-color);
 	box-shadow: rgba(0, 0, 0, 0.4) 1px 1px;
 	width: 50px;
 	padding: 2px;
-	background-color: var(--theme-color);
+	background-color: transparent;
 	text-align: center;
 }
 
