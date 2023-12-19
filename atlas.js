@@ -168,6 +168,7 @@ function updateSolarSystemVisibility(visibility) {
 
 function updateDebugInfo() {
 	if (!focusSystem) return;
+	if (renderer.info.render.frame % 5 !== 0) return 
 
 	UI.setText('atlas-zoom', round(controls.getDistance(), 5));
 	UI.setText('atlas-debug-x', round(camera.position.x, 6));
@@ -176,6 +177,20 @@ function updateDebugInfo() {
 	UI.setText('atlas-focus-system', focusSystem.NAME);
 	UI.setText('atlas-focus-object', focusBody ? focusBody.NAME : 'none');
 	UI.setText('atlas-focus-object-class', focusBody.constructor.name);
+	UI.setText('atlas-focus-object-radius', focusBody.BODY_RADIUS);
+
+	const rr = round(focusBody.BODY_RADIUS / controls.getDistance());
+	UI.setText('atlas-debug-radius-ratio', rr.toLocaleString());
+
+
+
+	/*const box = new THREE.Box3();
+	const mesh = scene.getObjectByName(focusBody.NAME);
+	mesh.geometry.computeBoundingBox();
+	box.copy(mesh.geometry.boundingBox).applyMatrix4(mesh.matrixWorld);
+	console.log(box.min, box.max);*/
+
+	//UI.setText('atlas-debug-screen-size', helper.box.min.toLocaleString());
 }
 
  function updateBodyRotation() {
@@ -419,9 +434,17 @@ async function createAtlasScene() {
 	console.timeEnd('Create scene');
 }
 
-document.addEventListener('atlasSceneReady', () => {
-	const body = getBodyByName('Daymar');
+document.addEventListener('atlasSceneReady', (e) => {
+	const body = Settings.activeLocation.PARENT;
 	setFocus(body);
+	
+	const direction = new THREE.Vector3(0, -10, 5);
+	//direction.subVectors(camera.position, controls.target);
+	direction.setLength((body.BODY_RADIUS / mapScale) * 3);
+
+	const newPosition = new THREE.Vector3();
+	newPosition.addVectors(controls.target, direction);
+	camera.position.copy(newPosition);
 })
 
 async function createStarfield() {
