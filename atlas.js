@@ -45,9 +45,10 @@ const rotatingObjects = Array();
 // TODO:
 // Use THREE.js locally to eliminate map/atlas breaking when CDN loading times are high
 // BUG: when switching from atlas to local map and back to atlas, all atlas location labels lose their icons
+// add rings
 // make location labels visible based on radius of focusBody
 // make shadows toggleable
-// convert Lagrange points and jump points to group objects instead of object3ds
+// convert Lagrange points and jump points to group objects instead of object3d
 // NOTE: map-window CSS CLASS MIS-USED AS ID; CREATE map-container AND ADJUST CODE WHERE APPLICABLE
 
 setup();
@@ -73,7 +74,7 @@ function setup() {
 	labelRenderer.domElement.style.top = '0px';
 	atlasDiv.appendChild(labelRenderer.domElement);
 
-	camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.000001, 1500);
+	camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.0000001, 500);
 	camera.up.set(0, 0, 1);
 	camera.position.set(0, -100, 50);
 	camera.lookAt(0, 0, 0);
@@ -170,7 +171,8 @@ function updateDebugInfo() {
 	if (!focusSystem) return;
 	if (renderer.info.render.frame % 5 !== 0) return 
 
-	UI.setText('atlas-zoom', round(controls.getDistance(), 5));
+	UI.setText('atlas-zoom', round(controls.getDistance(), 7));
+	UI.setText('atlas-min-zoom', round(zoomControls.minDistance, 7));
 	UI.setText('atlas-debug-x', round(camera.position.x, 6));
 	UI.setText('atlas-debug-y', round(camera.position.y, 6));
 	UI.setText('atlas-debug-z', round(camera.position.z, 6));
@@ -194,7 +196,7 @@ function updateDebugInfo() {
 }
 
  function updateBodyRotation() {
-	if (renderer.info.render.frame % 5 !== 0) return;
+	if (renderer.info.render.frame % 2 !== 0) return;
 
 	for (const container of rotatingObjects) {
 		const body = container.userData.celestialBody;
@@ -246,6 +248,8 @@ export function setFocus(object) {
 	}
 	
 	setFocus_moveCamera(focusBody, oldFocusBody);
+
+	zoomControls.minDistance = (focusBody.BODY_RADIUS / mapScale) * 1.01;
 
 	UI.updateAtlasHierarchy(focusBody, focusSystem);
 	UI.populateAtlasSidebar(focusSystem);
@@ -439,7 +443,6 @@ document.addEventListener('atlasSceneReady', (e) => {
 	setFocus(body);
 	
 	const direction = new THREE.Vector3(0, -10, 5);
-	//direction.subVectors(camera.position, controls.target);
 	direction.setLength((body.BODY_RADIUS / mapScale) * 3);
 
 	const newPosition = new THREE.Vector3();
