@@ -41,6 +41,7 @@ let focusBody = null;
 let focusSystem = null;
 
 const rotatingObjects = Array();
+const lights = Array();
 
 // TODO:
 // Use THREE.js locally to eliminate map/atlas breaking when CDN loading times are high
@@ -67,6 +68,8 @@ function setup() {
 	renderer = new THREE.WebGLRenderer({antialias: true});
 	renderer.setSize(window.innerWidth, window.innerHeight);
 	renderer.setClearColor('#101016');
+	renderer.shadowMap.enabled = true;
+
 
 	labelRenderer = new CSS2DRenderer();
 	labelRenderer.setSize( window.innerWidth, window.innerHeight );
@@ -228,15 +231,14 @@ document.addEventListener('changeAtlasFocus', (e) => {
 });
 
 export function setFocus(object) {
-	let oldFocusBody = focusBody;
-
+	const oldFocusBody = focusBody;
+	const oldFocusSystem = focusSystem;
+	
 	if (object instanceof Location) {
 		focusBody = object.PARENT;
 		focusSystem = object.getSystemByName(focusBody.PARENT_STAR.NAME);
-	}
 
-	// SET GLOBALS
-	if (object instanceof SolarSystem) {
+	} else if (object instanceof SolarSystem) {
 		const stars = DB.getStarsInSystem(object);
 		focusBody = getStarByName(stars[0].NAME);
 		focusSystem = object;
@@ -248,12 +250,26 @@ export function setFocus(object) {
 	}
 	
 	setFocus_moveCamera(focusBody, oldFocusBody);
-
 	zoomControls.minDistance = (focusBody.BODY_RADIUS / mapScale) * 1.01;
 
 	UI.updateAtlasHierarchy(focusBody, focusSystem);
 	UI.populateAtlasSidebar(focusSystem);
 
+	// ENABLE ONLY NEAREST LIGHT
+	if (focusSystem !== oldFocusSystem) {
+		for (const light of lights) {
+			light.castShadow = false;
+		}
+
+		const stars = DB.getStarsInSystem(focusSystem);
+		for (const star of stars) {
+			const light = scene.getObjectByName(`STARLIGHT:${star.NAME}`);
+			light.castShadow = true;
+
+			light.shadow.camera.near = 0.0000001;
+			light.shadow.camera.far = 10;
+		}
+	}
 }
 
 function setFocus_moveCamera(object, oldFocusBody) {
@@ -524,6 +540,8 @@ async function createStars() {
 		// LIGHT
 		const light = new THREE.PointLight('white', 3, 10, 0);
 		light.position.set(pos.x + sysPos.x, pos.y + sysPos.y, pos.z + sysPos.z);
+		light.name = `STARLIGHT:${star.NAME}`;
+		lights.push(light);
 		group.add(light);
 	}
 }
@@ -544,6 +562,7 @@ function createSolarSystem(system) {
 
 	for (const body of bodies) {
 		createCelestialBodyWithContainer(body, group);
+		createRing(body, group);
 		createOrbitLine(body, orbitLineGroup);
 	}
 }
@@ -579,7 +598,7 @@ async function createCelestialBodyWithContainer(body, group) {
 	if (body.TYPE === 'Jump Point' || body.TYPE === 'Lagrange Point' || body.TYPE === 'Star') {
 		radius = 0.01;
 	} else {
-		radius = body.BODY_RADIUS
+		radius = body.BODY_RADIUS;
 	}
 
 	const bodyContainer = new THREE.Group();
@@ -592,6 +611,8 @@ async function createCelestialBodyWithContainer(body, group) {
 
 	const bodyMesh = new THREE.Mesh(geo, mat);
 	bodyMesh.name = body.NAME;
+	bodyMesh.castShadow = true;
+
 	bodyContainer.add(bodyMesh);
 	bodyContainer.userData.celestialBody = body;
 
@@ -644,17 +665,33 @@ async function createCelestialObjectMaterial(body) {
 	return material;
 }
 
+function createRing(body, group) {
+	if (body.TYPE !== 'Planet' && body.TYPE !== 'Moon') return;
+	if (!body.RING) return;
+		
+	const geometry = new THREE.RingGeometry(body.RING['radius-inner'], body.RING['radius-outer'], 90);
+	const material = new THREE.MeshStandardMaterial({
+		color: 0xA9A9A9,
+		transparent: true,
+		depthWrite: false,
+		opacity: 0.4,
+		side: THREE.DoubleSide
+	});
+
+	const mesh = new THREE.Mesh(geometry, material);
+	mesh.name = `RING:${body.NAME}`;
+	mesh.receiveShadow = true;
+	mesh.castShadow = true;
+
+	const bodyContainer = scene.getObjectByName(`BODYCONTAINER:${body.NAME}`);
+	bodyContainer.add(mesh);
+}
+
 function createCircularGrid(size, spacing) {
 	const group = new THREE.Group();
 	group.name = 'Galaxy Grid';
 	scene.add(group);
-
-	/*const material = new THREE.LineBasicMaterial({
-		color: `rgb(255, 255, 255)`,
-		transparent: true,
-		opacity: 0.075
-	});*/
-
+	
 	const halfSize = size / 2;
 
 	const xAxis = makeLine(-halfSize, 0, 0, halfSize, 0, 0, orbitLineMaterial);
