@@ -105,15 +105,31 @@ class AtlasLabelManager {
         div.appendChild(nameElement);
 
         const label = new CSS2DObject(div);
-        const labelPosition = new THREE.Vector3(
-            location.COORDINATES_3DMAP.x * -1 * location.PARENT.BODY_RADIUS,
-            location.COORDINATES_3DMAP.y * location.PARENT.BODY_RADIUS,
-            location.COORDINATES_3DMAP.z * location.PARENT.BODY_RADIUS
-        );
-        labelPosition.applyAxisAngle(new THREE.Vector3(0, 0, 1), Math.PI);
+        let labelPosition;
+        if (Number.isFinite(location.COORDINATES_3DMAP.x)) {
+            labelPosition = new THREE.Vector3(
+                location.COORDINATES_3DMAP.x * -1 * location.PARENT.BODY_RADIUS,
+                location.COORDINATES_3DMAP.y * location.PARENT.BODY_RADIUS,
+                location.COORDINATES_3DMAP.z * location.PARENT.BODY_RADIUS
+            );
+            labelPosition.applyAxisAngle(new THREE.Vector3(0, 0, 1), Math.PI);
+        } else {
+            labelPosition = new THREE.Vector3(
+                location.COORDINATES.x,
+                location.COORDINATES.y,
+                location.COORDINATES.z
+            )
+        }
         label.position.copy(labelPosition);
 
-        if (location.PARENT.TYPE === 'Planet' || location.PARENT.TYPE === 'Moon') {
+        label.userData.parentType = location.PARENT.TYPE;
+
+        if (
+            location.PARENT.TYPE === 'Planet' ||
+            location.PARENT.TYPE === 'Moon' ||
+            location.PARENT.TYPE === 'Lagrange Point' ||
+            location.PARENT.TYPE === 'Jump Point'
+        ) {
             const containerObject = this.scene.getObjectByName(`BODYCONTAINER:${location.PARENT.NAME}`);
             containerObject.add(label);
         } else {
@@ -231,7 +247,13 @@ class AtlasLabelManager {
                 }
 
             } else if (type === 'Location') {
-                if (distance > 0.003) {
+                let triggerDistance = 0.003;
+
+                if (label.userData.parentType === 'Lagrange Point' || label.userData.parentType === 'Jump Point') {
+                    triggerDistance = 0.025;
+                }
+
+                if (distance > triggerDistance) {
                     label.element.dataset.visible = false;
                 }
             }
