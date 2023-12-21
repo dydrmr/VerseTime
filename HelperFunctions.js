@@ -295,14 +295,17 @@ export function getLocationByName(string) {
 	return result[0];
 }
 
-export function readableNumber(number, unitString, decimals = 2) {
-	const prefixes = ["", "k", "M", "G", "T", "P", "E", "Z", "Y"];
+export function readableNumber(number, unitString, shortPrefix = true,  decimals = 2) {
+	const shortPrefixes = ["", "k", "M", "G", "T", "P", "E", "Z", "Y"];
+	const longPrefixes = ['', 'kilo', 'mega', 'giga', 'tera', 'peta', 'exa', 'zetta', 'yotta'];
 
 	let i = 0;
-	while (number >= 1000 && i < prefixes.length - 1) {
+	while (number >= 1000 && i < shortPrefixes.length - 1) {
 		number /= 1000;
 		i++;
 	}
+
+	const prefixes = (shortPrefix) ? shortPrefixes : longPrefixes;
 
 	return `${number.toFixed(decimals)} ${prefixes[i]}${unitString}`;
 }
