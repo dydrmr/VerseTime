@@ -324,3 +324,7 @@ export function measurePerformance(callback) {
 	const end = performance.now();
 	console.log(`Function "${callback}" execution time: ${end - start} ms`);
 }
+
+export function mapLinear(value, low1, high1, low2, high2) {
+	return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
+}
