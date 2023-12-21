@@ -274,19 +274,22 @@ export function setFocus(object) {
 function setFocus_moveCamera(object, oldFocusBody) {
 	// DETERMINE NEW TARGET POSITION
 	const newCameraTarget = new THREE.Vector3();
-	let objectMesh = null;
+	let objectName = null;
 
 	if (object instanceof SolarSystem) {
 		const stars = DB.getStarsInSystem(focusSystem);
-		objectMesh = scene.getObjectByName(stars[0].NAME);
+		objectName = stars[0].NAME;
 
-	} else if (object.TYPE === 'Planet' || object.TYPE === 'Moon') {
-		objectMesh = scene.getObjectByName(`BODYCONTAINER:${object.NAME}`);
+	} else if (
+		object.TYPE === 'Planet' ||
+		object.TYPE === 'Moon'
+	) {
+		objectName = `BODYCONTAINER:${object.NAME}`;
 
 	} else {
-		objectMesh = scene.getObjectByName(object.NAME);
+		objectName = object.NAME;
 	}
-
+	const objectMesh = scene.getObjectByName(objectName);
 	objectMesh.getWorldPosition(newCameraTarget);
 
 	// SET NEW TARGET
@@ -295,24 +298,31 @@ function setFocus_moveCamera(object, oldFocusBody) {
 	zoomControls.target.copy(newCameraTarget);
 	zoomControls.update();
 
-	if (!oldFocusBody) return;
-
 	// MOVE CAMERA
-	const oldMesh = scene.getObjectByName(oldFocusBody.NAME);
-	const oldMeshPosition = new THREE.Vector3();
-	oldMesh.getWorldPosition(oldMeshPosition);
+	let newPosition = new THREE.Vector3();
+	if (oldFocusBody) {
+		const oldMesh = scene.getObjectByName(oldFocusBody.NAME);
+		const oldMeshPosition = new THREE.Vector3();
+		oldMesh.getWorldPosition(oldMeshPosition);
 
-	const relativeVector = new THREE.Vector3();
-	relativeVector.subVectors(camera.position, oldMeshPosition);
-	
-	if (object.BODY_RADIUS) {
-		const min = (object.BODY_RADIUS * 1.5) / mapScale;
-		relativeVector.clampLength(min, 500);
+		const relativeVector = new THREE.Vector3();
+		relativeVector.subVectors(camera.position, oldMeshPosition);
+
+		if (object.BODY_RADIUS) {
+			const min = (object.BODY_RADIUS * 1.5) / mapScale;
+			relativeVector.clampLength(min, 500);
+		}
+		
+		newPosition.addVectors(newCameraTarget, relativeVector);
+
+	} else {
+		const direction = new THREE.Vector3(0, -10, 5);
+		direction.setLength((object.BODY_RADIUS / mapScale) * 4);
+		
+		newPosition.addVectors(controls.target, direction);
 	}
 
-	const newCameraPosition = new THREE.Vector3();
-	newCameraPosition.addVectors(newCameraTarget, relativeVector);
-	camera.position.copy(newCameraPosition);
+	camera.position.copy(newPosition);
 }
 
 
@@ -454,14 +464,7 @@ async function createAtlasScene() {
 
 document.addEventListener('atlasSceneReady', (e) => {
 	const body = Settings.activeLocation.PARENT;
-	setFocus(body);
-	
-	const direction = new THREE.Vector3(0, -10, 5);
-	direction.setLength((body.BODY_RADIUS / mapScale) * 4);
-
-	const newPosition = new THREE.Vector3();
-	newPosition.addVectors(controls.target, direction);
-	camera.position.copy(newPosition);
+	setFocus(body, null);
 })
 
 async function createStarfield() {
