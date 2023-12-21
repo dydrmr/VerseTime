@@ -55,7 +55,6 @@ class AtlasLabelManager {
     #createLabel_CelestialBody(body, group) {
         const div = document.createElement('div');
         div.classList.add('atlas-label');
-        //div.classList.add('atlas-label-system');
         div.dataset.objectType = body.TYPE;
         div.dataset.systemName = body.TYPE === 'Star' ? body.NAME : body.PARENT_STAR.NAME;
         div.dataset.parentName = body.TYPE === 'Star' ? null : body.PARENT.NAME;
