@@ -20,14 +20,7 @@ const loadingManager = new THREE.LoadingManager();
 const textureLoader = new THREE.TextureLoader(loadingManager);
 const sphereDetail = 48;
 
-
 const orbitLineMaterial = new THREE.LineBasicMaterial({
-	color: `rgb(255, 255, 255)`,
-	transparent: true,
-	opacity: 0.05
-});
-
-const lollipopMaterial = new THREE.LineBasicMaterial({
 	color: `rgb(255, 255, 255)`,
 	transparent: true,
 	opacity: 0.05
@@ -48,8 +41,12 @@ const lights = Array();
 // BUG: when switching from atlas to local map and back to atlas, all atlas location labels lose their icons
 // make location labels visible based on radius of focusBody
 // make shadows toggleable
-// convert Lagrange points and jump points to group objects instead of object3d
 // NOTE: map-window CSS CLASS MIS-USED AS ID; CREATE map-container AND ADJUST CODE WHERE APPLICABLE
+// System/location danger warnings
+// Event notifications and location markers (Siege, Xeno, Jumptown, etc)
+// move relevant functions/vars over to UI class
+// option to show/hide map labels
+// new info hoverbox
 
 setup();
 render();
@@ -68,7 +65,6 @@ function setup() {
 	renderer.setSize(window.innerWidth, window.innerHeight);
 	renderer.setClearColor('#101016');
 	renderer.shadowMap.enabled = true;
-
 
 	labelRenderer = new CSS2DRenderer();
 	labelRenderer.setSize( window.innerWidth, window.innerHeight );
@@ -171,7 +167,6 @@ function updateSolarSystemVisibility(visibility) {
 
 function updateDebugInfo() {
 	if (!focusSystem) return;
-	if (renderer.info.render.frame % 5 !== 0) return 
 
 	UI.setText('atlas-zoom', round(controls.getDistance(), 7));
 	UI.setText('atlas-min-zoom', round(zoomControls.minDistance, 7));
@@ -182,19 +177,6 @@ function updateDebugInfo() {
 	UI.setText('atlas-focus-object', focusBody ? focusBody.NAME : 'none');
 	UI.setText('atlas-focus-object-class', focusBody.constructor.name);
 	UI.setText('atlas-focus-object-radius', focusBody.BODY_RADIUS);
-
-	const rr = round(focusBody.BODY_RADIUS / controls.getDistance());
-	UI.setText('atlas-debug-radius-ratio', rr.toLocaleString());
-
-
-
-	/*const box = new THREE.Box3();
-	const mesh = scene.getObjectByName(focusBody.NAME);
-	mesh.geometry.computeBoundingBox();
-	box.copy(mesh.geometry.boundingBox).applyMatrix4(mesh.matrixWorld);
-	console.log(box.min, box.max);*/
-
-	//UI.setText('atlas-debug-screen-size', helper.box.min.toLocaleString());
 }
 
  function updateBodyRotation() {
@@ -327,105 +309,6 @@ function setFocus_moveCamera(object, oldFocusBody) {
 
 
 
-function showInfobox(object, event) {
-	moveInfobox(event);
-	populateInfobox(object);
-	infoBox.style.opacity = '1';
-}
-
-function moveInfobox(event) {
-	const rect = event.target.getBoundingClientRect();
-
-	infoBox.style.left = `${rect.right}px`;
-	infoBox.style.top = `${rect.top}px`;
-}
-
-function populateInfobox(object) {
-	infoBox.innerText = '';
-
-	if (object instanceof SolarSystem) {
-		infoBox.innerText = 'Solar System';
-	} else {
-		infoBox.innerText = object.TYPE;
-	}
-
-
-	let distance = null;
-	let distanceUnit = null;
-
-	if (object !== focusBody && object !== focusSystem) {
-		let here = null;
-		let there = null;
-
-		if (object instanceof SolarSystem) {
-			here = focusSystem.COORDINATES;
-			there = object.COORDINATES;
-			distanceUnit = 'ly';
-
-		} else {
-			here = { 'x': focusBody.COORDINATES.x * 1000, 'y': focusBody.COORDINATES.y * 1000, 'z': focusBody.COORDINATES.z * 1000 };
-			there = { 'x': object.COORDINATES.x * 1000, 'y': object.COORDINATES.y * 1000, 'z': object.COORDINATES.z * 1000 };
-			distanceUnit = 'm';
-		}
-
-		distance = calculateDistance3D(here.x, here.y, here.z, there.x, there.y, there.z, false);
-		distance = readableNumber(distance, distanceUnit);
-	}
-
-	if (distance) {
-		infoBox.innerText += `\nDISTANCE: ${distance}`;
-	}
-
-	if (object instanceof SolarSystem) {
-		infoBox.innerText += `\nAFFILIATION: ${object.AFFILIATION}`;
-	}
-
-	if (object instanceof SolarSystem) {
-		const jps = DB.wormholes.filter((wh) => {
-			if (wh.SYSTEM1.NAME === object.NAME || wh.SYSTEM2.NAME === object.NAME) {
-				return true;
-			}
-		})
-
-		if (jps.length > 0) {
-			infoBox.innerText += `\nJUMP POINTS: ${jps.length}`;
-		}
-	}
-
-	if (object instanceof SolarSystem) {
-		const planets = DB.bodies.filter((body) => {
-			if (
-				body.TYPE === 'Planet' &&
-				body.PARENT_STAR.NAME === object.NAME
-			) {
-				return true;
-			}
-		});
-
-		if (planets.length > 0) {
-			infoBox.innerText += `\nPLANETS: ${planets.length}`;
-		}
-	}
-
-	if (object.TYPE === 'Planet') {
-		const moons = DB.bodies.filter((body) => {
-			if (
-				body.TYPE === 'Moon' &&
-				body.PARENT.NAME === object.NAME
-			) {
-				return true;
-			}
-		});
-
-		if (moons.length > 0) {
-			infoBox.innerText += `\nMOONS: ${moons.length}`;
-		}
-	}
-}
-
-function hideInfobox() {
-	infoBox.style.opacity = '0';
-}
 
 
 
@@ -650,10 +533,8 @@ async function createCelestialObjectMaterial(body) {
 		}
 
 	} else if (body.TYPE === 'Lagrange Point' || body.TYPE === 'Jump Point') {
-		console.warn('TODO: use group object instead of sphere');
-		const materialColor = (body.TYPE === 'Star') ? `rgb(230, 200, 140)` : `rgb(${body.THEME_COLOR.r}, ${body.THEME_COLOR.g}, ${body.THEME_COLOR.b})`;
 		material = new THREE.MeshStandardMaterial({
-			color: materialColor,
+			color: 'rgb(0, 0, 0)',
 		});
 
 	} else {
@@ -717,13 +598,13 @@ function createLollipops(size = 0.5) {
 		if (system.NAME === 'Sol') continue;
 
 		// Stalk
-		const line = makeLine(system.COORDINATES.x, system.COORDINATES.y, system.COORDINATES.z, system.COORDINATES.x, system.COORDINATES.y, 0, lollipopMaterial);
+		const line = makeLine(system.COORDINATES.x, system.COORDINATES.y, system.COORDINATES.z, system.COORDINATES.x, system.COORDINATES.y, 0, orbitLineMaterial);
 		group.add(line);
 
 		// Cross
-		const cross1 = makeLine(system.COORDINATES.x, system.COORDINATES.y - size, 0, system.COORDINATES.x, system.COORDINATES.y + size, 0, lollipopMaterial);
+		const cross1 = makeLine(system.COORDINATES.x, system.COORDINATES.y - size, 0, system.COORDINATES.x, system.COORDINATES.y + size, 0, orbitLineMaterial);
 		group.add(cross1);
-		const cross2 = makeLine(system.COORDINATES.x - size, system.COORDINATES.y, 0, system.COORDINATES.x + size, system.COORDINATES.y, 0, lollipopMaterial);
+		const cross2 = makeLine(system.COORDINATES.x - size, system.COORDINATES.y, 0, system.COORDINATES.x + size, system.COORDINATES.y, 0, orbitLineMaterial);
 		group.add(cross2);
 	}
 }
@@ -992,7 +873,7 @@ function organizeLabels_TEST_ONE() {
 
 
 
-// EVENT LISTENERS
+// SETTINGS EVENT LISTENERS
 const settingLolli = UI.el('atlas-settings-show-lollipops');
 settingLolli.addEventListener('change', function () {
 	Settings.save('atlasLollipops', settingLolli.checked);
@@ -1037,3 +918,107 @@ settingStarfield.addEventListener('change', function () {
 	const mesh = scene.getObjectByName('Starfield');
 	mesh.visible = settingStarfield.checked;
 });
+
+
+
+
+// INFOBOX FUNCTIONS - DUE FOR OVERHAUL
+function showInfobox(object, event) {
+	moveInfobox(event);
+	populateInfobox(object);
+	infoBox.style.opacity = '1';
+}
+
+function moveInfobox(event) {
+	const rect = event.target.getBoundingClientRect();
+
+	infoBox.style.left = `${rect.right}px`;
+	infoBox.style.top = `${rect.top}px`;
+}
+
+function populateInfobox(object) {
+	infoBox.innerText = '';
+
+	if (object instanceof SolarSystem) {
+		infoBox.innerText = 'Solar System';
+	} else {
+		infoBox.innerText = object.TYPE;
+	}
+
+
+	let distance = null;
+	let distanceUnit = null;
+
+	if (object !== focusBody && object !== focusSystem) {
+		let here = null;
+		let there = null;
+
+		if (object instanceof SolarSystem) {
+			here = focusSystem.COORDINATES;
+			there = object.COORDINATES;
+			distanceUnit = 'ly';
+
+		} else {
+			here = { 'x': focusBody.COORDINATES.x * 1000, 'y': focusBody.COORDINATES.y * 1000, 'z': focusBody.COORDINATES.z * 1000 };
+			there = { 'x': object.COORDINATES.x * 1000, 'y': object.COORDINATES.y * 1000, 'z': object.COORDINATES.z * 1000 };
+			distanceUnit = 'm';
+		}
+
+		distance = calculateDistance3D(here.x, here.y, here.z, there.x, there.y, there.z, false);
+		distance = readableNumber(distance, distanceUnit);
+	}
+
+	if (distance) {
+		infoBox.innerText += `\nDISTANCE: ${distance}`;
+	}
+
+	if (object instanceof SolarSystem) {
+		infoBox.innerText += `\nAFFILIATION: ${object.AFFILIATION}`;
+	}
+
+	if (object instanceof SolarSystem) {
+		const jps = DB.wormholes.filter((wh) => {
+			if (wh.SYSTEM1.NAME === object.NAME || wh.SYSTEM2.NAME === object.NAME) {
+				return true;
+			}
+		})
+
+		if (jps.length > 0) {
+			infoBox.innerText += `\nJUMP POINTS: ${jps.length}`;
+		}
+	}
+
+	if (object instanceof SolarSystem) {
+		const planets = DB.bodies.filter((body) => {
+			if (
+				body.TYPE === 'Planet' &&
+				body.PARENT_STAR.NAME === object.NAME
+			) {
+				return true;
+			}
+		});
+
+		if (planets.length > 0) {
+			infoBox.innerText += `\nPLANETS: ${planets.length}`;
+		}
+	}
+
+	if (object.TYPE === 'Planet') {
+		const moons = DB.bodies.filter((body) => {
+			if (
+				body.TYPE === 'Moon' &&
+				body.PARENT.NAME === object.NAME
+			) {
+				return true;
+			}
+		});
+
+		if (moons.length > 0) {
+			infoBox.innerText += `\nMOONS: ${moons.length}`;
+		}
+	}
+}
+
+function hideInfobox() {
+	infoBox.style.opacity = '0';
+}
