@@ -177,6 +177,10 @@ function updateDebugInfo() {
 	UI.setText('atlas-focus-object', focusBody ? focusBody.NAME : 'none');
 	UI.setText('atlas-focus-object-class', focusBody.constructor.name);
 	UI.setText('atlas-focus-object-radius', focusBody.BODY_RADIUS);
+
+	let scale = controls.getDistance() * mapScale * 1000;
+	let num = readableNumber(scale, 'meters', false, 1);
+	UI.setText('atlas-scale', round(scale).toLocaleString());
 }
 
  function updateBodyRotation() {
