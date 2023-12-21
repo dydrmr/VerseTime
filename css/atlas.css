@@ -226,8 +226,8 @@
     top: 0px;
     min-width: 100px;
     z-index: 700;
-
     padding: 10px;
+    font-size: 11px;
 }
 
 #atlas-sidebar h2 {
@@ -256,10 +256,10 @@ ul.treelist > li::before {
         margin-bottom: 5px;
     }
 
-ul.treelist > li > ul > li > ul > li::before {
-    content: "│\00a0\00a0\00a0├──\00a0";
+    ul.treelist > li > ul > li > ul > li::before {
+        content: "│\00a0\00a0\00a0├──\00a0";
         color: rgb(150, 150, 170);
-}
+    }
     ul.treelist > li > ul > li > ul > li:last-child::before {
         content: "│\00a0\00a0\00a0└──\00a0";
         color: rgb(150, 150, 170);
@@ -302,10 +302,13 @@ ul.treelist > li > ul > li:last-child > ul > li:last-child > ul > li:last-child:
 .atlas-sidebar-object-selector {
     cursor: pointer;
     transition: 0.2s ease-out;
+    padding: 1px 2px;
+    border-radius: 3px;
 }
 .atlas-sidebar-object-selector:hover {
-    /*background-color: white;
-    color: black;*/
+    background-color: rgba(255, 255, 255, 0.75);
+    color: black;
+    font-weight: 900;
 }
 
 

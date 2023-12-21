@@ -46,7 +46,7 @@ const lights = Array();
 // TODO:
 // Use THREE.js locally to eliminate map/atlas breaking when CDN loading times are high
 // BUG: when switching from atlas to local map and back to atlas, all atlas location labels lose their icons
-// add rings
+// Fix lagrange and jump point locations
 // make location labels visible based on radius of focusBody
 // make shadows toggleable
 // convert Lagrange points and jump points to group objects instead of object3d

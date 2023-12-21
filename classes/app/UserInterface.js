@@ -564,9 +564,10 @@ class UserInterface {
 		}
 
 		for (const star of stars) {
-			const li1 = document.createElement('li');
-			li1.innerText = star.NAME;
-			e.appendChild(li1);
+			//const li1 = document.createElement('li');
+			//li1.innerText = star.NAME;
+			//e.appendChild(li1);
+			const li1 = this.#createAtlasSidebarSelector(e, star);
 
 			// PLANETS
 			const planets = DB.bodies.filter((planet) => {
@@ -620,9 +621,15 @@ class UserInterface {
 	#createAtlasSidebarSelector(parentElement, object) {
 		const element = document.createElement('li');
 		parentElement.appendChild(element);
-		element.innerText = object.NAME;
+		//element.innerText = object.NAME;
 
-		element.classList.add('atlas-sidebar-object-selector');
+		const selector = document.createElement('span');
+		selector.innerText = object.NAME;
+		//selector.classList.add('selector');
+		selector.classList.add('atlas-sidebar-object-selector');
+		element.appendChild(selector);
+
+		//element.classList.add('atlas-sidebar-object-selector');
 		element.addEventListener('click', (e) => {
 			e.stopPropagation();
 			let event = new CustomEvent('changeAtlasFocus', {
