@@ -564,9 +564,6 @@ class UserInterface {
 		}
 
 		for (const star of stars) {
-			//const li1 = document.createElement('li');
-			//li1.innerText = star.NAME;
-			//e.appendChild(li1);
 			const li1 = this.#createAtlasSidebarSelector(e, star);
 
 			// PLANETS
