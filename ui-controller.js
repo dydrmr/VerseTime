@@ -2,6 +2,7 @@ let showSettingsWindow = false;
 let showCreditsWindow = false;
 let showMapWindow = false;
 let hoverLocation = null;
+let locationSelectedIndex = -1;
 
 document.getElementById('BUTTON-open-settings').addEventListener('click', function (e) { toggleSettingsWindow(); });
 document.getElementById('BUTTON-close-settings').addEventListener('click', function (e) { toggleSettingsWindow(); });
@@ -23,6 +24,7 @@ function toggleSettingsWindow(forceState = null) {
 	} else {
 		document.getElementById('location-selection-input').value = '';
 		document.getElementById('location-selection-input').blur();
+		resetLocationList();
 	}
 
 }
@@ -194,6 +196,8 @@ document.getElementById('location-selection-input').addEventListener('input', (e
 		return;
 	}
 
+	resetLocationList();
+
 	let searchFragments = search.split('+');
 	let buttons = document.getElementsByClassName('BUTTON-set-location');
 
@@ -215,6 +219,19 @@ document.getElementById('time-selection-input').addEventListener('input', (event
 	setChosenTime(timeInput);
 });
 
+function removeSelectedClass() {
+	document.getElementById('available-locations-list').querySelectorAll('.BUTTON-set-location:not(.hide).selected').forEach(el => el.classList.remove('selected'))
+}
+
+function getLocationButtons() {
+	return document.getElementById('available-locations-list').querySelectorAll('.BUTTON-set-location:not(.hide)');
+}
+
+function resetLocationList() {
+	locationSelectedIndex = -1;
+	removeSelectedClass();
+	document.getElementById('available-locations-list').scroll(0, 0);
+}
 
 // KEYBOARD INPUT
 document.addEventListener('keydown', function (event) {
@@ -224,6 +241,49 @@ document.addEventListener('keydown', function (event) {
 		if (window.DEBUG_MODE) toggleDebugWindow();
 	}
 
+
+	if(event.keyCode === 38) { // Up
+		if(locationSelectedIndex <= 0) {
+			document.getElementById('location-selection-input').focus();
+			return;
+		}
+		let buttons = getLocationButtons();
+		removeSelectedClass();
+
+		locationSelectedIndex--;
+		buttons[locationSelectedIndex].classList.add('selected');
+
+		// scroll to button
+		document.getElementById('available-locations-list').scroll(0, buttons[locationSelectedIndex].offsetTop - 200);
+	}
+
+	if(event.keyCode === 40) { // Down
+		let buttons = getLocationButtons();
+		if(locationSelectedIndex >= buttons.length - 1) {
+			return;
+		}
+		document.getElementById('location-selection-input').blur();
+		removeSelectedClass();
+
+		locationSelectedIndex++;
+		buttons[locationSelectedIndex].classList.add('selected');
+
+		// scroll to button
+		document.getElementById('available-locations-list').scroll(0, buttons[locationSelectedIndex].offsetTop - 200);
+	}
+
+
+	if (event.keyCode === 13 && showSettingsWindow) {
+		let selected = document.querySelector('.BUTTON-set-location.selected');
+		let result = getLocationButtons();
+		if(selected) {
+			selected.click();
+			resetLocationList();
+		} else if(result && result.length > 0) {
+			result[0].click();
+			resetLocationList();
+		}
+	}
 
 	if (event.target.tagName.toLowerCase() === 'input') { return; }
 
