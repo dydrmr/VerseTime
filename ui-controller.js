@@ -21,6 +21,7 @@ function toggleSettingsWindow(forceState = null) {
 	if (showSettingsWindow) {
 		document.getElementById('location-selection-input').focus();
 	} else {
+		document.getElementById('location-selection-input').value = '';
 		document.getElementById('location-selection-input').blur();
 	}
 
@@ -187,16 +188,16 @@ function populateLocationList() {
 // LOCATION SEARCH FILTER
 document.getElementById('location-selection-input').addEventListener('input', (event) => {
 	let search = document.getElementById("location-selection-input").value.toLowerCase();
+	if (search === '/' || search === '') {
+		document.getElementById('location-selection-input').value = '';
+		document.getElementById('available-locations-list').querySelectorAll('.BUTTON-set-location.hide').forEach(el => el.classList.remove('hide'))
+		return;
+	}
+
 	let searchFragments = search.split('+');
 	let buttons = document.getElementsByClassName('BUTTON-set-location');
 
 	for (let element of buttons) {
-
-		if (search === '') {
-			element.classList.remove('hide');
-			continue;
-		}
-
 		let found = Array();
 		for (let [index, fragment] of searchFragments.entries()) {
 			if (fragment === '') continue;
@@ -240,7 +241,6 @@ document.addEventListener('keydown', function (event) {
 
 	if (event.keyCode === 191) {
 		toggleSettingsWindow('on');
-		document.getElementById('location-selection-input').blur();
 	}
 });
 
