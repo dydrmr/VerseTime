@@ -2,7 +2,6 @@
 import { OrbitControls } from 'three/addons/controls/OrbitControls';
 import { TrackballControls }  from 'three/addons/controls/TrackballControls';
 import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer';
-//import { clamp, mapLinear } from 'three/src/math/MathUtils.js';
 
 import { round, calculateDistance2D, calculateDistance3D, makeLine, makeCircle, getCelestialBodiesInSystem, getSystemByName, getBodyByName, getStarByName, readableNumber, random, convertPolarToCartesian, degrees, radians, mapLinear } from './HelperFunctions.js';
 import Settings from './classes/app/Preferences.js';
@@ -48,7 +47,6 @@ const lights = Array();
 // move relevant functions/vars over to UI class
 // option to show/hide map labels
 // new info hoverbox
-// reduce camera rotation speed when zoomed in
 
 setup();
 render();
@@ -120,7 +118,6 @@ loadingManager.onError = function (url) {
 }
 
 function render() {
-
 	const target = controls.target;
 	controls.update();
 	zoomControls.target.set(target.x, target.y, target.z);
@@ -172,8 +169,6 @@ function updateCameraRotationSpeed(distance) {
 	if (distance < 0.0025) {
 		const bodyRadius = focusBody.BODY_RADIUS / mapScale;
 		let distToSurface = distance - bodyRadius;
-		//console.log(round(distToSurface * mapScale, 1) + ' km\n' + distToSurface);
-
 		if (distToSurface > 0.0001) distToSurface = 0.0001;
 
 		const mapped = mapLinear(distToSurface, 0, 0.0001, 0.01, 0.5);
@@ -199,6 +194,7 @@ function updateDebugInfo() {
 	let scale = controls.getDistance() * mapScale * 1000;
 	let num = readableNumber(scale, 'meters', false, 1);
 	UI.setText('atlas-scale', round(scale).toLocaleString());
+	UI.setText('atlas-scale-units', num);
 
 	UI.setText('atlas-rotate-speed', round(controls.rotateSpeed, 4));
 }
