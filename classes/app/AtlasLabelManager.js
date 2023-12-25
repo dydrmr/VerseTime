@@ -184,7 +184,7 @@ class AtlasLabelManager {
             }
         });
 
-        console.warn('TODO: label infobox events not set');
+        console.warn('TODO: bind label infobox events');
         return; 
 
         domElement.addEventListener('mouseenter', (event) => {
