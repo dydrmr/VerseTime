@@ -207,7 +207,9 @@ function createNewScene(celestialObject) {
 	scene.clear();
 
 	document.getElementById('map-body-name').textContent = celestialObject.NAME;
-	let oldLabels = document.querySelectorAll( '.mapLocationLabel, .mapLocationName, .mapLocationTime, .mapLocationIcon, .mapOrbitalMarker' );
+
+	const mapWindow = UI.el('map-window');
+	const oldLabels = mapWindow.querySelectorAll( '.mapLocationLabel, .mapLocationName, .mapLocationTime, .mapLocationIcon, .mapOrbitalMarker' );
 	oldLabels.forEach(l => {l.remove()});
 
 	createStarfield();
