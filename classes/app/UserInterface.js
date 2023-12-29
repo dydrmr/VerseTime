@@ -514,7 +514,7 @@ class UserInterface {
 			this.locationSelectedIndex = -1;
 			this.getSelectedButton()?.classList.remove('selected');
 			this.getButtons()?.forEach(el => el.classList.remove('hide'));
-			document.getElementById('available-locations-list').scroll(0, 0);
+			UI.el('available-locations-list').scroll(0, 0);
 		}
 
 		window.suppressReload = true;
