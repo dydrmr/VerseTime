@@ -1,4 +1,4 @@
-import { round, getHashedLocation, getHash, convertHoursToTimeString, getCustomTime, convertDateToShortTime, getUniverseTime, getLocationByName } from '../../HelperFunctions.js';
+﻿import { round, getHashedLocation, getHash, convertHoursToTimeString, getCustomTime, convertDateToShortTime, getUniverseTime, getLocationByName } from '../../HelperFunctions.js';
 import Settings from './Preferences.js';
 import DB from './Database.js';
 import Window from './Window.js';
@@ -22,12 +22,26 @@ class UserInterface {
 		this.atlasInfobox = document.getElementById('atlas-hoverinfo');
 
 		this.mapHoverLocation = null;
+		this.locationSelectedIndex = -1;
+		this.visibleButtons = [];
 
 		this.Atlas = new Window('modal-atlas', 'atlas-container', 'createAtlasScene');
 		this.Map = new Window('modal-map', 'map-window', 'createMapScene');
 		this.Settings = new Window('modal-settings', 'settings-window', null);
 		this.Debug = new Window('detailed-info', null, null);
 		this.Credits = new Window('modal-credits', null, null);
+	}
+
+	getButtons() {
+		return document.getElementById('available-locations-list').querySelectorAll('.BUTTON-set-location');
+	}
+
+	getVisibleButtons() {
+		return document.getElementById('available-locations-list').querySelectorAll('.BUTTON-set-location:not(.hide)');
+	}
+
+	getSelectedButton() {
+		return document.getElementById('available-locations-list').querySelector('.BUTTON-set-location.selected');
 	}
 
 	setupEventListeners() {
@@ -58,6 +72,43 @@ class UserInterface {
 
 				return;
 			}
+			if (UI.Settings.show) {
+
+				// get visible buttons once
+				if(this.locationSelectedIndex === -1) {
+					this.buttons = this.getVisibleButtons();
+				}
+
+				if(event.key === 'ArrowUp') {
+					if(this.locationSelectedIndex <= 0) {
+						UI.el('location-selection-input').focus();
+						return;
+					}
+
+					this.getSelectedButton()?.classList.remove('selected');
+					this.locationSelectedIndex--;
+					this.buttons[this.locationSelectedIndex].classList.add('selected');
+
+					// scroll to button
+					document.getElementById('available-locations-list').scroll(0, this.buttons[this.locationSelectedIndex].offsetTop - 200);
+					return;
+				}
+
+				if(event.key === 'ArrowDown') {
+					if(this.locationSelectedIndex >= this.buttons.length - 1) {
+						return;
+					}
+					document.getElementById('location-selection-input').blur();
+					this.getSelectedButton()?.classList.remove('selected');
+
+					this.locationSelectedIndex++;
+					this.buttons[this.locationSelectedIndex].classList.add('selected');
+
+					// scroll to button
+					document.getElementById('available-locations-list').scroll(0, this.buttons[this.locationSelectedIndex].offsetTop - 200);
+					return;
+				}
+			}
 
 			if (event.target.tagName.toLowerCase() === 'input') return;
 
@@ -77,19 +128,26 @@ class UserInterface {
 		// KEYBOARD SEARCH
 		document.addEventListener('keyup', (event) => {
 			if (UI.Settings.show && event.key === 'Enter') {
-				const buttons = document.getElementsByClassName('BUTTON-set-location');
-				const visible = [...buttons].filter((button) => !button.classList.contains('hide'));
-				
-				if (visible.length < 1) return;
-				visible[0].click;
-				UI.setMapLocation(visible[0].dataset.locationName);
+				let selected = this.getSelectedButton();
+				let buttons = this.getVisibleButtons();
+				if(selected) {
+					selected.click();
+					UI.setMapLocation(selected.dataset.locationName);
+				} else if(buttons && buttons.length > 0) {
+					buttons[0].click();
+					UI.setMapLocation(buttons[0].dataset.locationName);
+				}
+				return;
 			}
 
 			if (event.target.tagName.toLowerCase() === 'input') return;
 
 			if (event.key === '/') {
 				if (!UI.Settings.show) UI.Settings.toggle();
+				this.locationSelectedIndex = -1;
+				this.getSelectedButton()?.classList.remove('selected');
 				UI.el('location-selection-input').focus();
+				return;
 			}
 		})
 
@@ -103,14 +161,14 @@ class UserInterface {
 
 		// TYPING IN LOCATION SEARCH BOX
 		this.el('location-selection-input').addEventListener('input', (event) => {
-			const search = UI.el("location-selection-input").value.toLowerCase();
+			const search = UI.el('location-selection-input').value.toLowerCase();
 			const searchFragments = search.split('+');
-			const buttons = document.getElementsByClassName('BUTTON-set-location');
+			const buttons = this.getButtons();
 
 			if (search === '') {
-				for (const element of buttons) {
-					element.classList.remove('hide');
-				}
+				this.locationSelectedIndex = -1;
+				this.getSelectedButton()?.classList.remove('selected');
+				buttons?.forEach(el => el.classList.remove('hide'));
 				return;
 			}
 
@@ -449,7 +507,12 @@ class UserInterface {
 		Settings.save('activeLocation', Settings.activeLocation.NAME);
 		if (UI.Settings.show) {
 			UI.Settings.toggle();
+			UI.el('location-selection-input').value = '';
 			UI.el('location-selection-input').blur();
+			this.locationSelectedIndex = -1;
+			this.getSelectedButton()?.classList.remove('selected');
+			this.getButtons()?.forEach(el => el.classList.remove('hide'));
+			document.getElementById('available-locations-list').scroll(0, 0);
 		}
 
 		window.suppressReload = true;
