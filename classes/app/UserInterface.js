@@ -75,37 +75,39 @@ class UserInterface {
 			if (UI.Settings.show) {
 
 				// get visible buttons once
-				if(this.locationSelectedIndex === -1) {
+				if (this.locationSelectedIndex === -1) {
 					this.buttons = this.getVisibleButtons();
 				}
 
-				if(event.key === 'ArrowUp') {
-					if(this.locationSelectedIndex <= 0) {
+				if (event.key === 'ArrowUp' || (event.key === 'Tab' && event.shiftKey)) {
+					if (event.key === 'Tab') { event.preventDefault(); }
+					if (this.locationSelectedIndex <= 0) {
+						event.preventDefault();
+						this.locationSelectedIndex = -1;
+						this.getSelectedButton()?.classList.remove('selected');
 						UI.el('location-selection-input').focus();
 						return;
 					}
-
+					UI.el('location-selection-input').blur();
 					this.getSelectedButton()?.classList.remove('selected');
 					this.locationSelectedIndex--;
 					this.buttons[this.locationSelectedIndex].classList.add('selected');
 
 					// scroll to button
-					document.getElementById('available-locations-list').scroll(0, this.buttons[this.locationSelectedIndex].offsetTop - 200);
+					UI.el('available-locations-list').scroll(0, this.buttons[this.locationSelectedIndex].offsetTop - 200);
 					return;
 				}
 
-				if(event.key === 'ArrowDown') {
-					if(this.locationSelectedIndex >= this.buttons.length - 1) {
-						return;
-					}
-					document.getElementById('location-selection-input').blur();
+				if (event.key === 'ArrowDown' || event.key === 'Tab') {
+					if (event.key === 'Tab') { event.preventDefault(); }
+					if (this.locationSelectedIndex >= this.buttons.length - 1) { return; }
+					UI.el('location-selection-input').blur();
 					this.getSelectedButton()?.classList.remove('selected');
-
 					this.locationSelectedIndex++;
 					this.buttons[this.locationSelectedIndex].classList.add('selected');
 
 					// scroll to button
-					document.getElementById('available-locations-list').scroll(0, this.buttons[this.locationSelectedIndex].offsetTop - 200);
+					UI.el('available-locations-list').scroll(0, this.buttons[this.locationSelectedIndex].offsetTop - 200);
 					return;
 				}
 			}
