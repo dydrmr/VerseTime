@@ -1,4 +1,4 @@
-﻿import { round, getHashedLocation, getHash, convertHoursToTimeString, getCustomTime, convertDateToShortTime, getUniverseTime, getLocationByName } from '../../HelperFunctions.js';
+import { round, getHashedLocation, getHash, convertHoursToTimeString, getCustomTime, convertDateToShortTime, getUniverseTime, getLocationByName } from '../../HelperFunctions.js';
 import Settings from './Preferences.js';
 import DB from './Database.js';
 import Window from './Window.js';
@@ -76,7 +76,7 @@ class UserInterface {
 
 		// KEYBOARD SEARCH
 		document.addEventListener('keyup', (event) => {
-			if (UI.Settings.show && event.key === 'Enter') { 
+			if (UI.Settings.show && event.key === 'Enter') {
 				const buttons = document.getElementsByClassName('BUTTON-set-location');
 				const visible = [...buttons].filter((button) => !button.classList.contains('hide'));
 				
@@ -97,7 +97,7 @@ class UserInterface {
 		// CUSTOM TIME SELECTION
 		this.listen('input', 'time-selection-input', () => {
 			const timeInput = UI.el('time-selection-input').value;
-			UI.setCustomTime(timeInput); 
+			UI.setCustomTime(timeInput);
 		})
 
 
@@ -113,7 +113,7 @@ class UserInterface {
 				}
 				return;
 			}
-			
+
 			for (const element of buttons) {
 				const found = Array();
 				for (let [index, fragment] of searchFragments.entries()) {
@@ -580,7 +580,7 @@ class UserInterface {
 				return (a.ORDINAL < b.ORDINAL) ? -1 : (a.ORDINAL > b.ORDINAL) ? 1 : 0;
 			});
 
-			
+
 			const ul2 = document.createElement('ul');
 			if (planets.length > 0) {
 				li1.appendChild(ul2);
