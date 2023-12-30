@@ -1,4 +1,4 @@
-﻿import { round, getHashedLocation, getHash, convertHoursToTimeString, getCustomTime, convertDateToShortTime, getUniverseTime, getLocationByName } from '../../HelperFunctions.js';
+import { round, getHashedLocation, getHash, convertHoursToTimeString, getCustomTime, convertDateToShortTime, getUniverseTime, getLocationByName } from '../../HelperFunctions.js';
 import Settings from './Preferences.js';
 import DB from './Database.js';
 import Window from './Window.js';
@@ -131,12 +131,13 @@ class UserInterface {
 		document.addEventListener('keyup', (event) => {
 			if (UI.Settings.show && event.key === 'Enter') {
 				let selected = this.getSelectedButton();
-				let buttons = this.getVisibleButtons();
 				if(selected) {
-					selected.click();
 					UI.setMapLocation(selected.dataset.locationName);
-				} else if(buttons && buttons.length > 0) {
-					buttons[0].click();
+					return;
+				}
+
+				let buttons = this.getVisibleButtons();
+				if(buttons && buttons.length > 0) {
 					UI.setMapLocation(buttons[0].dataset.locationName);
 				}
 				return;
