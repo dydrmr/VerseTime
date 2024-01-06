@@ -345,7 +345,8 @@
     transition: 0.2s ease-out;
 }
 
-    .BUTTON-set-location:hover {
+    .BUTTON-set-location:hover,
+    .BUTTON-set-location.selected {
         cursor: pointer;
         background-color: var(--theme-color);
         color: var(--theme-color-dark);
