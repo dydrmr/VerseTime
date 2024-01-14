@@ -80,32 +80,32 @@
 }
 
 .icon-outpost {
-    background-image: url('../img/icon-outpost.png');
+    background-image: url('../img/icon/outpost.png');
     width: 7px !important;
 }
 
 .icon-landingzone {
-    background-image: url('../img/icon-landingzone.png');
+    background-image: url('../img/icon/landingzone.png');
 }
 
 .icon-spacestation {
-    background-image: url('../img/icon-spacestation.png');
+    background-image: url('../img/icon/spacestation.png');
 }
 
 .icon-space {
-    background-image: url('../img/icon-space.png');
+    background-image: url('../img/icon/space.png');
 }
 
 .icon-star {
-    background-image: url('../img/icon-star.png');
+    background-image: url('../img/icon/star.png');
 }
 
 .icon-planet {
-    background-image: url('../img/icon-planet.png');
+    background-image: url('../img/icon/planet.png');
 }
 
 .icon-wormhole {
-    background-image: url('../img/icon-wormhole.png');
+    background-image: url('../img/icon/wormhole.png');
 }
 
 
