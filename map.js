@@ -446,7 +446,8 @@ function setLocationIcon(type, element) {
 		type === 'Prison' ||
 		type === 'Shipwreck' ||
 		type === 'Scrapyard' ||
-		type === 'Settlement'
+		type === 'Settlement' ||
+		type === 'Distribution Center'
 	) {
 		element.classList.add('icon-outpost');
 	

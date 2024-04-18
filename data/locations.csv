@@ -223,12 +223,25 @@ Lively Pathway Station,Space station,ARC-L2,Stanton,,,,https://media.starcitizen
 Modern Express Station,Space station,ARC-L3,Stanton,,,,https://media.starcitizen.tools/thumb/6/6c/ARC-L3-Exterior-Alpha-3.17.2.jpg/300px-ARC-L3-Exterior-Alpha-3.17.2.jpg,
 Faint Glen Station,Space station,ARC-L4,Stanton,,,,https://media.starcitizen.tools/thumb/3/3c/ARC-L4-Exterior-Alpha-3.17.2.jpg/300px-ARC-L4-Exterior-Alpha-3.17.2.jpg,
 Yellow Core Station,Space station,ARC-L5,Stanton,,,,https://media.starcitizen.tools/thumb/9/9b/ARC-L5-Exterior-Alpha-3.17.2.jpg/300px-ARC-L5-Exterior-Alpha-3.17.2.jpg,
-INS Jericho,Space station,MIC-L1,Stanton,27928.773,1329.828,-17086.343,https://media.starcitizen.tools/thumb/3/30/Stanton-ins-jericho-3.12.jpg/300px-Stanton-ins-jericho-3.12.jpg,
-Shallow Frontier Station,Space station,MIC-L1,Stanton,3.031,4.510,-0.943,https://media.starcitizen.tools/thumb/5/56/MIC-L1-Exterior1-Alpha-3.12.png/300px-MIC-L1-Exterior1-Alpha-3.12.png,
-Long Forest Station,Space station,MIC-L2,Stanton,,,,https://media.starcitizen.tools/thumb/7/7e/MIC-L2-Exterior2-Alpha-3.17.2.jpg/300px-MIC-L2-Exterior2-Alpha-3.17.2.jpg,
-Endless Odyssey Station,Space station,MIC-L3,Stanton,,,,https://media.starcitizen.tools/thumb/a/a6/MIC-L3-Exterior-Alpha-3.17.2.jpg/300px-MIC-L3-Exterior-Alpha-3.17.2.jpg,
-Red Crossroads Station,Space station,MIC-L4,Stanton,,,,https://media.starcitizen.tools/thumb/e/e2/MIC-L4-Exterior1-Alpha-3.17.2.jpg/1024px-MIC-L4-Exterior1-Alpha-3.17.2.jpg,
-Modern Icarus Station,Space station,MIC-L5,Stanton,,,,https://media.starcitizen.tools/thumb/b/b8/MIC-L5-Exterior1-Alpha-3.17.2.jpg/300px-MIC-L5-Exterior1-Alpha-3.17.2.jpg,
+INS Jericho,Space station,MIC-L1,Stanton,27928.773,1329.828,-17086.343,https://media.starcitizen.tools/thumb/3/30/Stanton-ins-jericho-3.12.jpg/300px-Stanton-ins-jericho-3.12.jpg,https://starcitizen.tools/INS_Jericho
+Shallow Frontier Station,Space station,MIC-L1,Stanton,3.031,4.510,-0.943,https://media.starcitizen.tools/thumb/5/56/MIC-L1-Exterior1-Alpha-3.12.png/300px-MIC-L1-Exterior1-Alpha-3.12.png,https://starcitizen.tools/MIC-L1_Shallow_Frontier_Station
+Long Forest Station,Space station,MIC-L2,Stanton,,,,https://media.starcitizen.tools/thumb/7/7e/MIC-L2-Exterior2-Alpha-3.17.2.jpg/300px-MIC-L2-Exterior2-Alpha-3.17.2.jpg,https://starcitizen.tools/MIC-L2_Long_Forest_Station
+Endless Odyssey Station,Space station,MIC-L3,Stanton,,,,https://media.starcitizen.tools/thumb/a/a6/MIC-L3-Exterior-Alpha-3.17.2.jpg/300px-MIC-L3-Exterior-Alpha-3.17.2.jpg,https://starcitizen.tools/MIC-L3_Endless_Odyssey_Station
+Red Crossroads Station,Space station,MIC-L4,Stanton,,,,https://media.starcitizen.tools/thumb/e/e2/MIC-L4-Exterior1-Alpha-3.17.2.jpg/1024px-MIC-L4-Exterior1-Alpha-3.17.2.jpg,https://starcitizen.tools/MIC-L4_Red_Crossroads_Station
+Modern Icarus Station,Space station,MIC-L5,Stanton,,,,https://media.starcitizen.tools/thumb/b/b8/MIC-L5-Exterior1-Alpha-3.17.2.jpg/300px-MIC-L5-Exterior1-Alpha-3.17.2.jpg,https://starcitizen.tools/MIC-L5_Modern_Icarus_Station
+Covalex Distribution Centre S1DC06,Distribution Center,Hurston,Stanton,742.847,15.480,671.074,,
+Dupree Industrial Manufacturing Facility,Distribution Center,Hurston,Stanton,239.426,-969.806,68.635,,
+Greycat Stanton I Production Complex-B,Distribution Center,Hurston,Stanton,-407.457,-656.296,636.322,,
+HDPC-Cassilo,Distribution Center,Hurston,Stanton,-789.716,615.354,-2.353,,
+HDPC-Farnesway,Distribution Center,Hurston,Stanton,129.223,63.888,989.575,,
+Sakura Sun Magnolia Workcenter,Distribution Center,Hurston,Stanton,-229.373,-864.793,-446.960,,
+Covalex Distribution Centre S4DC05,Distribution Center,microTech,Stanton,-332.505,897.834,-290.234,,
+Cry-Astro Processing Plant 19-02,Distribution Center,microTech,Stanton,584.139,-0.789,812.169,,
+Cry-Astro Processing Plant 34-12,Distribution Center,microTech,Stanton,-316.285,-882.040,-350.639,,
+Greycat Stanton IV Production Complex-A,Distribution Center,microTech,Stanton,-423.347,-141.169,-895.145,,
+MicroTech Logistics Depot S4LD01,Distribution Center,microTech,Stanton,884.615,467.868,-19.153,,
+MicroTech Logistics Depot S4LD13,Distribution Center,microTech,Stanton,843.838,-179.535,505.834,,
+Sakura Sun Goldenrod Workcenter,Distribution Center,microTech,Stanton,-173.422,-923.630,-343.265,,
 Rustville,Settlement,Pyro I,Pyro,-195.852,-319.059,170.820,https://media.starcitizen.tools/thumb/e/e1/Rustville_-_Pyro_I%2C_Pyro_system.png/400px-Rustville_-_Pyro_I%2C_Pyro_system.png,https://starcitizen.tools/Rustville
 Last Ditch,Settlement,Monox,Pyro,-143.491,-34.931,508.706,https://media.starcitizen.tools/thumb/d/d7/Last_Ditch_-_Monox%2C_Pyro_system.png/400px-Last_Ditch_-_Monox%2C_Pyro_system.png,https://starcitizen.tools/Last_Ditch
 Jackson's Swap,Settlement,Monox,Pyro,383.115,-245.830,-272.467,https://media.starcitizen.tools/thumb/6/69/Jackson%27s_Swap_-_Monox%2C_Pyro_system.png/400px-Jackson%27s_Swap_-_Monox%2C_Pyro_system.png,https://starcitizen.tools/Jackson%27s_Swap
