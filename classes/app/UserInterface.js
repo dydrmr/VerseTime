@@ -117,7 +117,15 @@ class UserInterface {
 
 			if (event.key === 'a') { UI.Atlas.toggle(); }
 			if (event.key === 'm') { UI.Map.toggle(); }
-			if (event.key === 'd') { UI.Debug.toggle(); }
+
+			if (event.key === 'd') {
+				UI.Debug.toggle();
+
+				if (UI.Debug.show) {
+					DB.getLocationsWithoutImage();
+					DB.getLocationsWithoutWikiLink();
+				}
+			}
 
 
 			if (event.key === 't') {
