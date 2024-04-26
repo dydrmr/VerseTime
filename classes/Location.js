@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import DB from './app/Database.js';
 
 export default class Location {
-	constructor(name, type, parentBody, parentStar, coordinates, themeColor = null, themeImage = null) {
+	constructor(name, type, parentBody, parentStar, coordinates, themeColor = null, themeImage = null, wikiLink = null) {
 		this.NAME = name;
 		this.TYPE = type;
 		this.PARENT = parentBody;
@@ -15,6 +15,7 @@ export default class Location {
 
 		this.THEME_COLOR = themeColor ?? this.PARENT.THEME_COLOR;
 		this.THEME_IMAGE = (themeImage === '' || themeImage === null) ? this.PARENT.THEME_IMAGE : themeImage;
+		this.WIKI_LINK = (wikiLink === '' || wikiLink === null) ? null : wikiLink;
 
 		// CALCULATED PROPERTIES
 		this.#calculateLatitudeAndLongitude();
