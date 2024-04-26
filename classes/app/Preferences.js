@@ -89,6 +89,7 @@ class Preferences {
 			return location.NAME === 'Orison';
 		});
 		Settings.activeLocation = result[0];
+		Settings.save('activeLocation', result[0].NAME);
 	}
 
 	save(key, value) {
