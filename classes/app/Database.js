@@ -1,4 +1,4 @@
-import { getSystemByName, getBodyByName } from '../../HelperFunctions.js';
+import { getSystemByName, getBodyByName, getLocationByName, calculateDistance3D } from '../../HelperFunctions.js';
 import SolarSystem from '../SolarSystem.js';
 import Star from '../Star.js';
 import CelestialBody from '../CelestialBody.js';
@@ -225,6 +225,7 @@ class Database {
         let parentBody = (data.parentBody === 'null') ? null : getBodyByName(data.parentBody);
         let parentStar = (data.parentStar === 'null') ? null : getBodyByName(data.parentStar);
         let themeImage = (data.themeImage === 'null') ? null : String(data.themeImage);
+        let wikiLink = (data.wikiLink === 'null') ? null : String(data.wikiLink);
 
         let location = new Location(
             String(data.name),
@@ -237,7 +238,8 @@ class Database {
                 'z': parseFloat(data.coordinateZ)
             },
             null,
-            themeImage
+            themeImage,
+            wikiLink
         );
     }
 
@@ -253,6 +255,74 @@ class Database {
             }
         });
         return array;
+    }
+
+    getLocationsWithoutImage() {
+        const noImage = this.locations.filter((loc) => {
+            return loc.THEME_IMAGE === loc.PARENT.THEME_IMAGE;
+        });
+
+        const inLight = noImage.filter((loc) => {
+            const lit = ['Morning Twilight', 'Starrise', 'Morning', 'Late Morning', 'Noon', 'Afternoon', 'Polar Day', 'Permanent Day']
+            return lit.includes(loc.ILLUMINATION_STATUS);
+        });
+
+        let activeLocation = getLocationByName(window.localStorage.activeLocation);
+
+        const result = [];
+        for (const loc of inLight) {
+            let dist = null;
+
+            if (loc.PARENT === activeLocation.PARENT) {
+                const p1 = loc.COORDINATES;
+                const p2 = activeLocation.COORDINATES;
+                dist = calculateDistance3D(p1.x, p1.y, p1.z, p2.x, p2.y, p2.z, false);
+            } else if (loc.PARENT_STAR === activeLocation.PARENT_STAR) {
+                const p1 = loc.PARENT.COORDINATES;
+                const p2 = activeLocation.PARENT.COORDINATES;
+                dist = calculateDistance3D(p1.x, p1.y, p1.z, p2.x, p2.y, p2.z, false);
+            } else {
+                dist = Infinity;
+            }
+
+            const object = {
+                'Name': loc.NAME,
+                'Phase': loc.ILLUMINATION_STATUS,
+                'Distance': dist
+            }
+            result.push(object);
+        }
+
+        result.sort((a, b) => {
+            if (a.Distance < b.Distance) {
+                return -1;
+            }
+            if (a.Distance > b.Distance) {
+                return 1;
+            }
+            return 0;
+        });
+
+        console.log('Locations without images:');
+        console.table(result);
+    }
+
+    getLocationsWithoutWikiLink() {
+        const noWiki = this.locations.filter((loc) => {
+            return !loc.WIKI_LINK;
+        });
+
+        const result = [];
+        for (const loc of noWiki) {
+            const object = {
+                'Name': loc.NAME,
+                'Parent': loc.PARENT.NAME
+            }
+            result.push(object);
+        }
+
+        console.log('Locations without Wiki links:');
+        console.table(result);
     }
 
 
