@@ -445,21 +445,28 @@ function setLocationIcon(type, element) {
 		type === 'Outpost' ||
 		type === 'Prison' ||
 		type === 'Shipwreck' ||
-		type === 'Scrapyard' ||
-		type === 'Settlement' ||
-		type === 'Distribution Center'
+		type === 'Scrapyard'
 	) {
 		element.classList.add('icon-outpost');
-	
+
 	} else if (
 		type === 'Space station' ||
 		type === 'Asteroid base'
 	) {
 		element.classList.add('icon-spacestation');
-	
+
 	} else if (type === 'Landing zone') {
 		element.classList.add('icon-landingzone');
-	
+
+	} else if (type === 'Settlement') {
+		element.classList.add('icon-settlement');
+
+	} else if (type === 'Distribution center') {
+		element.classList.add('icon-distribution-center');
+
+	} else if (type === 'Cave') {
+		element.classList.add('icon-cave');
+		
 	} else {
 		element.classList.add('icon-space');
 	}

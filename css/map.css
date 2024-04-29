@@ -108,6 +108,18 @@
     background-image: url('../img/icon/wormhole.png');
 }
 
+.icon-cave {
+    background-image: url('../img/icon/cave.png');
+}
+
+.icon-settlement {
+    background-image: url('../img/icon/settlement.png');
+}
+
+.icon-distribution-center {
+    background-image: url('../img/icon/distribution-center.png');
+}
+
 
 .mapOrbitalMarker {
     font-size: 10px;
