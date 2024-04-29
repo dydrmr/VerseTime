@@ -267,12 +267,30 @@ class Database {
             return lit.includes(loc.ILLUMINATION_STATUS);
         });
 
+        const result = DB.#sortLocationssByDistance(inLight);
+
+        console.log(`Locations without images: ${noImage.length} total / ${inLight.length} in light`);
+        console.table(result);
+    }
+
+    getLocationsWithoutWikiLink() {
+        const noWiki = this.locations.filter((loc) => {
+            return !loc.WIKI_LINK;
+        });
+
+        const result = DB.#sortLocationssByDistance(noWiki);
+
+        console.log('Locations without Wiki links:');
+        console.table(result);
+    }
+
+    #sortLocationssByDistance(locations) {
         let activeLocation = getLocationByName(window.localStorage.activeLocation);
 
         const result = [];
-        for (const loc of inLight) {
-            let dist = null;
+        for (const loc of locations) {
 
+            let dist = null;
             if (loc.PARENT === activeLocation.PARENT) {
                 const p1 = loc.COORDINATES;
                 const p2 = activeLocation.COORDINATES;
@@ -287,6 +305,7 @@ class Database {
 
             const object = {
                 'Name': loc.NAME,
+                'Body': loc.PARENT.NAME,
                 'Phase': loc.ILLUMINATION_STATUS,
                 'Distance': dist
             }
@@ -303,26 +322,7 @@ class Database {
             return 0;
         });
 
-        console.log('Locations without images:');
-        console.table(result);
-    }
-
-    getLocationsWithoutWikiLink() {
-        const noWiki = this.locations.filter((loc) => {
-            return !loc.WIKI_LINK;
-        });
-
-        const result = [];
-        for (const loc of noWiki) {
-            const object = {
-                'Name': loc.NAME,
-                'Parent': loc.PARENT.NAME
-            }
-            result.push(object);
-        }
-
-        console.log('Locations without Wiki links:');
-        console.table(result);
+        return result;
     }
 
 
