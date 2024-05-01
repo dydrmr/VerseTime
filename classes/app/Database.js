@@ -262,14 +262,9 @@ class Database {
             return loc.THEME_IMAGE === loc.PARENT.THEME_IMAGE;
         });
 
-        const inLight = noImage.filter((loc) => {
-            const lit = ['Morning Twilight', 'Starrise', 'Morning', 'Late Morning', 'Noon', 'Afternoon', 'Polar Day', 'Permanent Day']
-            return lit.includes(loc.ILLUMINATION_STATUS);
-        });
+        const result = DB.#sortLocationssByDistance(noImage);
 
-        const result = DB.#sortLocationssByDistance(inLight);
-
-        console.log(`Locations without images: ${noImage.length} total / ${inLight.length} in light`);
+        console.log(`Locations without images: ${noImage.length}`);
         console.table(result);
     }
 
