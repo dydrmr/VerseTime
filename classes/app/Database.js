@@ -298,9 +298,24 @@ class Database {
                 dist = Infinity;
             }
 
+            const rise = loc.TYPE !== 'Asteroid cluster' ? Math.round(loc.NEXT_STAR_RISE * 1440) : null;
+            const set = loc.TYPE !== 'Asteroid cluster' ? Math.round(loc.NEXT_STAR_SET * 1440) : null;
+
+            let riseset = '';
+            if (rise === null || set === null) {
+                riseset = null;
+            } else if (rise === 0 && set === 0) {
+                riseset = null;
+            } else if (rise > set) {
+                riseset = `${set} min remaining`;
+            } else {
+                riseset = `Ready in ${rise} min`;
+            }
+
             const object = {
-                'Name': loc.NAME,
                 'Body': loc.PARENT.NAME,
+                'Name': loc.NAME,
+                'RiseSet': riseset,
                 'Phase': loc.ILLUMINATION_STATUS,
                 'Distance': dist
             }
