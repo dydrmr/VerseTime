@@ -8,6 +8,7 @@ Your selected options are saved when you change them.
 * Toggle between 12 and 24-hour time with <kbd>T</kbd>.
 * Toggle the 3D map with <kbd>M</kbd>.
 * Toggle the Astro Atlas with <kbd>A</kbd>.
+* Toggle HD textures with <kbd>H</kbd>. The site must be refreshed for the changes to appear in the Astro Atlas.``
 * Toggle debug information with <kbd>D</kbd>.
 * Close any open windows with <kbd>Esc</kbd>.
 
