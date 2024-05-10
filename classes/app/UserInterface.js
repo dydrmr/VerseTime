@@ -132,6 +132,19 @@ class UserInterface {
 				Settings.use24HourTime = !Settings.use24HourTime;
 				Settings.save('time24', Settings.use24HourTime);
 			}
+
+			if (event.key === 'h') {
+				Settings.useHdTextures = !Settings.useHdTextures;
+				Settings.save('hdTextures', Settings.useHdTextures);
+
+				if (this.Map.show) {
+					document.dispatchEvent(new CustomEvent('redrawMapTexture'));
+				}
+
+				if (this.Atlas.show) {
+					console.warn('TODO: refresh atlas textures');
+				}
+			}
 		});
 
 
@@ -503,7 +516,7 @@ class UserInterface {
 
 
 	// ===============
-	// LOCAL MAP
+	// MAIN INTERFACE
 	// ===============
 
 	setMapLocation(locationName) {
@@ -513,6 +526,8 @@ class UserInterface {
 			console.error('Invalid [locationName] parameter passed to [setLocation] function!\nValue passed: ' + locationName);
 			return false;
 		}
+
+		const previousLocation = Settings.activeLocation ?? null;
 
 		Settings.activeLocation = location;
 		Settings.save('activeLocation', Settings.activeLocation.NAME);
@@ -524,6 +539,13 @@ class UserInterface {
 			this.getSelectedButton()?.classList.remove('selected');
 			this.getButtons()?.forEach(el => el.classList.remove('hide'));
 			UI.el('available-locations-list').scroll(0, 0);
+		}
+
+		if (this.Map.show) {
+			if (previousLocation.PARENT !== Settings.activeLocation.PARENT) {
+				document.dispatchEvent(new CustomEvent('createMapScene'));
+			}
+			document.dispatchEvent(new CustomEvent('moveMapCameraAboveActiveLocation'));
 		}
 
 		window.suppressReload = true;
