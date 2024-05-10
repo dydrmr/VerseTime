@@ -533,8 +533,8 @@ async function createCelestialObjectMaterial(body) {
 	if (body.TYPE === 'Planet' || body.TYPE === 'Moon') {
 		//const loader = new THREE.TextureLoader();
 
-		const directory = Settings.useHdTextures ? 'bodies-hd' : 'assets';
-		const file = `static/${directory}/${body.NAME.toLowerCase()}.webp`;
+		const directory = Settings.useHdTextures ? 'bodies-hd' : 'bodies';
+		const file = `textures/${directory}/${body.NAME.toLowerCase()}.webp`;
 		let texture;
 
 		try {
