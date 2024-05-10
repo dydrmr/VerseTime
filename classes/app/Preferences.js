@@ -1,3 +1,4 @@
+import CelestialBody from '../CelestialBody.js';
 import DB from './Database.js';
 import UI from './UserInterface.js';
 
@@ -9,12 +10,11 @@ class Preferences {
 		this.use24HourTime = true;
 		this.activeLocation = null;
 		this.customTime = 'now';
+		this.useHdTextures = true;
     }
 
     load() {
 		const savedActiveLocation = String(window.localStorage.getItem('activeLocation'));
-		const time24 = window.localStorage.getItem('time24');
-
 		if (window.location.hash === '' && savedActiveLocation !== 'null') {
 			const result = UI.setMapLocation(savedActiveLocation);
 			if (!result) Settings.#setDefaultLocation();
@@ -23,10 +23,18 @@ class Preferences {
 			Settings.#setDefaultLocation();
 		}
 
+		const time24 = window.localStorage.getItem('time24');
 		if (time24) {
 			Settings.use24HourTime = (time24 === 'false') ? false : true;
 		} else {
 			Settings.use24HourTime = true;
+		}
+
+		const hdTextures = window.localStorage.getItem('hdTextures');
+		if (hdTextures) {
+			Settings.useHdTextures = (hdTextures === 'false') ? false : true;
+		} else {
+			Settings.useHdTextures = true;
 		}
 
 		// LOCAL MAP
@@ -94,6 +102,16 @@ class Preferences {
 
 	save(key, value) {
 		window.localStorage.setItem(key, value);
+	}
+
+	getCelestialBodyTexturePath(body) {
+		if (!(body instanceof CelestialBody)) {
+			console.error('Parameter is not of type CelestialBody:', body);
+			return null;
+		}
+
+		const directory = Settings.useHdTextures ? 'bodies-hd' : 'bodies';
+		return `textures/${directory}/${body.NAME.toLowerCase()}.webp`;
 	}
 }
 
