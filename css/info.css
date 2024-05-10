@@ -50,7 +50,7 @@
 
 .credit-group {
     display: grid;
-    grid-template-columns: 100px 250px;
+    grid-template-columns: 100px 350px;
     margin: 10px auto;
 }
 
@@ -66,4 +66,17 @@
 
 .credit-group p {
     text-align: left;
+}
+
+#referral-code {
+    color: var(--theme-color);
+    text-decoration: none;
+    transition: 0.2s ease-out;
+    border-bottom: 1px dashed var(--theme-color);
+}
+
+#referral-code:hover {
+    cursor: pointer;
+    color: white;
+    border: none;
 }
