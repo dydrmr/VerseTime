@@ -34,6 +34,8 @@ window.addEventListener('resize', () => {
 });
 
 document.addEventListener('createMapScene', setupMapScene);
+document.addEventListener('redrawMapTexture', redrawMapTexture);
+document.addEventListener('moveMapCameraAboveActiveLocation', setCameraAboveActiveLocation);
 
 function setupMapScene() {
 	const body = Settings.activeLocation.PARENT;
@@ -292,7 +294,8 @@ function createTexturedSphere(celestialObject, scale = 1) {
 	const textureOpacity = document.getElementById('map-settings-planet-transparency').value / 100;
 
 	var loader = new THREE.TextureLoader();
-	let file = 'static/assets/' + celestialObject.NAME.toLowerCase() + '.webp';
+	const file = Settings.getCelestialBodyTexturePath(Settings.activeLocation.PARENT);
+
 	loader.load(file, function ( texture ) {
 		texture.colorSpace = THREE.SRGBColorSpace;
 
@@ -522,14 +525,17 @@ function setCameraAboveActiveLocation(customScalar = false) {
 // MAP SETTINGS
 document.getElementById('map-settings-planet-transparency').addEventListener('change', function() {
 	Settings.save('mapPlanetTransparency', document.getElementById('map-settings-planet-transparency').value);
+	document.dispatchEvent(new CustomEvent('redrawMapTexture'));
+});
 
-	let opacityPercent = document.getElementById('map-settings-planet-transparency').value / 100;
+function redrawMapTexture() {
+	const opacityPercent = document.getElementById('map-settings-planet-transparency').value / 100;
 	let planetMesh = scene.getObjectByName('Textured Sphere');
-	const texturePath = 'static/assets/' + Settings.activeLocation.PARENT.NAME.toLowerCase() + '.webp';
-	
+	const texturePath = Settings.getCelestialBodyTexturePath(Settings.activeLocation.PARENT);
+
 	let loader = new THREE.TextureLoader();
 	let newPlanetMaterial;
-	loader.load(texturePath, function ( texture ) {
+	loader.load(texturePath, function (texture) {
 		texture.colorSpace = THREE.SRGBColorSpace;
 
 		newPlanetMaterial = new THREE.MeshBasicMaterial({
@@ -540,8 +546,8 @@ document.getElementById('map-settings-planet-transparency').addEventListener('ch
 
 		planetMesh.material.dispose();
 		planetMesh.material = newPlanetMaterial;
-	} );
-});
+	});
+}
 
 document.getElementById('map-settings-show-grid').addEventListener('change', function() {
 	Settings.save('mapGrid', document.getElementById('map-settings-show-grid').checked);
