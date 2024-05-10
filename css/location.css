@@ -218,6 +218,7 @@
     }
 
 #settings-window {
+    z-index: 100;
     width: 700px;
     max-width: 90%;
     margin: auto;
