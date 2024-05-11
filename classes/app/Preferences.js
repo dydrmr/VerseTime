@@ -113,6 +113,35 @@ class Preferences {
 		const directory = Settings.useHdTextures ? 'bodies-hd' : 'bodies';
 		return `textures/${directory}/${body.NAME.toLowerCase()}.webp`;
 	}
+
+	getCelestialBodyTexturePaths(body) {
+		if (!(body instanceof CelestialBody)) {
+			console.error('Parameter is not of type CelestialBody:', body);
+			return null;
+		}
+
+		const mainTexture = this.getCelestialBodyTexturePath(body);
+
+		const pathReflectCheck = `textures/bodies-reflection/${body.NAME.toLowerCase()}.webp`;
+		const reflectionFileExists = this.imageExists(pathReflectCheck);
+		const reflectTexture = reflectionFileExists ? pathReflectCheck : 'textures/bodies-reflection/no-reflection.webp';
+
+		return {
+			'main': mainTexture,
+			'reflection': reflectTexture
+		};
+	}
+
+	imageExists(image_url) {
+		let http = new XMLHttpRequest();
+		http.open('HEAD', image_url, false);
+		try {
+			http.send();
+        } catch (e) {
+
+        }
+		return http.status != 404;
+	}
 }
 
 const Settings = new Preferences();
