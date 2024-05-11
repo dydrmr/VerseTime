@@ -47,6 +47,7 @@ const lights = Array();
 // move relevant functions/vars over to UI class
 // option to show/hide map labels
 // new info hoverbox
+// right-click on celestial body to get custom location data; nav directions from nearest quantum marker
 
 setup();
 render();
@@ -442,7 +443,7 @@ async function createStars() {
 		group.add(object);
 
 		// LIGHT
-		const light = new THREE.PointLight('white', 3, 10, 0);
+		const light = new THREE.PointLight('white', 3.5, 10, 0);
 		light.position.set(pos.x + sysPos.x, pos.y + sysPos.y, pos.z + sysPos.z);
 		light.name = `STARLIGHT:${star.NAME}`;
 		lights.push(light);
@@ -527,21 +528,36 @@ async function createCelestialBodyWithContainer(body, group) {
 	}
 }
 
+async function imageExists(image_url) {
+	let http = new XMLHttpRequest();
+	http.open('HEAD', image_url, false);
+	http.send();
+	return http.status != 404;
+}
+
 async function createCelestialObjectMaterial(body) {
 	let material;
 
 	if (body.TYPE === 'Planet' || body.TYPE === 'Moon') {
-		//const loader = new THREE.TextureLoader();
 
-		const directory = Settings.useHdTextures ? 'bodies-hd' : 'bodies';
-		const file = `textures/${directory}/${body.NAME.toLowerCase()}.webp`;
+		const filepaths = Settings.getCelestialBodyTexturePaths(body);
+
 		let texture;
+		let textureReflection;
 
 		try {
-			texture = await textureLoader.loadAsync(file);
+			texture = await textureLoader.loadAsync(filepaths.main);
 			texture.colorSpace = THREE.SRGBColorSpace;
+
+			textureReflection = await textureLoader.loadAsync(filepaths.reflection);
+			textureReflection.colorSpace = THREE.SRGBColorSpace;
+
 			material = new THREE.MeshStandardMaterial({
-				map: texture
+				map: texture,
+				roughnessMap: textureReflection,
+				metalnessMap: textureReflection,
+				bumpScale: 0.01,
+				metalness: 0.1
 			})
 			material.roughness = 1.0;
 
