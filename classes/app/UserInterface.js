@@ -148,6 +148,13 @@ class UserInterface {
 		});
 
 
+		// SUPPRESS FIREFOX QUICKSEARCH
+		window.addEventListener('keydown', (event) => {
+			if (event.key === '/') {
+				event.preventDefault();
+			}
+		}, { capture: true });
+
 		// KEYBOARD SEARCH
 		document.addEventListener('keyup', (event) => {
 			if (UI.Settings.show && event.key === 'Enter') {
