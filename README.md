@@ -4,7 +4,7 @@ Visit [this link](https://dydrmr.github.io/VerseTime/) to check it out.
 
 ## Interface
 Your selected options are saved when you change them.
-* To change your location, either click on the location name in the center of the window, or press <kbd>/</kbd> (slash) to open the window.
+* To change your location, either click on the location name in the center of the window, or press <kbd>/</kbd> (slash) to open the window. (Note to Firefox users: this overrides the browser's default "Quick Find" function)
 * Toggle between 12 and 24-hour time with <kbd>T</kbd>.
 * Toggle the 3D map with <kbd>M</kbd>.
 * Toggle the Astro Atlas with <kbd>A</kbd>.
