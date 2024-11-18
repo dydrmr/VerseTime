@@ -219,7 +219,7 @@ class UserInterface {
 	// MAIN UPDATE FUNCTIONS
 	update() {
 		UI.#update_setColors();
-		//UI.#update_setThemeImage();
+		UI.#update_setThemeImage();
 		UI.#update_setLocationInfo();
 		UI.#update_setRiseAndSetData();
 		UI.#update_setIlluminationStatus();

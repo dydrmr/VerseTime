@@ -3,7 +3,7 @@ import DB from './app/Database.js';
 import * as THREE from 'three';
 
 export default class CelestialBody {
-	constructor(name, type, parentBody, parentStar, coordinates, rotationQuaternion, bodyRadius, rotationRate, rotationCorrection, orbitalAngle, orbitalRadius, themeColor = null, themeImage = null) {
+	constructor(name, type, parentBody, parentStar, coordinates, rotationQuaternion, bodyRadius, rotationRate, rotationCorrection, orbitalAngle, orbitalRadius, themeColor = null) {
 		this.NAME = name;
 		this.TYPE = type;
 		this.PARENT = parentBody;
@@ -27,7 +27,7 @@ export default class CelestialBody {
 		}
 
 		this.THEME_COLOR = themeColor ? themeColor : { 'r': null, 'g': null, 'b': null };
-		this.THEME_IMAGE = themeImage;
+		this.THEME_IMAGE = `img/themes/${name.toLowerCase()}.webp`;
 
 		this.RING = null;
 

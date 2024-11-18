@@ -1,341 +1,356 @@
-name,type,parentBody,parentStar,coordinateX,coordinateY,coordinateZ,themeImage,wikiLink,private,quantum,affiliation
-Abandoned Outpost (Cellin),Ruins,Cellin,Stanton,130.062,184.915,130.356,https://starcitizen.tools/images/thumb/4/43/Abandoned_outpost%2C_Cellin_%28Alpha_3.17.1%29.jpg/300px-Abandoned_outpost%2C_Cellin_%28Alpha_3.17.1%29.jpg,https://starcitizen.tools/Unnamed_abandoned_outpost_(Cellin),0,0,
-Abandoned Outpost (Daymar),Ruins,Daymar,Stanton,73.139,285.904,1.906,https://starcitizen.tools/images/thumb/1/13/Abandoned_outpost%2C_Daymar_%28Alpha_3.17%29.png/300px-Abandoned_outpost%2C_Daymar_%28Alpha_3.17%29.png,https://starcitizen.tools/Unnamed_abandoned_outpost_(Daymar),0,0,
-Abandoned Outpost (Yela),Ruins,Yela,Stanton,-45.303,308.85,28.948,https://starcitizen.tools/images/thumb/7/7d/Abandoned_outpost%2C_Yela_%28Alpha_3.17.3%29.png/320px-Abandoned_outpost%2C_Yela_%28Alpha_3.17.3%29.png,https://starcitizen.tools/Unnamed_abandoned_outpost_(Yela),0,0,
-Afterlife,Underground bunker,Yela,Stanton,-254.263,-153.39,99.058,https://starcitizen.tools/images/thumb/2/2a/Afterlife_outpost%2C_Yela_%28Alpha_3.17%29.png/300px-Afterlife_outpost%2C_Yela_%28Alpha_3.17%29.png,https://starcitizen.tools/Afterlife,1,1,Nine Tails
-ArcCorp Mining Area 045,Outpost,Wala,Stanton,-282.798,14.108,10.62,https://starcitizen.tools/images/thumb/6/6e/ArcCorp_Mining_Area_045.png/300px-ArcCorp_Mining_Area_045.png,https://starcitizen.tools/ArcCorp_Mining_Area_045,0,1,ArcCorp
-ArcCorp Mining Area 048,Outpost,Wala,Stanton,-178.193,97.756,-196.34,https://starcitizen.tools/images/thumb/7/7a/ArcCorp_Mining_Area_048.png/300px-ArcCorp_Mining_Area_048.png,https://starcitizen.tools/ArcCorp_Mining_Area_048,0,1,ArcCorp
-ArcCorp Mining Area 056,Outpost,Wala,Stanton,116.546,-50.147,253.155,https://starcitizen.tools/images/thumb/c/cf/ArcCorp_Mining_Area_056.png/300px-ArcCorp_Mining_Area_056.png,https://starcitizen.tools/ArcCorp_Mining_Area_056,0,1,ArcCorp
-ArcCorp Mining Area 061,Outpost,Wala,Stanton,-21.04,-247.548,-132.57,https://starcitizen.tools/images/thumb/d/d6/ArcCorp_Mining_Area_061.png/300px-ArcCorp_Mining_Area_061.png,https://starcitizen.tools/ArcCorp_Mining_Area_061,0,1,ArcCorp
-ArcCorp Mining Area 141,Outpost,Daymar,Stanton,-18.167,180.362,-232.76,https://media.starcitizen.tools/thumb/4/4f/Daymar_ArcCorp-Mining-Area-141_Morning.jpg/300px-Daymar_ArcCorp-Mining-Area-141_Morning.jpg,https://starcitizen.tools/ArcCorp_Mining_Area_141,0,1,ArcCorp
-ArcCorp Mining Area 157,Outpost,Yela,Stanton,6.023,222.356,220.313,https://starcitizen.tools/images/thumb/0/0f/Yela_Arccorp-157_Day_Alpha-3.10.jpg/300px-Yela_Arccorp-157_Day_Alpha-3.10.jpg,https://starcitizen.tools/ArcCorp_Mining_Area_157,0,1,ArcCorp
-ArcCorp Processing Center 115,Underground bunker,Wala,Stanton,-277.356,50.11,27.88,https://media.starcitizen.tools/thumb/7/7d/ArcCorp_Processing_Center_115%2C_Wala.png/300px-ArcCorp_Processing_Center_115%2C_Wala.png,https://starcitizen.tools/ArcCorp_Processing_Center_115,1,1,ArcCorp
-ArcCorp Processing Center 123,Underground bunker,Wala,Stanton,130.624,-247.521,43.129,https://media.starcitizen.tools/thumb/3/3b/ArcCorp_Processing_Center_123%2C_Wala.png/300px-ArcCorp_Processing_Center_123%2C_Wala.png,https://starcitizen.tools/ArcCorp_Processing_Center_123,1,1,ArcCorp
-Area04,City,ArcCorp,Stanton,-314.306,-601.435,423.659,,https://starcitizen.tools/Area04,0,1,ArcCorp
-Area06,City,ArcCorp,Stanton,-745.806,-111.306,267.38,https://media.starcitizen.tools/thumb/c/ca/Area06%2C_ArcCorp%2C_Stanton.jpg/400px-Area06%2C_ArcCorp%2C_Stanton.jpg,https://starcitizen.tools/Area06,0,1,ArcCorp
-Area11,City,ArcCorp,Stanton,508.204,397.589,472.922,https://media.starcitizen.tools/thumb/7/77/Area11%2C_ArcCorp.webp/400px-Area11%2C_ArcCorp.webp.png,https://starcitizen.tools/Area11,0,1,ArcCorp
-Area17,City,ArcCorp,Stanton,-310.29,-601.811,-425.98,https://media.starcitizen.tools/thumb/9/97/Crusader_C1_Spirit_parked_on_an_Area17_rooftop%2C_ArcCorp.webp/400px-Crusader_C1_Spirit_parked_on_an_Area17_rooftop%2C_ArcCorp.webp.png,https://starcitizen.tools/Area17,0,1,ArcCorp
-Area18,Landing zone,ArcCorp,Stanton,-747.409,-116.734,-262.094,https://starcitizen.tools/images/thumb/5/5d/Arccorp-area18-aerial-view-to-spaceport.jpg/300px-Arccorp-area18-aerial-view-to-spaceport.jpg,https://starcitizen.tools/Area18,0,1,ArcCorp
-Area20,City,ArcCorp,Stanton,506.937,401.104,-471.308,https://media.starcitizen.tools/thumb/c/c8/Area20_morning%2C_ArcCorp.webp/400px-Area20_morning%2C_ArcCorp.webp.png,https://starcitizen.tools/Area20,0,1,ArcCorp
-Ashburn Channel Aid Shelter,Emergency shelter,Cellin,Stanton,3.024,-257.942,-37.129,https://starcitizen.tools/images/thumb/2/2c/Cellin_Ashburn-Channel-Aid-Shelter_Day.jpg/300px-Cellin_Ashburn-Channel-Aid-Shelter_Day.jpg,https://starcitizen.tools/Ashburn_Channel_Aid_Shelter,0,1,Crusader Industries
-Aston Ridge Aid Shelter,Emergency shelter,Yela,Stanton,207.944,24.051,-232.785,https://starcitizen.tools/images/thumb/3/35/Yela_Aston-Ridge-Aid-Shelter_Morning.jpg/300px-Yela_Aston-Ridge-Aid-Shelter_Morning.jpg,https://starcitizen.tools/Aston_Ridge_Aid_Shelter,0,1,Crusader Industries
-Astor's Clearing,Settlement,microTech,Stanton,-810.219,577.884,-101.43,https://media.starcitizen.tools/thumb/6/65/AstorsClearingaerial.jpg/300px-AstorsClearingaerial.jpg,https://starcitizen.tools/Astor%27s_Clearing,0,1,
-Baijini Point,Space station,ArcCorp,Stanton,-771.961,-321.347,-359.509,https://starcitizen.tools/images/thumb/6/6e/Arccorp-baijini-point-01.jpg/300px-Arccorp-baijini-point-01.jpg,https://starcitizen.tools/Baijini_Point,0,1,ArcCorp
-Barton Flats Aid Shelter,Emergency shelter,Aberdeen,Stanton,54.341,217.12,-159.881,https://starcitizen.tools/images/thumb/e/e9/Aberdeen_Barton-Flats-Aid-Shelter_Sunset.jpg/300px-Aberdeen_Barton-Flats-Aid-Shelter_Sunset.jpg,https://starcitizen.tools/Barton_Flats_Aid_Shelter,0,1,
-Bennyhenge,Landmark,Yela,Stanton,-626.649,135.683,-1.819,https://media.starcitizen.tools/thumb/9/97/Benny_Henge_1.webp/300px-Benny_Henge_1.webp.png,https://starcitizen.tools/Benny_Henge,0,0,
-Benson Mining Outpost,Outpost,Yela,Stanton,48.998,-275.606,-140.136,https://starcitizen.tools/images/thumb/8/82/Yela_Benson-Mining-Outpost_Day.jpg/300px-Yela_Benson-Mining-Outpost_Day.jpg,https://starcitizen.tools/Benson_Mining_Outpost,0,1,
-Bloodshot Ridge,Settlement,microTech,Stanton,733.94,-674.648,101.876,https://media.starcitizen.tools/thumb/9/99/Bloodshot_Ridge_settlement%2C_microTech.webp/400px-Bloodshot_Ridge_settlement%2C_microTech.webp.png,https://starcitizen.tools/Bloodshot_Ridge,0,0,
-Bountiful Harvest Hydroponics,Outpost,Daymar,Stanton,57.552,-92.267,-274.246,https://starcitizen.tools/images/thumb/f/f0/Bountiful_Harvest_Hydroponics_2.jpg/300px-Bountiful_Harvest_Hydroponics_2.jpg,https://starcitizen.tools/Bountiful_Harvest_Hydroponics,0,1,
-Brio's Breaker Yard,Scrapyard,Daymar,Stanton,-176.683,-161.257,173.852,https://starcitizen.tools/images/thumb/d/d0/Brio_Breaker_Yard.png/300px-Brio_Breaker_Yard.png,https://starcitizen.tools/Brio%27s_Breaker_Yard,0,1,
-Buckets,Underground bunker,Lyria,Stanton,-194.039,-67.997,-89.48,https://media.starcitizen.tools/thumb/a/a1/Buckets%2C_Lyria.webp/400px-Buckets%2C_Lyria.webp.png,https://starcitizen.tools/Buckets,1,1,
-Bud's Growery,Outpost,Euterpe,Stanton,50.173,-172.259,115.271,https://starcitizen.tools/images/thumb/d/d9/Euterpe_Bud%27s_Growery_3.13.0_15.04.2021_8_39_43.png/300px-Euterpe_Bud%27s_Growery_3.13.0_15.04.2021_8_39_43.png,https://starcitizen.tools/Bud%27s_Growery,0,1,
-Calhoun Pass Emergency Shelter,Emergency shelter,microTech,Stanton,938.116,-347.818,31.708,https://starcitizen.tools/images/thumb/0/0f/Calhoun_Pass_Emergency_Shelter_26.04.2020_21_14_54.png/300px-Calhoun_Pass_Emergency_Shelter_26.04.2020_21_14_54.png,https://starcitizen.tools/Calhoun_Pass_Emergency_Shelter,0,1,
-Clear View Emergency Shelter,Emergency shelter,microTech,Stanton,-609.561,-688.363,393.203,https://starcitizen.tools/images/thumb/2/2a/Clear_View_Emergency_Shelter_26.04.2020_14_34_58.png/300px-Clear_View_Emergency_Shelter_26.04.2020_14_34_58.png,https://starcitizen.tools/Clear_View_Emergency_Shelter,0,1,
-Cloudrest Retreat,Settlement,Crusader,Stanton,-7396.172,-1420.246,29.007,https://media.starcitizen.tools/thumb/3/39/Orison-demo-wip-isc-20210624-26.png/300px-Orison-demo-wip-isc-20210624-26.png,https://starcitizen.tools/Cloudrest_Retreat,1,1,
-Comm Array ST1-02,CommArray,Ita,Stanton,122.153,-475.821,24,https://media.starcitizen.tools/thumb/7/79/Crusader_WIP_08.jpg/300px-Crusader_WIP_08.jpg,https://starcitizen.tools/Comm_Array_ST1-02,1,1,
-Comm Array ST1-13,CommArray,Arial,Stanton,-78.76,505.628,24,https://media.starcitizen.tools/thumb/7/79/Crusader_WIP_08.jpg/300px-Crusader_WIP_08.jpg,https://starcitizen.tools/Comm_Array_ST1-13,1,1,
-Comm Array ST1-48,CommArray,Magda,Stanton,295.516,413.046,24,https://media.starcitizen.tools/thumb/7/79/Crusader_WIP_08.jpg/300px-Crusader_WIP_08.jpg,https://starcitizen.tools/Comm_Array_ST1-48,1,1,
-Comm Array ST1-61,CommArray,Hurston,Stanton,919.253,-771.345,24,https://media.starcitizen.tools/thumb/7/79/Crusader_WIP_08.jpg/300px-Crusader_WIP_08.jpg,https://starcitizen.tools/Comm_Array_ST1-61,1,1,
-Comm Array ST1-92,CommArray,Aberdeen,Stanton,-435.359,-45.214,24,https://media.starcitizen.tools/thumb/7/79/Crusader_WIP_08.jpg/300px-Crusader_WIP_08.jpg,https://starcitizen.tools/Comm_Array_ST1-92,1,1,
-Comm Array ST2-28,CommArray,Cellin,Stanton,242.244,347.193,24,https://media.starcitizen.tools/thumb/7/79/Crusader_WIP_08.jpg/300px-Crusader_WIP_08.jpg,https://starcitizen.tools/Comm_Array_ST2-28,1,1,
-Comm Array ST2-47,CommArray,Daymar,Stanton,-435.617,-146.996,24,https://media.starcitizen.tools/thumb/7/79/Crusader_WIP_08.jpg/300px-Crusader_WIP_08.jpg,https://starcitizen.tools/Comm_Array_ST2-47,1,1,
-Comm Array ST2-55,CommArray,Crusader,Stanton,-1387.917,8802.204,24,https://media.starcitizen.tools/thumb/7/79/Crusader_WIP_08.jpg/300px-Crusader_WIP_08.jpg,https://starcitizen.tools/Comm_Array_ST2-55,1,1,
-Comm Array ST2-76,CommArray,Yela,Stanton,150.336,-454.428,24,https://media.starcitizen.tools/thumb/7/79/Crusader_WIP_08.jpg/300px-Crusader_WIP_08.jpg,https://starcitizen.tools/Comm_Array_ST2-76,1,1,
-Comm Array ST3-18,CommArray,Lyria,Stanton,-382.727,33.034,24,https://media.starcitizen.tools/thumb/7/79/Crusader_WIP_08.jpg/300px-Crusader_WIP_08.jpg,https://starcitizen.tools/Comm_Array_ST3-18,1,1,
-Comm Array ST3-35,CommArray,Wala,Stanton,365.821,-257.408,24,https://media.starcitizen.tools/thumb/7/79/Crusader_WIP_08.jpg/300px-Crusader_WIP_08.jpg,https://starcitizen.tools/Comm_Array_ST3-35,1,1,
-Comm Array ST3-90,CommArray,ArcCorp,Stanton,758.384,-636.36,24,https://media.starcitizen.tools/thumb/7/79/Crusader_WIP_08.jpg/300px-Crusader_WIP_08.jpg,https://starcitizen.tools/Comm_Array_ST3-90,1,1,
-Comm Array ST4-22,CommArray,microTech,Stanton,-771.345,-919.253,24,https://media.starcitizen.tools/thumb/7/79/Crusader_WIP_08.jpg/300px-Crusader_WIP_08.jpg,https://starcitizen.tools/Comm_Array_ST4-22,1,1,
-Comm Array ST4-31,CommArray,Calliope,Stanton,189.547,354.905,24,https://media.starcitizen.tools/thumb/7/79/Crusader_WIP_08.jpg/300px-Crusader_WIP_08.jpg,https://starcitizen.tools/Comm_Array_ST4-31,1,1,
-Comm Array ST4-59,CommArray,Clio,Stanton,-318.257,390.837,24,https://media.starcitizen.tools/thumb/7/79/Crusader_WIP_08.jpg/300px-Crusader_WIP_08.jpg,https://starcitizen.tools/Comm_Array_ST4-59,1,1,
-Comm Array ST4-64,CommArray,Euterpe,Stanton,362.788,88.702,24,https://media.starcitizen.tools/thumb/7/79/Crusader_WIP_08.jpg/300px-Crusader_WIP_08.jpg,https://starcitizen.tools/Comm_Array_ST4-64,1,1,
-Connor's,Underground bunker,Yela,Stanton,-139.77,-254.31,118.129,https://starcitizen.tools/images/thumb/9/90/Connor%27s_underground_bunker%2C_Yela.jpg/320px-Connor%27s_underground_bunker%2C_Yela.jpg,https://starcitizen.tools/Connor%27s,1,1,
-Covalex Shipping Hub Gundo,Space station,Daymar,Stanton,-241.198,437.977,-300,https://starcitizen.tools/images/thumb/d/da/Stanton-crusader-daymar-gundo-3.8.0.jpg/300px-Stanton-crusader-daymar-gundo-3.8.0.jpg,https://starcitizen.tools/Covalex_Hub_Gundo,0,1,
-Cutter's Rig,Settlement,Hurston,Stanton,-455.119,-200.497,867.564,https://media.starcitizen.tools/thumb/a/ac/Cutter%27s_Rig_aerial_view%2C_Hurston.jpg/400px-Cutter%27s_Rig_aerial_view%2C_Hurston.jpg,https://starcitizen.tools/Cutter%27s_Rig,,,
-Deakins Research Outpost,Outpost,Yela,Stanton,231.587,-210.279,13.278,https://starcitizen.tools/images/thumb/a/ad/Deakins_Research_Outpost.png/300px-Deakins_Research_Outpost.png,https://starcitizen.tools/Deakins_Research_Outpost,,,
-Devlin Scrap & Salvage,Scrapyard,Euterpe,Stanton,14.506,211.267,25.886,https://starcitizen.tools/images/thumb/a/af/Euterpe_Devlin_Scrap_%26_Salvage_3.13.0_15.04.2021_8_31_28.png/300px-Euterpe_Devlin_Scrap_%26_Salvage_3.13.0_15.04.2021_8_31_28.png,https://starcitizen.tools/Devlin_Scrap_%26_Salvage,,,
-Dunboro,Settlement,microTech,Stanton,-735.672,678.04,9.31,https://media.starcitizen.tools/thumb/2/25/Dunboro_aerial_view%2C_microTech.jpg/400px-Dunboro_aerial_view%2C_microTech.jpg,https://starcitizen.tools/Dunboro,,,
-Dunlow Ridge Aid Shelter,Emergency shelter,Daymar,Stanton,-51.85,280.932,75.331,https://starcitizen.tools/images/thumb/b/b9/Daymar_Dunlow-Ridge-Aid-Shelter_Day.jpg/300px-Daymar_Dunlow-Ridge-Aid-Shelter_Day.jpg,https://starcitizen.tools/Dunlow_Ridge_Aid_Shelter,0,1,
-Eager Flats Aid Shelter,Emergency shelter,Daymar,Stanton,200.545,-104.917,190.097,https://starcitizen.tools/images/thumb/2/26/Daymar_Eager-Flats-Aid-Shelter_Day.jpg/300px-Daymar_Eager-Flats-Aid-Shelter_Day.jpg,https://starcitizen.tools/Eager_Flats_Aid_Shelter,0,1,
-Echo Island,Outpost,Hurston,Stanton,-405.1,-275.11,-872.2,https://media.starcitizen.tools/thumb/6/6a/Hurston-echo-island.webp/400px-Hurston-echo-island.webp.png,https://starcitizen.tools/Echo_Island,,,
-Elsewhere,Underground bunker,Lyria,Stanton,207.832,-67.344,-50.273,https://media.starcitizen.tools/thumb/3/32/Elsewhere%2C_Lyria.webp/400px-Elsewhere%2C_Lyria.webp.png,https://starcitizen.tools/Elsewhere,1,1,
-Empyrean Park,Settlement,Crusader,Stanton,1090.108,7304.364,1509.818,https://media.starcitizen.tools/thumb/3/39/Orison-demo-wip-isc-20210624-26.png/300px-Orison-demo-wip-isc-20210624-26.png,https://starcitizen.tools/Empyrean_Park,1,1,
-Everus Harbor,Space station,Hurston,Stanton,-507.742,-903.464,496.489,https://starcitizen.tools/images/thumb/7/72/Hurston-everus-harbor-01.jpg/300px-Hurston-everus-harbor-01.jpg,https://starcitizen.tools/Everus_Harbor,0,1,
-Finn's Folly,Settlement,Hurston,Stanton,-196.592,-197.871,961.999,https://media.starcitizen.tools/thumb/2/21/Finn%27s_Folly_morning%2C_Hurston.jpg/400px-Finn%27s_Folly_morning%2C_Hurston.jpg,https://starcitizen.tools/Finn%27s_Folly,,,
-Flanagan's Ravine Aid Shelter,Emergency shelter,Cellin,Stanton,-194.282,151.722,84.997,https://starcitizen.tools/images/thumb/0/00/Cellin_Flanagans-Ravine-Aid-Shelter_Day.jpg/300px-Cellin_Flanagans-Ravine-Aid-Shelter_Day.jpg,https://starcitizen.tools/Flanagan%27s_Ravine_Aid_Shelter,0,1,
-Frostbite,Settlement,microTech,Stanton,539.62,762.339,-361.448,https://media.starcitizen.tools/thumb/7/75/Frostbite%2C_microTech.webp/400px-Frostbite%2C_microTech.webp.png,https://starcitizen.tools/Frostbite_(settlement),0,0,
-Gallete Family Farms,Outpost,Cellin,Stanton,-89.471,106.717,220.041,https://starcitizen.tools/images/thumb/0/0e/Cellin_Gallete-Family-Farms_Day.jpg/300px-Cellin_Gallete-Family-Farms_Day.jpg,https://starcitizen.tools/Gallete_Family_Farms,,,
-Ghost Hollow,Settlement,microTech,Stanton,-127.194,982.004,149.145,https://starcitizen.tools/images/thumb/e/e5/Ghost_Hollow_Exterior_Alpha_3.17.2.jpg/300px-Ghost_Hollow_Exterior_Alpha_3.17.2.jpg,https://starcitizen.tools/Ghost_Hollow,,,
-Good Times Temple,Underground bunker,Wala,Stanton,-113.3,179.51,187.366,https://starcitizen.tools/images/thumb/4/46/Good_Times_Temple%2C_Wala.jpg/320px-Good_Times_Temple%2C_Wala.jpg,https://starcitizen.tools/Good_Times_Temple,,,
-GrimHEX,Asteroid base,Yela,Stanton,-568.659,383.565,-2.042,https://starcitizen.tools/images/thumb/0/09/Star_Citizen_-_GrimHEX_close-up.png/300px-Star_Citizen_-_GrimHEX_close-up.png,https://starcitizen.tools/Grim_HEX,,,
-Harper's Point,Settlement,microTech,Stanton,-687.373,716.613,128.227,https://media.starcitizen.tools/thumb/4/4e/HarpersPointaerial.jpg/400px-HarpersPointaerial.jpg,https://starcitizen.tools/Harper%27s_Point,,,
-HDES Calthrope (NA),Cave,Hurston,Stanton,-203.376,-806.58,557.779,https://starcitizen.tools/images/thumb/5/5b/HDMO-Calthrope_2.png/300px-HDMO-Calthrope_2.png,https://starcitizen.tools/HDES-Calthrope,,,
-HDMO-Dobbs (NA),Cave,Aberdeen,Stanton,270.579,47.399,-11.404,https://starcitizen.tools/images/thumb/c/c2/Aberdeen_HDMO-Dobbs_Day.jpg/300px-Aberdeen_HDMO-Dobbs_Day.jpg,https://starcitizen.tools/HDMO-Dobbs,,,
-HDMS Anderson,Outpost,Aberdeen,Stanton,-26.95,180.221,206.879,https://starcitizen.tools/images/thumb/d/dc/Platinum_Bay_HDMS-Anderson.jpg/300px-Platinum_Bay_HDMS-Anderson.jpg,https://starcitizen.tools/HDMS-Anderson,,,
-HDMS Norgaard,Outpost,Aberdeen,Stanton,-141.572,195.318,132.098,https://starcitizen.tools/images/thumb/b/bc/Platinum_Bay_HDMS-Norgaard.jpg/300px-Platinum_Bay_HDMS-Norgaard.jpg,https://starcitizen.tools/HDMS-Norgaard,,,
-HDMS-Bezdek,Outpost,Arial,Stanton,26.735,-234.698,251.505,https://starcitizen.tools/images/thumb/9/9b/Arial_HDMS-Bezdek_Day.jpg/300px-Arial_HDMS-Bezdek_Day.jpg,https://starcitizen.tools/HDMS-Bezdek,,,
-HDMS-Edmond,Outpost,Hurston,Stanton,-284.48,-730.502,620.924,https://starcitizen.tools/images/thumb/c/c4/HDMS_Edmond.png/300px-HDMS_Edmond.png,https://starcitizen.tools/HDMS-Edmond,,,
-HDMS-Hadley,Outpost,Hurston,Stanton,626.167,-583.971,-518.485,https://starcitizen.tools/images/thumb/a/a6/HDMS_Hadley.png/300px-HDMS_Hadley.png,https://starcitizen.tools/HDMS-Hadley,,,
-HDMS-Hahn,Outpost,Magda,Stanton,-147.384,-292.217,95.247,https://starcitizen.tools/images/thumb/3/38/Hdms_hahn.jpg/300px-Hdms_hahn.jpg,https://starcitizen.tools/HDMS-Hahn,,,
-HDMS-Lathan,Outpost,Arial,Stanton,339.193,33.686,55.843,https://starcitizen.tools/images/thumb/8/8d/HDMS-Lathan2.png/300px-HDMS-Lathan2.png,https://starcitizen.tools/HDMS-Lathan,,,
-HDMS-Oparei,Outpost,Hurston,Stanton,-556.126,-72.591,-828.071,https://starcitizen.tools/images/thumb/4/40/Hurston_HDMS-Oparei_SC-Alpha-3.10.jpg/300px-Hurston_HDMS-Oparei_SC-Alpha-3.10.jpg,https://starcitizen.tools/HDMS-Oparei,,,
-HDMS-Perlman,Outpost,Magda,Stanton,-140.696,287.922,-116.688,https://starcitizen.tools/images/thumb/5/56/HDMS-Perlman.png/300px-HDMS-Perlman.png,https://starcitizen.tools/HDMS-Perlman,,,
-HDMS-Pinewood,Outpost,Hurston,Stanton,985.564,90.029,149.896,https://starcitizen.tools/images/thumb/a/a6/In_front_of_HDMS_Pinewood.jpg/300px-In_front_of_HDMS_Pinewood.jpg,https://starcitizen.tools/HDMS-Pinewood,,,
-HDMS-Ryder,Outpost,Ita,Stanton,-175.874,-263.381,73.709,https://starcitizen.tools/images/thumb/c/cb/Ita_HDMS-Ryder_Day_SC-Alpha-3.10.jpg/300px-Ita_HDMS-Ryder_Day_SC-Alpha-3.10.jpg,https://starcitizen.tools/HDMS-Ryder,,,
-HDMS-Stanhope,Outpost,Hurston,Stanton,-648.608,198.313,735.121,https://starcitizen.tools/images/thumb/9/9b/HDMS_Stanhope.png/300px-HDMS_Stanhope.png,https://starcitizen.tools/HDMS-Stanhope,,,
-HDMS-Thedus,Outpost,Hurston,Stanton,443.322,891.525,101.509,https://starcitizen.tools/images/thumb/d/d3/HDMS_Thedus_Sunrise.jpg/300px-HDMS_Thedus_Sunrise.jpg,https://starcitizen.tools/HDMS-Thedus,,,
-HDMS-Woodruff,Outpost,Ita,Stanton,114.792,219.661,210.467,https://starcitizen.tools/images/thumb/4/4a/HDMS-Woodruff2.png/300px-HDMS-Woodruff2.png,https://starcitizen.tools/HDMS-Woodruff,,,
-HDSF-Adlai,Underground bunker,Hurston,Stanton,-236.846,-810.89,537.736,https://starcitizen.tools/images/thumb/e/e3/HDSF_Adlai.png/300px-HDSF_Adlai.png,https://starcitizen.tools/HDSF-Adlai,,,
-HDSF-Barnabas,Underground bunker,Hurston,Stanton,-895.864,365.595,-252.546,https://starcitizen.tools/images/thumb/1/19/HDSF-Barnabas37.png/300px-HDSF-Barnabas37.png,https://starcitizen.tools/HDSF-Barnabas,,,
-HDSF-Breckinridge,Underground bunker,Hurston,Stanton,-557.599,680.528,-477.825,https://starcitizen.tools/images/thumb/2/20/Breckinridge3.png/300px-Breckinridge3.png,https://starcitizen.tools/HDSF-Breckinridge,,,
-HDSF-Colfax,Underground bunker,Hurston,Stanton,902.272,383.795,-203.763,https://starcitizen.tools/images/thumb/4/4a/Colfax1.png/300px-Colfax1.png,https://starcitizen.tools/HDSF-Colfax,,,
-HDSF-Damaris,Underground bunker,Hurston,Stanton,-898.695,420.101,-141.747,https://starcitizen.tools/images/thumb/b/be/HDSF-Damaris30.png/300px-HDSF-Damaris30.png,https://starcitizen.tools/HDSF-Damaris,,,
-HDSF-Elbridge,Underground bunker,Hurston,Stanton,449.413,838.666,310.624,https://starcitizen.tools/images/thumb/1/19/Hurston-elbridge-3.4.1-ground2.jpg/300px-Hurston-elbridge-3.4.1-ground2.jpg,https://starcitizen.tools/HDSF-Elbridge,,,
-HDSF-Hendricks,Underground bunker,Hurston,Stanton,63.555,-969.07,-242.52,https://starcitizen.tools/images/thumb/2/2f/HDSF-Hendricks53.png/300px-HDSF-Hendricks53.png,https://starcitizen.tools/HDSF-Hendricks,,,
-HDSF-Hiram,Underground bunker,Hurston,Stanton,-942.48,-317.031,122.747,https://starcitizen.tools/images/thumb/b/bb/HDSF-Hiram58.png/300px-HDSF-Hiram58.png,https://starcitizen.tools/HDSF-Hiram,,,
-HDSF-Hobart,Underground bunker,Hurston,Stanton,-492.22,768.371,410.823,https://starcitizen.tools/images/thumb/8/8b/HDSD-Hobart48.png/300px-HDSD-Hobart48.png,https://starcitizen.tools/HDSF-Hobart,,,
-HDSF-Ishmael,Underground bunker,Hurston,Stanton,-266.171,-159.479,952.333,https://starcitizen.tools/images/thumb/e/e5/HDSF-Ishmael14.png/300px-HDSF-Ishmael14.png,https://starcitizen.tools/HDSF-Ishmael,,,
-HDSF-Millerand,Underground bunker,Hurston,Stanton,-847.551,517.597,126.804,https://starcitizen.tools/images/thumb/d/df/HDSF-Millerand_19.png/300px-HDSF-Millerand_19.png,https://starcitizen.tools/HDSF-Millerand,,,
-HDSF-Palomar,Underground bunker,Hurston,Stanton,766.601,-74.225,-640.183,https://starcitizen.tools/images/thumb/3/36/HDRSO-Bramen3.png/300px-HDRSO-Bramen3.png,https://starcitizen.tools/HDSF-Palomar,,,
-HDSF-Rufus,Underground bunker,Hurston,Stanton,-64.794,11.531,-998.425,https://starcitizen.tools/images/thumb/e/e3/HDSF-Rufus48.png/300px-HDSF-Rufus48.png,https://starcitizen.tools/HDSF-Rufus,,,
-HDSF-Sherman,Underground bunker,Hurston,Stanton,899.38,-406.057,168.518,https://starcitizen.tools/images/thumb/5/55/HDSF-Sherman59.png/300px-HDSF-Sherman59.png,https://starcitizen.tools/HDSF-Sherman,,,
-HDSF-Tamar,Underground bunker,Hurston,Stanton,121.122,-810.963,-573.527,https://starcitizen.tools/images/thumb/2/2b/HDSF-Tamar24.png/300px-HDSF-Tamar24.png,https://starcitizen.tools/HDSF-Tamar,,,
-HDSF-Tompkins,Underground bunker,Hurston,Stanton,374.762,724.551,579.815,https://starcitizen.tools/images/thumb/4/48/HDSF-Tompkins26.png/300px-HDSF-Tompkins26.png,https://starcitizen.tools/HDSF-Tompkins,,,
-HDSF-Zacharias,Underground bunker,Hurston,Stanton,249.567,398.572,-884.801,https://starcitizen.tools/images/thumb/e/e8/HDSF-Zacharias.png/300px-HDSF-Zacharias.png,https://starcitizen.tools/HDSF-Zacharias,,,
-Hickes Research Outpost,Outpost,Cellin,Stanton,3.27,13.091,-260.316,https://starcitizen.tools/images/thumb/1/1b/Cellin_Hickes-Research-Outpost_Twilight_Alpha-3.10.jpg/300px-Cellin_Hickes-Research-Outpost_Twilight_Alpha-3.10.jpg,https://starcitizen.tools/Hickes_Research_Outpost,,,
-Humboldt Mines,Outpost,Lyria,Stanton,5.311,-193.819,-112.545,https://starcitizen.tools/images/thumb/9/98/Humboldt_Mines.png/300px-Humboldt_Mines.png,https://starcitizen.tools/Humboldt_Mines,,,
-Javelin Wreck (UEES Flyssa),Shipwreck,Daymar,Stanton,102.055,267.619,-70.856,https://starcitizen.tools/images/thumb/c/c2/Javelin_Wreck_%28UEES_Flyssa%29%2C_Daymar%2C_Alpha_3.17.jpg/300px-Javelin_Wreck_%28UEES_Flyssa%29%2C_Daymar%2C_Alpha_3.17.jpg,https://starcitizen.tools/UEES_Flyssa,,,
-Julep Ravine Aid Shelter,Emergency shelter,Cellin,Stanton,-111.528,-56.297,-228.95,https://starcitizen.tools/images/thumb/f/f0/Cellin_Julep-Ravine-Aid-Shelter_Day.jpg/300px-Cellin_Julep-Ravine-Aid-Shelter_Day.jpg,https://starcitizen.tools/Julep_Ravine_Aid_Shelter,,,
-Jumptown,Outpost,Daymar,Stanton,80.44,242.72,-147.63,https://media.starcitizen.tools/thumb/d/db/Jumptown-daymar.webp/400px-Jumptown-daymar.webp.png,https://starcitizen.tools/Jumptown,,,
-Klescher Rehabilitation Facility,Prison,Aberdeen,Stanton,44.975,221.563,-156.583,https://media.starcitizen.tools/thumb/5/5b/Klescher-facility-exterior-aberdeen.png/300px-Klescher-facility-exterior-aberdeen.png,https://starcitizen.tools/Klescher_Rehabilitation_Facility_(Aberdeen),,,
-Kosso Basin Aid Shelter,Emergency shelter,Yela,Stanton,-31.289,-118.13,288.314,https://starcitizen.tools/images/thumb/b/bb/Yela_Kosso-Basin-Aid-Shelter_Twilight.jpg/300px-Yela_Kosso-Basin-Aid-Shelter_Twilight.jpg,https://starcitizen.tools/Kosso_Basin_Aid_Shelter,,,
-Kudre Ore,Outpost,Daymar,Stanton,146.617,-177.093,-184.862,https://starcitizen.tools/images/thumb/e/e3/KudreOre_Front.jpg/300px-KudreOre_Front.jpg,https://starcitizen.tools/Kudre_Ore,,,
-Kudre Ore Mine (Closed),Cave,Daymar,Stanton,81.008,-280.683,43.649,https://starcitizen.tools/images/thumb/4/4a/Daymar_Kudre-Ore-Mine_Day.jpg/300px-Daymar_Kudre-Ore-Mine_Day.jpg,https://starcitizen.tools/Kudre_Ore_Mine,,,
-Launch Pad,Underground bunker,Lyria,Stanton,-213.84,-65.163,16.508,https://media.starcitizen.tools/thumb/3/38/Launch_Pad%2C_Lyria.png/300px-Launch_Pad%2C_Lyria.png,https://starcitizen.tools/Launch_Pad,,,
-Lorville,Landing zone,Hurston,Stanton,-328.989,-752.435,572.12,https://media.starcitizen.tools/thumb/0/02/Lorville_Temporary_Splashscreen.png/300px-Lorville_Temporary_Splashscreen.png,https://starcitizen.tools/Lorville,,,
-Lost and Found,Underground bunker,Wala,Stanton,62.556,114.33,251.559,https://starcitizen.tools/images/thumb/1/14/Lost_and_Found%2C_Wala.jpg/320px-Lost_and_Found%2C_Wala.jpg,https://starcitizen.tools/Lost_and_Found,,,
-Loveridge Mineral Reserve,Outpost,Lyria,Stanton,181.8,128.166,24.94,https://starcitizen.tools/images/thumb/e/e9/Loveridge_Mineral_Reserve2.png/300px-Loveridge_Mineral_Reserve2.png,https://starcitizen.tools/Loveridge_Mineral_Reserve,,,
-Ludlow,Settlement,Hurston,Stanton,-878.668,-467.858,111.091,https://media.starcitizen.tools/thumb/5/5e/Ludlowaerial.jpg/300px-Ludlowaerial.jpg,https://starcitizen.tools/Ludlow,,,
-Maker's Point,Settlement,Hurston,Stanton,-154.007,128.325,979.766,https://media.starcitizen.tools/thumb/7/7e/MakersPointaerial2.jpg/300px-MakersPointaerial2.jpg,https://starcitizen.tools/Maker%27s_Point,,,
-Miner's Lament,Racetrack,Yela,Stanton,-488.234,519.158,3.846,https://media.starcitizen.tools/thumb/d/d6/Miner%27s_Lament_alpha_3.18.png/300px-Miner%27s_Lament_alpha_3.18.png,https://starcitizen.tools/Miner%E2%80%99s_Lament,,,
-Mogote Aid Shelter,Emergency shelter,Cellin,Stanton,-198.664,50.79,160.875,https://starcitizen.tools/images/thumb/7/7b/Cellin_Mogote-Aid-Shelter-Day.jpg/300px-Cellin_Mogote-Aid-Shelter-Day.jpg,https://starcitizen.tools/Mogote_Aid_Shelter,,,
-Moreland Hills,Settlement,microTech,Stanton,-665.088,726.918,178.064,https://media.starcitizen.tools/thumb/3/3d/Moreland_Hills_settlement%2C_microTech.webp/400px-Moreland_Hills_settlement%2C_microTech.webp.png,https://starcitizen.tools/Moreland_Hills,0,0,
-MT DataCenter 2UB-RB9-5,Underground bunker,microTech,Stanton,907.002,139.908,-397.662,,https://starcitizen.tools/MT_DataCenter_2UB-RB9-5,1,1,
-MT DataCenter 4HJ-LVE-A,Underground bunker,microTech,Stanton,-100.841,962.407,-255.721,https://starcitizen.tools/images/thumb/a/a7/MT_DataCenter_4HJ-LVE-A_26.04.2020_19_07_04.png/320px-MT_DataCenter_4HJ-LVE-A_26.04.2020_19_07_04.png,https://starcitizen.tools/MT_DataCenter_4HJ-LVE-A,1,1,
-MT DataCenter 5WQ-R2V-C,Underground bunker,microTech,Stanton,959.88,40.295,-279.073,https://starcitizen.tools/images/thumb/a/a2/MT_DataCenter_5WQ-R2V-C_27.04.2020_14_11_29.png/320px-MT_DataCenter_5WQ-R2V-C_27.04.2020_14_11_29.png,https://starcitizen.tools/MT_DataCenter_5WQ-R2V-C,1,1,
-MT DataCenter 8FK-Q2X-K,Underground bunker,microTech,Stanton,22.397,2.905,-1000.725,https://starcitizen.tools/images/thumb/3/39/MT_DataCenter_8FK-Q2X-K_27.04.2020_16_45_00.png/320px-MT_DataCenter_8FK-Q2X-K_27.04.2020_16_45_00.png,https://starcitizen.tools/MT_DataCenter_8FK-Q2X-K,1,1,
-MT DataCenter D79-ECG-R,Underground bunker,microTech,Stanton,200.928,308.74,-929.82,https://media.starcitizen.tools/thumb/7/7e/MT_DataCenter_D79-ECG-R%2C_microTech.webp/400px-MT_DataCenter_D79-ECG-R%2C_microTech.webp.png,https://starcitizen.tools/MT_DataCenter_D79-ECG-R,1,1,
-MT DataCenter E2Q-NSG-Y,Underground bunker,microTech,Stanton,916.832,187.159,-354.144,https://media.starcitizen.tools/thumb/2/28/MT_DataCenter_E2Q-NSG-Y%2C_microTech.webp/400px-MT_DataCenter_E2Q-NSG-Y%2C_microTech.webp.png,https://starcitizen.tools/MT_DataCenter_E2Q-NSG-Y,1,1,
-MT DataCenter KH3-AAE-L,Underground bunker,microTech,Stanton,-468.928,801.473,-375.316,https://media.starcitizen.tools/thumb/4/4f/Squadron_42_-_Star_Citizen_Screenshot_2023.01.12_-_22.41.44.51.png/300px-Squadron_42_-_Star_Citizen_Screenshot_2023.01.12_-_22.41.44.51.png,https://starcitizen.tools/MT_DataCenter_KH3-AAE-L,1,1,
-MT DataCenter L8P-JUC-8 (offline),Underground bunker,microTech,Stanton,-86.563,218.56,-972.07,,https://starcitizen.tools/MT_DataCenter_L8P-JUC-8_(offline),1,1,
-MT DataCenter QVX-J88-J,Underground bunker,microTech,Stanton,-247.945,892.699,-379.678,,https://starcitizen.tools/MT_DataCenter_QVX-J88-J,1,1,
-MT DataCenter TMG-XEV-2,Underground bunker,microTech,Stanton,-160.992,62.442,985.998,https://media.starcitizen.tools/thumb/9/9a/MT_DataCenter_TMG-XEV-2%2C_microTech_%28Dawn%29.jpg/300px-MT_DataCenter_TMG-XEV-2%2C_microTech_%28Dawn%29.jpg,https://starcitizen.tools/MT_DataCenter_TMG-XEV-2,1,1,
-MT OpCenter TLI-4,Underground bunker,microTech,Stanton,68.364,64.276,-996.49,,https://starcitizen.tools/MT_OpCenter_TLI-4,1,1,
-Nakamura Valley Aid Shelter,Emergency shelter,Yela,Stanton,-275.722,124.074,81.717,https://starcitizen.tools/images/thumb/e/eb/Yela_Nakamura-Valley-Aid-Shelter_Day.jpg/300px-Yela_Nakamura-Valley-Aid-Shelter_Day.jpg,https://starcitizen.tools/Nakamura_Valley_Aid_Shelter,0,1,
-New Babbage,Landing zone,microTech,Stanton,520.723,419.364,743.655,https://starcitizen.tools/images/thumb/a/af/Microtech-new-babbage-cityscape-09.jpg/300px-Microtech-new-babbage-cityscape-09.jpg,https://starcitizen.tools/New_Babbage,0,1,
-NT-999-XV,Underground bunker,Cellin,Stanton,146.849,135.264,167.452,https://starcitizen.tools/images/thumb/5/5e/NT-999-XV_Bunker%2C_Cellin.jpg/320px-NT-999-XV_Bunker%2C_Cellin.jpg,https://starcitizen.tools/NT-999-XV,,,
-NT-999-XVI,Underground bunker,Daymar,Stanton,250.895,154.055,-24.263,https://starcitizen.tools/images/thumb/5/57/NT-999-XVI_Bunker_Entrance%2C_Daymar.jpg/300px-NT-999-XVI_Bunker_Entrance%2C_Daymar.jpg,https://starcitizen.tools/NT-999-XVI,,,
-NT-999-XX,Outpost,Yela,Stanton,-205.659,-73.988,224.325,https://starcitizen.tools/images/thumb/0/0d/NT-999-XX_outpost_on_Yela_%28Alpha_3.17%29.png/300px-NT-999-XX_outpost_on_Yela_%28Alpha_3.17%29.png,https://starcitizen.tools/NT-999-XX,,,
-NT-999-XXII,Underground bunker,Yela,Stanton,54.565,55.939,-303.344,https://starcitizen.tools/images/thumb/8/8d/NT-999-XXII_outpost_on_Yela_%28Alpha_3.17%29.png/300px-NT-999-XXII_outpost_on_Yela_%28Alpha_3.17%29.png,https://starcitizen.tools/NT-999-XXII,,,
-Nuen Waste Management,Outpost,Daymar,Stanton,-18.943,293.341,25.478,https://starcitizen.tools/images/thumb/5/53/Nuen_Waste_Management%2C_Daymar%2C_Alpha_3.17.jpg/300px-Nuen_Waste_Management%2C_Daymar%2C_Alpha_3.17.jpg,https://starcitizen.tools/Nuen_Waste_Management,,,
-Nuiqsut Emergency Shelter,Emergency shelter,microTech,Stanton,750.613,-207.852,-627.225,https://starcitizen.tools/images/thumb/1/1c/Nuiqsut_Emergency_Shelter_26.04.2020_21_43_22.png/300px-Nuiqsut_Emergency_Shelter_26.04.2020_21_43_22.png,https://starcitizen.tools/Nuiqsut_Emergency_Shelter,,,
-Operations Depot Lyria 1,Underground bunker,Lyria,Stanton,-147.804,-17.445,167.34,https://starcitizen.tools/images/thumb/1/1c/Security_Depot_Lyria-1.png/320px-Security_Depot_Lyria-1.png,,,,
-Orison,Landing zone,Crusader,Stanton,5295.517,-863.194,5282.237,https://starcitizen.tools/images/thumb/3/33/Orison-demo-wip-isc-20210624-11.png/300px-Orison-demo-wip-isc-20210624-11.png,https://starcitizen.tools/Orison,0,1,
-Outpost 54,Outpost,microTech,Stanton,113.566,14.479,-994.363,https://starcitizen.tools/images/thumb/6/6b/Outpost_54_27.04.2020_18_28_35.png/300px-Outpost_54_27.04.2020_18_28_35.png,https://starcitizen.tools/Outpost_54,,,
-Paradise Cove,Outpost,Wala,Stanton,79.98,-217.91,162.33,https://media.starcitizen.tools/thumb/e/e0/Paradise_Cove%2C_Lyria_-_Alpha_3.19.png/300px-Paradise_Cove%2C_Lyria_-_Alpha_3.19.png,https://starcitizen.tools/Paradise_Cove,,,
-Picker's Field,Settlement,Hurston,Stanton,-679.766,262.266,-686.08,https://media.starcitizen.tools/thumb/b/be/PickersFieldtower.jpg/300px-PickersFieldtower.jpg,https://starcitizen.tools/Picker%27s_Field,,,
-Point Wain Emergency Shelter,Emergency shelter,microTech,Stanton,-627.441,-485.258,611.733,https://starcitizen.tools/images/thumb/9/96/Point_Wain_Emergency_Shelter_26.04.2020_14_12_54.png/300px-Point_Wain_Emergency_Shelter_26.04.2020_14_12_54.png,https://starcitizen.tools/Point_Wain_Emergency_Shelter,,,
-Port Tressler,Space station,microTech,Stanton,561.471,545.853,808.832,https://starcitizen.tools/images/thumb/9/9a/Microtech-port-tressler-01.jpg/300px-Microtech-port-tressler-01.jpg,https://starcitizen.tools/Port_Tressler,,,
-PRIVATE PROPERTY,Outpost,Cellin,Stanton,97.749,-173.764,167.078,https://starcitizen.tools/images/thumb/6/63/PRIVATE_PROPERTY%2C_Cellin.jpg/300px-PRIVATE_PROPERTY%2C_Cellin.jpg,https://starcitizen.tools/Stash_House_(Cellin),,,
-Prospect Point,Settlement,Crusader,Stanton,3254.279,-1225.248,6683.686,https://media.starcitizen.tools/thumb/3/39/Orison-demo-wip-isc-20210624-26.png/300px-Orison-demo-wip-isc-20210624-26.png,https://starcitizen.tools/Prospect_Point,,,
-Rappel,Settlement,Hurston,Stanton,352.952,-661.89,663.889,https://media.starcitizen.tools/thumb/a/ad/Rappelaerial.jpg/300px-Rappelaerial.jpg,https://starcitizen.tools/Rappel,,,
-Raven's Roost,Outpost,microTech,Stanton,355.9,-75.59,932.65,https://media.starcitizen.tools/thumb/e/e4/Raven%27s_Roost%2C_microTech_-_Alpha_3.22.webp/400px-Raven%27s_Roost%2C_microTech_-_Alpha_3.22.webp.png,https://starcitizen.tools/Raven%27s_Roost,,,
-Rayari Anvik Research Outpost,Outpost,Calliope,Stanton,-184.632,-127.794,84.724,https://starcitizen.tools/images/thumb/b/b5/Calliope_Rayari_Anvik_3.13.0_16.04.2021_14_25_11.png/300px-Calliope_Rayari_Anvik_3.13.0_16.04.2021_14_25_11.png,https://starcitizen.tools/Rayari_Anvik_Research_Outpost,,,Rayari Inc.
-Rayari Cantwell Research Outpost,Outpost,Clio,Stanton,-217.175,215.278,142.842,https://starcitizen.tools/images/thumb/e/e1/Clio_Rayari_Cantwell_Research_Outpost_3.13.0_15.04.2021_8_50_57.png/300px-Clio_Rayari_Cantwell_Research_Outpost_3.13.0_15.04.2021_8_50_57.png,https://starcitizen.tools/Rayari_Cantwell_Research_Outpost,,,Rayari Inc.
-Rayari Deltana Research Outpost,Outpost,microTech,Stanton,-693.91,-648.299,316.681,https://starcitizen.tools/images/thumb/9/90/Rayari_Deltana_Research_Outpost_3.9.jpg/300px-Rayari_Deltana_Research_Outpost_3.9.jpg,https://starcitizen.tools/Rayari_Deltana_Research_Outpost,,,Rayari Inc.
-Rayari Kaltag Research Outpost,Outpost,Calliope,Stanton,205.267,6.261,-124.485,https://starcitizen.tools/images/thumb/0/0c/Calliope_Kaltag_3.13.0_15.04.2021_11_03_26.png/300px-Calliope_Kaltag_3.13.0_15.04.2021_11_03_26.png,https://starcitizen.tools/Rayari_Kaltag_Research_Outpost,,,Rayari Inc.
-Rayari McGrath Research Outpost,Outpost,Clio,Stanton,-325.904,-85.713,-18.786,https://starcitizen.tools/images/thumb/7/74/Clio_Rayari_McGrath_Research_Outpost_3.13.0_15.04.2021_10_58_23.png/300px-Clio_Rayari_McGrath_Research_Outpost_3.13.0_15.04.2021_10_58_23.png,https://starcitizen.tools/Rayari_McGrath_Research_Outpost,,,Rayari Inc.
-Razor's Edge,Settlement,microTech,Stanton,-666.067,726.221,179.518,https://media.starcitizen.tools/thumb/4/43/Razor%27s_Edge_settlement%2C_microTech.webp/400px-Razor%27s_Edge_settlement%2C_microTech.webp.png,https://starcitizen.tools/Razor%27s_Edge,0,0,
-Reclamation & Disposal Orinth,Scrapyard,Hurston,Stanton,1.141,-794.276,607.652,https://starcitizen.tools/images/thumb/e/ed/Reclamation_%26_Disposal_Orinth3.png/300px-Reclamation_%26_Disposal_Orinth3.png,https://starcitizen.tools/Reclamation_%26_Disposal_Orinth,,,
-Samson & Son's Salvage Center,Scrapyard,Wala,Stanton,-42.545,279.059,19.438,https://starcitizen.tools/images/thumb/c/c2/Samson_and_Sons_Salvage_Center.png/300px-Samson_and_Sons_Salvage_Center.png,https://starcitizen.tools/Samson_%26_Son%27s_Salvage_Center,,,
-Security Post Criska,Underground bunker,Cellin,Stanton,252.518,62.917,13.988,https://starcitizen.tools/images/thumb/f/f3/Security_Post_Criska_%28Alpha_3.17.3%29.jpg/320px-Security_Post_Criska_%28Alpha_3.17.3%29.jpg,https://starcitizen.tools/Security_Post_Criska,,,
-Security Post Dipur,Underground bunker,Cellin,Stanton,197.594,57.562,-160.055,https://starcitizen.tools/images/thumb/c/cf/Security_Post_Dipur_exterior.jpg/320px-Security_Post_Dipur_exterior.jpg,https://starcitizen.tools/Security_Post_Dipur,,,
-Security Post Kareah,Space station,Cellin,Stanton,11.62,-419.839,200,https://starcitizen.tools/images/thumb/8/84/Crusader-cellin-kareah-3.11-exterior-03.jpg/300px-Crusader-cellin-kareah-3.11-exterior-03.jpg,https://starcitizen.tools/Security_Post_Kareah,,,
-Security Post Lespin,Underground bunker,Cellin,Stanton,-214.293,-149.184,4.123,https://starcitizen.tools/images/thumb/3/35/Security_Post_Lespin_%28Alpha_3.17.3%29.jpg/320px-Security_Post_Lespin_%28Alpha_3.17.3%29.jpg,https://starcitizen.tools/Security_Post_Lespin,,,
-Security Post Moluto,Underground bunker,Daymar,Stanton,188.858,33.746,-224.163,https://starcitizen.tools/images/thumb/a/aa/Security_Post_Moluto_%28Alpha_3.17.3%29.jpg/320px-Security_Post_Moluto_%28Alpha_3.17.3%29.jpg,https://starcitizen.tools/Security_Post_Moluto,,,
-Security Post Opal,Underground bunker,Yela,Stanton,241.073,96.291,-175.019,https://starcitizen.tools/images/thumb/7/75/Security_Post_Opal%2C_Yela.png/300px-Security_Post_Opal%2C_Yela.png,https://starcitizen.tools/Security_Post_Opal,,,
-Security Post Prashad,Underground bunker,Daymar,Stanton,-223.887,65.623,180.749,https://starcitizen.tools/images/thumb/1/18/Security_Post_Prashad_Exterior.png/320px-Security_Post_Prashad_Exterior.png,https://starcitizen.tools/Security_Post_Prashad,,,
-Security Post Thaquray,Underground bunker,Daymar,Stanton,-6.981,-89.665,281.36,https://starcitizen.tools/images/thumb/a/a6/Security_Post_Thaquray_Exterior.jpg/320px-Security_Post_Thaquray_Exterior.jpg,https://starcitizen.tools/Security_Post_Thaquray,,,
-Security Post Wan,Underground bunker,Yela,Stanton,-208.367,53.166,-227.454,https://starcitizen.tools/images/thumb/e/eb/Security_Post_Wan%2C_Yela_%28Alpha_3.17.1%29.png/300px-Security_Post_Wan%2C_Yela_%28Alpha_3.17.1%29.png,https://starcitizen.tools/Security_Post_Wan,,,
-Seraphim Station,Space station,Crusader,Stanton,5876.098,-1384.207,5565.883,https://media.starcitizen.tools/d/d7/SeraphimRM.png,https://starcitizen.tools/Seraphim_Station,,,
-Shady Glen Farms,Outpost,Wala,Stanton,-20.622,268.985,87.534,https://starcitizen.tools/images/thumb/f/f1/Wala_Shady-Glen-Farms_Day.jpg/300px-Wala_Shady-Glen-Farms_Day.jpg,https://starcitizen.tools/Shady_Glen_Farms,,,
-Shubin Mining Facility SAL-2,Outpost,Lyria,Stanton,150.636,-53.619,156.668,https://starcitizen.tools/images/thumb/7/70/Shubin_Mining_Facility_SAL-2.png/300px-Shubin_Mining_Facility_SAL-2.png,https://starcitizen.tools/Shubin_Mining_Facility_SAL-2,,,Shubin Interstellar
-Shubin Mining Facility SAL-5,Outpost,Lyria,Stanton,98.07,78.361,185.821,https://starcitizen.tools/images/thumb/4/41/Shubin_Mining_Facility_SAL-5_Daytime.jpg/300px-Shubin_Mining_Facility_SAL-5_Daytime.jpg,https://starcitizen.tools/Shubin_Mining_Facility_SAL-5,,,Shubin Interstellar
-Shubin Mining Facility SCD-1,Outpost,Daymar,Stanton,126.025,-149.581,221.253,https://starcitizen.tools/images/thumb/4/45/Daymar_Shubin-Mining-Facility-SCD1_Day-1.jpg/300px-Daymar_Shubin-Mining-Facility-SCD1_Day-1.jpg,https://starcitizen.tools/Shubin_Mining_Facility_SCD-1,,,Shubin Interstellar
-Shubin Mining Facility SM0-10,Outpost,microTech,Stanton,85.476,-950.856,298.799,https://starcitizen.tools/images/thumb/4/49/Shubin_Mining_Facility_SM0-10_26.04.2020_13_44_28.png/300px-Shubin_Mining_Facility_SM0-10_26.04.2020_13_44_28.png,https://starcitizen.tools/Shubin_Mining_Facility_SM0-10,,,Shubin Interstellar
-Shubin Mining Facility SM0-13,Outpost,microTech,Stanton,-172.819,-981.308,97.767,https://starcitizen.tools/images/thumb/0/06/Shubin_Mining_Facility_SM0-13_26.04.2020_13_55_42.png/300px-Shubin_Mining_Facility_SM0-13_26.04.2020_13_55_42.png,https://starcitizen.tools/Shubin_Mining_Facility_SM0-13,,,Shubin Interstellar
-Shubin Mining Facility SM0-18,Outpost,microTech,Stanton,920.21,-389.542,43.837,https://starcitizen.tools/images/thumb/a/a8/Shubin_Mining_Facility_SM0-18_26.04.2020_21_01_29.png/300px-Shubin_Mining_Facility_SM0-18_26.04.2020_21_01_29.png,https://starcitizen.tools/Shubin_Mining_Facility_SM0-18,,,Shubin Interstellar
-Shubin Mining Facility SM0-22,Outpost,microTech,Stanton,24.299,-822.591,568.174,https://starcitizen.tools/images/thumb/8/85/Shubin_Mining_Facility_SM0-22_26.04.2020_13_36_06.png/300px-Shubin_Mining_Facility_SM0-22_26.04.2020_13_36_06.png,https://starcitizen.tools/Shubin_Mining_Facility_SM0-22,,,Shubin Interstellar
-Shubin Mining Facility SMCa-6,Outpost,Calliope,Stanton,50.066,233.437,24.936,https://starcitizen.tools/images/thumb/8/85/Calliope_SMCa-6_3.13.0_16.04.2021_12_36_54.png/300px-Calliope_SMCa-6_3.13.0_16.04.2021_12_36_54.png,https://starcitizen.tools/Shubin_Mining_Facility_SMCa-6,,,Shubin Interstellar
-Shubin Mining Facility SMCa-8,Outpost,Calliope,Stanton,160.166,168.987,-58.4,https://starcitizen.tools/images/thumb/6/60/Calliope_SMCa-8_3.13.0_16.04.2021_12_40_34.png/300px-Calliope_SMCa-8_3.13.0_16.04.2021_12_40_34.png,https://starcitizen.tools/Shubin_Mining_Facility_SMCa-8,,,Shubin Interstellar
-Shubin Processing Facility SPAL-12,Underground bunker,Lyria,Stanton,-173.503,124.81,66.784,https://starcitizen.tools/images/thumb/b/bc/Shubin_Processing_Facility_SPAL-12.png/320px-Shubin_Processing_Facility_SPAL-12.png,https://starcitizen.tools/Shubin_Processing_Facility_SPAL-12,,,Shubin Interstellar
-Shubin Processing Facility SPAL-16,Underground bunker,Lyria,Stanton,-40.101,-66.263,209.892,https://media.starcitizen.tools/thumb/d/d5/Shubin_Processing_Facility_SPAL-16%2C_Lyria.png/300px-Shubin_Processing_Facility_SPAL-16%2C_Lyria.png,https://starcitizen.tools/Shubin_Processing_Facility_SPAL-16,,,Shubin Interstellar
-Shubin Processing Facility SPAL-21,Underground bunker,Lyria,Stanton,-19.527,13.462,222.716,https://media.starcitizen.tools/thumb/1/1c/Shubin_Processing_Center_SPAL-21%2C_Lyria.png/300px-Shubin_Processing_Center_SPAL-21%2C_Lyria.png,https://starcitizen.tools/Shubin_Processing_Facility_SPAL-21,,,Shubin Interstellar
-Shubin Processing Facility SPAL-3,Underground bunker,Lyria,Stanton,-208.404,11.275,-81.322,https://starcitizen.tools/images/thumb/7/79/Shubin_Processing_Facility_SPAL-3x.png/320px-Shubin_Processing_Facility_SPAL-3x.png,https://starcitizen.tools/Shubin_Processing_Facility_SPAL-3,,,Shubin Interstellar
-Shubin Processing Facility SPAL-7,Underground bunker,Lyria,Stanton,37.914,-126.142,181.387,https://starcitizen.tools/images/thumb/3/38/Shubin_Processing_Facility_SPAL-7x.png/320px-Shubin_Processing_Facility_SPAL-7x.png,https://starcitizen.tools/Shubin_Processing_Facility_SPAL-7,,,Shubin Interstellar
-Shubin Processing Facility SPAL-9,Underground bunker,Lyria,Stanton,146.676,-169.035,8.34,https://starcitizen.tools/images/thumb/c/c8/Shubin_Processing_Facility_SPAL-9.png/320px-Shubin_Processing_Facility_SPAL-9.png,https://starcitizen.tools/Shubin_Processing_Facility_SPAL-9,,,Shubin Interstellar
-Shubin Processing Facility SPMC-1,Underground bunker,Calliope,Stanton,231.078,-34.373,-55.893,https://starcitizen.tools/images/thumb/f/f0/Calliope_SPMC-1_3.13.0_15.04.2021_11_11_05.png/320px-Calliope_SPMC-1_3.13.0_15.04.2021_11_11_05.png,https://starcitizen.tools/Shubin_Processing_Facility_SPMC-1,,,Shubin Interstellar
-Shubin Processing Facility SPMC-10,Underground bunker,Calliope,Stanton,-222.726,-74.372,-49.719,https://starcitizen.tools/images/thumb/3/30/Calliope_SPMC-10_3.13.0_16.04.2021_14_32_56.png/320px-Calliope_SPMC-10_3.13.0_16.04.2021_14_32_56.png,https://starcitizen.tools/Shubin_Processing_Facility_SPMC-10,,,Shubin Interstellar
-Shubin Processing Facility SPMC-11,Underground bunker,Calliope,Stanton,72.393,-187.928,130.918,https://starcitizen.tools/images/thumb/6/64/Calliope_SPMC-11_3.13.0_16.04.2021_13_23_11.png/320px-Calliope_SPMC-11_3.13.0_16.04.2021_13_23_11.png,https://starcitizen.tools/Shubin_Processing_Facility_SPMC-11,,,Shubin Interstellar
-Shubin Processing Facility SPMC-14,Underground bunker,Calliope,Stanton,228.587,-21.222,71.196,https://starcitizen.tools/images/thumb/7/78/Calliope_SPMC-14_3.13.0_16.04.2021_12_43_45.png/320px-Calliope_SPMC-14_3.13.0_16.04.2021_12_43_45.png,https://starcitizen.tools/Shubin_Processing_Facility_SPMC-14,,,Shubin Interstellar
-Shubin Processing Facility SPMC-3,Underground bunker,Calliope,Stanton,239.598,-11.458,8.683,https://starcitizen.tools/images/thumb/e/e2/Calliope_SPMC-3_3.13.0_16.04.2021_12_47_28.png/320px-Calliope_SPMC-3_3.13.0_16.04.2021_12_47_28.png,https://starcitizen.tools/Shubin_Processing_Facility_SPMC-3,,,Shubin Interstellar
-Shubin Processing Facility SPMC-5,Underground bunker,Calliope,Stanton,-229.991,66.814,19.274,https://starcitizen.tools/images/thumb/4/4f/Calliope_SPMC-5_3.13.0_16.04.2021_14_37_32.png/320px-Calliope_SPMC-5_3.13.0_16.04.2021_14_37_32.png,https://starcitizen.tools/Shubin_Processing_Facility_SPMC-5,,,Shubin Interstellar
-Sketto Rock,Landmark,Magda,Stanton,-335.013,45.699,50.233,https://media.starcitizen.tools/thumb/a/ae/Sketto_Rock_01.png/300px-Sketto_Rock_01.png,https://starcitizen.tools/Sketto_rock,,,
-Snake Pit,Racetrack,Clio,Stanton,-327.835,-78.887,-13.657,https://starcitizen.tools/images/thumb/9/93/Snake_Pit_Alpha_3.17.2.jpg/300px-Snake_Pit_Alpha_3.17.2.jpg,https://starcitizen.tools/The_Snake_Pit,,,
-Talarine Divide Aid Shelter,Emergency shelter,Yela,Stanton,-21.221,310.79,30.932,https://starcitizen.tools/images/thumb/8/88/Yela_Talarine-Divide-Aid-Shelter_Day.jpg/300px-Yela_Talarine-Divide-Aid-Shelter_Day.jpg,https://starcitizen.tools/Talarine_Divide_Aid_Shelter,,,
-Tamdon Plains Aid Shelter,Emergency shelter,Daymar,Stanton,-138.114,-24.463,-259.849,https://starcitizen.tools/images/thumb/3/33/Daymar_Tamdon-Plains-Aid-Shelter_Day.jpg/300px-Daymar_Tamdon-Plains-Aid-Shelter_Day.jpg,https://starcitizen.tools/Tamdon_Plains_Aid_Shelter,,,
-Teddy's Playhouse,Underground bunker,Lyria,Stanton,95.429,160.94,-122.846,https://starcitizen.tools/images/thumb/8/8c/Teddy%27s_Playhouse.png/320px-Teddy%27s_Playhouse.png,https://starcitizen.tools/Teddy%27s_Playhouse,,,
-Terra Mills HydroFarm,Outpost,Cellin,Stanton,100.137,27.701,239.024,https://starcitizen.tools/images/thumb/0/05/Terra_Mills_HydroFarm.png/300px-Terra_Mills_HydroFarm.png,https://starcitizen.tools/Terra_Mills_HydroFarm,,,
-Test Facility Octagon,Landmark,microTech,Stanton,635.765,-155.464,758.837,https://starcitizen.tools/images/thumb/1/15/Microtech_TFOctagon_Citcon.png/300px-Microtech_TFOctagon_Citcon.png,https://starcitizen.tools/Test_Facility_Octagon,,,
-The Garden,Underground bunker,Daymar,Stanton,-175.97,146.723,186.026,https://starcitizen.tools/images/thumb/d/dd/The_Garden%2C_Daymar_%28Alpha_3.17%29.jpg/300px-The_Garden%2C_Daymar_%28Alpha_3.17%29.jpg,https://starcitizen.tools/The_Garden,,,
-The Icebreaker,Racetrack,Euterpe,Stanton,-42.101,198.111,66.582,https://starcitizen.tools/images/thumb/c/cd/Icebreaker%2C_Euterpe%2C_ISC_2022-11-10.png/320px-Icebreaker%2C_Euterpe%2C_ISC_2022-11-10.png,https://starcitizen.tools/The_Icebreaker,,,
-The Necropolis,Outpost,microTech,Stanton,63.643,-162.085,985.651,https://starcitizen.tools/images/thumb/7/7d/The_Necropolis_27.04.2020_15_18_49.png/300px-The_Necropolis_27.04.2020_15_18_49.png,https://starcitizen.tools/The_Necropolis,,,
-The Orphanage,Outpost,Lyria,Stanton,-91.99,92.484,182.182,https://starcitizen.tools/images/thumb/e/e7/Lyria_The-Orphanage_Day.jpg/300px-Lyria_The-Orphanage_Day.jpg,https://starcitizen.tools/The_Orphanage,,,
-The Pit,Underground bunker,Lyria,Stanton,59.094,68.115,204.997,https://media.starcitizen.tools/thumb/4/42/The_Pit%2C_Lyria.webp/400px-The_Pit%2C_Lyria.webp.png,https://starcitizen.tools/The_Pit,,,
-TPF,Underground bunker,Daymar,Stanton,37.248,203.877,-209.981,https://starcitizen.tools/images/thumb/f/f1/TPF_Underground_Bunker%2C_Daymar%2C_Alpha_3.17.jpg/300px-TPF_Underground_Bunker%2C_Daymar%2C_Alpha_3.17.jpg,https://starcitizen.tools/TPF,,,
-Tram & Myers Mining,Outpost,Cellin,Stanton,-241.164,2.396,-98.7,https://starcitizen.tools/images/thumb/5/55/Cellin_Tram-and-Myers_Day.jpg/300px-Cellin_Tram-and-Myers_Day.jpg,https://starcitizen.tools/Tram_%26_Myers_Mining,,,
-Utopia,Outpost,Yela,Stanton,-0.173,-1.851,-313.08,https://starcitizen.tools/images/thumb/3/3b/Utopia_underground_bunker%2C_Yela_%28Alpha_3.17%29.png/300px-Utopia_underground_bunker%2C_Yela_%28Alpha_3.17%29.png,https://starcitizen.tools/Utopia,,,
-Weeping Cove,Settlement,Hurston,Stanton,-455.172,-202.318,867.424,https://media.starcitizen.tools/thumb/e/e9/WeepingCovefarm.jpg/300px-WeepingCovefarm.jpg,https://starcitizen.tools/Weeping_Cove,,,
-Wheeler's,Underground bunker,Lyria,Stanton,-53.37,-209.9,-57.123,https://media.starcitizen.tools/thumb/a/aa/Wheeler%27s%2C_Lyria.webp/400px-Wheeler%27s%2C_Lyria.webp.png,https://starcitizen.tools/Wheeler%27s,,,
-Whistler's Crypt,Settlement,Daymar,Stanton,182.262,222.629,65.625,https://starcitizen.tools/images/thumb/a/aa/Whistlers_Crypt.png/320px-Whistlers_Crypt.png,https://starcitizen.tools/Whistlers_Crypt,,,
-Wolf Point Aid Shelter,Emergency shelter,Daymar,Stanton,-4.42,279.067,95.733,https://starcitizen.tools/images/thumb/7/76/Wolf_Point_Aid_Shelter%2C_Daymar_%28Alpha_3.17%29.png/300px-Wolf_Point_Aid_Shelter%2C_Daymar_%28Alpha_3.17%29.png,https://starcitizen.tools/Wolf_Point_Aid_Shelter,,,
-Yadar Valley,Racetrack,Daymar,Stanton,-171.798,157.576,181.015,https://media.starcitizen.tools/thumb/d/d2/Yadar_Valley_racetrack%2C_Daymar_-_day.jpg/300px-Yadar_Valley_racetrack%2C_Daymar_-_day.jpg,https://starcitizen.tools/Yadar_Valley,,,
-Zephyr,Settlement,Hurston,Stanton,108.16,-133.662,986.694,https://media.starcitizen.tools/thumb/3/33/Zephyrtower.jpg/300px-Zephyrtower.jpg,https://starcitizen.tools/Zephyr_(settlement),,,
-Green Glade Station,Space station,HUR-L1,Stanton,-3998.772,-262.923,-484.614,https://media.starcitizen.tools/thumb/4/49/HUR-L1-Exterior-Alpha-3.12.png/300px-HUR-L1-Exterior-Alpha-3.12.png,https://starcitizen.tools/HUR-L1_Green_Glade_Station,,,
-Faithful Dream Station,Space station,HUR-L2,Stanton,4132.735,-1967.278,-527.794,https://media.starcitizen.tools/thumb/2/2c/HUR-L2-Exterior2-Alpha-3.12.png/300px-HUR-L2-Exterior2-Alpha-3.12.png,https://starcitizen.tools/HUR-L2_Faithful_Dream_Station,,,
-Thundering Express Station,Space station,HUR-L3,Stanton,5714.049,-1553.263,1335.043,https://media.starcitizen.tools/thumb/a/a9/HUR-L3-Exterior-Alpha-3.12.png/300px-HUR-L3-Exterior-Alpha-3.12.png,https://starcitizen.tools/HUR-L3_Thundering_Express_Station,,,
-Melodic Fields Station,Space station,HUR-L4,Stanton,2399.289,-4056.976,666.284,https://media.starcitizen.tools/thumb/7/71/HUR-L4-Exterior-Alpha-3.12.png/300px-HUR-L4-Exterior-Alpha-3.12.png,https://starcitizen.tools/HUR-L4_Melodic_Fields_Station,,,
-High Course Station,Space station,HUR-L5,Stanton,495.237,461.677,-842.035,https://media.starcitizen.tools/thumb/7/7e/HUR-L5-Exterior-Alpha-3.12.png/300px-HUR-L5-Exterior-Alpha-3.12.png,https://starcitizen.tools/HUR-L5_High_Course_Station,,,
-Ambitious Dream Station,Space station,CRU-L1,Stanton,-2796.345,-1018.273,-20.044,https://media.starcitizen.tools/thumb/e/e9/CRU-L1-Exterior-Alpha-3.12.png/300px-CRU-L1-Exterior-Alpha-3.12.png,https://starcitizen.tools/CRU-L1_Ambitious_Dream_Station,,,
-Shallow Fields Station,Space station,CRU-L4,Stanton,-599.667,4147.668,-2174.784,https://media.starcitizen.tools/thumb/e/e1/CRU-L4-Exterior-Alpha-3.12.png/300px-CRU-L4-Exterior-Alpha-3.12.png,https://starcitizen.tools/CRU-L4_Shallow_Fields_Station,,,
-Beautiful Glen Station,Space station,CRU-L5,Stanton,3996.779,1989.649,-2796.441,https://media.starcitizen.tools/thumb/4/4d/CRU-L5-Exterior-Alpha-3.14.jpg/300px-CRU-L5-Exterior-Alpha-3.14.jpg,https://starcitizen.tools/CRU-L5_Beautiful_Glen_Station,,,
-Wide Forest Station,Space station,ARC-L1,Stanton,,,,https://media.starcitizen.tools/thumb/1/13/ARC-L1-Exterior-Alpha3.12.png/300px-ARC-L1-Exterior-Alpha3.12.png,https://starcitizen.tools/ARC-L1_Wide_Forest_Station,,,
-Lively Pathway Station,Space station,ARC-L2,Stanton,,,,https://media.starcitizen.tools/thumb/8/8b/ARC-L2-Exterior-Alpha-3.17.2.jpg/300px-ARC-L2-Exterior-Alpha-3.17.2.jpg,https://starcitizen.tools/ARC-L2_Lively_Pathway_Station,,,
-Modern Express Station,Space station,ARC-L3,Stanton,,,,https://media.starcitizen.tools/thumb/6/6c/ARC-L3-Exterior-Alpha-3.17.2.jpg/300px-ARC-L3-Exterior-Alpha-3.17.2.jpg,https://starcitizen.tools/ARC-L3_Modern_Express_Station,,,
-Faint Glen Station,Space station,ARC-L4,Stanton,,,,https://media.starcitizen.tools/thumb/3/3c/ARC-L4-Exterior-Alpha-3.17.2.jpg/300px-ARC-L4-Exterior-Alpha-3.17.2.jpg,https://starcitizen.tools/ARC-L4_Faint_Glen_Station,,,
-Yellow Core Station,Space station,ARC-L5,Stanton,,,,https://media.starcitizen.tools/thumb/9/9b/ARC-L5-Exterior-Alpha-3.17.2.jpg/300px-ARC-L5-Exterior-Alpha-3.17.2.jpg,https://starcitizen.tools/ARC-L5_Yellow_Core_Station,,,
-INS Jericho,Space station,MIC-L1,Stanton,27928.773,1329.828,-17086.343,https://media.starcitizen.tools/thumb/3/30/Stanton-ins-jericho-3.12.jpg/300px-Stanton-ins-jericho-3.12.jpg,https://starcitizen.tools/INS_Jericho,,,
-Shallow Frontier Station,Space station,MIC-L1,Stanton,3.031,4.510,-0.943,https://media.starcitizen.tools/thumb/5/56/MIC-L1-Exterior1-Alpha-3.12.png/300px-MIC-L1-Exterior1-Alpha-3.12.png,https://starcitizen.tools/MIC-L1_Shallow_Frontier_Station,,,
-Long Forest Station,Space station,MIC-L2,Stanton,,,,https://media.starcitizen.tools/thumb/7/7e/MIC-L2-Exterior2-Alpha-3.17.2.jpg/300px-MIC-L2-Exterior2-Alpha-3.17.2.jpg,https://starcitizen.tools/MIC-L2_Long_Forest_Station,,,
-Endless Odyssey Station,Space station,MIC-L3,Stanton,,,,https://media.starcitizen.tools/thumb/a/a6/MIC-L3-Exterior-Alpha-3.17.2.jpg/300px-MIC-L3-Exterior-Alpha-3.17.2.jpg,https://starcitizen.tools/MIC-L3_Endless_Odyssey_Station,,,
-Red Crossroads Station,Space station,MIC-L4,Stanton,,,,https://media.starcitizen.tools/thumb/e/e2/MIC-L4-Exterior1-Alpha-3.17.2.jpg/1024px-MIC-L4-Exterior1-Alpha-3.17.2.jpg,https://starcitizen.tools/MIC-L4_Red_Crossroads_Station,,,
-Modern Icarus Station,Space station,MIC-L5,Stanton,,,,https://media.starcitizen.tools/thumb/b/b8/MIC-L5-Exterior1-Alpha-3.17.2.jpg/300px-MIC-L5-Exterior1-Alpha-3.17.2.jpg,https://starcitizen.tools/MIC-L5_Modern_Icarus_Station,,,
-Covalex Distribution Centre S1DC06,Distribution center,Hurston,Stanton,742.847,15.480,671.074,https://media.starcitizen.tools/thumb/9/9c/Covalex_Distribution_Centre_S1DC06%2C_Hurston.webp/400px-Covalex_Distribution_Centre_S1DC06%2C_Hurston.webp.png,https://starcitizen.tools/Covalex_Distribution_Centre_S1DC06,,,Covalex
-Dupree Industrial Manufacturing Facility,Distribution center,Hurston,Stanton,239.426,-969.806,68.635,https://media.starcitizen.tools/thumb/d/de/Dupree_Industrial_Manufacturing_Facility.webp/400px-Dupree_Industrial_Manufacturing_Facility.webp.png,https://starcitizen.tools/Dupree_Industrial_Manufacturing_Facility,,,
-Greycat Stanton I Production Complex-B,Distribution center,Hurston,Stanton,-407.457,-656.296,636.322,,https://starcitizen.tools/Greycat_Stanton_I_Production_Complex-B,,,Greycat
-HDPC-Cassilo,Distribution center,Hurston,Stanton,-789.716,615.354,-2.353,,https://starcitizen.tools/HDPC-Cassilo,,,Hurston Dynamics
-HDPC-Farnesway,Distribution center,Hurston,Stanton,129.223,63.888,989.575,https://media.starcitizen.tools/thumb/9/90/HDPC-Farnesway%2C_Hurston.webp/400px-HDPC-Farnesway%2C_Hurston.webp.png,https://starcitizen.tools/HDPC-Farnesway,,,Hurston Dynamics
-Sakura Sun Magnolia Workcenter,Distribution center,Hurston,Stanton,-229.373,-864.793,-446.960,https://media.starcitizen.tools/thumb/f/f7/Sakura_Sun_Magnolia_Workcenter%2C_Hurston_-_exterior.webp/400px-Sakura_Sun_Magnolia_Workcenter%2C_Hurston_-_exterior.webp.png,https://starcitizen.tools/Sakura_Sun_Magnolia_Workcenter,,,Sakura Sun
-Covalex Distribution Centre S4DC05,Distribution center,microTech,Stanton,-332.505,897.834,-290.234,https://media.starcitizen.tools/thumb/2/20/Covalex_Distribution_Centre_S4DC05_-_zone_3.jpg/400px-Covalex_Distribution_Centre_S4DC05_-_zone_3.jpg,https://starcitizen.tools/Covalex_Distribution_Centre_S4DC05,,,Coavalex
-Cry-Astro Processing Plant 19-02,Distribution center,microTech,Stanton,584.139,-0.789,812.169,https://media.starcitizen.tools/thumb/6/62/Cry-Astro_Processing_Plant_19-02%2C_microTech.webp/400px-Cry-Astro_Processing_Plant_19-02%2C_microTech.webp.png,https://starcitizen.tools/Cry-Astro_Processing_Plant_19-02,,,Cry-Astro
-Cry-Astro Processing Plant 34-12,Distribution center,microTech,Stanton,-316.285,-882.040,-350.639,https://media.starcitizen.tools/thumb/0/01/Cry-Astro_Processing_Plant_34-12%2C_microTech.webp/400px-Cry-Astro_Processing_Plant_34-12%2C_microTech.webp.png,https://starcitizen.tools/Cry-Astro_Processing_Plant_34-12,,,Cry-Astro
-Greycat Stanton IV Production Complex-A,Distribution center,microTech,Stanton,-423.347,-141.169,-895.145,https://media.starcitizen.tools/thumb/b/b9/Greycat_Stanton_IV_Production_Complex-A_-_overview.webp/300px-Greycat_Stanton_IV_Production_Complex-A_-_overview.webp.png,https://starcitizen.tools/Greycat_Stanton_IV_Production_Complex-A,,,Greycat
-MicroTech Logistics Depot S4LD01,Distribution center,microTech,Stanton,884.615,467.868,-19.153,https://media.starcitizen.tools/thumb/a/a6/MicroTech_Logistics_Depot_S4LD01%2C_microTech.webp/400px-MicroTech_Logistics_Depot_S4LD01%2C_microTech.webp.png,https://starcitizen.tools/MicroTech_Logistics_Depot_S4LD01,,,microTech
-MicroTech Logistics Depot S4LD13,Distribution center,microTech,Stanton,843.838,-179.535,505.834,https://media.starcitizen.tools/thumb/9/96/MicroTech_Logistics_Depot_S4LD13%2C_microTech.webp/400px-MicroTech_Logistics_Depot_S4LD13%2C_microTech.webp.png,https://starcitizen.tools/MicroTech_Logistics_Depot_S4LD13,,,microTech
-Sakura Sun Goldenrod Workcenter,Distribution center,microTech,Stanton,-173.422,-923.630,-343.265,https://media.starcitizen.tools/thumb/3/3e/Sakura_Sun_Goldenrod_Workcenter%2C_microTech.webp/400px-Sakura_Sun_Goldenrod_Workcenter%2C_microTech.webp.png,https://starcitizen.tools/Sakura_Sun_Goldenrod_Workcenter,,,Sakura Sun
-Rustville,Settlement,Pyro I,Pyro,-195.852,-319.059,170.820,https://media.starcitizen.tools/thumb/e/e1/Rustville_-_Pyro_I%2C_Pyro_system.png/400px-Rustville_-_Pyro_I%2C_Pyro_system.png,https://starcitizen.tools/Rustville,,,
-Last Ditch,Settlement,Monox,Pyro,-143.491,-34.931,508.706,https://media.starcitizen.tools/thumb/d/d7/Last_Ditch_-_Monox%2C_Pyro_system.png/400px-Last_Ditch_-_Monox%2C_Pyro_system.png,https://starcitizen.tools/Last_Ditch,,,
-Jackson's Swap,Settlement,Monox,Pyro,383.115,-245.830,-272.467,https://media.starcitizen.tools/thumb/a/a8/Jackson%27s_Swap%2C_Monox%2C_Pyro_-_Alph_4.0_2024.webp/400px-Jackson%27s_Swap%2C_Monox%2C_Pyro_-_Alph_4.0_2024.webp.png,https://starcitizen.tools/Jackson%27s_Swap,,,
-Ostler's Claim,Settlement,Monox,Pyro,,,,https://media.starcitizen.tools/thumb/9/96/Ostler%27s_Claim%2C_Monox%2C_Pyro.webp/400px-Ostler%27s_Claim%2C_Monox%2C_Pyro.webp.png,https://starcitizen.tools/Ostler%27s_Claim,,,
-Sunset Mesa,Scrapyard,Monox,Pyro,373.540,-262.716,-269.591,https://media.starcitizen.tools/thumb/2/2f/Sunset_Mesa_-_Monox%2C_Pyro_system.png/400px-Sunset_Mesa_-_Monox%2C_Pyro_system.png,https://starcitizen.tools/Sunset_Mesa,,,
-Yang's Place,Settlement,Monox,Pyro,461.485,-124.623,-229.886,https://media.starcitizen.tools/thumb/b/bb/Yang%27s_Place%2C_lower_district%2C_Monox%2C_Pyro_system_-_Alpha_4.0_2024.webp/400px-Yang%27s_Place%2C_lower_district%2C_Monox%2C_Pyro_system_-_Alpha_4.0_2024.webp.png,https://starcitizen.tools/Yang%27s_Place,,,
-Bueno Ravine,Settlement,Bloom,Pyro,171.298,-373.375,-57.521,https://media.starcitizen.tools/thumb/5/56/Bueno_Ravine_overview_-_Bloom%2C_Pyro_system.png/300px-Bueno_Ravine_overview_-_Bloom%2C_Pyro_system.png,https://starcitizen.tools/Bueno_Ravine,,,
-Shadowfall,Settlement,Bloom,Pyro,-91.695,399.585,-57.006,https://media.starcitizen.tools/thumb/4/45/Shadowfall_-_Bloom%2C_Pyro_system.png/400px-Shadowfall_-_Bloom%2C_Pyro_system.png,https://starcitizen.tools/Shadowfall,,,
-The Yard,Settlement,Bloom,Pyro,343.854,188.822,132.066,https://media.starcitizen.tools/thumb/0/01/The_Yard_-_Bloom%2C_Pyro_system.png/400px-The_Yard_-_Bloom%2C_Pyro_system.png,https://starcitizen.tools/The_Yard,,,
-Orbituary,Space station,Bloom,Pyro,379.850,-718.724,226.044,https://media.starcitizen.tools/thumb/2/24/Pyro_-_Orbituary_space_station.png/300px-Pyro_-_Orbituary_space_station.png,https://starcitizen.tools/Orbituary,,,
-The Golden Riviera,Settlement,Bloom,Pyro,-384.469,153.328,5.799,https://media.starcitizen.tools/thumb/1/10/Golden_Riviera_exterior_overview_-_Bloom%2C_Pyro_system.png/300px-Golden_Riviera_exterior_overview_-_Bloom%2C_Pyro_system.png,https://starcitizen.tools/The_Golden_Riviera,,,
-Shepherd's Rest,Settlement,Bloom,Pyro,29.434,359.999,-202.126,https://media.starcitizen.tools/thumb/8/8e/Shepherd%27s_Rest%2C_morning_-_Bloom%2C_Pyro_system.png/300px-Shepherd%27s_Rest%2C_morning_-_Bloom%2C_Pyro_system.png,https://starcitizen.tools/Shepherd%27s_Rest,,,
-Chawla's Beach,Settlement,Pyro IV,Pyro,-244.780,-86.153,189.634,,,,,
-Fallow Field,Settlement,Pyro IV,Pyro,68.328,-176.526,262.250,,https://starcitizen.tools/Fallow_Field,,,
-Goner's Deal,Settlement,Pyro IV,Pyro,104.786,-151.985,265.305,,,,,
-Sacren's Plot,Settlement,Pyro IV,Pyro,-236.427,-97.750,194.621,,https://starcitizen.tools/Sacren%27s_Plot,,,
-Ruin Station,Space station,Terminus,Pyro,-242.614,192.670,-74.868,https://media.starcitizen.tools/thumb/0/0c/Ruin_Station%2C_Terminus%2C_Pyro.webp/400px-Ruin_Station%2C_Terminus%2C_Pyro.webp.png,https://starcitizen.tools/Ruin_Station,,,
-Checkmate Station,Space station,PYR2 L4,Pyro,-11023.456,-25541.331,2571.421,https://media.starcitizen.tools/thumb/b/b8/Cutter_Approaching_Checkmate_Station.png/300px-Cutter_Approaching_Checkmate_Station.png,https://starcitizen.tools/Checkmate_Station,,,
-Starlight Service Station,Space station,PYR3 L1,Pyro,10322.792,5095.130,926.786,https://media.starcitizen.tools/thumb/4/4c/Starlight_Service_Station%2C_Pyro.webp/400px-Starlight_Service_Station%2C_Pyro.webp.png,https://starcitizen.tools/Starlight_Service_Station,,,
-Patch City,Space station,PYR3 L3,Pyro,-13180.845,-18009.953,352.020,https://media.starcitizen.tools/thumb/7/79/Patch_City%2C_Pyro.webp/400px-Patch_City%2C_Pyro.webp.png,https://starcitizen.tools/Patch_City,,,
-PYAM-FARSTAT-1-2,Space station,PYR1 L2,Pyro,1892033.736,-8901175.590,0.000,,,,,
-PYAM-FARSTAT-1-3,Space station,PYR1 L3,Pyro,-1533855.859,8431465.506,0.000,,,,,
-PYAM-FARSTAT-3-5,Space station,PYR3 L5,Pyro,-11443002.538,13637233.035,0.000,,,,,
-PYAM-FARSTAT-5-1,Space station,PYR5 L1,Pyro,38056546.470,-6710238.083,0.000,,,,,
-Gaslight,Space station,PYR5 L2,Pyro,46513574.526,-8201358.903,0.000,https://media.starcitizen.tools/thumb/2/21/Pyro_V_L2_-_Gaslight_space_station.webp/400px-Pyro_V_L2_-_Gaslight_space_station.webp.png,https://starcitizen.tools/Gaslight,,,
-PYAM-FARSTAT-5-3,Space station,PYR5 L3,Pyro,-37184863.543,21468613.290,0.000,,,,,
-Rod's Fuel 'N Supplies,Space station,PYR5 L4,Pyro,14685416.672,40347900.081,0.000,,,,,
-Rat's Nest,Space station,PYR5 L5,Pyro,3742466.610,-42773928.702,0.000,,,,,
-PYAM-FARSTAT-6-2,Space station,PYR6 L2,Pyro,-54297046.592,-45561095.035,0.000,,,,,
-Endgame,Space station,PYR6 L3,Pyro,48311253.893,48311302.761,0.000,,,,,
-Dudley & Daughters,Space station,PYR6 L4,Pyro,23368016.469,-64202027.675,0.000,,,,,
-Megumi Refueling,Space station,PYR6 L5,Pyro,-59169086.144,34161126.286,0.000,,,,,
-Cluster TYS-098,Asteroid cluster,Pyro,Pyro,185257.941,-13368350.038,400165.012,,,,,
-Cluster NBD-102,Asteroid cluster,Pyro,Pyro,-7782683.667,6366491.074,-77598.676,,,,,
-Cluster PQE-291,Asteroid cluster,Pyro,Pyro,-6309131.422,19868311.627,999999.954,,,,,
-Cluster WDH-387,Asteroid cluster,Pyro,Pyro,53401737.091,14833652.335,50000.000,,,,,
-Cluster CAJ-445,Asteroid cluster,Pyro,Pyro,-33245871.862,50107430.255,-397575.997,,,,,
-Cluster BGR-560,Asteroid cluster,Pyro,Pyro,31060816.949,51561358.118,-700000.000,,,,,
-Cluster SGL-693,Asteroid cluster,Pyro,Pyro,472433.061,69578388.902,400000.000,,,,,
-Cluster KKE-717,Asteroid cluster,Pyro,Pyro,41914182.728,-26016994.532,-579237.421,,,,,
-Cluster MNK-833,Asteroid cluster,Pyro,Pyro,-43104553.578,-36470412.132,608395.020,,,,,
-Cluster JWY-925,Asteroid cluster,Pyro,Pyro,-36539136.576,864367.042,-727088.911,,,,,
-Cluster SZA-178,Asteroid cluster,Pyro,Pyro,2071924.827,32443872.991,-859087.839,,,,,
-Cluster HJS-232,Asteroid cluster,Pyro,Pyro,27921212.509,-53145421.955,-468366.028,,,,,
-Cluster RSC-340,Asteroid cluster,Pyro,Pyro,41078539.091,-5723329.713,376521.068,,,,,
-Cluster DLO-486,Asteroid cluster,Pyro,Pyro,-25656573.251,-65291615.732,919788.503,,,,,
-Cluster EMM-567,Asteroid cluster,Pyro,Pyro,-8797768.932,-29887494.213,-370709.270,,,,,
-Cluster VUP-613,Asteroid cluster,Pyro,Pyro,13231304.188,1899907.887,-473828.900,,,,,
-Cluster FSN-704,Asteroid cluster,Pyro,Pyro,-7247934.547,1687333.596,818102.000,,,,,
-Cluster GRP-839,Asteroid cluster,Pyro,Pyro,42493963.179,-7299067.277,-525692.200,,,,,
-Cluster LHB-976,Asteroid cluster,Pyro,Pyro,-64401229.502,-12273553.672,557357.000,,,,,
-Cluster YKA-011,Asteroid cluster,Pyro,Pyro,42129731.379,-7502954.130,-715878.000,,,,,
-Broken Patch,Forward operating base,Hurston,Stanton,-740.1503469,-401.5072992,-543.9227311,,,,,
-Lowdown,Forward operating base,Hurston,Stanton,-93.4226158,890.6321006,-448.8141775,,,,,
-Rico's Remains,Forward operating base,Hurston,Stanton,-118.7308166,-23.75373751,993.7855871,,,,,
-Trilo,Forward operating base,Hurston,Stanton,421.1586387,-901.8877944,115.0852158,,,,,
-The Dregs,Forward operating base,Arial,Stanton,143.7347512,-232.7411681,210.2121578,,,,,
-Smokestack,Forward operating base,Arial,Stanton,-311.8959669,-147.4109758,-10.6548704,,,,,
-Coven,Forward operating base,Arial,Stanton,134.6434548,285.3570317,-139.6946826,,,,,
-Boondoggle,Forward operating base,Aberdeen,Stanton,134.8485969,-191.2700741,-144.2869127,,,,,
-The Grove,Forward operating base,Aberdeen,Stanton,-187.0753722,169.9271174,-108.3644449,,,,,
-Nevermind,Forward operating base,Magda,Stanton,-214.093912,-180.3662618,194.5063939,,,,,
-Gonzo,Forward operating base,Magda,Stanton,315.1093043,-86.76846931,-96.93642104,,,,,
-Thimblerig,Forward operating base,Ita,Stanton,-215.6604673,-147.318332,-193.8588516,,,,,
-The Shades,Forward operating base,Ita,Stanton,167.7049753,231.2113541,-155.3238295,,,,,
-Stone's Throw,Forward operating base,Cellin,Stanton,-187.3927567,-71.58462698,-166.115149,,,,,
-Fetch,Forward operating base,Cellin,Stanton,241.7607033,-47.09394442,-84.84641353,,,,,
-The Hollows,Forward operating base,Cellin,Stanton,2.938408042,201.3035359,165.520293,,,,,
-Consumption,Forward operating base,Cellin,Stanton,64.28753333,-237.5085703,85.09307143,,,,,
-Minlo Spire,Forward operating base,Daymar,Stanton,32.01872357,-203.5438629,211.2150021,https://media.starcitizen.tools/thumb/5/59/Minlo_Spire%2C_Daymar.webp/400px-Minlo_Spire%2C_Daymar.webp.png,,,,
-S2BFOB2,Forward operating base,Daymar,Stanton,291.2707569,14.33153031,44.39135836,,,,,
-S2BFOB3,Forward operating base,Daymar,Stanton,-9.001144432,71.718185,-286.5199171,,,,,
-Half Stack,Forward operating base,Yela,Stanton,241.3005685,-10.19574212,-199.1225429,,,,,
-Rolo's Crater,Forward operating base,Yela,Stanton,-124.4374708,-191.2548326,-214.8611303,,,,,
-Mainline,Forward operating base,Yela,Stanton,-68.6105054,302.1621463,-46.10875348,,,,,
-Rock Bottom,Forward operating base,Lyria,Stanton,81.64973122,139.798114,154.6602094,,,,,
-World's End,Forward operating base,Lyria,Stanton,82.34958087,-155.8387054,138.5876363,,,,,
-Downlow,Forward operating base,Lyria,Stanton,216.3156711,-50.93011033,-28.8363655,,,,,
-Last Day,Forward operating base,Lyria,Stanton,-95.22870641,94.38689831,-179.593758,,,,,
-Burnout,Forward operating base,Lyria,Stanton,-213.5277849,1.11747861,68.08885848,,,,,
-Balto's Blind,Forward operating base,Lyria,Stanton,-80.96010315,-208.7189939,0.596164865,,,,,
-Ako's Return,Forward operating base,Wala,Stanton,227.6621602,78.83107054,147.01981,,,,,
-Scuttle,Forward operating base,Wala,Stanton,10.026182,-280.7754356,-26.62517859,,,,,
-Washout,Forward operating base,Wala,Stanton,-200.3435611,179.0330802,90.38832181,,,,,
-Wiley Flats,Forward operating base,Wala,Stanton,-231.2539601,-64.89921511,-150.2759515,,,,,
-Kelo Bottom,Forward operating base,microTech,Stanton,896.3287118,430.7234426,-116.4708553,,,,,
-Drifters,Forward operating base,microTech,Stanton,-331.8183128,694.1774886,-640.3802143,,,,,
-Hela's Regret,Forward operating base,microTech,Stanton,-666.8826935,-561.2928905,-490.3219916,,,,,
-The Barrens,Forward operating base,microTech,Stanton,,,,,,,,
-Blighter's Run,Forward operating base,Calliope,Stanton,206.7877892,-51.68699654,110.5643857,,,,,
-Hasbin Hall,Forward operating base,Calliope,Stanton,181.9134851,-149.7853995,-46.79214203,,,,,
-Regiment Downs,Forward operating base,Calliope,Stanton,-60.05914481,226.4176149,-52.74028733,,,,,
-Hard Knocks,Forward operating base,Calliope,Stanton,-218.8373262,-52.59105248,84.53048373,,,,,
-Kant's Peak,Forward operating base,Clio,Stanton,-63.76130668,220.2980743,247.9660727,,,,,
-Tremonte,Forward operating base,Clio,Stanton,170.6029131,-270.4569246,107.5348202,,,,,
-Shanks,Forward operating base,Euterpe,Stanton,212.5859914,-4.55779893,18.2285594,,,,,
-Adair's Retreat,Forward operating base,Euterpe,Stanton,-165.4473025,134.8143248,-4.199984929,,,,,
+name,type,parentBody,parentStar,coordinateX,coordinateY,coordinateZ,wikiLink,private,quantum
+Abandoned Outpost (Cellin),Ruins,Cellin,Stanton,130.062,184.915,130.356,https://starcitizen.tools/Unnamed_abandoned_outpost_(Cellin),0,0
+Abandoned Outpost (Daymar),Ruins,Daymar,Stanton,73.139,285.904,1.906,https://starcitizen.tools/Unnamed_abandoned_outpost_(Daymar),0,0
+Abandoned Outpost (Yela),Ruins,Yela,Stanton,-45.303,308.850,28.948,https://starcitizen.tools/Unnamed_abandoned_outpost_(Yela),0,0
+Afterlife,Underground bunker,Yela,Stanton,-254.263,-153.390,99.058,https://starcitizen.tools/Afterlife,1,1
+ArcCorp Mining Area 045,Outpost,Wala,Stanton,-282.798,14.108,10.620,https://starcitizen.tools/ArcCorp_Mining_Area_045,0,1
+ArcCorp Mining Area 048,Outpost,Wala,Stanton,-178.193,97.756,-196.340,https://starcitizen.tools/ArcCorp_Mining_Area_048,0,1
+ArcCorp Mining Area 056,Outpost,Wala,Stanton,116.546,-50.147,253.155,https://starcitizen.tools/ArcCorp_Mining_Area_056,0,1
+ArcCorp Mining Area 061,Outpost,Wala,Stanton,-21.040,-247.548,-132.570,https://starcitizen.tools/ArcCorp_Mining_Area_061,0,1
+ArcCorp Mining Area 141,Outpost,Daymar,Stanton,-18.167,180.362,-232.760,https://starcitizen.tools/ArcCorp_Mining_Area_141,0,1
+ArcCorp Mining Area 157,Outpost,Yela,Stanton,6.023,222.356,220.313,https://starcitizen.tools/ArcCorp_Mining_Area_157,0,1
+ArcCorp Processing Center 115,Underground bunker,Wala,Stanton,-277.356,50.110,27.880,https://starcitizen.tools/ArcCorp_Processing_Center_115,1,1
+ArcCorp Processing Center 123,Underground bunker,Wala,Stanton,130.624,-247.521,43.129,https://starcitizen.tools/ArcCorp_Processing_Center_123,1,1
+Area04,City,ArcCorp,Stanton,-314.306,-601.435,423.659,https://starcitizen.tools/Area04,0,1
+Area06,City,ArcCorp,Stanton,-745.806,-111.306,267.380,https://starcitizen.tools/Area06,0,1
+Area11,City,ArcCorp,Stanton,508.204,397.589,472.922,https://starcitizen.tools/Area11,0,1
+Area17,City,ArcCorp,Stanton,-310.290,-601.811,-425.980,https://starcitizen.tools/Area17,0,1
+Area18,Landing zone,ArcCorp,Stanton,-747.409,-116.734,-262.094,https://starcitizen.tools/Area18,0,1
+Area20,City,ArcCorp,Stanton,506.937,401.104,-471.308,https://starcitizen.tools/Area20,0,1
+Ashburn Channel Aid Shelter,Emergency shelter,Cellin,Stanton,3.024,-257.942,-37.129,https://starcitizen.tools/Ashburn_Channel_Aid_Shelter,0,1
+Aston Ridge Aid Shelter,Emergency shelter,Yela,Stanton,207.944,24.051,-232.785,https://starcitizen.tools/Aston_Ridge_Aid_Shelter,0,1
+Astor's Clearing,Settlement,microTech,Stanton,-810.219,577.884,-101.430,https://starcitizen.tools/Astor%27s_Clearing,0,1
+Baijini Point,Space station,ArcCorp,Stanton,-771.961,-321.347,-359.509,https://starcitizen.tools/Baijini_Point,0,1
+Barton Flats Aid Shelter,Emergency shelter,Aberdeen,Stanton,54.341,217.120,-159.881,https://starcitizen.tools/Barton_Flats_Aid_Shelter,0,1
+Bennyhenge,Landmark,Yela,Stanton,-626.649,135.683,-1.819,https://starcitizen.tools/Benny_Henge,0,0
+Benson Mining Outpost,Outpost,Yela,Stanton,48.998,-275.606,-140.136,https://starcitizen.tools/Benson_Mining_Outpost,0,1
+Bloodshot Ridge,Settlement,microTech,Stanton,733.940,-674.648,101.876,https://starcitizen.tools/Bloodshot_Ridge,0,0
+Bountiful Harvest Hydroponics,Outpost,Daymar,Stanton,57.552,-92.267,-274.246,https://starcitizen.tools/Bountiful_Harvest_Hydroponics,0,1
+Brio's Breaker Yard,Scrapyard,Daymar,Stanton,-176.683,-161.257,173.852,https://starcitizen.tools/Brio%27s_Breaker_Yard,0,1
+Buckets,Underground bunker,Lyria,Stanton,-194.039,-67.997,-89.480,https://starcitizen.tools/Buckets,1,1
+Bud's Growery,Outpost,Euterpe,Stanton,50.173,-172.259,115.271,https://starcitizen.tools/Bud%27s_Growery,0,1
+Calhoun Pass Emergency Shelter,Emergency shelter,microTech,Stanton,938.116,-347.818,31.708,https://starcitizen.tools/Calhoun_Pass_Emergency_Shelter,0,1
+Clear View Emergency Shelter,Emergency shelter,microTech,Stanton,-609.561,-688.363,393.203,https://starcitizen.tools/Clear_View_Emergency_Shelter,0,1
+Cloudrest Retreat,Settlement,Crusader,Stanton,-7396.172,-1420.246,29.007,https://starcitizen.tools/Cloudrest_Retreat,1,1
+Comm Array ST1-02,CommArray,Ita,Stanton,122.153,-475.821,24.000,https://starcitizen.tools/Comm_Array_ST1-02,1,1
+Comm Array ST1-13,CommArray,Arial,Stanton,-78.760,505.628,24.000,https://starcitizen.tools/Comm_Array_ST1-13,1,1
+Comm Array ST1-48,CommArray,Magda,Stanton,295.516,413.046,24.000,https://starcitizen.tools/Comm_Array_ST1-48,1,1
+Comm Array ST1-61,CommArray,Hurston,Stanton,919.253,-771.345,24.000,https://starcitizen.tools/Comm_Array_ST1-61,1,1
+Comm Array ST1-92,CommArray,Aberdeen,Stanton,-435.359,-45.214,24.000,https://starcitizen.tools/Comm_Array_ST1-92,1,1
+Comm Array ST2-28,CommArray,Cellin,Stanton,242.244,347.193,24.000,https://starcitizen.tools/Comm_Array_ST2-28,1,1
+Comm Array ST2-47,CommArray,Daymar,Stanton,-435.617,-146.996,24.000,https://starcitizen.tools/Comm_Array_ST2-47,1,1
+Comm Array ST2-55,CommArray,Crusader,Stanton,-1387.917,8802.204,24.000,https://starcitizen.tools/Comm_Array_ST2-55,1,1
+Comm Array ST2-76,CommArray,Yela,Stanton,150.336,-454.428,24.000,https://starcitizen.tools/Comm_Array_ST2-76,1,1
+Comm Array ST3-18,CommArray,Lyria,Stanton,-382.727,33.034,24.000,https://starcitizen.tools/Comm_Array_ST3-18,1,1
+Comm Array ST3-35,CommArray,Wala,Stanton,365.821,-257.408,24.000,https://starcitizen.tools/Comm_Array_ST3-35,1,1
+Comm Array ST3-90,CommArray,ArcCorp,Stanton,758.384,-636.360,24.000,https://starcitizen.tools/Comm_Array_ST3-90,1,1
+Comm Array ST4-22,CommArray,microTech,Stanton,-771.345,-919.253,24.000,https://starcitizen.tools/Comm_Array_ST4-22,1,1
+Comm Array ST4-31,CommArray,Calliope,Stanton,189.547,354.905,24.000,https://starcitizen.tools/Comm_Array_ST4-31,1,1
+Comm Array ST4-59,CommArray,Clio,Stanton,-318.257,390.837,24.000,https://starcitizen.tools/Comm_Array_ST4-59,1,1
+Comm Array ST4-64,CommArray,Euterpe,Stanton,362.788,88.702,24.000,https://starcitizen.tools/Comm_Array_ST4-64,1,1
+Connor's,Underground bunker,Yela,Stanton,-139.770,-254.310,118.129,https://starcitizen.tools/Connor%27s,1,1
+Covalex Shipping Hub Gundo,Space station,Daymar,Stanton,-241.198,437.977,-300.000,https://starcitizen.tools/Covalex_Hub_Gundo,0,1
+Cutter's Rig,Settlement,Hurston,Stanton,-455.119,-200.497,867.564,https://starcitizen.tools/Cutter%27s_Rig,,1
+Deakins Research Outpost,Outpost,Yela,Stanton,231.587,-210.279,13.278,https://starcitizen.tools/Deakins_Research_Outpost,,1
+Devlin Scrap & Salvage,Scrapyard,Euterpe,Stanton,14.506,211.267,25.886,https://starcitizen.tools/Devlin_Scrap_%26_Salvage,,1
+Dunboro,Settlement,microTech,Stanton,-735.672,678.040,9.310,https://starcitizen.tools/Dunboro,,1
+Dunlow Ridge Aid Shelter,Emergency shelter,Daymar,Stanton,-51.850,280.932,75.331,https://starcitizen.tools/Dunlow_Ridge_Aid_Shelter,0,1
+Eager Flats Aid Shelter,Emergency shelter,Daymar,Stanton,200.545,-104.917,190.097,https://starcitizen.tools/Eager_Flats_Aid_Shelter,0,1
+Echo Island,Outpost,Hurston,Stanton,-405.100,-275.110,-872.200,https://starcitizen.tools/Echo_Island,,0
+Elsewhere,Underground bunker,Lyria,Stanton,207.832,-67.344,-50.273,https://starcitizen.tools/Elsewhere,1,1
+Empyrean Park,Settlement,Crusader,Stanton,1090.108,7304.364,1509.818,https://starcitizen.tools/Empyrean_Park,1,1
+Everus Harbor,Space station,Hurston,Stanton,-507.742,-903.464,496.489,https://starcitizen.tools/Everus_Harbor,0,1
+Finn's Folly,Settlement,Hurston,Stanton,-196.592,-197.871,961.999,https://starcitizen.tools/Finn%27s_Folly,,1
+Flanagan's Ravine Aid Shelter,Emergency shelter,Cellin,Stanton,-194.282,151.722,84.997,https://starcitizen.tools/Flanagan%27s_Ravine_Aid_Shelter,0,1
+Frostbite,Settlement,microTech,Stanton,539.620,762.339,-361.448,https://starcitizen.tools/Frostbite_(settlement),0,0
+Gallete Family Farms,Outpost,Cellin,Stanton,-89.471,106.717,220.041,https://starcitizen.tools/Gallete_Family_Farms,,1
+Ghost Hollow,Settlement,microTech,Stanton,-127.194,982.004,149.145,https://starcitizen.tools/Ghost_Hollow,,1
+Good Times Temple,Underground bunker,Wala,Stanton,-113.300,179.510,187.366,https://starcitizen.tools/Good_Times_Temple,,1
+GrimHEX,Asteroid base,Yela,Stanton,-568.659,383.565,-2.042,https://starcitizen.tools/Grim_HEX,,1
+Harper's Point,Settlement,microTech,Stanton,-687.373,716.613,128.227,https://starcitizen.tools/Harper%27s_Point,,1
+HDES Calthrope (NA),Cave,Hurston,Stanton,-203.376,-806.580,557.779,https://starcitizen.tools/HDES-Calthrope,,1
+HDMO-Dobbs (NA),Cave,Aberdeen,Stanton,270.579,47.399,-11.404,https://starcitizen.tools/HDMO-Dobbs,,1
+HDMS Anderson,Outpost,Aberdeen,Stanton,-26.950,180.221,206.879,https://starcitizen.tools/HDMS-Anderson,,1
+HDMS Norgaard,Outpost,Aberdeen,Stanton,-141.572,195.318,132.098,https://starcitizen.tools/HDMS-Norgaard,,1
+HDMS-Bezdek,Outpost,Arial,Stanton,26.735,-234.698,251.505,https://starcitizen.tools/HDMS-Bezdek,,1
+HDMS-Edmond,Outpost,Hurston,Stanton,-284.480,-730.502,620.924,https://starcitizen.tools/HDMS-Edmond,,1
+HDMS-Hadley,Outpost,Hurston,Stanton,626.167,-583.971,-518.485,https://starcitizen.tools/HDMS-Hadley,,1
+HDMS-Hahn,Outpost,Magda,Stanton,-147.384,-292.217,95.247,https://starcitizen.tools/HDMS-Hahn,,1
+HDMS-Lathan,Outpost,Arial,Stanton,339.193,33.686,55.843,https://starcitizen.tools/HDMS-Lathan,,1
+HDMS-Oparei,Outpost,Hurston,Stanton,-556.126,-72.591,-828.071,https://starcitizen.tools/HDMS-Oparei,,1
+HDMS-Perlman,Outpost,Magda,Stanton,-140.696,287.922,-116.688,https://starcitizen.tools/HDMS-Perlman,,1
+HDMS-Pinewood,Outpost,Hurston,Stanton,985.564,90.029,149.896,https://starcitizen.tools/HDMS-Pinewood,,1
+HDMS-Ryder,Outpost,Ita,Stanton,-175.874,-263.381,73.709,https://starcitizen.tools/HDMS-Ryder,,1
+HDMS-Stanhope,Outpost,Hurston,Stanton,-648.608,198.313,735.121,https://starcitizen.tools/HDMS-Stanhope,,1
+HDMS-Thedus,Outpost,Hurston,Stanton,443.322,891.525,101.509,https://starcitizen.tools/HDMS-Thedus,,1
+HDMS-Woodruff,Outpost,Ita,Stanton,114.792,219.661,210.467,https://starcitizen.tools/HDMS-Woodruff,,1
+HDSF-Adlai,Underground bunker,Hurston,Stanton,-236.846,-810.890,537.736,https://starcitizen.tools/HDSF-Adlai,,1
+HDSF-Barnabas,Underground bunker,Hurston,Stanton,-895.864,365.595,-252.546,https://starcitizen.tools/HDSF-Barnabas,,1
+HDSF-Breckinridge,Underground bunker,Hurston,Stanton,-557.599,680.528,-477.825,https://starcitizen.tools/HDSF-Breckinridge,,1
+HDSF-Colfax,Underground bunker,Hurston,Stanton,902.272,383.795,-203.763,https://starcitizen.tools/HDSF-Colfax,,1
+HDSF-Damaris,Underground bunker,Hurston,Stanton,-898.695,420.101,-141.747,https://starcitizen.tools/HDSF-Damaris,,1
+HDSF-Elbridge,Underground bunker,Hurston,Stanton,449.413,838.666,310.624,https://starcitizen.tools/HDSF-Elbridge,,1
+HDSF-Hendricks,Underground bunker,Hurston,Stanton,63.555,-969.070,-242.520,https://starcitizen.tools/HDSF-Hendricks,,1
+HDSF-Hiram,Underground bunker,Hurston,Stanton,-942.480,-317.031,122.747,https://starcitizen.tools/HDSF-Hiram,,1
+HDSF-Hobart,Underground bunker,Hurston,Stanton,-492.220,768.371,410.823,https://starcitizen.tools/HDSF-Hobart,,1
+HDSF-Ishmael,Underground bunker,Hurston,Stanton,-266.171,-159.479,952.333,https://starcitizen.tools/HDSF-Ishmael,,1
+HDSF-Millerand,Underground bunker,Hurston,Stanton,-847.551,517.597,126.804,https://starcitizen.tools/HDSF-Millerand,,1
+HDSF-Palomar,Underground bunker,Hurston,Stanton,766.601,-74.225,-640.183,https://starcitizen.tools/HDSF-Palomar,,1
+HDSF-Rufus,Underground bunker,Hurston,Stanton,-64.794,11.531,-998.425,https://starcitizen.tools/HDSF-Rufus,,1
+HDSF-Sherman,Underground bunker,Hurston,Stanton,899.380,-406.057,168.518,https://starcitizen.tools/HDSF-Sherman,,1
+HDSF-Tamar,Underground bunker,Hurston,Stanton,121.122,-810.963,-573.527,https://starcitizen.tools/HDSF-Tamar,,1
+HDSF-Tompkins,Underground bunker,Hurston,Stanton,374.762,724.551,579.815,https://starcitizen.tools/HDSF-Tompkins,,1
+HDSF-Zacharias,Underground bunker,Hurston,Stanton,249.567,398.572,-884.801,https://starcitizen.tools/HDSF-Zacharias,,1
+Hickes Research Outpost,Outpost,Cellin,Stanton,3.270,13.091,-260.316,https://starcitizen.tools/Hickes_Research_Outpost,,1
+Humboldt Mines,Outpost,Lyria,Stanton,5.311,-193.819,-112.545,https://starcitizen.tools/Humboldt_Mines,,1
+Javelin Wreck (UEES Flyssa),Shipwreck,Daymar,Stanton,102.055,267.619,-70.856,https://starcitizen.tools/UEES_Flyssa,,0
+Julep Ravine Aid Shelter,Emergency shelter,Cellin,Stanton,-111.528,-56.297,-228.950,https://starcitizen.tools/Julep_Ravine_Aid_Shelter,,1
+Jumptown,Outpost,Daymar,Stanton,80.440,242.720,-147.630,https://starcitizen.tools/Jumptown,,1
+Klescher Rehabilitation Facility,Prison,Aberdeen,Stanton,44.975,221.563,-156.583,https://starcitizen.tools/Klescher_Rehabilitation_Facility_(Aberdeen),,1
+Kosso Basin Aid Shelter,Emergency shelter,Yela,Stanton,-31.289,-118.130,288.314,https://starcitizen.tools/Kosso_Basin_Aid_Shelter,,1
+Kudre Ore,Outpost,Daymar,Stanton,146.617,-177.093,-184.862,https://starcitizen.tools/Kudre_Ore,,1
+Kudre Ore Mine (Closed),Cave,Daymar,Stanton,81.008,-280.683,43.649,https://starcitizen.tools/Kudre_Ore_Mine,,1
+Launch Pad,Underground bunker,Lyria,Stanton,-213.840,-65.163,16.508,https://starcitizen.tools/Launch_Pad,,1
+Lorville,Landing zone,Hurston,Stanton,-328.989,-752.435,572.120,https://starcitizen.tools/Lorville,,1
+Lost and Found,Underground bunker,Wala,Stanton,62.556,114.330,251.559,https://starcitizen.tools/Lost_and_Found,,1
+Loveridge Mineral Reserve,Outpost,Lyria,Stanton,181.800,128.166,24.940,https://starcitizen.tools/Loveridge_Mineral_Reserve,,1
+Ludlow,Settlement,Hurston,Stanton,-878.668,-467.858,111.091,https://starcitizen.tools/Ludlow,,1
+Maker's Point,Settlement,Hurston,Stanton,-154.007,128.325,979.766,https://starcitizen.tools/Maker%27s_Point,,1
+Miner's Lament,Racetrack,Yela,Stanton,-488.234,519.158,3.846,https://starcitizen.tools/Miner%E2%80%99s_Lament,,0
+Mogote Aid Shelter,Emergency shelter,Cellin,Stanton,-198.664,50.790,160.875,https://starcitizen.tools/Mogote_Aid_Shelter,,1
+Moreland Hills,Settlement,microTech,Stanton,-665.088,726.918,178.064,https://starcitizen.tools/Moreland_Hills,0,0
+MT DataCenter 2UB-RB9-5,Underground bunker,microTech,Stanton,907.002,139.908,-397.662,https://starcitizen.tools/MT_DataCenter_2UB-RB9-5,1,1
+MT DataCenter 4HJ-LVE-A,Underground bunker,microTech,Stanton,-100.841,962.407,-255.721,https://starcitizen.tools/MT_DataCenter_4HJ-LVE-A,1,1
+MT DataCenter 5WQ-R2V-C,Underground bunker,microTech,Stanton,959.880,40.295,-279.073,https://starcitizen.tools/MT_DataCenter_5WQ-R2V-C,1,1
+MT DataCenter 8FK-Q2X-K,Underground bunker,microTech,Stanton,22.397,2.905,-1000.725,https://starcitizen.tools/MT_DataCenter_8FK-Q2X-K,1,1
+MT DataCenter D79-ECG-R,Underground bunker,microTech,Stanton,200.928,308.740,-929.820,https://starcitizen.tools/MT_DataCenter_D79-ECG-R,1,1
+MT DataCenter E2Q-NSG-Y,Underground bunker,microTech,Stanton,916.832,187.159,-354.144,https://starcitizen.tools/MT_DataCenter_E2Q-NSG-Y,1,1
+MT DataCenter KH3-AAE-L,Underground bunker,microTech,Stanton,-468.928,801.473,-375.316,https://starcitizen.tools/MT_DataCenter_KH3-AAE-L,1,1
+MT DataCenter L8P-JUC-8 (offline),Underground bunker,microTech,Stanton,-86.563,218.560,-972.070,https://starcitizen.tools/MT_DataCenter_L8P-JUC-8_(offline),1,1
+MT DataCenter QVX-J88-J,Underground bunker,microTech,Stanton,-247.945,892.699,-379.678,https://starcitizen.tools/MT_DataCenter_QVX-J88-J,1,1
+MT DataCenter TMG-XEV-2,Underground bunker,microTech,Stanton,-160.992,62.442,985.998,https://starcitizen.tools/MT_DataCenter_TMG-XEV-2,1,1
+MT OpCenter TLI-4,Underground bunker,microTech,Stanton,68.364,64.276,-996.490,https://starcitizen.tools/MT_OpCenter_TLI-4,1,1
+Nakamura Valley Aid Shelter,Emergency shelter,Yela,Stanton,-275.722,124.074,81.717,https://starcitizen.tools/Nakamura_Valley_Aid_Shelter,0,1
+New Babbage,Landing zone,microTech,Stanton,520.723,419.364,743.655,https://starcitizen.tools/New_Babbage,0,1
+NT-999-XV,Underground bunker,Cellin,Stanton,146.849,135.264,167.452,https://starcitizen.tools/NT-999-XV,,1
+NT-999-XVI,Underground bunker,Daymar,Stanton,250.895,154.055,-24.263,https://starcitizen.tools/NT-999-XVI,,1
+NT-999-XX,Outpost,Yela,Stanton,-205.659,-73.988,224.325,https://starcitizen.tools/NT-999-XX,,1
+NT-999-XXII,Underground bunker,Yela,Stanton,54.565,55.939,-303.344,https://starcitizen.tools/NT-999-XXII,,1
+Nuen Waste Management,Outpost,Daymar,Stanton,-18.943,293.341,25.478,https://starcitizen.tools/Nuen_Waste_Management,,1
+Nuiqsut Emergency Shelter,Emergency shelter,microTech,Stanton,750.613,-207.852,-627.225,https://starcitizen.tools/Nuiqsut_Emergency_Shelter,,1
+Operations Depot Lyria 1,Underground bunker,Lyria,Stanton,-147.804,-17.445,167.340,,,0
+Orison,Landing zone,Crusader,Stanton,5295.517,-863.194,5282.237,https://starcitizen.tools/Orison,0,1
+Outpost 54,Outpost,microTech,Stanton,113.566,14.479,-994.363,https://starcitizen.tools/Outpost_54,,1
+Paradise Cove,Outpost,Wala,Stanton,79.980,-217.910,162.330,https://starcitizen.tools/Paradise_Cove,,1
+Picker's Field,Settlement,Hurston,Stanton,-679.766,262.266,-686.080,https://starcitizen.tools/Picker%27s_Field,,1
+Point Wain Emergency Shelter,Emergency shelter,microTech,Stanton,-627.441,-485.258,611.733,https://starcitizen.tools/Point_Wain_Emergency_Shelter,,1
+Port Tressler,Space station,microTech,Stanton,561.471,545.853,808.832,https://starcitizen.tools/Port_Tressler,,1
+PRIVATE PROPERTY,Outpost,Cellin,Stanton,97.749,-173.764,167.078,https://starcitizen.tools/Stash_House_(Cellin),,0
+Prospect Point,Settlement,Crusader,Stanton,3254.279,-1225.248,6683.686,https://starcitizen.tools/Prospect_Point,,1
+Rappel,Settlement,Hurston,Stanton,352.952,-661.890,663.889,https://starcitizen.tools/Rappel,,1
+Raven's Roost,Outpost,microTech,Stanton,355.900,-75.590,932.650,https://starcitizen.tools/Raven%27s_Roost,,1
+Rayari Anvik Research Outpost,Outpost,Calliope,Stanton,-184.632,-127.794,84.724,https://starcitizen.tools/Rayari_Anvik_Research_Outpost,,1
+Rayari Cantwell Research Outpost,Outpost,Clio,Stanton,-217.175,215.278,142.842,https://starcitizen.tools/Rayari_Cantwell_Research_Outpost,,1
+Rayari Deltana Research Outpost,Outpost,microTech,Stanton,-693.910,-648.299,316.681,https://starcitizen.tools/Rayari_Deltana_Research_Outpost,,1
+Rayari Kaltag Research Outpost,Outpost,Calliope,Stanton,205.267,6.261,-124.485,https://starcitizen.tools/Rayari_Kaltag_Research_Outpost,,1
+Rayari McGrath Research Outpost,Outpost,Clio,Stanton,-325.904,-85.713,-18.786,https://starcitizen.tools/Rayari_McGrath_Research_Outpost,,1
+Razor's Edge,Settlement,microTech,Stanton,-666.067,726.221,179.518,https://starcitizen.tools/Razor%27s_Edge,0,0
+Reclamation & Disposal Orinth,Scrapyard,Hurston,Stanton,1.141,-794.276,607.652,https://starcitizen.tools/Reclamation_%26_Disposal_Orinth,,1
+Samson & Son's Salvage Center,Scrapyard,Wala,Stanton,-42.545,279.059,19.438,https://starcitizen.tools/Samson_%26_Son%27s_Salvage_Center,,1
+Security Post Criska,Underground bunker,Cellin,Stanton,252.518,62.917,13.988,https://starcitizen.tools/Security_Post_Criska,,1
+Security Post Dipur,Underground bunker,Cellin,Stanton,197.594,57.562,-160.055,https://starcitizen.tools/Security_Post_Dipur,,1
+Security Post Kareah,Space station,Cellin,Stanton,11.620,-419.839,200.000,https://starcitizen.tools/Security_Post_Kareah,,1
+Security Post Lespin,Underground bunker,Cellin,Stanton,-214.293,-149.184,4.123,https://starcitizen.tools/Security_Post_Lespin,,1
+Security Post Moluto,Underground bunker,Daymar,Stanton,188.858,33.746,-224.163,https://starcitizen.tools/Security_Post_Moluto,,1
+Security Post Opal,Underground bunker,Yela,Stanton,241.073,96.291,-175.019,https://starcitizen.tools/Security_Post_Opal,,1
+Security Post Prashad,Underground bunker,Daymar,Stanton,-223.887,65.623,180.749,https://starcitizen.tools/Security_Post_Prashad,,1
+Security Post Thaquray,Underground bunker,Daymar,Stanton,-6.981,-89.665,281.360,https://starcitizen.tools/Security_Post_Thaquray,,1
+Security Post Wan,Underground bunker,Yela,Stanton,-208.367,53.166,-227.454,https://starcitizen.tools/Security_Post_Wan,,1
+Seraphim Station,Space station,Crusader,Stanton,5876.098,-1384.207,5565.883,https://starcitizen.tools/Seraphim_Station,,1
+Shady Glen Farms,Outpost,Wala,Stanton,-20.622,268.985,87.534,https://starcitizen.tools/Shady_Glen_Farms,,1
+Shubin Mining Facility SAL-2,Outpost,Lyria,Stanton,150.636,-53.619,156.668,https://starcitizen.tools/Shubin_Mining_Facility_SAL-2,,1
+Shubin Mining Facility SAL-5,Outpost,Lyria,Stanton,98.070,78.361,185.821,https://starcitizen.tools/Shubin_Mining_Facility_SAL-5,,1
+Shubin Mining Facility SCD-1,Outpost,Daymar,Stanton,126.025,-149.581,221.253,https://starcitizen.tools/Shubin_Mining_Facility_SCD-1,,1
+Shubin Mining Facility SM0-10,Outpost,microTech,Stanton,85.476,-950.856,298.799,https://starcitizen.tools/Shubin_Mining_Facility_SM0-10,,1
+Shubin Mining Facility SM0-13,Outpost,microTech,Stanton,-172.819,-981.308,97.767,https://starcitizen.tools/Shubin_Mining_Facility_SM0-13,,1
+Shubin Mining Facility SM0-18,Outpost,microTech,Stanton,920.210,-389.542,43.837,https://starcitizen.tools/Shubin_Mining_Facility_SM0-18,,1
+Shubin Mining Facility SM0-22,Outpost,microTech,Stanton,24.299,-822.591,568.174,https://starcitizen.tools/Shubin_Mining_Facility_SM0-22,,1
+Shubin Mining Facility SMCa-6,Outpost,Calliope,Stanton,50.066,233.437,24.936,https://starcitizen.tools/Shubin_Mining_Facility_SMCa-6,,1
+Shubin Mining Facility SMCa-8,Outpost,Calliope,Stanton,160.166,168.987,-58.400,https://starcitizen.tools/Shubin_Mining_Facility_SMCa-8,,1
+Shubin Processing Facility SPAL-12,Underground bunker,Lyria,Stanton,-173.503,124.810,66.784,https://starcitizen.tools/Shubin_Processing_Facility_SPAL-12,,1
+Shubin Processing Facility SPAL-16,Underground bunker,Lyria,Stanton,-40.101,-66.263,209.892,https://starcitizen.tools/Shubin_Processing_Facility_SPAL-16,,1
+Shubin Processing Facility SPAL-21,Underground bunker,Lyria,Stanton,-19.527,13.462,222.716,https://starcitizen.tools/Shubin_Processing_Facility_SPAL-21,,1
+Shubin Processing Facility SPAL-3,Underground bunker,Lyria,Stanton,-208.404,11.275,-81.322,https://starcitizen.tools/Shubin_Processing_Facility_SPAL-3,,1
+Shubin Processing Facility SPAL-7,Underground bunker,Lyria,Stanton,37.914,-126.142,181.387,https://starcitizen.tools/Shubin_Processing_Facility_SPAL-7,,1
+Shubin Processing Facility SPAL-9,Underground bunker,Lyria,Stanton,146.676,-169.035,8.340,https://starcitizen.tools/Shubin_Processing_Facility_SPAL-9,,1
+Shubin Processing Facility SPMC-1,Underground bunker,Calliope,Stanton,231.078,-34.373,-55.893,https://starcitizen.tools/Shubin_Processing_Facility_SPMC-1,,1
+Shubin Processing Facility SPMC-10,Underground bunker,Calliope,Stanton,-222.726,-74.372,-49.719,https://starcitizen.tools/Shubin_Processing_Facility_SPMC-10,,1
+Shubin Processing Facility SPMC-11,Underground bunker,Calliope,Stanton,72.393,-187.928,130.918,https://starcitizen.tools/Shubin_Processing_Facility_SPMC-11,,1
+Shubin Processing Facility SPMC-14,Underground bunker,Calliope,Stanton,228.587,-21.222,71.196,https://starcitizen.tools/Shubin_Processing_Facility_SPMC-14,,1
+Shubin Processing Facility SPMC-3,Underground bunker,Calliope,Stanton,239.598,-11.458,8.683,https://starcitizen.tools/Shubin_Processing_Facility_SPMC-3,,1
+Shubin Processing Facility SPMC-5,Underground bunker,Calliope,Stanton,-229.991,66.814,19.274,https://starcitizen.tools/Shubin_Processing_Facility_SPMC-5,,1
+Sketto Rock,Landmark,Magda,Stanton,-335.013,45.699,50.233,https://starcitizen.tools/Sketto_rock,,0
+Snake Pit,Racetrack,Clio,Stanton,-327.835,-78.887,-13.657,https://starcitizen.tools/The_Snake_Pit,,0
+Talarine Divide Aid Shelter,Emergency shelter,Yela,Stanton,-21.221,310.790,30.932,https://starcitizen.tools/Talarine_Divide_Aid_Shelter,,1
+Tamdon Plains Aid Shelter,Emergency shelter,Daymar,Stanton,-138.114,-24.463,-259.849,https://starcitizen.tools/Tamdon_Plains_Aid_Shelter,,1
+Teddy's Playhouse,Underground bunker,Lyria,Stanton,95.429,160.940,-122.846,https://starcitizen.tools/Teddy%27s_Playhouse,,1
+Terra Mills HydroFarm,Outpost,Cellin,Stanton,100.137,27.701,239.024,https://starcitizen.tools/Terra_Mills_HydroFarm,,1
+Test Facility Octagon,Landmark,microTech,Stanton,635.765,-155.464,758.837,https://starcitizen.tools/Test_Facility_Octagon,,0
+The Garden,Underground bunker,Daymar,Stanton,-175.970,146.723,186.026,https://starcitizen.tools/The_Garden,,1
+The Icebreaker,Racetrack,Euterpe,Stanton,-42.101,198.111,66.582,https://starcitizen.tools/The_Icebreaker,,.
+The Necropolis,Outpost,microTech,Stanton,63.643,-162.085,985.651,https://starcitizen.tools/The_Necropolis,,1
+The Orphanage,Outpost,Lyria,Stanton,-91.990,92.484,182.182,https://starcitizen.tools/The_Orphanage,,1
+The Pit,Underground bunker,Lyria,Stanton,59.094,68.115,204.997,https://starcitizen.tools/The_Pit,,1
+TPF,Underground bunker,Daymar,Stanton,37.248,203.877,-209.981,https://starcitizen.tools/TPF,,1
+Tram & Myers Mining,Outpost,Cellin,Stanton,-241.164,2.396,-98.700,https://starcitizen.tools/Tram_%26_Myers_Mining,,1
+Utopia,Outpost,Yela,Stanton,-0.173,-1.851,-313.080,https://starcitizen.tools/Utopia,,1
+Weeping Cove,Settlement,Hurston,Stanton,-455.172,-202.318,867.424,https://starcitizen.tools/Weeping_Cove,,1
+Wheeler's,Underground bunker,Lyria,Stanton,-53.370,-209.900,-57.123,https://starcitizen.tools/Wheeler%27s,,1
+Whistler's Crypt,Settlement,Daymar,Stanton,182.262,222.629,65.625,https://starcitizen.tools/Whistlers_Crypt,,1
+Wolf Point Aid Shelter,Emergency shelter,Daymar,Stanton,-4.420,279.067,95.733,https://starcitizen.tools/Wolf_Point_Aid_Shelter,,1
+Yadar Valley,Racetrack,Daymar,Stanton,-171.798,157.576,181.015,https://starcitizen.tools/Yadar_Valley,,0
+Zephyr,Settlement,Hurston,Stanton,108.160,-133.662,986.694,https://starcitizen.tools/Zephyr_(settlement),,1
+Green Glade Station,Space station,HUR-L1,Stanton,-3998.772,-262.923,-484.614,https://starcitizen.tools/HUR-L1_Green_Glade_Station,,
+Faithful Dream Station,Space station,HUR-L2,Stanton,4132.735,-1967.278,-527.794,https://starcitizen.tools/HUR-L2_Faithful_Dream_Station,,
+Thundering Express Station,Space station,HUR-L3,Stanton,5714.049,-1553.263,1335.043,https://starcitizen.tools/HUR-L3_Thundering_Express_Station,,
+Melodic Fields Station,Space station,HUR-L4,Stanton,2399.289,-4056.976,666.284,https://starcitizen.tools/HUR-L4_Melodic_Fields_Station,,
+High Course Station,Space station,HUR-L5,Stanton,495.237,461.677,-842.035,https://starcitizen.tools/HUR-L5_High_Course_Station,,
+Ambitious Dream Station,Space station,CRU-L1,Stanton,-2796.345,-1018.273,-20.044,https://starcitizen.tools/CRU-L1_Ambitious_Dream_Station,,
+Shallow Fields Station,Space station,CRU-L4,Stanton,-599.667,4147.668,-2174.784,https://starcitizen.tools/CRU-L4_Shallow_Fields_Station,,
+Beautiful Glen Station,Space station,CRU-L5,Stanton,3996.779,1989.649,-2796.441,https://starcitizen.tools/CRU-L5_Beautiful_Glen_Station,,
+Wide Forest Station,Space station,ARC-L1,Stanton,,,,https://starcitizen.tools/ARC-L1_Wide_Forest_Station,,
+Lively Pathway Station,Space station,ARC-L2,Stanton,,,,https://starcitizen.tools/ARC-L2_Lively_Pathway_Station,,
+Modern Express Station,Space station,ARC-L3,Stanton,,,,https://starcitizen.tools/ARC-L3_Modern_Express_Station,,
+Faint Glen Station,Space station,ARC-L4,Stanton,,,,https://starcitizen.tools/ARC-L4_Faint_Glen_Station,,
+Yellow Core Station,Space station,ARC-L5,Stanton,,,,https://starcitizen.tools/ARC-L5_Yellow_Core_Station,,
+INS Jericho,Space station,MIC-L1,Stanton,27928.773,1329.828,-17086.343,https://starcitizen.tools/INS_Jericho,,0
+Shallow Frontier Station,Space station,MIC-L1,Stanton,3.031,4.510,-0.943,https://starcitizen.tools/MIC-L1_Shallow_Frontier_Station,,
+Long Forest Station,Space station,MIC-L2,Stanton,,,,https://starcitizen.tools/MIC-L2_Long_Forest_Station,,
+Endless Odyssey Station,Space station,MIC-L3,Stanton,,,,https://starcitizen.tools/MIC-L3_Endless_Odyssey_Station,,
+Red Crossroads Station,Space station,MIC-L4,Stanton,,,,https://starcitizen.tools/MIC-L4_Red_Crossroads_Station,,
+Modern Icarus Station,Space station,MIC-L5,Stanton,,,,https://starcitizen.tools/MIC-L5_Modern_Icarus_Station,,
+Covalex Distribution Centre S1DC06,Distribution center,Hurston,Stanton,742.847,15.480,671.074,https://starcitizen.tools/Covalex_Distribution_Centre_S1DC06,,1
+Dupree Industrial Manufacturing Facility,Distribution center,Hurston,Stanton,239.426,-969.806,68.635,https://starcitizen.tools/Dupree_Industrial_Manufacturing_Facility,,1
+Greycat Stanton I Production Complex-B,Distribution center,Hurston,Stanton,-407.457,-656.296,636.322,https://starcitizen.tools/Greycat_Stanton_I_Production_Complex-B,,1
+HDPC-Cassilo,Distribution center,Hurston,Stanton,-789.716,615.354,-2.353,https://starcitizen.tools/HDPC-Cassilo,,1
+HDPC-Farnesway,Distribution center,Hurston,Stanton,129.223,63.888,989.575,https://starcitizen.tools/HDPC-Farnesway,,1
+Sakura Sun Magnolia Workcenter,Distribution center,Hurston,Stanton,-229.373,-864.793,-446.960,https://starcitizen.tools/Sakura_Sun_Magnolia_Workcenter,,1
+Covalex Distribution Centre S4DC05,Distribution center,microTech,Stanton,-332.505,897.834,-290.234,https://starcitizen.tools/Covalex_Distribution_Centre_S4DC05,,1
+Cry-Astro Processing Plant 19-02,Distribution center,microTech,Stanton,584.139,-0.789,812.169,https://starcitizen.tools/Cry-Astro_Processing_Plant_19-02,,1
+Cry-Astro Processing Plant 34-12,Distribution center,microTech,Stanton,-316.285,-882.040,-350.639,https://starcitizen.tools/Cry-Astro_Processing_Plant_34-12,,1
+Greycat Stanton IV Production Complex-A,Distribution center,microTech,Stanton,-423.347,-141.169,-895.145,https://starcitizen.tools/Greycat_Stanton_IV_Production_Complex-A,,1
+MicroTech Logistics Depot S4LD01,Distribution center,microTech,Stanton,884.615,467.868,-19.153,https://starcitizen.tools/MicroTech_Logistics_Depot_S4LD01,,1
+MicroTech Logistics Depot S4LD13,Distribution center,microTech,Stanton,843.838,-179.535,505.834,https://starcitizen.tools/MicroTech_Logistics_Depot_S4LD13,,1
+Sakura Sun Goldenrod Workcenter,Distribution center,microTech,Stanton,-173.422,-923.630,-343.265,https://starcitizen.tools/Sakura_Sun_Goldenrod_Workcenter,,1
+Rustville,Settlement,Pyro I,Pyro,-195.852,-319.059,170.820,https://starcitizen.tools/Rustville,,1
+Stag's Rut,Settlement,Pyro I,Pyro,,,,,,1
+Arid Reach,Settlement,Monox,Pyro,,,,,,1
+Last Ditch,Settlement,Monox,Pyro,-143.491,-34.931,508.706,https://starcitizen.tools/Last_Ditch,,1
+Jackson's Swap,Settlement,Monox,Pyro,383.115,-245.830,-272.467,https://starcitizen.tools/Jackson%27s_Swap,,1
+Ostler's Claim,Settlement,Monox,Pyro,,,,https://starcitizen.tools/Ostler%27s_Claim,,1
+Sunset Mesa,Scrapyard,Monox,Pyro,373.540,-262.716,-269.591,https://starcitizen.tools/Sunset_Mesa,,1
+Yang's Place,Settlement,Monox,Pyro,461.485,-124.623,-229.886,https://starcitizen.tools/Yang%27s_Place,,1
+Bueno Ravine,Settlement,Bloom,Pyro,171.298,-373.375,-57.521,https://starcitizen.tools/Bueno_Ravine,,1
+Carver's Ridge,Settlement,Bloom,Pyro,,,,,,1
+Narena's Rest,Settlement,Bloom,Pyro,,,,,,1
+Orbituary,Space station,Bloom,Pyro,379.850,-718.724,226.044,https://starcitizen.tools/Orbituary,,1
+Shadowfall,Settlement,Bloom,Pyro,-91.695,399.585,-57.006,https://starcitizen.tools/Shadowfall,,1
+Shepherd's Rest,Settlement,Bloom,Pyro,29.434,359.999,-202.126,https://starcitizen.tools/Shepherd%27s_Rest,,1
+The Golden Riviera,Settlement,Bloom,Pyro,-384.469,153.328,5.799,https://starcitizen.tools/The_Golden_Riviera,,1
+The Yard,Settlement,Bloom,Pyro,343.854,188.822,132.066,https://starcitizen.tools/The_Yard,,1
+Windfall,Settlement,Bloom,Pyro,,,,,,1
+Chawla's Beach,Settlement,Pyro IV,Pyro,-244.780,-86.153,189.634,,,1
+Fallow Field,Settlement,Pyro IV,Pyro,68.328,-176.526,262.250,https://starcitizen.tools/Fallow_Field,,1
+Goner's Deal,Settlement,Pyro IV,Pyro,104.786,-151.985,265.305,,,1
+Sacren's Plot,Settlement,Pyro IV,Pyro,-236.427,-97.750,194.621,https://starcitizen.tools/Sacren%27s_Plot,,1
+Ashland,Settlement,Ignis,Pyro,,,,,,1
+Prophet's Peak,Settlement,Adir,Pyro,,,,,,1
+Blackrock Exchange,Settlement,Terminus,Pyro,-211.807,190.954,-31.482,,,1
+Canard View,Settlement,Terminus,Pyro,-199.995,179.150,-102.070,,,1
+Kinder Plots,Settlement,Terminus,Pyro,-256.764,51.878,-115.526,,,1
+Last Landings,Settlement,Terminus,Pyro,-284.620,-12.703,-7.854,,,1
+Rough Landing,Settlement,Terminus,Pyro,-198.809,-188.787,77.973,,,1
+Ruin Station,Space station,Terminus,Pyro,-242.614,192.670,-74.868,https://starcitizen.tools/Ruin_Station,,1
+Scarper's Turn,Settlement,Terminus,Pyro,-282.325,39.306,0.249,,,1
+Stonetree,Settlement,Terminus,Pyro,-259.098,38.135,-115.813,,,1
+Supply Gap,Settlement,Terminus,Pyro,,,,,,1
+Checkmate Station,Space station,PYR2 L4,Pyro,-11023.456,-25541.331,2571.421,https://starcitizen.tools/Checkmate_Station,,
+Starlight Service Station,Space station,PYR3 L1,Pyro,10322.792,5095.130,926.786,https://starcitizen.tools/Starlight_Service_Station,,
+Patch City,Space station,PYR3 L3,Pyro,-13180.845,-18009.953,352.020,https://starcitizen.tools/Patch_City,,
+PYAM-FARSTAT-1-2,Space station,PYR1 L2,Pyro,1892033.736,-8901175.590,0.000,,,
+PYAM-FARSTAT-1-3,Space station,PYR1 L3,Pyro,-1533855.859,8431465.506,0.000,,,
+PYAM-FARSTAT-3-5,Space station,PYR3 L5,Pyro,-11443002.538,13637233.035,0.000,,,
+PYAM-FARSTAT-5-1,Space station,PYR5 L1,Pyro,38056546.470,-6710238.083,0.000,,,
+Gaslight,Space station,PYR5 L2,Pyro,46513574.526,-8201358.903,0.000,https://starcitizen.tools/Gaslight,,
+PYAM-FARSTAT-5-3,Space station,PYR5 L3,Pyro,-37184863.543,21468613.290,0.000,,,
+Rod's Fuel 'N Supplies,Space station,PYR5 L4,Pyro,14685416.672,40347900.081,0.000,,,
+Rat's Nest,Space station,PYR5 L5,Pyro,3742466.610,-42773928.702,0.000,,,
+PYAM-FARSTAT-6-2,Space station,PYR6 L2,Pyro,-54297046.592,-45561095.035,0.000,,,
+Endgame,Space station,PYR6 L3,Pyro,48311253.893,48311302.761,0.000,,,
+Dudley & Daughters,Space station,PYR6 L4,Pyro,23368016.469,-64202027.675,0.000,,,
+Megumi Refueling,Space station,PYR6 L5,Pyro,-59169086.144,34161126.286,0.000,,,
+Cluster TYS-098,Asteroid cluster,Pyro,Pyro,185257.941,-13368350.038,400165.012,,,
+Cluster NBD-102,Asteroid cluster,Pyro,Pyro,-7782683.667,6366491.074,-77598.676,,,
+Cluster PQE-291,Asteroid cluster,Pyro,Pyro,-6309131.422,19868311.627,999999.954,,,
+Cluster WDH-387,Asteroid cluster,Pyro,Pyro,53401737.091,14833652.335,50000.000,,,
+Cluster CAJ-445,Asteroid cluster,Pyro,Pyro,-33245871.862,50107430.255,-397575.997,,,
+Cluster BGR-560,Asteroid cluster,Pyro,Pyro,31060816.949,51561358.118,-700000.000,,,
+Cluster SGL-693,Asteroid cluster,Pyro,Pyro,472433.061,69578388.902,400000.000,,,
+Cluster KKE-717,Asteroid cluster,Pyro,Pyro,41914182.728,-26016994.532,-579237.421,,,
+Cluster MNK-833,Asteroid cluster,Pyro,Pyro,-43104553.578,-36470412.132,608395.020,,,
+Cluster JWY-925,Asteroid cluster,Pyro,Pyro,-36539136.576,864367.042,-727088.911,,,
+Cluster SZA-178,Asteroid cluster,Pyro,Pyro,2071924.827,32443872.991,-859087.839,,,
+Cluster HJS-232,Asteroid cluster,Pyro,Pyro,27921212.509,-53145421.955,-468366.028,,,
+Cluster RSC-340,Asteroid cluster,Pyro,Pyro,41078539.091,-5723329.713,376521.068,,,
+Cluster DLO-486,Asteroid cluster,Pyro,Pyro,-25656573.251,-65291615.732,919788.503,,,
+Cluster EMM-567,Asteroid cluster,Pyro,Pyro,-8797768.932,-29887494.213,-370709.270,,,
+Cluster VUP-613,Asteroid cluster,Pyro,Pyro,13231304.188,1899907.887,-473828.900,,,
+Cluster FSN-704,Asteroid cluster,Pyro,Pyro,-7247934.547,1687333.596,818102.000,,,
+Cluster GRP-839,Asteroid cluster,Pyro,Pyro,42493963.179,-7299067.277,-525692.200,,,
+Cluster LHB-976,Asteroid cluster,Pyro,Pyro,-64401229.502,-12273553.672,557357.000,,,
+Cluster YKA-011,Asteroid cluster,Pyro,Pyro,42129731.379,-7502954.130,-715878.000,,,
+Broken Patch,Forward operating base,Hurston,Stanton,-740.150,-401.507,-543.923,,,
+Lowdown,Forward operating base,Hurston,Stanton,-93.423,890.632,-448.814,,,
+Rico's Remains,Forward operating base,Hurston,Stanton,-118.731,-23.754,993.786,,,
+Trilo,Forward operating base,Hurston,Stanton,421.159,-901.888,115.085,,,
+The Dregs,Forward operating base,Arial,Stanton,143.735,-232.741,210.212,,,
+Smokestack,Forward operating base,Arial,Stanton,-311.896,-147.411,-10.655,,,
+Coven,Forward operating base,Arial,Stanton,134.643,285.357,-139.695,,,
+Boondoggle,Forward operating base,Aberdeen,Stanton,134.849,-191.270,-144.287,,,
+The Grove,Forward operating base,Aberdeen,Stanton,-187.075,169.927,-108.364,,,
+Nevermind,Forward operating base,Magda,Stanton,-214.094,-180.366,194.506,,,
+Gonzo,Forward operating base,Magda,Stanton,315.109,-86.768,-96.936,,,
+Thimblerig,Forward operating base,Ita,Stanton,-215.660,-147.318,-193.859,,,
+The Shades,Forward operating base,Ita,Stanton,167.705,231.211,-155.324,,,
+Stone's Throw,Forward operating base,Cellin,Stanton,-187.393,-71.585,-166.115,,,
+Fetch,Forward operating base,Cellin,Stanton,241.761,-47.094,-84.846,,,
+The Hollows,Forward operating base,Cellin,Stanton,2.938,201.304,165.520,,,
+Consumption,Forward operating base,Cellin,Stanton,64.288,-237.509,85.093,,,
+Minlo Spire,Forward operating base,Daymar,Stanton,32.019,-203.544,211.215,,,
+S2BFOB2,Forward operating base,Daymar,Stanton,291.271,14.332,44.391,,,
+S2BFOB3,Forward operating base,Daymar,Stanton,-9.001,71.718,-286.520,,,
+Half Stack,Forward operating base,Yela,Stanton,241.301,-10.196,-199.123,,,
+Rolo's Crater,Forward operating base,Yela,Stanton,-124.437,-191.255,-214.861,,,
+Mainline,Forward operating base,Yela,Stanton,-68.611,302.162,-46.109,,,
+Rock Bottom,Forward operating base,Lyria,Stanton,81.650,139.798,154.660,,,
+World's End,Forward operating base,Lyria,Stanton,82.350,-155.839,138.588,,,
+Downlow,Forward operating base,Lyria,Stanton,216.316,-50.930,-28.836,,,
+Last Day,Forward operating base,Lyria,Stanton,-95.229,94.387,-179.594,,,
+Burnout,Forward operating base,Lyria,Stanton,-213.528,1.117,68.089,,,
+Balto's Blind,Forward operating base,Lyria,Stanton,-80.960,-208.719,0.596,,,
+Ako's Return,Forward operating base,Wala,Stanton,227.662,78.831,147.020,,,
+Scuttle,Forward operating base,Wala,Stanton,10.026,-280.775,-26.625,,,
+Washout,Forward operating base,Wala,Stanton,-200.344,179.033,90.388,,,
+Wiley Flats,Forward operating base,Wala,Stanton,-231.254,-64.899,-150.276,,,
+Kelo Bottom,Forward operating base,microTech,Stanton,896.329,430.723,-116.471,,,
+Drifters,Forward operating base,microTech,Stanton,-331.818,694.177,-640.380,,,
+Hela's Regret,Forward operating base,microTech,Stanton,-666.883,-561.293,-490.322,,,
+The Barrens,Forward operating base,microTech,Stanton,,,,,,
+Blighter's Run,Forward operating base,Calliope,Stanton,206.788,-51.687,110.564,,,
+Hasbin Hall,Forward operating base,Calliope,Stanton,181.913,-149.785,-46.792,,,
+Regiment Downs,Forward operating base,Calliope,Stanton,-60.059,226.418,-52.740,,,
+Hard Knocks,Forward operating base,Calliope,Stanton,-218.837,-52.591,84.530,,,
+Kant's Peak,Forward operating base,Clio,Stanton,-63.761,220.298,247.966,,,
+Tremonte,Forward operating base,Clio,Stanton,170.603,-270.457,107.535,,,
+Shanks,Forward operating base,Euterpe,Stanton,212.586,-4.558,18.229,,,
+Adair's Retreat,Forward operating base,Euterpe,Stanton,-165.447,134.814,-4.200,,,

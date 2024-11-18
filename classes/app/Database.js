@@ -151,13 +151,6 @@ class Database {
         let parentBody = (data.parentBody === '') ? null : getBodyByName(data.parentBody);
         let parentStar = (data.parentStar === '') ? null : getBodyByName(data.parentStar);
 
-        let themeImage = null;
-        if (data.type === 'Lagrange Point') {
-            themeImage = getBodyByName(data.parentBody).THEME_IMAGE;
-        } else if (data.themeImage !== '') {
-            themeImage = String(data.themeImage);
-        }
-
         let themeColor = { 'r': 0, 'g': 0, 'b': 0 };
         if (data.type === 'Lagrange Point') {
             themeColor = getBodyByName(data.parentBody).THEME_COLOR;
@@ -190,8 +183,7 @@ class Database {
             parseFloat(data.rotationCorrection),
             parseFloat(data.orbitAngle),
             parseFloat(data.orbitRadius),
-            themeColor,
-            themeImage
+            themeColor
         );
 
         if (data.ringRadiusInner !== '') {
@@ -224,7 +216,6 @@ class Database {
 
         let parentBody = (data.parentBody === 'null') ? null : getBodyByName(data.parentBody);
         let parentStar = (data.parentStar === 'null') ? null : getBodyByName(data.parentStar);
-        let themeImage = (data.themeImage === 'null') ? null : String(data.themeImage);
         let wikiLink = (data.wikiLink === 'null') ? null : String(data.wikiLink);
 
         let location = new Location(
@@ -238,7 +229,6 @@ class Database {
                 'z': parseFloat(data.coordinateZ)
             },
             null,
-            themeImage,
             wikiLink
         );
     }
