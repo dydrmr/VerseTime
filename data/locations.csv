@@ -243,34 +243,38 @@ MicroTech Logistics Depot S4LD01,Distribution center,microTech,Stanton,884.615,4
 MicroTech Logistics Depot S4LD13,Distribution center,microTech,Stanton,843.838,-179.535,505.834,https://starcitizen.tools/MicroTech_Logistics_Depot_S4LD13,,1
 Sakura Sun Goldenrod Workcenter,Distribution center,microTech,Stanton,-173.422,-923.630,-343.265,https://starcitizen.tools/Sakura_Sun_Goldenrod_Workcenter,,1
 Rustville,Settlement,Pyro I,Pyro,-195.852,-319.059,170.820,https://starcitizen.tools/Rustville,,1
-Stag's Rut,Settlement,Pyro I,Pyro,,,,,,1
-Arid Reach,Settlement,Monox,Pyro,,,,,,1
+Stag's Rut,Settlement,Pyro I,Pyro,-383.466,106.780,-103.639,,,1
+Arid Reach,Settlement,Monox,Pyro,-6.319,521.280,-92.750,,,1
 Last Ditch,Settlement,Monox,Pyro,-143.491,-34.931,508.706,https://starcitizen.tools/Last_Ditch,,1
 Jackson's Swap,Settlement,Monox,Pyro,383.115,-245.830,-272.467,https://starcitizen.tools/Jackson%27s_Swap,,1
-Ostler's Claim,Settlement,Monox,Pyro,,,,https://starcitizen.tools/Ostler%27s_Claim,,1
+Ostler's Claim,Settlement,Monox,Pyro,509.445,-54.407,-136.104,https://starcitizen.tools/Ostler%27s_Claim,,1
 Sunset Mesa,Scrapyard,Monox,Pyro,373.540,-262.716,-269.591,https://starcitizen.tools/Sunset_Mesa,,1
 Yang's Place,Settlement,Monox,Pyro,461.485,-124.623,-229.886,https://starcitizen.tools/Yang%27s_Place,,1
 Bueno Ravine,Settlement,Bloom,Pyro,171.298,-373.375,-57.521,https://starcitizen.tools/Bueno_Ravine,,1
-Carver's Ridge,Settlement,Bloom,Pyro,,,,,,1
-Narena's Rest,Settlement,Bloom,Pyro,,,,,,1
+Carver's Ridge,Settlement,Bloom,Pyro,196.206,-361.924,-48.106,,,1
+Frigid Knot,Settlement,Bloom,Pyro,230.664,23.844,-342.910,,,
+Narena's Rest,Settlement,Bloom,Pyro,-395.485,122.932,-11.780,,,1
 Orbituary,Space station,Bloom,Pyro,379.850,-718.724,226.044,https://starcitizen.tools/Orbituary,,1
 Shadowfall,Settlement,Bloom,Pyro,-91.695,399.585,-57.006,https://starcitizen.tools/Shadowfall,,1
 Shepherd's Rest,Settlement,Bloom,Pyro,29.434,359.999,-202.126,https://starcitizen.tools/Shepherd%27s_Rest,,1
 The Golden Riviera,Settlement,Bloom,Pyro,-384.469,153.328,5.799,https://starcitizen.tools/The_Golden_Riviera,,1
 The Yard,Settlement,Bloom,Pyro,343.854,188.822,132.066,https://starcitizen.tools/The_Yard,,1
-Windfall,Settlement,Bloom,Pyro,,,,,,1
+Windfall,Settlement,Bloom,Pyro,129.791,-393.570,-12.215,,,1
 Chawla's Beach,Settlement,Pyro IV,Pyro,-244.780,-86.153,189.634,,,1
 Fallow Field,Settlement,Pyro IV,Pyro,68.328,-176.526,262.250,https://starcitizen.tools/Fallow_Field,,1
 Goner's Deal,Settlement,Pyro IV,Pyro,104.786,-151.985,265.305,,,1
 Sacren's Plot,Settlement,Pyro IV,Pyro,-236.427,-97.750,194.621,https://starcitizen.tools/Sacren%27s_Plot,,1
 Ashland,Settlement,Ignis,Pyro,-292.470,-25.566,265.630,,,1
-Prophet's Peak,Settlement,Adir,Pyro,,,,,,1
+Kabir's Post,Settlement,Ignis,Pyro,-155.802,347.945,108.787,,,
+Prophet's Peak,Settlement,Adir,Pyro,-234.185,-328.845,154.695,,,1
+Seer's Canyon,Settlement,Vatra,Pyro,83.985,337.165,-119.605,,,
 Blackrock Exchange,Settlement,Terminus,Pyro,-211.807,190.954,-31.482,,,1
+Bullock's Reach,Settlement,Terminus,Pyro,269.893,9.428,-93.113,,,
 Canard View,Settlement,Terminus,Pyro,-199.995,179.150,-102.070,,,1
 Kinder Plots,Settlement,Terminus,Pyro,-256.764,51.878,-115.526,,,1
 Last Landings,Settlement,Terminus,Pyro,-284.620,-12.703,-7.854,,,1
 Rough Landing,Settlement,Terminus,Pyro,-198.809,-188.787,77.973,,,1
-Ruin Station,Space station,Terminus,Pyro,-242.614,192.670,-74.868,https://starcitizen.tools/Ruin_Station,,1
+Ruin Station,Space station,Terminus,Pyro,-315.346,302.409,-100.478,https://starcitizen.tools/Ruin_Station,,1
 Scarper's Turn,Settlement,Terminus,Pyro,-282.325,39.306,0.249,,,1
 Stonetree,Settlement,Terminus,Pyro,-259.098,38.135,-115.813,,,1
 Supply Gap,Settlement,Terminus,Pyro,,,,,,1
