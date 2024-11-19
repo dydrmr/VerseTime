@@ -240,6 +240,11 @@ class UserInterface {
 	}
 
 	#update_setThemeImage() {
+		if (Settings.activeLocation.THEME_IMAGE === null) {
+			const imgPath = `img/themes/${Settings.activeLocation.NAME.toLowerCase()}.webp`;
+			const exists = Settings.imageExists(imgPath);
+			Settings.activeLocation.THEME_IMAGE = exists ? imgPath : Settings.activeLocation.PARENT.THEME_IMAGE;
+		};
 		const url = `url('${Settings.activeLocation.THEME_IMAGE}')`;
 		if (UI.bgElement.style.backgroundImage !== url) UI.bgElement.style.backgroundImage = url;
 	}

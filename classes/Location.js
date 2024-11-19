@@ -1,6 +1,7 @@
 import { degrees, radians, modulo, square } from '../HelperFunctions.js';
 import * as THREE from 'three';
 import DB from './app/Database.js';
+import Settings from './app/Preferences.js';
 
 export default class Location {
 	constructor(name, type, parentBody, parentStar, coordinates, themeColor = null, wikiLink = null) {
@@ -14,9 +15,8 @@ export default class Location {
 		this.TERRAIN_SET = 0;
 
 		this.THEME_COLOR = themeColor ?? this.PARENT.THEME_COLOR;
-		//this.THEME_IMAGE = (themeImage === '' || themeImage === null) ? this.PARENT.THEME_IMAGE : themeImage;
-		this.THEME_IMAGE = this.PARENT.THEME_IMAGE;
 		this.WIKI_LINK = (wikiLink === '' || wikiLink === null) ? null : wikiLink;
+		this.THEME_IMAGE = null;
 
 		// CALCULATED PROPERTIES
 		this.#calculateLatitudeAndLongitude();
