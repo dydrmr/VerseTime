@@ -540,7 +540,7 @@ async function createCelestialObjectMaterial(body) {
 
 	if (body.TYPE === 'Planet' || body.TYPE === 'Moon') {
 
-		const filepaths = Settings.getCelestialBodyTexturePaths(body);
+		const filepaths = Settings.getCelestialBodyTexturePaths(body, true);
 
 		let texture;
 		let textureReflection;

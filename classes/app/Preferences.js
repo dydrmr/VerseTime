@@ -114,17 +114,23 @@ class Preferences {
 		return `textures/${directory}/${body.NAME.toLowerCase()}.webp`;
 	}
 
-	getCelestialBodyTexturePaths(body) {
+	getCelestialBodyTexturePaths(body, forceLowResolution = false) {
 		if (!(body instanceof CelestialBody)) {
 			console.error('Parameter is not of type CelestialBody:', body);
 			return null;
 		}
 
-		const mainTexture = this.getCelestialBodyTexturePath(body);
+		let mainTexture;
+		if (forceLowResolution) {
+			mainTexture = `textures/bodies/${body.NAME.toLowerCase()}.webp`;
+		} else {
+			mainTexture = this.getCelestialBodyTexturePath(body);
+		}
 
-		const pathReflectCheck = `textures/bodies-reflection/${body.NAME.toLowerCase()}.webp`;
-		const reflectionFileExists = this.imageExists(pathReflectCheck);
-		const reflectTexture = reflectionFileExists ? pathReflectCheck : 'textures/bodies-reflection/no-reflection.webp';
+		//const pathReflectCheck = `textures/bodies-reflection/${body.NAME.toLowerCase()}.webp`;
+		//const reflectionFileExists = this.imageExists(pathReflectCheck);
+		//const reflectTexture = reflectionFileExists ? pathReflectCheck : 'textures/bodies-reflection/no-reflection.webp';
+		const reflectTexture = 'textures/bodies-reflection/no-reflection.webp';
 
 		return {
 			'main': mainTexture,
