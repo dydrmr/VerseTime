@@ -587,7 +587,12 @@ class UserInterface {
 
 			let elBody = document.createElement('p');
 			elBody.className = 'set-location-body';
-			elBody.innerHTML = loc.PARENT.NAME;
+
+			if (loc.PARENT.TYPE === 'Moon') {
+				elBody.innerHTML = `${loc.PARENT.PARENT_STAR.NAME} ▸ ${loc.PARENT.PARENT.NAME} ▸ ${loc.PARENT.NAME}`;
+			} else {
+				elBody.innerHTML = `${loc.PARENT.PARENT_STAR.NAME} ▸ ${loc.PARENT.NAME}`;
+			}
 
 			let elTime = document.createElement('p');
 			elTime.className = 'set-location-time';
