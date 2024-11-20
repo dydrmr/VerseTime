@@ -38,10 +38,15 @@ document.addEventListener('redrawMapTexture', redrawMapTexture);
 document.addEventListener('moveMapCameraAboveActiveLocation', setCameraAboveActiveLocation);
 
 function setupMapScene() {
+	document.getElementById('map-spinner').dataset.visible = 'true';
+	console.log('setting up');
+
 	const body = Settings.activeLocation.PARENT;
 	createNewScene(body);
 	bodyMesh = scene.getObjectByName('Textured Sphere') ?? scene.getObjectByName('Solid Sphere');
 	setupInfoboxData();
+
+	console.log('done');
 }
 
 function setupInfoboxData() {
@@ -207,7 +212,6 @@ function updatePlanetShadow() {
 
 function createNewScene(celestialObject) {
 	scene.clear();
-
 	document.getElementById('map-body-name').textContent = celestialObject.NAME;
 
 	const mapWindow = UI.el('map-window');
@@ -290,14 +294,39 @@ function makeLatitudeCircle(angle, material, scale) {
 	return circle;
 }
 
+//function createTexturedSphere(celestialObject, scale = 1) {
+//	const textureOpacity = document.getElementById('map-settings-planet-transparency').value / 100;
+
+//	var loader = new THREE.TextureLoader();
+//	const file = Settings.getCelestialBodyTexturePath(Settings.activeLocation.PARENT);
+
+//	loader.load(file, function ( texture ) {
+//		texture.colorSpace = THREE.SRGBColorSpace;
+
+//		let geo = new THREE.SphereGeometry(scale, circleDetail, circleDetail, 0, Math.PI * 2);
+//		let mat = new THREE.MeshBasicMaterial({
+//			map: texture,
+//			transparent: true,
+//			opacity: textureOpacity
+//		});
+
+//		let obj = new THREE.Mesh(geo, mat);
+//		obj.name = 'Textured Sphere';
+//		scene.add(obj);
+//	} );
+//}
+
 function createTexturedSphere(celestialObject, scale = 1) {
 	const textureOpacity = document.getElementById('map-settings-planet-transparency').value / 100;
-
-	var loader = new THREE.TextureLoader();
 	const file = Settings.getCelestialBodyTexturePath(Settings.activeLocation.PARENT);
 
-	loader.load(file, function ( texture ) {
+	const loader = new THREE.ImageBitmapLoader();
+	loader.setOptions({ imageOrientation: 'flipY' });
+
+	loader.load(file, function (imageBitmap) {
+		const texture = new THREE.Texture(imageBitmap);
 		texture.colorSpace = THREE.SRGBColorSpace;
+		texture.needsUpdate = true;
 
 		let geo = new THREE.SphereGeometry(scale, circleDetail, circleDetail, 0, Math.PI * 2);
 		let mat = new THREE.MeshBasicMaterial({
@@ -309,7 +338,9 @@ function createTexturedSphere(celestialObject, scale = 1) {
 		let obj = new THREE.Mesh(geo, mat);
 		obj.name = 'Textured Sphere';
 		scene.add(obj);
-	} );
+
+		document.getElementById('map-spinner').dataset.visible = 'false';
+	});
 }
 
 function createOcclusionSphere(color, scale = 1) {

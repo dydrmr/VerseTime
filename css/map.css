@@ -6,6 +6,45 @@
 
 
 
+#map-spinner {
+    z-index: 500;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(3);
+    transition: 0.2s ease-out;
+    user-select: none;
+    pointer-events: none;
+}
+
+    #map-spinner[data-visible="false"] {
+        opacity: 0;
+    }
+
+    #map-spinner[data-visible="true"] {
+        opacity: 1;
+    }
+
+.map-spinner-segment {
+    transform-origin: center;
+    animation: spinner_rotate .75s infinite linear;
+    fill: var(--theme-color);
+}
+
+@keyframes spinner_rotate {
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
+.map-spinner-circle {
+    fill: var(--theme-color-dark);
+}
+
+
+
+
+
 #map-body-name {
     font-size: 20px;
     font-family: 'Rajdhani', sans-serif;
