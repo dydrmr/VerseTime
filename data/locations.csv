@@ -210,25 +210,28 @@ Whistler's Crypt,Settlement,Daymar,Stanton,182.262,222.629,65.625,https://starci
 Wolf Point Aid Shelter,Emergency shelter,Daymar,Stanton,-4.420,279.067,95.733,https://starcitizen.tools/Wolf_Point_Aid_Shelter,,1
 Yadar Valley,Racetrack,Daymar,Stanton,-171.798,157.576,181.015,https://starcitizen.tools/Yadar_Valley,,0
 Zephyr,Settlement,Hurston,Stanton,108.160,-133.662,986.694,https://starcitizen.tools/Zephyr_(settlement),,1
-Green Glade Station,Space station,HUR-L1,Stanton,-3998.772,-262.923,-484.614,https://starcitizen.tools/HUR-L1_Green_Glade_Station,,
-Faithful Dream Station,Space station,HUR-L2,Stanton,4132.735,-1967.278,-527.794,https://starcitizen.tools/HUR-L2_Faithful_Dream_Station,,
-Thundering Express Station,Space station,HUR-L3,Stanton,5714.049,-1553.263,1335.043,https://starcitizen.tools/HUR-L3_Thundering_Express_Station,,
-Melodic Fields Station,Space station,HUR-L4,Stanton,2399.289,-4056.976,666.284,https://starcitizen.tools/HUR-L4_Melodic_Fields_Station,,
-High Course Station,Space station,HUR-L5,Stanton,495.237,461.677,-842.035,https://starcitizen.tools/HUR-L5_High_Course_Station,,
-Ambitious Dream Station,Space station,CRU-L1,Stanton,-2796.345,-1018.273,-20.044,https://starcitizen.tools/CRU-L1_Ambitious_Dream_Station,,
-Shallow Fields Station,Space station,CRU-L4,Stanton,-599.667,4147.668,-2174.784,https://starcitizen.tools/CRU-L4_Shallow_Fields_Station,,
-Beautiful Glen Station,Space station,CRU-L5,Stanton,3996.779,1989.649,-2796.441,https://starcitizen.tools/CRU-L5_Beautiful_Glen_Station,,
-Wide Forest Station,Space station,ARC-L1,Stanton,,,,https://starcitizen.tools/ARC-L1_Wide_Forest_Station,,
-Lively Pathway Station,Space station,ARC-L2,Stanton,,,,https://starcitizen.tools/ARC-L2_Lively_Pathway_Station,,
-Modern Express Station,Space station,ARC-L3,Stanton,,,,https://starcitizen.tools/ARC-L3_Modern_Express_Station,,
-Faint Glen Station,Space station,ARC-L4,Stanton,,,,https://starcitizen.tools/ARC-L4_Faint_Glen_Station,,
-Yellow Core Station,Space station,ARC-L5,Stanton,,,,https://starcitizen.tools/ARC-L5_Yellow_Core_Station,,
+Green Glade Station,Space station,HUR-L1,Stanton,-3998.772,-262.923,-484.614,https://starcitizen.tools/HUR-L1_Green_Glade_Station,,1
+Faithful Dream Station,Space station,HUR-L2,Stanton,4132.735,-1967.278,-527.794,https://starcitizen.tools/HUR-L2_Faithful_Dream_Station,,1
+Thundering Express Station,Space station,HUR-L3,Stanton,5714.049,-1553.263,1335.043,https://starcitizen.tools/HUR-L3_Thundering_Express_Station,,1
+Melodic Fields Station,Space station,HUR-L4,Stanton,2399.289,-4056.976,666.284,https://starcitizen.tools/HUR-L4_Melodic_Fields_Station,,1
+High Course Station,Space station,HUR-L5,Stanton,495.237,461.677,-842.035,https://starcitizen.tools/HUR-L5_High_Course_Station,,1
+Ambitious Dream Station,Space station,CRU-L1,Stanton,-2796.345,-1018.273,-20.044,https://starcitizen.tools/CRU-L1_Ambitious_Dream_Station,,1
+Shallow Fields Station,Space station,CRU-L4,Stanton,-599.667,4147.668,-2174.784,https://starcitizen.tools/CRU-L4_Shallow_Fields_Station,,1
+Beautiful Glen Station,Space station,CRU-L5,Stanton,3996.779,1989.649,-2796.441,https://starcitizen.tools/CRU-L5_Beautiful_Glen_Station,,1
+Wide Forest Station,Space station,ARC-L1,Stanton,99.665,-5027.672,2230.135,https://starcitizen.tools/ARC-L1_Wide_Forest_Station,,1
+Lively Pathway Station,Space station,ARC-L2,Stanton,,,,https://starcitizen.tools/ARC-L2_Lively_Pathway_Station,,1
+Modern Express Station,Space station,ARC-L3,Stanton,,,,https://starcitizen.tools/ARC-L3_Modern_Express_Station,,1
+Faint Glen Station,Space station,ARC-L4,Stanton,,,,https://starcitizen.tools/ARC-L4_Faint_Glen_Station,,1
+Yellow Core Station,Space station,ARC-L5,Stanton,,,,https://starcitizen.tools/ARC-L5_Yellow_Core_Station,,1
 INS Jericho,Space station,MIC-L1,Stanton,27928.773,1329.828,-17086.343,https://starcitizen.tools/INS_Jericho,,0
-Shallow Frontier Station,Space station,MIC-L1,Stanton,3.031,4.510,-0.943,https://starcitizen.tools/MIC-L1_Shallow_Frontier_Station,,
-Long Forest Station,Space station,MIC-L2,Stanton,,,,https://starcitizen.tools/MIC-L2_Long_Forest_Station,,
-Endless Odyssey Station,Space station,MIC-L3,Stanton,,,,https://starcitizen.tools/MIC-L3_Endless_Odyssey_Station,,
-Red Crossroads Station,Space station,MIC-L4,Stanton,,,,https://starcitizen.tools/MIC-L4_Red_Crossroads_Station,,
-Modern Icarus Station,Space station,MIC-L5,Stanton,,,,https://starcitizen.tools/MIC-L5_Modern_Icarus_Station,,
+Shallow Frontier Station,Space station,MIC-L1,Stanton,3.031,4.510,-0.943,https://starcitizen.tools/MIC-L1_Shallow_Frontier_Station,,1
+Long Forest Station,Space station,MIC-L2,Stanton,,,,https://starcitizen.tools/MIC-L2_Long_Forest_Station,,1
+Endless Odyssey Station,Space station,MIC-L3,Stanton,,,,https://starcitizen.tools/MIC-L3_Endless_Odyssey_Station,,1
+Red Crossroads Station,Space station,MIC-L4,Stanton,,,,https://starcitizen.tools/MIC-L4_Red_Crossroads_Station,,1
+Modern Icarus Station,Space station,MIC-L5,Stanton,,,,https://starcitizen.tools/MIC-L5_Modern_Icarus_Station,,1
+Pyro Gateway (Stanton),Space Station,Stanton-Pyro JP,Stanton,5.177,12.905,-36.674,https://starcitizen.tools/Pyro_Gateway,,1
+Magnus Gateway (Stanton),Space Station,Stanton-Magnus JP,Stanton,,,,https://starcitizen.tools/Magnus_Gateway,,1
+Terra Gateway (Stanton),Space Station,Stanton-Terra JP,Stanton,,,,https://starcitizen.tools/Terra_Gateway,,1
 Covalex Distribution Centre S1DC06,Distribution center,Hurston,Stanton,742.847,15.480,671.074,https://starcitizen.tools/Covalex_Distribution_Centre_S1DC06,,1
 Dupree Industrial Manufacturing Facility,Distribution center,Hurston,Stanton,239.426,-969.806,68.635,https://starcitizen.tools/Dupree_Industrial_Manufacturing_Facility,,1
 Greycat Stanton I Production Complex-B,Distribution center,Hurston,Stanton,-407.457,-656.296,636.322,https://starcitizen.tools/Greycat_Stanton_I_Production_Complex-B,,1
@@ -280,17 +283,17 @@ Stonetree,Settlement,Terminus,Pyro,-259.098,38.135,-115.813,,,1
 Supply Gap,Settlement,Terminus,Pyro,,,,,,1
 PYAM-FARSTAT-1-2,Space station,PYR1 L2,Pyro,1892033.736,-8901175.590,0.000,,,
 PYAM-FARSTAT-1-3,Space station,PYR1 L3,Pyro,-1533855.859,8431465.506,0.000,,,
-Checkmate,Space station,PYR2 L4,Pyro,-11023.456,-25541.331,2571.421,https://starcitizen.tools/Checkmate_Station,,
-Starlight Service Station,Space station,PYR3 L1,Pyro,10322.792,5095.130,926.786,https://starcitizen.tools/Starlight_Service_Station,,
-Patch City,Space station,PYR3 L3,Pyro,-13180.845,-18009.953,352.020,https://starcitizen.tools/Patch_City,,
+Checkmate,Space station,PYR2 L4,Pyro,-11023.456,-25541.331,2571.421,https://starcitizen.tools/Checkmate_Station,,1
+Starlight Service Station,Space station,PYR3 L1,Pyro,10322.792,5095.130,926.786,https://starcitizen.tools/Starlight_Service_Station,,1
+Patch City,Space station,PYR3 L3,Pyro,-13180.845,-18009.953,352.020,https://starcitizen.tools/Patch_City,,1
 PYAM-FARSTAT-3-5,Space station,PYR3 L5,Pyro,-11443002.538,13637233.035,0.000,,,
 PYAM-FARSTAT-5-1,Space station,PYR5 L1,Pyro,38056546.470,-6710238.083,0.000,,,
-Gaslight,Space station,PYR5 L2,Pyro,46513574.526,-8201358.903,0.000,https://starcitizen.tools/Gaslight,,
+Gaslight,Space station,PYR5 L2,Pyro,46513574.526,-8201358.903,0.000,https://starcitizen.tools/Gaslight,,1
 PYAM-FARSTAT-5-3,Space station,PYR5 L3,Pyro,-37184863.543,21468613.290,0.000,,,
 Rod's Fuel 'N Supplies,Space station,PYR5 L4,Pyro,14685416.672,40347900.081,0.000,,,
 Rat's Nest,Space station,PYR5 L5,Pyro,3742466.610,-42773928.702,0.000,,,
 PYAM-FARSTAT-6-2,Space station,PYR6 L2,Pyro,-54297046.592,-45561095.035,0.000,,,
-Endgame,Space station,PYR6 L3,Pyro,48311253.893,48311302.761,0.000,,,
+Endgame,Space station,PYR6 L3,Pyro,48311253.893,48311302.761,0.000,,,1
 Dudley & Daughters,Space station,PYR6 L4,Pyro,23368016.469,-64202027.675,0.000,,,
 Megumi Refueling,Space station,PYR6 L5,Pyro,-59169086.144,34161126.286,0.000,,,
 Cluster TYS-098,Asteroid cluster,Pyro,Pyro,185257.941,-13368350.038,400165.012,,,
