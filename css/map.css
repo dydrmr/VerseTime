@@ -39,6 +39,7 @@
 
 .map-spinner-circle {
     fill: var(--theme-color-dark);
+    filter: brightness(1.5);
 }
 
 
