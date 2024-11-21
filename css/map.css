@@ -11,7 +11,7 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(3);
+    transform: translate(-50%, -50%) scale(4);
     transition: 0.2s ease-out;
     user-select: none;
     pointer-events: none;
@@ -39,7 +39,7 @@
 
 .map-spinner-circle {
     fill: var(--theme-color-dark);
-    filter: brightness(1.5);
+    filter: brightness(2);
 }
 
 
@@ -158,6 +158,10 @@
 
 .icon-distribution-center {
     background-image: url('../img/icon/distribution-center.png');
+}
+
+.icon-bunker {
+    background-image: url('../img/icon/bunker.png');
 }
 
 

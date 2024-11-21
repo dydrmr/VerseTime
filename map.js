@@ -474,7 +474,6 @@ function createLocationLabels(celestialObject) {
 
 function setLocationIcon(type, element) {
 	if (
-		type === 'Underground bunker' ||
 		type === 'Emergency shelter' ||
 		type === 'Outpost' ||
 		type === 'Prison' ||
@@ -482,6 +481,9 @@ function setLocationIcon(type, element) {
 		type === 'Scrapyard'
 	) {
 		element.classList.add('icon-outpost');
+
+	} else if (type === 'Underground bunker') {
+		element.classList.add('icon-bunker');
 
 	} else if (
 		type === 'Space station' ||
