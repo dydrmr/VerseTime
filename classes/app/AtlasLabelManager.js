@@ -76,10 +76,19 @@ class AtlasLabelManager {
 
         // INDICATE STATION PRESENCE AT LAGRANGE POINTS
         if (body.TYPE === 'Lagrange Point') {
+            let children = [];
             for (let loc of DB.locations) {
                 if (loc.PARENT.NAME === body.NAME) {
-                    nameElement.innerText += `\n${loc.NAME}`;
+                    children.push(loc.NAME);
                 }
+            }
+
+            if (children.length > 0) {
+                let newString = nameElement.innerText;
+                for (let str of children) {
+                    newString += `\n${str}`;
+                }
+                nameElement.innerText = newString;
             }
         }
 
