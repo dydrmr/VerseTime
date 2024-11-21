@@ -39,14 +39,10 @@ document.addEventListener('moveMapCameraAboveActiveLocation', setCameraAboveActi
 
 function setupMapScene() {
 	document.getElementById('map-spinner').dataset.visible = 'true';
-	console.log('setting up');
-
 	const body = Settings.activeLocation.PARENT;
 	createNewScene(body);
 	bodyMesh = scene.getObjectByName('Textured Sphere') ?? scene.getObjectByName('Solid Sphere');
 	setupInfoboxData();
-
-	console.log('done');
 }
 
 function setupInfoboxData() {
