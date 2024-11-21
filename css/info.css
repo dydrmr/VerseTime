@@ -1,7 +1,7 @@
 #BUTTON-toggle-credits-window {
     position: absolute;
-    right: 5px;
-    top: 5px;
+    left: 5px;
+    top: 75px;
 }
 
 #credits-window {
