@@ -1,3 +1,9 @@
+:root {
+    --map-icon-size: 8px;
+    --map-name-size: 11px;
+    --map-time-size: 9px;
+}
+
 #BUTTON-toggle-map-window {
     position: absolute;
     left: 5px;
@@ -93,13 +99,13 @@
     }
 
 .mapLocationName {
-    font-size: 11px;
+    font-size: var(--map-name-size);
     font-weight: 600;
     color: white;
 }
 
 .mapLocationTime {
-    font-size: 9px;
+    font-size: var(--map-time-size);
     font-weight: 500;
     font-family: 'Roboto Mono', monospace;
     opacity: 1;
@@ -111,8 +117,8 @@
     }
 
 .mapLocationIcon {
-    width: 8px;
-    height: 8px;
+    width: var(--map-icon-size);
+    height: var(--map-icon-size);
     margin: 0 auto;
     background-size: 100% 100%;
     opacity: 0.9;
@@ -121,7 +127,6 @@
 
 .icon-outpost {
     background-image: url('../img/icon/outpost.png');
-    width: 7px !important;
 }
 
 .icon-landingzone {
@@ -202,7 +207,6 @@
     position: absolute;
     top: 10px;
     left: 10px;
-    font-size: 10px;
 }
 
 @media (max-width: 400px) {
@@ -236,7 +240,7 @@
     display: grid;
     grid-template-columns: auto auto;
     grid-column-gap: 10px;
-    grid-row-gap: 3px;
+    grid-row-gap: 8px;
 }
 
     #map-settings-container p {

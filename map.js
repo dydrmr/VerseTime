@@ -577,6 +577,23 @@ function redrawMapTexture() {
 		planetMesh.material = newPlanetMaterial;
 	});
 }
+document.getElementById('map-settings-text-size').addEventListener('input', function () {
+	Settings.save('mapTextSize', document.getElementById('map-settings-text-size').value);
+	document.documentElement.dispatchEvent(new Event('updateMapTextSize'));
+});
+
+document.documentElement.addEventListener('updateMapTextSize', () => {
+	const modifier = parseFloat(document.getElementById('map-settings-text-size').value);
+	const nameSize = 11 * modifier;
+	const iconSize = 8 * modifier;
+	const timeSize = 9 * modifier;
+
+	const root = document.documentElement;
+	root.style.setProperty('--map-name-size', `${nameSize}px`);
+	root.style.setProperty('--map-icon-size', `${iconSize}px`);
+	root.style.setProperty('--map-time-size', `${timeSize}px`);
+
+});
 
 document.getElementById('map-settings-show-grid').addEventListener('change', function() {
 	Settings.save('mapGrid', document.getElementById('map-settings-show-grid').checked);

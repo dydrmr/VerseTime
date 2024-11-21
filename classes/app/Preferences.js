@@ -39,6 +39,7 @@ class Preferences {
 
 		// LOCAL MAP
 		const mapPlanetTransparency = window.localStorage.getItem('mapPlanetTransparency');
+		const mapTextSize = window.localStorage.getItem('mapTextSize');
 		const mapGrid = window.localStorage.getItem('mapGrid');
 		const mapTerminator = window.localStorage.getItem('mapTerminator');
 		const mapOMs = window.localStorage.getItem('mapOMs');
@@ -47,6 +48,11 @@ class Preferences {
 
 		if (mapPlanetTransparency) {
 			UI.el('map-settings-planet-transparency').value = parseInt(mapPlanetTransparency);
+		}
+
+		if (mapTextSize) {
+			UI.el('map-settings-text-size').value = parseFloat(mapTextSize);
+			document.documentElement.dispatchEvent(new Event('updateMapTextSize'));
 		}
 
 		if (mapGrid) {
