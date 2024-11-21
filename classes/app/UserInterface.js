@@ -210,7 +210,7 @@ class UserInterface {
 
 					const text1 = element.children[0].innerText;
 					const text2 = element.children[1].innerText.split(' ▸ ').pop();
-					const text3 = element.children[2];
+					const text3 = element.children[2].innerText;
 					const searchText = `${text1} ${text2} ${text3}`;
 					
 					found[index] = (searchText.toLowerCase().includes(fragment)) ? true : false;
