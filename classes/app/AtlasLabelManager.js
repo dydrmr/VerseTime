@@ -74,6 +74,15 @@ class AtlasLabelManager {
         nameElement.innerText = body.NAME;
         div.appendChild(nameElement);
 
+        // INDICATE STATION PRESENCE AT LAGRANGE POINTS
+        if (body.TYPE === 'Lagrange Point') {
+            for (let loc of DB.locations) {
+                if (loc.PARENT.NAME === body.NAME) {
+                    nameElement.innerText += `\n${loc.NAME}`;
+                }
+            }
+        }
+
         const label = new CSS2DObject(div);
         const labelPosition = new THREE.Vector3(body.COORDINATES.x, body.COORDINATES.y, body.COORDINATES.z);
         label.position.copy(labelPosition);

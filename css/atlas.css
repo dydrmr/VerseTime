@@ -147,6 +147,7 @@
     backdrop-filter: blur(20px) opacity(0.5);
     padding: 2px 3px;
     border-radius: 3px;
+    text-align: center;
 }
 
 #atlas-debug-info {
