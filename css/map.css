@@ -77,7 +77,7 @@
     font-family: 'Rajdhani', sans-serif;
     text-align: center;
     white-space: pre-line;
-    transition: opacity 0.4s;
+    transition: opacity 0.3s;
     transform: translate(-50% -50%);
     border: 1.5px solid;
     border-color: transparent;

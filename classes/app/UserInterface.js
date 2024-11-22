@@ -121,10 +121,10 @@ class UserInterface {
 			if (event.key === 'd') {
 				UI.Debug.toggle();
 
-				if (UI.Debug.show) {
-					DB.getLocationsWithoutImage();
-					DB.getLocationsWithoutWikiLink();
-				}
+				//if (UI.Debug.show) {
+				//	DB.getLocationsWithoutImage();
+				//	DB.getLocationsWithoutWikiLink();
+				//}
 			}
 
 
@@ -229,6 +229,7 @@ class UserInterface {
 		UI.#update_setLocationInfo();
 		UI.#update_setRiseAndSetData();
 		UI.#update_setIlluminationStatus();
+		UI.update_dynamicBackground();
 
 		if (UI.Settings.show) UI.updateSettingsLocationTimes();
 		if (UI.Debug.show) UI.updateDebugUI();
@@ -247,11 +248,11 @@ class UserInterface {
 
 	#update_setThemeImage() {
 		if (Settings.activeLocation.THEME_IMAGE === null) {
-			const imgPath = `img/themes/${Settings.activeLocation.NAME.toLowerCase()}.webp`;
+			const imgPath = `img/themes/locations/${Settings.activeLocation.NAME.toLowerCase()}.webp`;
 			const exists = Settings.imageExists(imgPath);
 			Settings.activeLocation.THEME_IMAGE = exists ? imgPath : Settings.activeLocation.PARENT.THEME_IMAGE;
 		};
-		const url = `url('${Settings.activeLocation.THEME_IMAGE}')`;
+		const url = `url("${Settings.activeLocation.THEME_IMAGE}")`;
 		if (UI.bgElement.style.backgroundImage !== url) UI.bgElement.style.backgroundImage = url;
 	}
 
@@ -334,6 +335,83 @@ class UserInterface {
 		scDate.setFullYear(scDate.getFullYear() + 930);
 		let scDateString = scDate.toLocaleString('default', { year: 'numeric', month: 'long', day: 'numeric' });
 		UI.setText('illumination-status', Settings.activeLocation.ILLUMINATION_STATUS + '\r\n' + scDateString);
+	}
+
+	update_dynamicBackground() {
+		const s = Settings.activeLocation.ILLUMINATION_STATUS;
+
+		let brit = 0.7;
+		let tint = 'transparent';
+		let alpha = 0;
+
+		if (s === 'Night' || s === 'Polar Night' || s === 'Permanent Night') {
+			brit = 0.2;
+			tint = 'indigo';
+			alpha = 0.2;
+
+		} else if (s === 'Morning Twilight' || s === 'Evening Twilight') {
+			brit = 0.25;
+			tint = 'orange';
+			alpha = 0.2;
+
+		} else if (s === 'Starrise') {
+			//let percent = 0;
+			//if (percent > 0.75) {
+			//	brit = 0.6;
+			//	tint = 'palegoldenrod';
+			//	alpha = 0.4
+			//} else if (percent > 0.5) {
+			//	brit = 0.4;
+			//	tint = 'goldenrod';
+			//	alpha = 0.4;
+			//} else if (percent > 0.25) {
+			//	brit = 0.3;
+			//	tint = 'darkorange';
+			//	alpha = 0.3;
+			//} else {
+			//	brit = 0.2;
+			//	tint = 'darkred';
+			//	alpha = 0.2;
+			//}
+
+			brit = 0.6;
+			tint = 'goldenrod';
+			alpha = 0.4;
+
+		} else if (s === 'Starset') {
+			brit = 0.6;
+			tint = 'indianred';
+			alpha = 0.4;
+
+		} else if (s === 'Morning') {
+			brit = 0.7;
+			tint = 'moccasin';
+			alpha = 0.1;
+
+		} else if (s === 'Noon' || s === 'Afternoon' || s === 'Polar Day' || s === 'Permanent Day') {
+			brit = 0.7;
+			tint = 'transparent';
+			alpha = 0;
+
+		} else if (s === 'Evening') {
+			brit = 0.5;
+			tint = 'orange';
+			alpha = 0.2;
+		}
+
+		UI.#update_setDynamicBackgroundColors(brit, tint, alpha);
+	}
+
+	#update_setDynamicBackgroundColors(brightness, tint, alpha) {
+		const r = document.documentElement;
+
+		if (r.style.getPropertyValue('--bg-brightness') !== brightness) r.style.setProperty('--bg-brightness', brightness);
+		if (r.style.getPropertyValue('--bg-tint') !== brightness) r.style.setProperty('--bg-tint', tint);
+		if (r.style.getPropertyValue('--bg-tint-alpha') !== brightness) r.style.setProperty('--bg-tint-alpha', alpha);
+
+		//r.style.setProperty('--bg-brightness', brightness);
+		//r.style.setProperty('--bg-tint', tint);
+		//r.style.setProperty('--bg-tint-alpha', alpha);
 	}
 
 

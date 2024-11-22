@@ -1,4 +1,5 @@
 import { getSystemByName, getBodyByName, getLocationByName, calculateDistance3D } from '../../HelperFunctions.js';
+import Settings from '../app/Preferences.js';
 import SolarSystem from '../SolarSystem.js';
 import Star from '../Star.js';
 import CelestialBody from '../CelestialBody.js';
@@ -248,6 +249,12 @@ class Database {
     }
 
     getLocationsWithoutImage() {
+        for (let loc of DB.locations) {
+            const imgPath = `img/themes/locations/${loc.NAME.toLowerCase()}.webp`;
+            const exists = Settings.imageExists(imgPath);
+            loc.THEME_IMAGE = exists ? imgPath : loc.PARENT.THEME_IMAGE;
+        }
+
         const noImage = this.locations.filter((loc) => {
             return loc.THEME_IMAGE === loc.PARENT.THEME_IMAGE;
         });
@@ -302,9 +309,12 @@ class Database {
                 riseset = `Ready in ${rise} min`;
             }
 
+            const fileName = loc.NAME.toLowerCase();
+
             const object = {
                 'Body': loc.PARENT.NAME,
                 'Name': loc.NAME,
+                'File': fileName,
                 'RiseSet': riseset,
                 'Phase': loc.ILLUMINATION_STATUS,
                 'Distance': dist
@@ -354,3 +364,8 @@ class Database {
 
 const DB = new Database();
 export default DB;
+
+window.showMissingData = () => {
+    DB.getLocationsWithoutImage();
+    DB.getLocationsWithoutWikiLink();
+}
