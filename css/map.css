@@ -169,6 +169,10 @@
     background-image: url('../img/icon/bunker.png');
 }
 
+.icon-dish {
+    background-image: url('../img/icon/dish.png');
+}
+
 
 .mapOrbitalMarker {
     font-size: 10px;

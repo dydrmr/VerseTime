@@ -483,7 +483,8 @@ function setLocationIcon(type, element) {
 
 	} else if (
 		type === 'Space station' ||
-		type === 'Asteroid base'
+		type === 'Asteroid base' ||
+		type === 'Orbital laser platform'
 	) {
 		element.classList.add('icon-spacestation');
 
@@ -498,6 +499,9 @@ function setLocationIcon(type, element) {
 
 	} else if (type === 'Cave') {
 		element.classList.add('icon-cave');
+
+	} else if (type === 'Planetary alignment facility') {
+		element.classList.add('icon-dish');
 		
 	} else {
 		element.classList.add('icon-space');
