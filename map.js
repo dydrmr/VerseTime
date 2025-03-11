@@ -494,7 +494,10 @@ function setLocationIcon(type, element) {
 	} else if (type === 'Settlement') {
 		element.classList.add('icon-settlement');
 
-	} else if (type === 'Distribution center') {
+	} else if (
+		type === 'Distribution center' ||
+		type === 'Depot'
+	) {
 		element.classList.add('icon-distribution-center');
 
 	} else if (type === 'Cave') {
