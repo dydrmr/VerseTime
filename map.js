@@ -1,7 +1,7 @@
 import * as THREE from 'three';
-import { OrbitControls } from 'three/addons/controls/OrbitControls';
-import { TrackballControls }  from 'three/addons/controls/TrackballControls';
-import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { TrackballControls }  from 'three/addons/controls/TrackballControls.js';
+import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
 
 import { degrees, radians, round, convertPolarToCartesian, random, convertHoursToTimeString } from './HelperFunctions.js';
 import Settings from './classes/app/Preferences.js';

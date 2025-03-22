@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer';
+import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
 
 import { getLocationByName, getBodyByName, getSystemByName } from '../../HelperFunctions.js';
 import { setFocus } from '../../atlas.js';
