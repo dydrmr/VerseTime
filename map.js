@@ -75,7 +75,7 @@ function setupInfoboxData() {
 }
 
 function setup() {
-	// console.debug('THREE.js revision: ' + THREE.REVISION);
+	//console.debug('THREE.js revision: ' + THREE.REVISION);
 	scene = new THREE.Scene();
 
 	renderer = new THREE.WebGLRenderer({antialias: true});
@@ -138,7 +138,8 @@ function updateLabelOcclusion() {
 	
 	//LOCATION LABELS
 	locationLabels.forEach(label => {
-		const location = DB.locations.filter(loc => loc.NAME === label.dataset.location)[0];
+		//const location = DB.locations.filter(loc => loc.NAME === label.dataset.location)[0];
+		const location = label.userData?.location;
 
 		const coord = location.COORDINATES_3DMAP;
 		const pos = new THREE.Vector3(coord.x, coord.z, coord.y); // Y = UP
@@ -436,6 +437,8 @@ function createLocationLabels(celestialObject) {
 		container.className = 'mapLocationLabel';
 		container.dataset.location = locations[i].NAME;
 		container.dataset.occluded = true;
+
+		container.userData = { location: locations[i] };
 
 		container.addEventListener('mouseenter', () => {
 			UI.showMapLocationData(locations[i], container);
