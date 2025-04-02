@@ -12,6 +12,12 @@ let scene, camera, renderer, labelRenderer, controls, zoomControls;
 let mapDiv = UI.el('map-window');
 let bodyMesh = null;
 
+const raycaster = new THREE.Raycaster();
+const v = new THREE.Vector3();
+let locationLabels = [];
+let orbitalMarkerLabels = [];
+let timeLabels = [];
+
 const circleDetail = 72;
 const omDistance = Math.sqrt(2);
 const orbitalMarkerCoordinates = [
@@ -126,14 +132,11 @@ function render() {
 }
 
 function updateLabelOcclusion() {
-	if (renderer.info.render.frame % 10 !== 0) { return; }
+	if (renderer.info.render.frame % 5 !== 0) { return; }
 	
-	const raycaster = new THREE.Raycaster();
-	const v = new THREE.Vector3();
 	const r = Settings.activeLocation.PARENT.BODY_RADIUS;
 	
 	//LOCATION LABELS
-	let locationLabels = document.querySelectorAll('.mapLocationLabel');
 	locationLabels.forEach(label => {
 		const location = DB.locations.filter(loc => loc.NAME === label.dataset.location)[0];
 
@@ -149,7 +152,6 @@ function updateLabelOcclusion() {
 	// ORBITAL MARKERS
 	if (!document.getElementById('map-settings-show-orbitalmarkers').checked) { return; }
 
-	let orbitalMarkerLabels = document.querySelectorAll('.mapOrbitalMarker');
 	orbitalMarkerLabels.forEach(label => {
 		const markerNumber = label.innerText.replace('OM', '');
 		const coord = orbitalMarkerCoordinates[markerNumber - 1];
@@ -166,7 +168,6 @@ function updateLocationLabelTimes() {
 	const unchanging = ['Polar Day', 'Polar Night', 'Permanent Day', 'Permanent Night'];
 	const nightStatus = ['Night', 'Midnight', 'Morning Twilight', 'Evening Twilight', 'Polar Night', 'Starset'];
 
-	let timeLabels = document.querySelectorAll('.mapLocationTime');
 	for (let label of timeLabels) {
 		const location = DB.locations.filter(loc => loc.NAME === label.parentNode.dataset.location)[0];
 
@@ -259,35 +260,38 @@ function createLatLonGrid(scene, color, scale = 1) {
 	grid.visible = document.getElementById('map-settings-show-grid').checked;
 }
 
-function makeLongitudeCircle(angle, material, scale) {
-	const p = [];
+function createCircle(material, scale, computePoint) {
+	const points = [];
 	for (let i = 0; i <= 360; i += 360 / circleDetail) {
-		let rad = radians(i);
-		let x = 0;
-		let y = Math.sin(rad) * scale;
-		let z = Math.cos(rad) * scale;
-		p.push(new THREE.Vector3(x, y, z));
+		const rad = radians(i);
+		points.push(new THREE.Vector3(...computePoint(rad, scale)));
 	}
+	const geo = new THREE.BufferGeometry().setFromPoints(points);
+	return new THREE.Line(geo, material);
+}
 
-	const geo = new THREE.BufferGeometry().setFromPoints(p);
-	const circle = new THREE.Line(geo, material);
+function makeLongitudeCircle(angle, material, scale) {
+	// For a longitude circle, x is fixed at 0.
+	const circle = createCircle(material, scale, (rad, scale) => [
+		0,
+		Math.sin(rad) * scale,
+		Math.cos(rad) * scale
+	]);
 	circle.rotation.y = radians(angle);
 	return circle;
 }
 
 function makeLatitudeCircle(angle, material, scale) {
-	const p = [];
-	for (let i = 0; i <= 360; i += 360 / circleDetail) {
-		let rad = radians(i);
-		let x = Math.cos(rad) * Math.sin(radians(angle)) * scale;
-		let y = Math.cos(radians(angle)) * scale;
-		let z = Math.sin(rad) * Math.sin(radians(angle)) * scale;
-		p.push(new THREE.Vector3(x, y, z));
-	}
+	// Precompute the sine and cosine of the provided angle (converted to radians)
+	const angleRad = radians(angle);
+	const sinAngle = Math.sin(angleRad);
+	const cosAngle = Math.cos(angleRad);
 
-	const geo = new THREE.BufferGeometry().setFromPoints(p);
-	const circle = new THREE.Line(geo, material);
-	return circle;
+	return createCircle(material, scale, (rad, scale) => [
+		Math.cos(rad) * sinAngle * scale,
+		cosAngle * scale,
+		Math.sin(rad) * sinAngle * scale
+	]);
 }
 
 //function createTexturedSphere(celestialObject, scale = 1) {
@@ -466,6 +470,13 @@ function createLocationLabels(celestialObject) {
 		locationLabel.position.copy(new THREE.Vector3(pos.x, pos.z, pos.y));
 		scene.add(locationLabel);
 	}
+
+	setTimeout(() => {
+		locationLabels = document.querySelectorAll('.mapLocationLabel');
+		orbitalMarkerLabels = document.querySelectorAll('.mapOrbitalMarker');
+		timeLabels = document.querySelectorAll('.mapLocationTime');
+	}, 100);
+
 }
 
 function setLocationIcon(type, element) {
