@@ -248,10 +248,20 @@ class UserInterface {
 
 	#update_setThemeImage() {
 		if (Settings.activeLocation.THEME_IMAGE === null) {
-			const imgPath = `img/themes/locations/${Settings.activeLocation.NAME.toLowerCase()}.webp`;
+
+			let fileName = `${Settings.activeLocation.NAME.toLowerCase()}.webp`;
+
+			if (Settings.activeLocation.TYPE === 'CommArray') {
+				fileName = `comm array.webp`;
+			} else if (Settings.activeLocation.TYPE === 'Asteroid cluster') {
+				fileName = 'asteroid cluster.webp';
+			}
+
+			const imgPath = `img/themes/locations/${fileName}`;
 			const exists = Settings.imageExists(imgPath);
 			Settings.activeLocation.THEME_IMAGE = exists ? imgPath : Settings.activeLocation.PARENT.THEME_IMAGE;
-		};
+
+		}
 		const url = `url("${Settings.activeLocation.THEME_IMAGE}")`;
 		if (UI.bgElement.style.backgroundImage !== url) UI.bgElement.style.backgroundImage = url;
 	}

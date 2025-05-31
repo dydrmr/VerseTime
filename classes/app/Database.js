@@ -250,7 +250,16 @@ class Database {
 
     getLocationsWithoutImage() {
         for (let loc of DB.locations) {
-            const imgPath = `img/themes/locations/${loc.NAME.toLowerCase()}.webp`;
+
+            let fileName = `${loc.NAME.toLowerCase()}.webp`;
+
+            if (loc.TYPE === 'CommArray') {
+                fileName = 'comm array.webp';
+            } else if (loc.TYPE === 'Asteroid cluster') {
+                fileName = 'asteroid cluster.webp';
+            }
+
+            const imgPath = `img/themes/locations/${fileName}`;
             const exists = Settings.imageExists(imgPath);
             loc.THEME_IMAGE = exists ? imgPath : loc.PARENT.THEME_IMAGE;
         }
