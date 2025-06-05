@@ -68,7 +68,7 @@ Ghost Hollow,Settlement,microTech,Stanton,-127.194,982.004,149.145,https://starc
 Good Times Temple,Underground bunker,Wala,Stanton,-113.300,179.510,187.366,https://starcitizen.tools/Good_Times_Temple,,1
 GrimHEX,Asteroid base,Yela,Stanton,-568.659,383.565,-2.042,https://starcitizen.tools/Grim_HEX,,1
 Harper's Point,Settlement,microTech,Stanton,-687.373,716.613,128.227,https://starcitizen.tools/Harper%27s_Point,,1
-HDES Calthrope (NA),Cave,Hurston,Stanton,-203.376,-806.580,557.779,https://starcitizen.tools/HDES-Calthrope,,1
+HDES-Calthrope (NA),Cave,Hurston,Stanton,-203.376,-806.580,557.779,https://starcitizen.tools/HDES-Calthrope,,1
 HDMO-Dobbs (NA),Cave,Aberdeen,Stanton,270.579,47.399,-11.404,https://starcitizen.tools/HDMO-Dobbs,,1
 HDMS Anderson,Outpost,Aberdeen,Stanton,-26.950,180.221,206.879,https://starcitizen.tools/HDMS-Anderson,,1
 HDMS Norgaard,Outpost,Aberdeen,Stanton,-141.572,195.318,132.098,https://starcitizen.tools/HDMS-Norgaard,,1
@@ -129,7 +129,6 @@ MT DataCenter KH3-AAE-L,Underground bunker,microTech,Stanton,-468.928,801.473,-3
 MT DataCenter L8P-JUC-8 (offline),Underground bunker,microTech,Stanton,-86.563,218.560,-972.070,https://starcitizen.tools/MT_DataCenter_L8P-JUC-8_(offline),1,1
 MT DataCenter QVX-J88-J,Underground bunker,microTech,Stanton,-247.945,892.699,-379.678,https://starcitizen.tools/MT_DataCenter_QVX-J88-J,1,1
 MT DataCenter TMG-XEV-2,Underground bunker,microTech,Stanton,-160.992,62.442,985.998,https://starcitizen.tools/MT_DataCenter_TMG-XEV-2,1,1
-MT OpCenter TLI-4,Underground bunker,microTech,Stanton,68.364,64.276,-996.490,https://starcitizen.tools/MT_OpCenter_TLI-4,1,1
 Nakamura Valley Aid Shelter,Emergency shelter,Yela,Stanton,-275.722,124.074,81.717,https://starcitizen.tools/Nakamura_Valley_Aid_Shelter,0,1
 New Babbage,Landing zone,microTech,Stanton,520.723,419.364,743.655,https://starcitizen.tools/New_Babbage,0,1
 NT-999-XV,Underground bunker,Cellin,Stanton,146.849,135.264,167.452,https://starcitizen.tools/NT-999-XV,,1
@@ -281,18 +280,12 @@ Ruin Station,Space station,Terminus,Pyro,-315.346,302.409,-100.478,https://starc
 Scarper's Turn,Settlement,Terminus,Pyro,-282.325,39.306,0.249,https://starcitizen.tools/Scarper%27s_Turn,,1
 Stonetree,Settlement,Terminus,Pyro,-259.098,38.135,-115.813,https://starcitizen.tools/Stonetree,,1
 Supply Gap,Settlement,Terminus,Pyro,,,,https://starcitizen.tools/Supply_Gap,,1
-PYAM-FARSTAT-1-2,Space station,PYR1 L2,Pyro,1892033.736,-8901175.590,0.000,,,
-PYAM-FARSTAT-1-3,Space station,PYR1 L3,Pyro,-1533855.859,8431465.506,0.000,,,
 Checkmate,Space station,PYR2 L4,Pyro,-11023.456,-25541.331,2571.421,https://starcitizen.tools/Checkmate_Station,,1
 Starlight Service Station,Space station,PYR3 L1,Pyro,10322.792,5095.130,926.786,https://starcitizen.tools/Starlight_Service_Station,,1
 Patch City,Space station,PYR3 L3,Pyro,-13180.845,-18009.953,352.020,https://starcitizen.tools/Patch_City,,1
-PYAM-FARSTAT-3-5,Space station,PYR3 L5,Pyro,-11443002.538,13637233.035,0.000,,,
-PYAM-FARSTAT-5-1,Space station,PYR5 L1,Pyro,38056546.470,-6710238.083,0.000,,,
 Gaslight,Space station,PYR5 L2,Pyro,46513574.526,-8201358.903,0.000,https://starcitizen.tools/Gaslight,,1
-PYAM-FARSTAT-5-3,Space station,PYR5 L3,Pyro,-37184863.543,21468613.290,0.000,,,
 Rod's Fuel 'N Supplies,Space station,PYR5 L4,Pyro,14685416.672,40347900.081,0.000,https://starcitizen.tools/Rod%27s_Fuel_%27N_Supplies,,
 Rat's Nest,Space station,PYR5 L5,Pyro,3742466.610,-42773928.702,0.000,https://starcitizen.tools/Rat%27s_Nest,,
-PYAM-FARSTAT-6-2,Space station,PYR6 L2,Pyro,-54297046.592,-45561095.035,0.000,,,
 Endgame,Space station,PYR6 L3,Pyro,48311253.893,48311302.761,0.000,https://starcitizen.tools/Endgame,,1
 Dudley & Daughters,Space station,PYR6 L4,Pyro,23368016.469,-64202027.675,0.000,https://starcitizen.tools/Dudley_%26_Daughters,,
 Megumi Refueling,Space station,PYR6 L5,Pyro,-59169086.144,34161126.286,0.000,https://starcitizen.tools/Megumi_Refueling,,
@@ -336,9 +329,9 @@ Consumption,Forward operating base,Cellin,Stanton,64.288,-237.509,85.093,https:/
 Minlo Spire,Forward operating base,Daymar,Stanton,32.019,-203.544,211.215,https://starcitizen.tools/Minlo_Spire,,
 Wailing Rock,Forward operating base,Daymar,Stanton,291.271,14.332,44.391,https://starcitizen.tools/Wailing_Rock,,
 Hospice,Forward operating base,Daymar,Stanton,-9.001,71.718,-286.520,https://starcitizen.tools/Hospice,,
-Half Stack,Forward operating base,Yela,Stanton,241.301,-10.196,-199.123,,,
-Rolo's Crater,Forward operating base,Yela,Stanton,-124.437,-191.255,-214.861,,,
-Mainline,Forward operating base,Yela,Stanton,-68.611,302.162,-46.109,,,
+Half Stack,Forward operating base,Yela,Stanton,241.301,-10.196,-199.123,https://starcitizen.tools/Half_Stack,,
+Rolo's Crater,Forward operating base,Yela,Stanton,-124.437,-191.255,-214.861,https://starcitizen.tools/Rolo%27s_Crater,,
+Mainline,Forward operating base,Yela,Stanton,-68.611,302.162,-46.109,https://starcitizen.tools/Mainline,,
 Rock Bottom,Forward operating base,Lyria,Stanton,81.650,139.798,154.660,https://starcitizen.tools/Rock_Bottom,,
 World's End,Forward operating base,Lyria,Stanton,82.350,-155.839,138.588,https://starcitizen.tools/World%27s_End,,
 Downlow,Forward operating base,Lyria,Stanton,216.316,-50.930,-28.836,https://starcitizen.tools/Downlow,,
@@ -355,12 +348,12 @@ Hela's Regret,Forward operating base,microTech,Stanton,-666.883,-561.293,-490.32
 The Barrens,Forward operating base,microTech,Stanton,231.942,-973.238,-1.731,https://starcitizen.tools/The_Barrens,,
 Blighter's Run,Forward operating base,Calliope,Stanton,206.788,-51.687,110.564,https://starcitizen.tools/Blighter%27s_Run,,
 Hasbin Hall,Forward operating base,Calliope,Stanton,181.913,-149.785,-46.792,https://starcitizen.tools/Hasbin_Hall,,
-Regiment Downs,Forward operating base,Calliope,Stanton,-60.059,226.418,-52.740,,,
-Hard Knocks,Forward operating base,Calliope,Stanton,-218.837,-52.591,84.530,,,
-Kant's Peak,Forward operating base,Clio,Stanton,-63.761,220.298,247.966,,,
-Tremonte,Forward operating base,Clio,Stanton,170.603,-270.457,107.535,,,
-Shanks,Forward operating base,Euterpe,Stanton,212.586,-4.558,18.229,,,
-Adair's Retreat,Forward operating base,Euterpe,Stanton,-165.447,134.814,-4.200,,,
+Regiment Downs,Forward operating base,Calliope,Stanton,-60.059,226.418,-52.740,https://starcitizen.tools/Regiment_Downs,,
+Hard Knocks,Forward operating base,Calliope,Stanton,-218.837,-52.591,84.530,https://starcitizen.tools/Hard_Knocks,,
+Kant's Peak,Forward operating base,Clio,Stanton,-63.761,220.298,247.966,https://starcitizen.tools/Kant%27s_Peak,,
+Tremonte,Forward operating base,Clio,Stanton,170.603,-270.457,107.535,https://starcitizen.tools/Tremonte,,
+Shanks,Forward operating base,Euterpe,Stanton,212.586,-4.558,18.229,https://starcitizen.tools/Shanks,,
+Adair's Retreat,Forward operating base,Euterpe,Stanton,-165.447,134.814,-4.200,https://starcitizen.tools/Adair%27s_Retreat,,
 Attritus PAF-I,Planetary alignment facility,Daymar,Stanton,-65.555,129.836,256.575,https://starcitizen.tools/Attritus_PAF-I,,
 Attritus PAF-II,Planetary alignment facility,Daymar,Stanton,-57.973,131.036,257.946,https://starcitizen.tools/Attritus_PAF-II,,
 Attritus PAF-III,Planetary alignment facility,Daymar,Stanton,-60.601,122.899,261.369,https://starcitizen.tools/Attritus_PAF-IIII,,
